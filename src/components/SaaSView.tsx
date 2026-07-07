@@ -25,6 +25,7 @@ import {
   Award
 } from "lucide-react";
 import { motion } from "motion/react";
+import { HintTooltip } from "./HintTooltip.js";
 import { 
   SaaSApplication, 
   SaaSSubscription, 
@@ -437,9 +438,12 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
             <span className="text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full" style={{background: "rgba(0,84,159,0.2)", color: "#A8D0F5", border: "1px solid rgba(0,84,159,0.3)"}}>
               SaaS Asset Management Module
             </span>
-            <h2 className="text-2xl font-bold tracking-tight text-white font-sans sm:text-3xl">
-              SaaS Multi-Source Operations
-            </h2>
+            <div className="flex items-center gap-2">
+              <h2 className="text-2xl font-bold tracking-tight text-white font-sans sm:text-3xl">
+                SaaS Multi-Source Operations
+              </h2>
+              <HintTooltip text="Manage SaaS application subscriptions, track user assignments, monitor license utilization, and identify cost optimization opportunities across all SaaS vendors." side="right" size="md" />
+            </div>
             <p className="text-slate-400 text-sm max-w-2xl font-medium">
               Consolidate single-source subscriptions, discover unmanaged shadow IT services, track interactive user activities, and reclaim unassigned software seats instantly.
             </p>

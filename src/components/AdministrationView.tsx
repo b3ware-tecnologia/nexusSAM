@@ -39,6 +39,7 @@ import {
   Terminal,
   CheckCircle2
 } from "lucide-react";
+import { HintTooltip } from "./HintTooltip.js";
 import { 
   SSOConfig, 
   OAuthClient, 
@@ -754,10 +755,13 @@ export function AdministrationView() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-gray-800 pb-5" id="admin-header-row">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2" id="admin-main-title">
-            <Shield className="h-6 w-6 text-indigo-500" />
-            Administration &amp; Security Settings
-          </h1>
+          <div className="flex items-center gap-2">
+            <h1 className="text-2xl font-bold tracking-tight text-white" id="admin-main-title">
+              <Shield className="h-6 w-6 text-indigo-500" />
+              Administration &amp; Security Settings
+            </h1>
+            <HintTooltip text="Configure system settings: SSO authentication, API integrations, role-based access control, organization hierarchy, and audit log monitoring." side="right" size="md" />
+          </div>
           <p className="text-sm text-gray-400 mt-1" id="admin-subtitle">
             Manage enterprise single sign-on, tenant-isolation, network firewalls, custom role RBAC, and multi-currency consolidation.
           </p>

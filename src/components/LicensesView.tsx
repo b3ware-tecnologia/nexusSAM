@@ -5,6 +5,7 @@ import {
   UserPlus, X, HelpCircle, FileText, Settings, ExternalLink, Calendar
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { HintTooltip } from "./HintTooltip.js";
 
 interface LicensesViewProps {
   licenses: License[];
@@ -96,9 +97,15 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
     }
   };
 
+  const [createError, setCreateError] = useState<string | null>(null);
+
   const handleCreateLicense = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!softwareName || !publisher || !metricType) return;
+    setCreateError(null);
+    if (!softwareName || !publisher || !metricType) {
+      setCreateError("Software Name and Publisher are required.");
+      return;
+    }
 
     try {
       const res = await fetch("/api/licenses", {
@@ -126,22 +133,25 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
         })
       });
 
-      if (res.ok) {
-        // Clear form
-        setSoftwareName("");
-        setPublisher("");
-        setAgreementId("");
-        setLicensePoolId("");
-        setSku("");
-        setVersion("");
-        setNotes("");
-        setInitialQuantity("10");
-        setInitialUnitCost("150");
-        setShowCreateModal(false);
-        onRefresh();
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({ error: "Unknown server error" }));
+        setCreateError(errData.error || `Server returned ${res.status}`);
+        return;
       }
-    } catch (e) {
-      console.error(e);
+
+      setSoftwareName("");
+      setPublisher("");
+      setAgreementId("");
+      setLicensePoolId("");
+      setSku("");
+      setVersion("");
+      setNotes("");
+      setInitialQuantity("10");
+      setInitialUnitCost("150");
+      setShowCreateModal(false);
+      onRefresh();
+    } catch (e: any) {
+      setCreateError(e.message || "Network error. Is the server running?");
     }
   };
 
@@ -311,8 +321,11 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
       {/* Upper header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900">Licenses Inventory</h1>
-          <p className="text-slate-500 text-sm">
+          <div className="flex items-center gap-2">
+            <h1 className="text-2xl font-bold tracking-tight" style={{ color: "#001833" }}>Licenses Inventory</h1>
+            <HintTooltip text="Manage all software license entitlements: create new licenses, track allocations, manage pools, and audit compliance status across your enterprise." side="right" size="md" />
+          </div>
+          <p className="text-sm" style={{ color: "#595959" }}>
             Create, audit, archive and manage allocations for enterprise license assets.
           </p>
         </div>
@@ -1010,6 +1023,13 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                     className="w-full text-xs border border-slate-200 rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                   />
                 </div>
+
+                {createError && (
+                  <div className="p-3 bg-rose-50 border border-rose-200 rounded-lg text-[11px] text-rose-700 flex gap-2">
+                    <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                    <span>{createError}</span>
+                  </div>
+                )}
 
                 <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
                   <button

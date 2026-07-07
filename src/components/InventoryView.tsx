@@ -31,6 +31,7 @@ import {
   HelpCircle
 } from "lucide-react";
 import { motion } from "motion/react";
+import { HintTooltip } from "./HintTooltip.js";
 
 interface InventoryViewProps {
   onRefreshAll: () => void;
@@ -379,10 +380,13 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
 
       {/* Hero Header */}
       <div>
-        <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
-          <HardDrive className="w-6 h-6" style={{color: "#00549F"}} />
-          DIS Asset Intelligence & HAM Core
-        </h1>
+        <div className="flex items-center gap-2">
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+            <HardDrive className="w-6 h-6" style={{color: "#00549F"}} />
+            DIS Asset Intelligence & HAM Core
+          </h1>
+          <HintTooltip text="Manage discovered computers, mobile devices, and software inventory across your enterprise. Track hardware specs, warranty status, and lifecycle states." side="right" size="md" />
+        </div>
         <p className="text-slate-500 text-sm">
           Snow Atlas equivalent Data Intelligence Service catalogue for software recognition combined with Hardware Asset lifecycle governance.
         </p>

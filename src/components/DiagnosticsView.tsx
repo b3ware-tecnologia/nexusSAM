@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { PlayCircle, Terminal, CheckCircle, AlertOctagon, HelpCircle, ShieldCheck } from "lucide-react";
 import { motion } from "motion/react";
+import { HintTooltip } from "./HintTooltip.js";
 
 export function DiagnosticsView() {
   const [isRunning, setIsRunning] = useState(false);
@@ -74,10 +75,13 @@ export function DiagnosticsView() {
     <div className="space-y-6">
       {/* Title */}
       <div>
-        <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
-          <ShieldCheck className="w-6 h-6 text-[#00549F]" />
-          SAM Core Compliance Diagnostics
-        </h1>
+        <div className="flex items-center gap-2">
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+            <ShieldCheck className="w-6 h-6 text-[#00549F]" />
+            SAM Core Compliance Diagnostics
+          </h1>
+          <HintTooltip text="Run system diagnostics and health checks on the SAM Core engine. Test compliance calculations, verify connector status, and review performance metrics." side="right" size="md" />
+        </div>
         <p className="text-slate-500 text-sm">
           Execute and inspect unit testing assertions built directly into our Effective License Position reconciliation backend.
         </p>
