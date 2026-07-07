@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Source Sans Pro", "Nunito", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Flexera / Snow Atlas Brand Colors */
+  --color-snow-primary: #00549F;
+  --color-snow-primary-hover: #1468B3;
+  --color-snow-primary-active: #297DC8;
+  --color-snow-primary-disabled: rgba(0, 84, 159, 0.3);
+  --color-snow-tertiary: #00A1DE;
+  --color-snow-tertiary-hover: #0AABE8;
+  --color-snow-tertiary-active: #14B5F2;
+  --color-snow-sidebar: #1A2B4C;
+  --color-snow-sidebar-hover: #243B5E;
+  --color-snow-sidebar-active: #2E4A6F;
+  --color-snow-brand-cyan: #00AAE7;
+  --color-snow-success: #386015;
+  --color-snow-success-secondary: #DFEFD1;
+  --color-snow-warning: #ECC200;
+  --color-snow-warning-secondary: #806B3C;
+  --color-snow-warning-tertiary: #FBF3CC;
+  --color-snow-error: #D0021B;
+  --color-snow-destructive: #C32525;
+  --color-snow-text: #333333;
+  --color-snow-grey-0: #F8F8F8;
+  --color-snow-grey-1: #F1F1F1;
+  --color-snow-grey-2: #DDDDDD;
+  --color-snow-grey-3: #C1C1C1;
+  --color-snow-grey-4: #9B9B9B;
+  --color-snow-grey-5: #595959;
+  --color-snow-grey-6: #333333;
+  --color-snow-focus: #99D9F2;
+
+  --shadow-snow-card: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+  --shadow-snow-dropdown: 0 4px 16px 0 rgba(0, 0, 0, 0.12);
+}
+
+body {
+  color: var(--color-snow-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-snow-grey-2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-snow-grey-3); }

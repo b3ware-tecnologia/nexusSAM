@@ -1,0 +1,47 @@
+# ==============================================================================
+# Production Dockerfile for Snow Atlas ITAM/SAM Enterprise Monorepo Application
+# ==============================================================================
+
+# Stage 1: Build the React client assets and bundle backend server
+FROM node:20-alpine AS builder
+WORKDIR /app
+
+# Copy dependency manifest definitions
+COPY package*.json ./
+
+# Install clean dependencies
+RUN npm ci
+
+# Copy full workspace codebase
+COPY . .
+
+# Run production build compilation (bundles client to dist/ and compiles server to dist/server.cjs)
+RUN npm run build
+
+# Stage 2: Runtime image definition
+FROM node:20-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+ENV PORT=3000
+
+# Copy manifests for production dependency reference
+COPY package*.json ./
+
+# Install only production-grade dependencies to minimize attack surface and image size
+RUN npm ci --only=production
+
+# Copy compiled distribution files from builder stage
+COPY --from=builder /app/dist ./dist
+
+# Create dynamic local storage directory with read-write permissions for multi-tenant database mocks
+RUN mkdir -p /app/data && chown -R node:node /app
+
+USER node
+EXPOSE 3000
+
+# Health check setup
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD node -e "fetch('http://localhost:3000/api/health').then(r => r.ok ? process.exit(0) : process.exit(1)).catch(() => process.exit(1))"
+
+# Boot the unified microservices proxy-gateway with esbuilded entry-point
+CMD ["node", "dist/server.cjs"]

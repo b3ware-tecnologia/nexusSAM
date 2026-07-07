@@ -1,0 +1,106 @@
+# ==============================================================================
+# Production GitHub Actions CI/CD pipeline for Snow Atlas ITAM/SAM Enterprise Suite
+# ==============================================================================
+
+name: Build, Lint, and Deploy Snow Atlas
+
+on:
+  push:
+    branches: [ "main", "release/*" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  validate-and-test:
+    name: Lint, Typecheck, and Test Execution
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Code Quality Lint check
+        run: npm run lint
+
+      - name: TypeScript type checking
+        run: npx tsc --noEmit
+
+      - name: Run compliance engine test assertions
+        run: npm test
+
+  build-and-push-container:
+    name: Dockerize & Push to Registry
+    needs: validate-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Configure AWS Credentials (OIDC Role-Based)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::112233445566:role/github-actions-snow-atlas-deployment
+          aws-region: us-east-1
+
+      - name: Log in to AWS ECR Core Registry
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Compile and tag image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./deployment/docker/Dockerfile.applet
+          push: true
+          tags: |
+            112233445566.dkr.ecr.us-east-1.amazonaws.com/snow-atlas-itam:latest
+            112233445566.dkr.ecr.us-east-1.amazonaws.com/snow-atlas-itam:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  k8s-rolling-deploy:
+    name: Kubernetes Orchestration Deploy (Helm)
+    needs: build-and-push-container
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::112233445566:role/github-actions-snow-atlas-deployment
+          aws-region: us-east-1
+
+      - name: Retrieve EKS Cluster Credentials Kubeconfig
+        run: aws eks update-kubeconfig --name snow-atlas-eks-primary --region us-east-1
+
+      - name: Set up Helm tool
+        uses: azure/setup-helm@v4
+        with:
+          version: 'v3.13.0'
+
+      - name: Rolling Deploy / Upgrade Helm Release
+        run: |
+          helm upgrade --install snow-atlas-suite ./deployment/k8s-helm \
+            --namespace production \
+            --create-namespace \
+            --set image.tag=${{ github.sha }} \
+            --values ./deployment/k8s-helm/values.yaml

@@ -1,0 +1,83 @@
+# ==============================================================================
+# Production Helm values.yaml for Snow Atlas ITAM/SAM Suite
+# ==============================================================================
+
+replicaCount: 3
+
+image:
+  repository: registry.flexera-snow.internal/snow-atlas-itam
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: "snow-atlas-suite"
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: "snow-atlas-sa"
+
+podAnnotations: {}
+
+podSecurityContext:
+  fsGroup: 1000
+
+securityContext:
+  capabilities:
+    drop:
+    - ALL
+  readOnlyRootFilesystem: false
+  runAsNonRoot: true
+  runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+  hosts:
+    - host: snowatlas-enterprise.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: snowatlas-tls-cert
+      hosts:
+        - snowatlas-enterprise.com
+
+resources:
+  limits:
+    cpu: "2"
+    memory: 4Gi
+  requests:
+    cpu: "1"
+    memory: 2Gi
+
+autoscaling:
+  enabled: true
+  minReplicas: 3
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 75
+  targetMemoryUtilizationPercentage: 75
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# Application secrets and backend configs
+env:
+  NODE_ENV: "production"
+  PORT: "3000"
+  RATE_LIMIT_MAX_REQUESTS: "100"
+  RATE_LIMIT_WINDOW_MS: "60000"
+  # Set securely in deployment vault
+  # GEMINI_API_KEY: ""

@@ -1,0 +1,6 @@
+{
+  "name": "SAM Core IT Asset Manager",
+  "description": "ITAM and SAM Core module similar to Snow Atlas, providing license management, compliance calculation, Effective License Position (ELP), and AI invoice ingestion.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
