@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
+import { ensureSchema, loadState, saveState } from "./db.js";
 import { 
   Agreement, 
   License, 
@@ -1624,7 +1625,73 @@ export const DEFAULT_LICENSE_POOLS: LicensePool[] = [
   { id: "pool-global-ent", name: "Global Enterprise Pool", description: "Standard corporate license pool", ownerOrgNodeId: undefined, totalQuantity: 2000 }
 ];
 
+function tryLoadFromPg(): DatabaseState | null {
+  return cachedPgState;
+}
+
+// Call this once at server startup to preload from PostgreSQL
+export async function initDatabase(): Promise<DatabaseState | null> {
+  try {
+    await ensureSchema();
+    const pg = await loadState();
+    if (pg) {
+      // Apply schema upgrades like the JSON version does
+      if (!pg.mobileDevices) { (pg as any).mobileDevices = DEFAULT_MOBILE_DEVICES; }
+      if (!pg.applicationCategories) { (pg as any).applicationCategories = DEFAULT_APPLICATION_CATEGORIES; }
+      if (!pg.manufacturers) { (pg as any).manufacturers = DEFAULT_MANUFACTURERS; }
+      if (!pg.softwareCatalog) { (pg as any).softwareCatalog = DEFAULT_SOFTWARE_CATALOG; }
+      if (!pg.discoveredApplications) { (pg as any).discoveredApplications = DEFAULT_DISCOVERED_APPLICATIONS; }
+      if (!pg.privateCatalog) { (pg as any).privateCatalog = DEFAULT_PRIVATE_CATALOG; }
+      if (!pg.saasApplications) { (pg as any).saasApplications = DEFAULT_SAAS_APPLICATIONS; }
+      if (!pg.saasSubscriptions) { (pg as any).saasSubscriptions = DEFAULT_SAAS_SUBSCRIPTIONS; }
+      if (!pg.saasSubscriptionPurchases) { (pg as any).saasSubscriptionPurchases = DEFAULT_SAAS_SUBSCRIPTION_PURCHASES; }
+      if (!pg.saasUsers) { (pg as any).saasUsers = DEFAULT_SAAS_USERS; }
+      if (!pg.saasUserActivities) { (pg as any).saasUserActivities = DEFAULT_SAAS_USER_ACTIVITIES; }
+      if (!pg.saasConnectors) { (pg as any).saasConnectors = DEFAULT_SAAS_CONNECTORS; }
+      if (!pg.cloudConnectors) { (pg as any).cloudConnectors = DEFAULT_CLOUD_CONNECTORS; }
+      if (!pg.cloudResources) { (pg as any).cloudResources = DEFAULT_CLOUD_RESOURCES; }
+      if (!pg.k8sConnectors) { (pg as any).k8sConnectors = DEFAULT_K8S_CONNECTORS; }
+      if (!pg.k8sClusters) { (pg as any).k8sClusters = DEFAULT_K8S_CLUSTERS; }
+      if (!pg.containerPods) { (pg as any).containerPods = DEFAULT_CONTAINER_PODS; }
+      if (!pg.customFieldDefinitions) { (pg as any).customFieldDefinitions = DEFAULT_CUSTOM_FIELD_DEFINITIONS; }
+      if (!pg.customFieldValues) { (pg as any).customFieldValues = DEFAULT_CUSTOM_FIELD_VALUES; }
+      if (!pg.customMetrics) { (pg as any).customMetrics = DEFAULT_CUSTOM_METRICS; }
+      if (!pg.savedReports) { (pg as any).savedReports = DEFAULT_SAVED_REPORTS; }
+      if (!pg.reportSchedules) { (pg as any).reportSchedules = DEFAULT_REPORT_SCHEDULES; }
+      if (!pg.ssoConfigs) { (pg as any).ssoConfigs = DEFAULT_SSO_CONFIGS; }
+      if (!pg.oauthClients) { (pg as any).oauthClients = DEFAULT_OAUTH_CLIENTS; }
+      if (!pg.adminRoles) { (pg as any).adminRoles = DEFAULT_ADMIN_ROLES; }
+      if (!pg.userGroups) { (pg as any).userGroups = DEFAULT_USER_GROUPS; }
+      if (!pg.adminUsers) { (pg as any).adminUsers = DEFAULT_ADMIN_USERS; }
+      if (!pg.orgNodes) { (pg as any).orgNodes = DEFAULT_ORG_NODES; }
+      if (!pg.enrollmentSites) { (pg as any).enrollmentSites = DEFAULT_ENROLLMENT_SITES; }
+      if (!pg.auditLogs) { (pg as any).auditLogs = DEFAULT_AUDIT_LOGS; }
+      if (!pg.currencyRates) { (pg as any).currencyRates = DEFAULT_CURRENCY_RATES; }
+      if (!pg.ipPolicies) { (pg as any).ipPolicies = DEFAULT_IP_POLICIES; }
+      if (!pg.mspCustomers) { (pg as any).mspCustomers = DEFAULT_MSP_CUSTOMERS; }
+      if (!pg.adminNotifications) { (pg as any).adminNotifications = DEFAULT_ADMIN_NOTIFICATIONS; }
+      if (!pg.uploadedFiles) { (pg as any).uploadedFiles = DEFAULT_UPLOADED_FILES; }
+      if (!pg.licensePools) { (pg as any).licensePools = DEFAULT_LICENSE_POOLS; }
+      return pg;
+    }
+  } catch {}
+  return null;
+}
+
+let cachedPgState: DatabaseState | null = null;
+
+export async function setPgCache(state: DatabaseState | null): Promise<void> {
+  cachedPgState = state;
+}
+
 export function getDatabase(): DatabaseState {
+  // Check PostgreSQL cache first (loaded at startup)
+  if (cachedPgState) return cachedPgState;
+
+  // Try PostgreSQL first
+  const pgState = tryLoadFromPg();
+  if (pgState) return pgState;
+
   if (!fs.existsSync(DB_DIR)) {
     fs.mkdirSync(DB_DIR, { recursive: true });
   }
@@ -1676,6 +1743,8 @@ export function getDatabase(): DatabaseState {
       licensePools: DEFAULT_LICENSE_POOLS
     };
     saveDatabase(initialState);
+    // Also async-save to PostgreSQL
+    saveState(initialState).catch(() => {});
     return initialState;
   }
 
@@ -1794,4 +1863,7 @@ export function saveDatabase(db: DatabaseState): void {
     fs.mkdirSync(DB_DIR, { recursive: true });
   }
   fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2), "utf-8");
+  // Also save to PostgreSQL async (fire-and-forget)
+  cachedPgState = db;
+  saveState(db).catch((err) => console.error("PostgreSQL save error:", err));
 }

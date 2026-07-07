@@ -2,7 +2,7 @@ import express from "express";
 import path from "path";
 import * as fs from "fs";
 import { createServer as createViteServer } from "vite";
-import { getDatabase, saveDatabase } from "./src/dbMock.js";
+import { getDatabase, saveDatabase, initDatabase, setPgCache } from "./src/dbMock.js";
 import { calculateELP } from "./src/complianceEngine.js";
 import { runComplianceTests } from "./src/compliance.test.js";
 import { DiscoveredApplication } from "./src/types.js";
@@ -3396,4 +3396,23 @@ async function startServer() {
   });
 }
 
-startServer();
+// Initialize PostgreSQL and start server
+(async () => {
+  let pgAvailable = false;
+  try {
+    const pgData = await initDatabase();
+    if (pgData) {
+      await setPgCache(pgData);
+      console.log("✓ Database loaded from PostgreSQL");
+      pgAvailable = true;
+    }
+  } catch (err) {
+    console.log("ℹ PostgreSQL not available — using JSON file storage");
+  }
+  // Even without PostgreSQL, the JSON file storage works fine
+  if (!pgAvailable) {
+    // Force create the database from defaults if it doesn't exist
+    getDatabase();
+  }
+  startServer();
+})();
