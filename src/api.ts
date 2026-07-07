@@ -79,7 +79,7 @@ export function apiFetch(input: RequestInfo | URL, init?: RequestInit): Promise<
   if (contentType && !headers["Content-Type"]) {
     headers["Content-Type"] = contentType;
   }
-  return fetch(input, { ...init, headers });
+  return (originalFetch || fetch)(input, { ...init, headers });
 }
 
 let originalFetch: typeof fetch | null = null;
