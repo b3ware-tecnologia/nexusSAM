@@ -10,14 +10,17 @@ import { ContainerView } from "./components/ContainerView.js";
 import { ReportsView } from "./components/ReportsView.js";
 import { CustomFieldsView } from "./components/CustomFieldsView.js";
 import { AdministrationView } from "./components/AdministrationView.js";
+import { LoginView } from "./components/LoginView.js";
 import { License, Agreement, ComplianceSnapshot, LicensePool, RenewalForecast } from "./types.js";
 import { 
   LayoutDashboard, FileText, Sparkles, Terminal, Activity, HardDrive, 
   Cloud, Layers, FileSpreadsheet, Tags, Settings, RefreshCw, Moon, Sun, 
-  ChevronDown, Bell, Search, Monitor, AppWindow, Boxes, Shield, Database
+  ChevronDown, Bell, Search, Monitor, AppWindow, Boxes, Shield, Database, LogOut
 } from "lucide-react";
+import { isAuthenticated, getStoredUser, storeAuth, clearAuth, getStoredToken, apiFetch, patchGlobalFetch, unpatchGlobalFetch } from "./api.js";
 
 export default function App() {
+  const [authUser, setAuthUser] = useState<{ id: string; name: string; email: string; role?: string } | null>(getStoredUser);
   const [currentView, setCurrentView] = useState<"RECONCILIATION" | "LICENSES" | "INGEST" | "DIAGNOSTICS" | "INVENTORY" | "SAAS" | "CLOUD" | "CONTAINERS" | "REPORTS" | "CUSTOM_FIELDS" | "ADMINISTRATION">("RECONCILIATION");
   const [licenses, setLicenses] = useState<License[]>([]);
   const [agreements, setAgreements] = useState<Agreement[]>([]);
@@ -26,12 +29,31 @@ export default function App() {
   const [forecasts, setForecasts] = useState<RenewalForecast[]>([]);
   const [ahbSavings, setAhbSavings] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   useEffect(() => {
-    loadData();
+    if (getStoredToken()) {
+      patchGlobalFetch();
+    }
   }, []);
+
+  useEffect(() => {
+    if (authUser) loadData();
+  }, [authUser]);
+
+  const handleLogin = (token: string, user: { id: string; name: string; email: string; role?: string }) => {
+    storeAuth(token, user);
+    patchGlobalFetch();
+    setAuthUser(user);
+  };
+
+  const handleLogout = () => {
+    clearAuth();
+    unpatchGlobalFetch();
+    setAuthUser(null);
+  };
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", darkMode);
@@ -41,12 +63,12 @@ export default function App() {
     setIsLoading(true);
     try {
       const [licRes, agrRes, compRes, poolRes, forecastRes, ahbRes] = await Promise.all([
-        fetch("/api/licenses"),
-        fetch("/api/agreements"),
-        fetch("/api/compliance"),
-        fetch("/api/license-pools"),
-        fetch("/api/renewal-forecasts"),
-        fetch("/api/azure-hybrid-benefits")
+        apiFetch("/api/licenses"),
+        apiFetch("/api/agreements"),
+        apiFetch("/api/compliance"),
+        apiFetch("/api/license-pools"),
+        apiFetch("/api/renewal-forecasts"),
+        apiFetch("/api/azure-hybrid-benefits")
       ]);
       if (licRes.ok) setLicenses(await licRes.json());
       if (agrRes.ok) setAgreements(await agrRes.json());
@@ -96,6 +118,10 @@ export default function App() {
     { id: "DIAGNOSTICS" as const, label: "Compliance Tests", icon: Terminal, color: "" },
     { id: "ADMINISTRATION" as const, label: "Administration & SSO", icon: Settings, color: "" },
   ];
+
+  if (!authUser) {
+    return <LoginView onLogin={handleLogin} />;
+  }
 
   return (
     <div className="h-screen w-screen flex overflow-hidden font-sans" style={{ color: "#001833" }}>
@@ -213,15 +239,45 @@ export default function App() {
               {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
             <div className="h-5 w-px" style={{ background: "#DDDDDD" }} />
-            <div className="flex items-center gap-2.5 text-xs">
-              <div className="w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs uppercase shadow-sm"
-                style={{ background: "#D1E7F3", color: "#00549F", border: "1px solid #99D9F2" }}>
-                EB
-              </div>
-              <span className="font-semibold hidden md:inline-block" style={{ color: "#333333" }}>
-                ericob3ware@gmail.com
-              </span>
-              <ChevronDown className="w-3 h-3" style={{ color: "#9B9B9B" }} />
+            <div className="relative">
+              <button
+                onClick={() => setShowUserMenu(!showUserMenu)}
+                className="flex items-center gap-2.5 text-xs cursor-pointer"
+              >
+                <div className="w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs uppercase shadow-sm"
+                  style={{ background: "#D1E7F3", color: "#00549F", border: "1px solid #99D9F2" }}>
+                  {authUser?.name?.split(" ").map(n => n[0]).join("").slice(0, 2) || "?"}
+                </div>
+                <span className="font-semibold hidden md:inline-block" style={{ color: "#333333" }}>
+                  {authUser?.email || "user@company.com"}
+                </span>
+                <ChevronDown className="w-3 h-3" style={{ color: "#9B9B9B" }} />
+              </button>
+              {showUserMenu && (
+                <>
+                  <div className="fixed inset-0 z-40" onClick={() => setShowUserMenu(false)} />
+                  <div className="absolute right-0 top-full mt-1 z-50 w-48 rounded-lg shadow-lg py-1"
+                    style={{ background: "#FFFFFF", border: "1px solid #DDDDDD" }}>
+                    <div className="px-3 py-2 border-b" style={{ borderColor: "#DDDDDD" }}>
+                      <p className="text-xs font-semibold" style={{ color: "#001833" }}>{authUser?.name}</p>
+                      <p className="text-[10px]" style={{ color: "#9B9B9B" }}>{authUser?.email}</p>
+                      {authUser?.role && (
+                        <span className="text-[9px] uppercase tracking-wider font-bold" style={{ color: "#00A1DE" }}>
+                          {authUser.role}
+                        </span>
+                      )}
+                    </div>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full flex items-center gap-2 px-3 py-2 text-xs font-medium cursor-pointer transition-all hover:opacity-80"
+                      style={{ color: "#EF4444" }}
+                    >
+                      <LogOut className="w-3.5 h-3.5" />
+                      Sign Out
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </header>
