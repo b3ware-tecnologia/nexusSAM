@@ -1743,8 +1743,6 @@ export function getDatabase(): DatabaseState {
       licensePools: DEFAULT_LICENSE_POOLS
     };
     saveDatabase(initialState);
-    // Also async-save to PostgreSQL
-    saveState(initialState).catch(() => {});
     return initialState;
   }
 
@@ -1859,11 +1857,6 @@ export function getDatabase(): DatabaseState {
 }
 
 export function saveDatabase(db: DatabaseState): void {
-  if (!fs.existsSync(DB_DIR)) {
-    fs.mkdirSync(DB_DIR, { recursive: true });
-  }
-  fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2), "utf-8");
-  // Also save to PostgreSQL async (fire-and-forget)
   cachedPgState = db;
   saveState(db).catch((err) => console.error("PostgreSQL save error:", err));
 }
