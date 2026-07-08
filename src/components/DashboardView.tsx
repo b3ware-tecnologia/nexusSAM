@@ -49,9 +49,9 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
   const exposureRatio = totalFinancialRisk > 0 ? Math.round((underLicensedCount / totalTitles) * 100) : 0;
 
   const pieData = [
-    { name: "Compliant", value: compliantCount },
-    { name: "Under-Licensed", value: underLicensedCount },
-    { name: "Over-Licensed", value: overLicensedCount },
+    { name: "Em Conformidade", value: compliantCount },
+    { name: "Sublicenciado", value: underLicensedCount },
+    { name: "Sobrerlicenciado", value: overLicensedCount },
   ].filter((d) => d.value > 0);
 
   const snapshotByLicense = snapshots.reduce((acc, s) => {
@@ -109,7 +109,7 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
     const d = payload[0];
     return (
       <div className="text-[11px] px-3 py-2 rounded-lg shadow-sm" style={{ background: "#001833", color: "#FFFFFF" }}>
-        <span className="font-semibold">{d.name}: {d.value} title{d.value !== 1 ? "s" : ""}</span>
+        <span className="font-semibold">{d.name}: {d.value} título{d.value !== 1 ? "s" : ""}</span>
       </div>
     );
   };
@@ -121,12 +121,12 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-xl font-bold tracking-tight" style={{ color: "#001833" }}>
-              Effective License Position (ELP)
+              Posição Efetiva de Licenciamento (ELP)
             </h1>
-            <HintTooltip text="ELP continuously reconciles your purchased license entitlements against actual software consumption across the estate, flagging compliance gaps and overspend." side="right" size="md" />
+            <HintTooltip text="O ELP reconcilia continuamente seus direitos de licença adquiridos com o consumo real de software em todo o parque, sinalizando lacunas de conformidade e gastos excessivos." side="right" size="md" />
           </div>
           <p className="text-xs mt-0.5" style={{ color: "#595959" }}>
-            Enterprise-wide license reconciliation &mdash; {totalTitles} software titles tracked across {snapshots.map(s => s.publisher).filter((v,i,a) => a.indexOf(v)===i).length} publishers
+            Reconciliação de licenças em nível corporativo &mdash; {totalTitles} títulos de software monitorados em {snapshots.map(s => s.publisher).filter((v,i,a) => a.indexOf(v)===i).length} editoras
           </p>
         </div>
         <div className="flex items-center gap-3">
@@ -138,9 +138,9 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
               className="text-xs border-none outline-none bg-transparent font-semibold cursor-pointer"
               style={{ color: "#001833" }}
             >
-              <option value="7d">Last 7 days</option>
-              <option value="30d">Last 30 days</option>
-              <option value="90d">Last 90 days</option>
+              <option value="7d">Últimos 7 dias</option>
+              <option value="30d">Últimos 30 dias</option>
+              <option value="90d">Últimos 90 dias</option>
             </select>
           </div>
           <button
@@ -152,7 +152,7 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
             onMouseLeave={(e) => e.currentTarget.style.background = "#00549F"}
           >
             <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? "animate-spin" : ""}`} />
-            {isLoading ? "Recalculating..." : "Recalculate ELP"}
+            {isLoading ? "Recalculando..." : "Recalcular ELP"}
           </button>
         </div>
       </div>
@@ -164,14 +164,14 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
           <div className="p-4">
             <div className="flex items-center justify-between mb-2">
               <span className="text-[10px] font-bold uppercase tracking-wider flex items-center gap-1" style={{ color: "#595959" }}>
-                Compliance Score
-                <HintTooltip text="Percentage of all software titles that are either fully compliant or over-licensed (no licensing gap). Higher is better." />
+                Pontuação de Conformidade
+                <HintTooltip text="Percentual de títulos de software que estão em conformidade ou sobrerlicenciados (sem lacuna de licenciamento). Quanto maior, melhor." />
               </span>
               <Gauge className="w-4 h-4" style={{ color: avgCompliancePct >= 90 ? "#386015" : avgCompliancePct >= 70 ? "#E17000" : "#C32525" }} />
             </div>
             <div className="text-2xl font-bold flex items-baseline gap-1" style={{ color: "#001833" }}>
               {avgCompliancePct}%
-              <span className="text-[11px] font-normal" style={{ color: "#595959" }}>avg</span>
+              <span className="text-[11px] font-normal" style={{ color: "#595959" }}>média</span>
             </div>
             <div className="mt-2 h-1.5 w-full rounded-full" style={{ background: "#DDDDDD" }}>
               <div className="h-1.5 rounded-full transition-all" style={{
@@ -180,7 +180,7 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
               }} />
             </div>
             <p className="text-[11px] mt-1.5" style={{ color: "#595959" }}>
-              {compliantCount + overLicensedCount}/{totalTitles} titles compliant
+              {compliantCount + overLicensedCount}/{totalTitles} títulos em conformidade
             </p>
           </div>
         </div>
@@ -190,23 +190,23 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
           <div className="p-4">
             <div className="flex items-center justify-between mb-2">
               <span className="text-[10px] font-bold uppercase tracking-wider flex items-center gap-1" style={{ color: "#595959" }}>
-                Audit Exposure
-                <HintTooltip text="Total financial risk from under-licensed titles. This is the amount a publisher could claim in a compliance audit." />
+                Exposição a Auditoria
+                <HintTooltip text="Risco financeiro total de títulos sublicenciados. É o valor que uma editora poderia reivindicar em uma auditoria de conformidade." />
               </span>
               <AlertTriangle className="w-4 h-4" style={{ color: "#C32525" }} />
             </div>
             <div className="text-2xl font-bold" style={{ color: "#C32525" }}>{formatCurrency(totalFinancialRisk)}</div>
             <div className="flex items-center gap-2 mt-1.5">
               <div className="text-[11px]" style={{ color: "#595959" }}>
-                <span className="font-semibold" style={{ color: "#C32525" }}>{underLicensedCount}</span> titles at risk
+                <span className="font-semibold" style={{ color: "#C32525" }}>{underLicensedCount}</span> títulos em risco
               </div>
-              <div className="text-[11px]" style={{ color: "#9B9B9B" }}>({exposureRatio}% exposure)</div>
+              <div className="text-[11px]" style={{ color: "#9B9B9B" }}>({exposureRatio}% de exposição)</div>
             </div>
           </div>
           {underLicensedCount > 0 && (
             <div className="px-4 py-2 text-[10px] font-semibold cursor-pointer hover:opacity-80" style={{ background: "#FFF5F5", color: "#C32525", borderTop: "1px solid #FFE4E4" }}>
               <button onClick={onNavigateToLicenses} className="flex items-center gap-1 cursor-pointer">
-                <Eye className="w-3 h-3" /> Review & remediate under-licensed titles
+                <Eye className="w-3 h-3" /> Revisar e corrigir títulos sublicenciados
               </button>
             </div>
           )}
@@ -217,14 +217,14 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
           <div className="p-4">
             <div className="flex items-center justify-between mb-2">
               <span className="text-[10px] font-bold uppercase tracking-wider flex items-center gap-1" style={{ color: "#595959" }}>
-                Overspend
-                <HintTooltip text="Wasted spend on over-licensed titles. Rightsizing or re-harvesting these entitlements can reduce costs." />
+                Gasto Excessivo
+                <HintTooltip text="Gasto desperdiçado em títulos sobrerlicenciados. Redimensionar ou reutilizar esses direitos pode reduzir custos." />
               </span>
               <TrendingUp className="w-4 h-4" style={{ color: "#E17000" }} />
             </div>
             <div className="text-2xl font-bold" style={{ color: "#001833" }}>{formatCurrency(totalWastedSpend)}</div>
             <p className="text-[11px] mt-1.5" style={{ color: "#595959" }}>
-              {overLicensedCount} over-licensed title{overLicensedCount !== 1 ? "s" : ""} — potential re-harvest savings
+              {overLicensedCount} título{overLicensedCount !== 1 ? "s" : ""} sobrerlicenciado{overLicensedCount !== 1 ? "s" : ""} — economia potencial com reaproveitamento
             </p>
           </div>
         </div>
@@ -234,14 +234,14 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
           <div className="p-4">
             <div className="flex items-center justify-between mb-2">
               <span className="text-[10px] font-bold uppercase tracking-wider flex items-center gap-1" style={{ color: "#595959" }}>
-                Entitlement Base
-                <HintTooltip text="Total number of license units (seats, cores, PVUs) purchased across all agreements combined." />
+                Base de Direitos de Uso
+                <HintTooltip text="Número total de unidades de licença (cadeiras, núcleos, PVUs) adquiridas em todos os contratos combinados." />
               </span>
               <Database className="w-4 h-4" style={{ color: "#00549F" }} />
             </div>
             <div className="text-2xl font-bold" style={{ color: "#001833" }}>{totalEntitlements.toLocaleString()}</div>
             <p className="text-[11px] mt-1.5" style={{ color: "#595959" }}>
-              <span className="font-semibold">{totalConsumption.toLocaleString()}</span> consumed across estate
+              <span className="font-semibold">{totalConsumption.toLocaleString()}</span> consumidos no parque
             </p>
           </div>
         </div>
@@ -251,22 +251,22 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
           <div className="p-4">
             <div className="flex items-center justify-between mb-2">
               <span className="text-[10px] font-bold uppercase tracking-wider flex items-center gap-1" style={{ color: "#595959" }}>
-                Renewal Alerts
-                <HintTooltip text="Licenses expiring within the selected period. Expired licenses can trigger compliance gaps and service disruption." />
+                Alertas de Renovação
+                <HintTooltip text="Licenças que expiram no período selecionado. Licenças expiradas podem gerar lacunas de conformidade e interrupção de serviços." />
               </span>
               <Clock className="w-4 h-4" style={{ color: "#00A1DE" }} />
             </div>
             <div className="text-2xl font-bold flex items-baseline gap-1" style={{ color: "#001833" }}>
               {forecasts.filter((f) => f.daysUntilExpiry <= 30 && f.daysUntilExpiry > 0).length}
-              <span className="text-[11px] font-normal" style={{ color: "#595959" }}>in 30d</span>
+              <span className="text-[11px] font-normal" style={{ color: "#595959" }}>em 30d</span>
             </div>
             {forecasts.filter((f) => f.daysUntilExpiry <= 0).length > 0 && (
               <p className="text-[11px] font-semibold mt-1" style={{ color: "#C32525" }}>
-                {forecasts.filter((f) => f.daysUntilExpiry <= 0).length} already expired
+                {forecasts.filter((f) => f.daysUntilExpiry <= 0).length} já expirada{forecasts.filter((f) => f.daysUntilExpiry <= 0).length !== 1 ? "s" : ""}
               </p>
             )}
             {forecasts.filter((f) => f.daysUntilExpiry > 0 && f.daysUntilExpiry <= 30).length === 0 && forecasts.filter((f) => f.daysUntilExpiry <= 0).length === 0 && (
-              <p className="text-[11px] mt-1.5" style={{ color: "#595959" }}>No renewals due — all clear</p>
+              <p className="text-[11px] mt-1.5" style={{ color: "#595959" }}>Nenhuma renovação pendente — tudo limpo</p>
             )}
           </div>
         </div>
@@ -279,14 +279,14 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
           <div className="px-4 py-3 flex items-center justify-between border-b" style={{ borderColor: "#DDDDDD" }}>
             <div className="flex items-center gap-1.5">
               <PieChart className="w-4 h-4" style={{ color: "#00549F" }} />
-              <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#001833" }}>Compliance Breakdown</span>
+              <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#001833" }}>Detalhamento de Conformidade</span>
             </div>
-            <HintTooltip text="Distribution of all tracked titles by compliance status. Green = compliant, Red = under-licensed, Amber = over-licensed." />
+            <HintTooltip text="Distribuição de todos os títulos monitorados por status de conformidade. Verde = em conformidade, Vermelho = sublicenciado, Âmbar = sobrerlicenciado." />
           </div>
           <div className="p-4">
             {pieData.length === 0 ? (
               <div className="flex items-center justify-center h-48 text-xs" style={{ color: "#9B9B9B" }}>
-                No compliance data available
+                Nenhum dado de conformidade disponível
               </div>
             ) : (
               <ResponsiveContainer width="100%" height={200}>
@@ -316,9 +316,9 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
           <div className="px-4 py-3 flex items-center justify-between border-b" style={{ borderColor: "#DDDDDD" }}>
             <div className="flex items-center gap-1.5">
               <BarChart3 className="w-4 h-4" style={{ color: "#00549F" }} />
-              <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#001833" }}>Compliance by Publisher</span>
+              <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#001833" }}>Conformidade por Editora</span>
             </div>
-            <HintTooltip text="Compliant vs under-licensed titles grouped by publisher. Green bars show compliant count, red bars show at-risk titles." />
+            <HintTooltip text="Títulos em conformidade vs sublicenciados agrupados por editora. Barras verdes mostram quantidade em conformidade, barras vermelhas mostram títulos em risco." />
           </div>
           <div className="p-4">
             <ResponsiveContainer width="100%" height={200}>
@@ -327,8 +327,8 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
                 <XAxis dataKey="publisher" tick={{ fontSize: 10, fill: "#9B9B9B" }} axisLine={false} tickLine={false} />
                 <YAxis tick={{ fontSize: 10, fill: "#9B9B9B" }} axisLine={false} tickLine={false} allowDecimals={false} />
                 <ReTooltip contentStyle={{ background: "#001833", border: "none", borderRadius: "8px", fontSize: "11px", color: "#FFFFFF" }} />
-                <Bar dataKey="compliant" name="Compliant" radius={[3, 3, 0, 0]} fill="#386015" maxBarSize={32} />
-                <Bar dataKey="under" name="Under-Licensed" radius={[3, 3, 0, 0]} fill="#C32525" maxBarSize={32} />
+                <Bar dataKey="compliant" name="Em Conformidade" radius={[3, 3, 0, 0]} fill="#386015" maxBarSize={32} />
+                <Bar dataKey="under" name="Sublicenciado" radius={[3, 3, 0, 0]} fill="#C32525" maxBarSize={32} />
               </ReBarChart>
             </ResponsiveContainer>
           </div>
@@ -339,9 +339,9 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
           <div className="px-4 py-3 flex items-center justify-between border-b" style={{ borderColor: "#DDDDDD" }}>
             <div className="flex items-center gap-1.5">
               <Activity className="w-4 h-4" style={{ color: "#00549F" }} />
-              <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#001833" }}>Entitlements vs Consumption</span>
+              <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#001833" }}>Direitos vs Consumo</span>
             </div>
-            <HintTooltip text="Purchased entitlements vs actual consumption broken down by metric type. Gaps show where licenses are over or under-consumed." />
+            <HintTooltip text="Direitos adquiridos vs consumo real divididos por tipo de métrica. Lacunas mostram onde as licenças estão sendo sub ou sobreconsumidas." />
           </div>
           <div className="p-4">
             <ResponsiveContainer width="100%" height={200}>
@@ -360,8 +360,8 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
                 <XAxis dataKey="metric" tick={{ fontSize: 10, fill: "#9B9B9B" }} axisLine={false} tickLine={false} />
                 <YAxis tick={{ fontSize: 10, fill: "#9B9B9B" }} axisLine={false} tickLine={false} allowDecimals={false} />
                 <ReTooltip contentStyle={{ background: "#001833", border: "none", borderRadius: "8px", fontSize: "11px", color: "#FFFFFF" }} />
-                <Area type="monotone" dataKey="entitlements" name="Entitlements" stroke="#00549F" strokeWidth={2} fill="url(#entGrad)" dot={false} />
-                <Area type="monotone" dataKey="consumption" name="Consumption" stroke="#E17000" strokeWidth={2} fill="url(#conGrad)" dot={false} />
+                <Area type="monotone" dataKey="entitlements" name="Direitos" stroke="#00549F" strokeWidth={2} fill="url(#entGrad)" dot={false} />
+                <Area type="monotone" dataKey="consumption" name="Consumo" stroke="#E17000" strokeWidth={2} fill="url(#conGrad)" dot={false} />
               </ReAreaChart>
             </ResponsiveContainer>
           </div>
@@ -375,14 +375,14 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
           <div className="px-4 py-3 flex items-center justify-between border-b" style={{ borderColor: "#DDDDDD" }}>
             <div className="flex items-center gap-1.5">
               <Calendar className="w-3.5 h-3.5" style={{ color: "#00A1DE" }} />
-              <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#001833" }}>Upcoming Renewals</span>
+              <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#001833" }}>Próximas Renovações</span>
             </div>
-            <HintTooltip text="Licenses expiring in the next 60 days. Proactive renewal avoids compliance gaps and ensures uninterrupted coverage." />
+            <HintTooltip text="Licenças que expiram nos próximos 60 dias. A renovação proativa evita lacunas de conformidade e garante cobertura ininterrupta." />
           </div>
           <div className="divide-y" style={{ borderColor: "#F1F1F1" }}>
             {forecasts.filter((f) => f.daysUntilExpiry <= 60).length === 0 ? (
               <div className="px-4 py-6 text-center text-xs" style={{ color: "#9B9B9B" }}>
-                No renewals due in the next 60 days
+                Nenhuma renovação prevista nos próximos 60 dias
               </div>
             ) : (
               forecasts.filter((f) => f.daysUntilExpiry <= 60).slice(0, 5).map((f) => (
@@ -396,7 +396,7 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
                       background: f.daysUntilExpiry <= 0 ? "#FFE4E4" : f.daysUntilExpiry <= 15 ? "#FFF5F5" : "#FBF3CC",
                       color: f.daysUntilExpiry <= 0 ? "#C32525" : f.daysUntilExpiry <= 15 ? "#C32525" : "#806B3C"
                     }}>
-                    {f.daysUntilExpiry <= 0 ? "Expired" : `${f.daysUntilExpiry}d`}
+                    {f.daysUntilExpiry <= 0 ? "Expirada" : `${f.daysUntilExpiry}d`}
                   </span>
                 </div>
               ))
@@ -411,27 +411,27 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
               <Cloud className="w-3.5 h-3.5" style={{ color: "#00A1DE" }} />
               <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#001833" }}>Azure Hybrid Benefit</span>
             </div>
-            <HintTooltip text="AHB lets you apply on-prem Windows Server & SQL Server licenses to Azure VMs at reduced rates. Potential monthly savings shown." />
+            <HintTooltip text="O AHB permite aplicar licenças on-premises do Windows Server e SQL Server em VMs Azure com taxas reduzidas. Economia mensal potencial exibida." />
           </div>
           <div className="p-4">
             <div className="flex items-baseline gap-1.5">
               <span className="text-2xl font-bold" style={{ color: "#00549F" }}>
                 {ahbSavings > 0 ? `$${ahbSavings.toLocaleString()}` : "$0"}
               </span>
-              <span className="text-[11px]" style={{ color: "#595959" }}>/mo potential</span>
+              <span className="text-[11px]" style={{ color: "#595959" }}>/mês potencial</span>
             </div>
             <div className="mt-3 h-1.5 w-full rounded-full" style={{ background: "#DDDDDD" }}>
               <div className="h-1.5 rounded-full" style={{ width: "35%", background: "#00A1DE" }} />
             </div>
             <p className="text-[11px] mt-1.5" style={{ color: "#595959" }}>
               {ahbSavings > 0
-                ? `${Math.round(ahbSavings * 0.6).toLocaleString()} currently unrealized`
-                : "Enable BYOL on eligible Azure VMs to reduce costs"}
+                ? `${Math.round(ahbSavings * 0.6).toLocaleString()} atualmente não realizados`
+                : "Ative BYOL em VMs Azure elegíveis para reduzir custos"}
             </p>
           </div>
           {ahbSavings > 0 && (
             <div className="px-4 py-2 text-[10px] font-semibold" style={{ background: "#DFEFD1", color: "#386015", borderTop: "1px solid #C1C1C1" }}>
-              Enable AHB on PAYG VMs to recover costs
+              Ative AHB em VMs PAYG para recuperar custos
             </div>
           )}
         </div>
@@ -441,9 +441,9 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
           <div className="px-4 py-3 flex items-center justify-between border-b" style={{ borderColor: "#DDDDDD" }}>
             <div className="flex items-center gap-1.5">
               <Layers className="w-3.5 h-3.5" style={{ color: "#00549F" }} />
-              <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#001833" }}>Metric Distribution</span>
+              <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#001833" }}>Distribuição de Métricas</span>
             </div>
-            <HintTooltip text="Breakdown of how licenses are measured across the estate. Each metric model has unique compliance rules and reconciliation logic." />
+            <HintTooltip text="Detalhamento de como as licenças são medidas no parque. Cada modelo de métrica possui regras de conformidade e lógica de reconciliação exclusivas." />
           </div>
           <div className="p-4 space-y-3">
             {Object.values(MetricType).map((mt) => {
@@ -471,16 +471,16 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
           <div className="px-4 py-3 flex items-center justify-between border-b" style={{ borderColor: "#DDDDDD" }}>
             <div className="flex items-center gap-1.5">
               <Zap className="w-3.5 h-3.5" style={{ color: "#E17000" }} />
-              <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#001833" }}>Quick Actions</span>
+              <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#001833" }}>Ações Rápidas</span>
             </div>
-            <HintTooltip text="Common tasks to manage your license estate. Each action guides you to the relevant section with pre-applied filters." />
+            <HintTooltip text="Tarefas comuns para gerenciar seu parque de licenças. Cada ação guia você até a seção relevante com filtros pré-aplicados." />
           </div>
           <div className="p-3 space-y-2">
             {[
-              { label: "Review under-licensed titles", icon: AlertTriangle, color: "#C32525", onClick: onNavigateToLicenses },
-              { label: "Export compliance report", icon: Download, color: "#00549F" },
-              { label: "Run full reconciliation", icon: RefreshCw, color: "#386015" },
-              { label: "View audit log", icon: Eye, color: "#595959" },
+              { label: "Revisar títulos sublicenciados", icon: AlertTriangle, color: "#C32525", onClick: onNavigateToLicenses },
+              { label: "Exportar relatório de conformidade", icon: Download, color: "#00549F" },
+              { label: "Executar reconciliação completa", icon: RefreshCw, color: "#386015" },
+              { label: "Visualizar registro de auditoria", icon: Eye, color: "#595959" },
             ].map((action, i) => (
               <button
                 key={i}
@@ -503,23 +503,23 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
       <div className="rounded-lg overflow-hidden p-4" style={{ boxShadow: "0 2px 8px 0 rgba(0,0,0,0.10)", background: "#F8F8F8", border: "1px solid #DDDDDD" }}>
         <div className="flex items-center gap-1.5 mb-3">
           <Info className="w-3.5 h-3.5" style={{ color: "#00549F" }} />
-          <span className="text-[11px] font-bold uppercase tracking-wider" style={{ color: "#001833" }}>How Metrics Are Calculated</span>
+          <span className="text-[11px] font-bold uppercase tracking-wider" style={{ color: "#001833" }}>Como as Métricas São Calculadas</span>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="p-3 rounded-lg" style={{ background: "#FFFFFF" }}>
             <h4 className="text-xs font-bold flex items-center gap-1.5 mb-1" style={{ color: "#333333" }}>
-              <Users className="w-3.5 h-3.5" style={{ color: "#00A1DE" }} /> Users
+              <Users className="w-3.5 h-3.5" style={{ color: "#00A1DE" }} /> Usuários
             </h4>
             <p className="text-[11px] leading-relaxed" style={{ color: "#595959" }}>
-              Counts unique <strong>named users</strong> with the software installed. Multiple devices by the same user consume <strong>1 entitlement</strong>.
+              Conta <strong>usuários nomeados</strong> únicos com o software instalado. Múltiplos dispositivos do mesmo usuário consomem <strong>1 direito de uso</strong>.
             </p>
           </div>
           <div className="p-3 rounded-lg" style={{ background: "#FFFFFF" }}>
             <h4 className="text-xs font-bold flex items-center gap-1.5 mb-1" style={{ color: "#333333" }}>
-              <Cpu className="w-3.5 h-3.5" style={{ color: "#386015" }} /> Processor/Core
+              <Cpu className="w-3.5 h-3.5" style={{ color: "#386015" }} /> Processador/Núcleo
             </h4>
             <p className="text-[11px] leading-relaxed" style={{ color: "#595959" }}>
-              Calculated from <strong>physical cores</strong> of machines running the software. Virtual cores are excluded per most vendor licensing rules.
+              Calculado a partir de <strong>núcleos físicos</strong> das máquinas que executam o software. Núcleos virtuais são excluídos conforme as regras de licenciamento da maioria dos fornecedores.
             </p>
           </div>
           <div className="p-3 rounded-lg" style={{ background: "#FFFFFF" }}>
@@ -527,7 +527,7 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
               <Layers className="w-3.5 h-3.5" style={{ color: "#E17000" }} /> IBM PVU
             </h4>
             <p className="text-[11px] leading-relaxed" style={{ color: "#595959" }}>
-              <strong>Cores × PVU weight</strong> per processor type. IBM sub-capacity licensing requires advanced virtualization management.
+              <strong>Núcleos × peso PVU</strong> por tipo de processador. O licenciamento IBM sub-capacity requer gerenciamento avançado de virtualização.
             </p>
           </div>
           <div className="p-3 rounded-lg" style={{ background: "#FFFFFF" }}>
@@ -535,7 +535,7 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
               <HardDrive className="w-3.5 h-3.5" style={{ color: "#C32525" }} /> Windows VDA
             </h4>
             <p className="text-[11px] leading-relaxed" style={{ color: "#595959" }}>
-              Tracks <strong>client OS instances</strong> running inside virtual machines. Each VM or remote desktop session requires a VDA license.
+              Rastreia <strong>instâncias de SO cliente</strong> executando dentro de máquinas virtuais. Cada VM ou sessão de área de trabalho remota requer uma licença VDA.
             </p>
           </div>
         </div>
@@ -546,19 +546,19 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
         <div className="px-5 py-3.5 flex items-center justify-between gap-4" style={{ borderBottom: "1px solid #DDDDDD" }}>
           <div className="flex items-center gap-2">
             <FileText className="w-4 h-4" style={{ color: "#00549F" }} />
-            <h3 className="text-xs font-bold" style={{ color: "#001833" }}>Effective License Position (ELP) Grid</h3>
-            <HintTooltip text="Detailed grid showing each software title's entitlement count, actual consumption, balance, compliance status, and financial impact. Filter by metric type using the dropdown." />
+            <h3 className="text-xs font-bold" style={{ color: "#001833" }}>Grade de Posição Efetiva de Licenciamento (ELP)</h3>
+            <HintTooltip text="Grade detalhada mostrando a quantidade de direitos de uso, consumo real, saldo, status de conformidade e impacto financeiro de cada título de software. Filtre por tipo de métrica usando o menu suspenso." />
           </div>
           <div className="flex items-center gap-2">
             <Filter className="w-3 h-3" style={{ color: "#9B9B9B" }} />
-            <span className="text-[10px] font-medium" style={{ color: "#595959" }}>Metric:</span>
+            <span className="text-[10px] font-medium" style={{ color: "#595959" }}>Métrica:</span>
             <select
               value={metricFilter}
               onChange={(e) => setMetricFilter(e.target.value)}
               className="text-[11px] rounded px-2 py-1 outline-none cursor-pointer"
               style={{ border: "1px solid #DDDDDD", background: "#FFFFFF", color: "#333333" }}
             >
-              <option value="ALL">All Metrics</option>
+              <option value="ALL">Todas as Métricas</option>
               {Object.values(MetricType).map((mt) => (
                 <option key={mt} value={mt}>{mt}</option>
               ))}
@@ -569,13 +569,13 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
         {isLoading ? (
           <div className="p-12 text-center" style={{ color: "#595959" }}>
             <RefreshCw className="w-6 h-6 mx-auto mb-2 animate-spin" style={{ color: "#00A1DE" }} />
-            <p className="text-xs font-medium">Reconciling inventory & license calculations...</p>
+            <p className="text-xs font-medium">Reconciliando inventário e cálculos de licenças...</p>
           </div>
         ) : filteredSnapshots.length === 0 ? (
           <div className="p-12 text-center">
             <AlertTriangle className="w-10 h-10 mx-auto mb-3" style={{ color: "#C1C1C1" }} />
-            <p className="text-xs font-bold" style={{ color: "#001833" }}>No compliance snapshots generated.</p>
-            <p className="text-[11px] mt-1" style={{ color: "#595959" }}>Add software licenses and installations to run the calculation engine.</p>
+            <p className="text-xs font-bold" style={{ color: "#001833" }}>Nenhum snapshot de conformidade gerado.</p>
+            <p className="text-[11px] mt-1" style={{ color: "#595959" }}>Adicione licenças de software e instalações para executar o mecanismo de cálculo.</p>
             <button
               onClick={onNavigateToLicenses}
               className="mt-4 px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer"
@@ -583,7 +583,7 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
               onMouseEnter={(e) => e.currentTarget.style.background = "#1468B3"}
               onMouseLeave={(e) => e.currentTarget.style.background = "#00549F"}
             >
-              Configure Licenses
+                Configurar Licenças
             </button>
           </div>
         ) : (
@@ -591,14 +591,14 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
             <table className="w-full text-left text-xs" style={{ borderCollapse: "collapse" }}>
               <thead>
                 <tr style={{ background: "#F1F1F1" }}>
-                  <th className="px-5 py-3 font-bold uppercase tracking-wider text-[10px]" style={{ color: "#595959", borderBottom: "1px solid #DDDDDD" }}>Software Title</th>
-                  <th className="px-5 py-3 font-bold uppercase tracking-wider text-[10px]" style={{ color: "#595959", borderBottom: "1px solid #DDDDDD" }}>Publisher</th>
-                  <th className="px-5 py-3 font-bold uppercase tracking-wider text-[10px]" style={{ color: "#595959", borderBottom: "1px solid #DDDDDD" }}>Metric Model</th>
-                  <th className="px-5 py-3 font-bold uppercase tracking-wider text-[10px] text-right" style={{ color: "#595959", borderBottom: "1px solid #DDDDDD" }}>Entitlements</th>
-                  <th className="px-5 py-3 font-bold uppercase tracking-wider text-[10px] text-right" style={{ color: "#595959", borderBottom: "1px solid #DDDDDD" }}>Consumption</th>
-                  <th className="px-5 py-3 font-bold uppercase tracking-wider text-[10px] text-right" style={{ color: "#595959", borderBottom: "1px solid #DDDDDD" }}>Balance</th>
-                  <th className="px-5 py-3 font-bold uppercase tracking-wider text-[10px]" style={{ color: "#595959", borderBottom: "1px solid #DDDDDD" }}>Compliance Status</th>
-                  <th className="px-5 py-3 font-bold uppercase tracking-wider text-[10px] text-right" style={{ color: "#595959", borderBottom: "1px solid #DDDDDD" }}>Financial Impact</th>
+                  <th className="px-5 py-3 font-bold uppercase tracking-wider text-[10px]" style={{ color: "#595959", borderBottom: "1px solid #DDDDDD" }}>Título do Software</th>
+                  <th className="px-5 py-3 font-bold uppercase tracking-wider text-[10px]" style={{ color: "#595959", borderBottom: "1px solid #DDDDDD" }}>Editora</th>
+                  <th className="px-5 py-3 font-bold uppercase tracking-wider text-[10px]" style={{ color: "#595959", borderBottom: "1px solid #DDDDDD" }}>Modelo de Métrica</th>
+                  <th className="px-5 py-3 font-bold uppercase tracking-wider text-[10px] text-right" style={{ color: "#595959", borderBottom: "1px solid #DDDDDD" }}>Direitos de Uso</th>
+                  <th className="px-5 py-3 font-bold uppercase tracking-wider text-[10px] text-right" style={{ color: "#595959", borderBottom: "1px solid #DDDDDD" }}>Consumo</th>
+                  <th className="px-5 py-3 font-bold uppercase tracking-wider text-[10px] text-right" style={{ color: "#595959", borderBottom: "1px solid #DDDDDD" }}>Saldo</th>
+                  <th className="px-5 py-3 font-bold uppercase tracking-wider text-[10px]" style={{ color: "#595959", borderBottom: "1px solid #DDDDDD" }}>Status de Conformidade</th>
+                  <th className="px-5 py-3 font-bold uppercase tracking-wider text-[10px] text-right" style={{ color: "#595959", borderBottom: "1px solid #DDDDDD" }}>Impacto Financeiro</th>
                 </tr>
               </thead>
               <tbody>
@@ -627,7 +627,7 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
                             background: isUnder ? "#FFE4E4" : isOver ? "#FBF3CC" : "#DFEFD1",
                             color: isUnder ? "#C32525" : isOver ? "#806B3C" : "#386015",
                           }}>
-                          {isUnder ? "Under-licensed" : isOver ? "Over-licensed" : "Compliant"}
+                          {isUnder ? "Sublicenciado" : isOver ? "Sobrerlicenciado" : "Em Conformidade"}
                         </span>
                       </td>
                       <td className="px-5 py-3.5 text-right font-semibold text-[11px]">

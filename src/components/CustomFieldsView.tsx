@@ -43,10 +43,10 @@ export function CustomFieldsView() {
         setFieldValues(await valRes.json());
         setMetrics(await metRes.json());
       } else {
-        setError("Failed to fetch custom configurations.");
+        setError("Falha ao buscar configurações personalizadas.");
       }
     } catch (e: any) {
-      setError(e.message || "An error occurred");
+      setError(e.message || "Ocorreu um erro");
     } finally {
       setLoading(false);
     }
@@ -113,13 +113,13 @@ export function CustomFieldsView() {
       });
       if (res.ok) {
         setNewDefName("");
-        setSuccessMsg("Defined custom field successfully.");
+        setSuccessMsg("Campo personalizado definido com sucesso.");
         await fetchData();
       } else {
-        setError("Failed to create custom field definition.");
+        setError("Falha ao criar definição de campo personalizado.");
       }
     } catch (e: any) {
-      setError(e.message || "Error adding custom field definition");
+      setError(e.message || "Erro ao adicionar definição de campo personalizado");
     }
   };
 
@@ -142,13 +142,13 @@ export function CustomFieldsView() {
         setNewMetDesc("");
         setNewMetCriteria("");
         setNewMetValue("");
-        setSuccessMsg("Created custom metric successfully.");
+        setSuccessMsg("Métrica personalizada criada com sucesso.");
         await fetchData();
       } else {
-        setError("Failed to configure custom metric.");
+        setError("Falha ao configurar métrica personalizada.");
       }
     } catch (e: any) {
-      setError(e.message || "Error adding custom metric");
+      setError(e.message || "Erro ao adicionar métrica personalizada");
     }
   };
 
@@ -166,7 +166,7 @@ export function CustomFieldsView() {
     });
 
     if (updates.length === 0) {
-      setError("No changes made in fields table.");
+      setError("Nenhuma alteração feita na tabela de campos.");
       return;
     }
 
@@ -177,14 +177,14 @@ export function CustomFieldsView() {
         body: JSON.stringify({ updates })
       });
       if (res.ok) {
-        setSuccessMsg(`Successfully updated ${updates.length} custom fields.`);
+        setSuccessMsg(`${updates.length} campos personalizados atualizados com sucesso.`);
         setEditBuffer({});
         await fetchData();
       } else {
-        setError("Failed to apply bulk update.");
+        setError("Falha ao aplicar atualização em lote.");
       }
     } catch (e: any) {
-      setError(e.message || "Error during bulk update");
+      setError(e.message || "Erro durante atualização em lote");
     }
   };
 
@@ -200,7 +200,7 @@ export function CustomFieldsView() {
             <AlertCircle className="w-4 h-4 text-red-500" />
             <span>{error}</span>
           </div>
-          <button onClick={() => setError(null)} className="font-bold underline cursor-pointer">Dismiss</button>
+          <button onClick={() => setError(null)} className="font-bold underline cursor-pointer">Dispensar</button>
         </div>
       )}
 
@@ -210,7 +210,7 @@ export function CustomFieldsView() {
             <Check className="w-4 h-4 text-emerald-500" />
             <span>{successMsg}</span>
           </div>
-          <button onClick={() => setSuccessMsg(null)} className="font-bold underline cursor-pointer">Dismiss</button>
+          <button onClick={() => setSuccessMsg(null)} className="font-bold underline cursor-pointer">Dispensar</button>
         </div>
       )}
 
@@ -222,18 +222,18 @@ export function CustomFieldsView() {
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 flex items-center gap-1.5">
               <BarChart className="w-4 h-4 text-indigo-500" />
-              Custom Metrics (KPIs)
+              Métricas Personalizadas (KPIs)
             </h3>
           </div>
 
           <form onSubmit={handleAddMetric} className="bg-slate-50 p-4 rounded-lg border border-slate-100 space-y-3">
-            <h4 className="text-[10px] font-bold text-slate-500 uppercase">Create custom KPI Analyzer</h4>
+            <h4 className="text-[10px] font-bold text-slate-500 uppercase">Criar Analisador de KPI Personalizado</h4>
             <div className="space-y-2">
               <input
                 type="text"
                 value={newMetName}
                 onChange={e => setNewMetName(e.target.value)}
-                placeholder="Metric Name (e.g., Adobe Waste)"
+                placeholder="Nome da Métrica (ex.: Desperdício Adobe)"
                 className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800"
                 required
               />
@@ -241,7 +241,7 @@ export function CustomFieldsView() {
                 type="text"
                 value={newMetCriteria}
                 onChange={e => setNewMetCriteria(e.target.value)}
-                placeholder="Query/Criteria (e.g. Adobe risk > 50)"
+                placeholder="Consulta/Critério (ex.: risco Adobe > 50)"
                 className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800"
                 required
               />
@@ -250,14 +250,14 @@ export function CustomFieldsView() {
                   type="number"
                   value={newMetValue}
                   onChange={e => setNewMetValue(e.target.value)}
-                  placeholder="Computed Cost ($)"
+                  placeholder="Custo Calculado ($)"
                   className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800"
                 />
                 <button
                   type="submit"
                   className="w-full text-xs bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-lg transition"
                 >
-                  Create Metric
+                  Criar Métrica
                 </button>
               </div>
             </div>
@@ -269,7 +269,7 @@ export function CustomFieldsView() {
               <div key={met.id} className="p-3 bg-slate-50 border border-slate-100 rounded-lg flex items-center justify-between">
                 <div>
                   <h4 className="text-xs font-bold text-slate-800">{met.name}</h4>
-                  <p className="text-[9px] text-slate-400 font-mono">Criteria: {met.queryCriteria}</p>
+                  <p className="text-[9px] text-slate-400 font-mono">Critério: {met.queryCriteria}</p>
                 </div>
                 <div className="text-right shrink-0">
                   <span className="text-xs font-bold text-slate-900 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded">
@@ -286,18 +286,18 @@ export function CustomFieldsView() {
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 flex items-center gap-1.5">
               <Tags className="w-4 h-4 text-indigo-500" />
-              Custom Fields Schema
+              Esquema de Campos Personalizados
             </h3>
           </div>
 
           <form onSubmit={handleAddDefinition} className="bg-slate-50 p-4 rounded-lg border border-slate-100 space-y-3">
-            <h4 className="text-[10px] font-bold text-slate-500 uppercase">Add Column/Field to Schema</h4>
+            <h4 className="text-[10px] font-bold text-slate-500 uppercase">Adicionar Coluna/Campo ao Esquema</h4>
             <div className="space-y-2">
               <input
                 type="text"
                 value={newDefName}
                 onChange={e => setNewDefName(e.target.value)}
-                placeholder="Field Label (e.g. Cost Center)"
+                placeholder="Rótulo do Campo (ex.: Centro de Custo)"
                 className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800"
                 required
               />
@@ -307,27 +307,27 @@ export function CustomFieldsView() {
                   onChange={e => setNewDefTarget(e.target.value as any)}
                   className="text-xs px-2.5 py-1.5 bg-white border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800"
                 >
-                  <option value="License">SAM Licenses</option>
-                  <option value="Computer">Computers (HAM)</option>
-                  <option value="Application">Catalog items</option>
-                  <option value="Subscription">SaaS Subscriptions</option>
+                  <option value="License">Licenças SAM</option>
+                  <option value="Computer">Computadores (HAM)</option>
+                  <option value="Application">Itens do Catálogo</option>
+                  <option value="Subscription">Assinaturas SaaS</option>
                 </select>
                 <select
                   value={newDefType}
                   onChange={e => setNewDefType(e.target.value as any)}
                   className="text-xs px-2.5 py-1.5 bg-white border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800"
                 >
-                  <option value="Text">String Text</option>
-                  <option value="Number">Number Float</option>
-                  <option value="Boolean">Yes / No flag</option>
-                  <option value="Date">Date Timestamp</option>
+                  <option value="Text">Texto (String)</option>
+                  <option value="Number">Número (Float)</option>
+                  <option value="Boolean">Sim / Não (flag)</option>
+                  <option value="Date">Data e Hora (Timestamp)</option>
                 </select>
               </div>
               <button
                 type="submit"
                 className="w-full py-1.5 text-xs bg-[#00549F] text-white font-bold rounded-lg cursor-pointer"
               >
-                Define Custom Field
+                Definir Campo Personalizado
               </button>
             </div>
           </form>
@@ -338,7 +338,7 @@ export function CustomFieldsView() {
               <div key={def.id} className="p-2.5 bg-slate-50 border border-slate-100 rounded-lg flex items-center justify-between text-xs">
                 <div>
                   <span className="font-bold text-slate-800">{def.name}</span>
-                  <span className="text-[9px] text-slate-400 block font-mono">Type: {def.fieldType}</span>
+                  <span className="text-[9px] text-slate-400 block font-mono">Tipo: {def.fieldType}</span>
                 </div>
                 <div>
                   <span className="px-1.5 py-0.2 rounded text-[8px] bg-slate-200 text-slate-600 font-bold uppercase">
@@ -355,16 +355,16 @@ export function CustomFieldsView() {
           <div>
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 border-b border-slate-800 pb-2 flex items-center gap-1.5">
               <Settings className="w-4 h-4 text-[#00549F]/60" />
-              ITAM Audit Readiness Guard
+              Proteção de Prontidão para Auditoria ITAM
             </h3>
             <div className="mt-4 space-y-3 text-xs">
               <p className="text-slate-400 leading-normal">
-                IT Asset Management (ITAM) and Hardware Asset Management (HAM) demand customizable tags to match cost-centers, depreciation models, and business owners.
+                ITAM e HAM exigem tags personalizáveis para corresponder a centros de custo, modelos de depreciação e proprietários de negócios.
               </p>
               <div className="bg-slate-950 p-3 rounded-lg border border-slate-800 space-y-2 font-mono text-[9px] text-slate-300">
-                <p>● DEFINED SCHEMAS: {definitions.length}</p>
-                <p>● POPULATED ASSETS: {fieldValues.length}</p>
-                <p>● CUSTOM KPIs TRACKED: {metrics.length}</p>
+                <p>● ESQUEMAS DEFINIDOS: {definitions.length}</p>
+                <p>● ATIVOS POPULADOS: {fieldValues.length}</p>
+                <p>● KPIs PERSONALIZADOS RASTREADOS: {metrics.length}</p>
               </div>
             </div>
           </div>
@@ -380,23 +380,23 @@ export function CustomFieldsView() {
           <div>
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 flex items-center gap-1.5">
               <ListFilter className="w-4 h-4 text-indigo-500" />
-              Asset Value Assignments & Bulk Update write APIs
+              Atribuições de Valor de Ativos e APIs de Atualização em Lote
             </h3>
-            <p className="text-[10px] text-slate-400 mt-0.5">Edit asset row parameters, then click Bulk Update to execute a single API transaction</p>
+            <p className="text-[10px] text-slate-400 mt-0.5">Edite parâmetros de linhas de ativos e clique em Atualizar em Lote para executar uma única transação de API</p>
           </div>
 
           {/* Module Selector */}
           <div className="flex items-center gap-2">
-            <span className="text-xs text-slate-500">Asset Type:</span>
+            <span className="text-xs text-slate-500">Tipo de Ativo:</span>
             <select
               value={selectedTargetType}
               onChange={e => setSelectedTargetType(e.target.value as any)}
               className="text-xs bg-slate-50 border border-[#DDDDDD] rounded-lg px-3 py-1.5 font-semibold text-slate-700 focus:outline-indigo-500"
             >
-              <option value="License">SAM core Licenses</option>
-              <option value="Computer">Computers (HAM)</option>
-              <option value="Application">Software catalog</option>
-              <option value="Subscription">SaaS Optimization (SSM)</option>
+              <option value="License">Licenças SAM Core</option>
+              <option value="Computer">Computadores (HAM)</option>
+              <option value="Application">Catálogo de Software</option>
+              <option value="Subscription">Otimização SaaS (SSM)</option>
             </select>
 
             <button
@@ -404,7 +404,7 @@ export function CustomFieldsView() {
               className="px-4 py-1.5 bg-[#00549F] text-white text-[11px] font-bold rounded-lg flex items-center gap-1 cursor-pointer"
             >
               <Check className="w-3.5 h-3.5" />
-              Bulk Update Assets
+              Atualizar Ativos em Lote
             </button>
           </div>
         </div>
@@ -414,8 +414,8 @@ export function CustomFieldsView() {
           <table className="w-full text-left text-xs text-slate-600">
             <thead>
               <tr className="border-b border-[#DDDDDD] text-[10px] font-bold text-slate-400 uppercase bg-[#F8F8F8]/50">
-                <th className="py-2.5 px-3">Asset ID</th>
-                <th className="py-2.5 px-3">Asset Title / Vendor</th>
+                <th className="py-2.5 px-3">ID do Ativo</th>
+                <th className="py-2.5 px-3">Título do Ativo / Fornecedor</th>
                 {targetDefs.map(def => (
                   <th key={def.id} className="py-2.5 px-3 text-indigo-700">
                     {def.name} <span className="text-[8px] font-normal text-slate-400">({def.fieldType})</span>
@@ -427,13 +427,13 @@ export function CustomFieldsView() {
               {entities.length === 0 ? (
                 <tr>
                   <td colSpan={2 + targetDefs.length} className="py-8 text-center text-xs text-slate-400">
-                    No active assets of this category found. Define custom field schemas first!
+                    Nenhum ativo desta categoria encontrado. Defina esquemas de campos personalizados primeiro!
                   </td>
                 </tr>
               ) : (
                 entities.map(ent => {
-                  const title = ent.softwareName || ent.name || "Unnamed Asset";
-                  const subText = ent.publisher || ent.brand || "Unspecified Manufacturer";
+                  const title = ent.softwareName || ent.name || "Ativo sem Nome";
+                  const subText = ent.publisher || ent.brand || "Fabricante Não Especificado";
                   
                   return (
                     <tr key={ent.id} className="hover:bg-slate-50/50 transition">
@@ -464,7 +464,7 @@ export function CustomFieldsView() {
                               type={def.fieldType === "Number" ? "number" : (def.fieldType === "Date" ? "date" : "text")}
                               value={currentVal}
                               onChange={e => handleBufferChange(ent.id, def.id, e.target.value)}
-                              placeholder={`Enter ${def.name}`}
+                              placeholder={`Inserir ${def.name}`}
                               className={`text-xs px-2 py-1 w-full rounded border transition-all ${
                                 isModified 
                                   ? "bg-amber-50 border-amber-400 focus:outline-amber-500" 

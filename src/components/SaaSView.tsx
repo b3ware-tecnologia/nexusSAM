@@ -436,16 +436,16 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-2">
             <span className="text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full" style={{background: "rgba(0,84,159,0.2)", color: "#A8D0F5", border: "1px solid rgba(0,84,159,0.3)"}}>
-              SaaS Asset Management Module
+              Módulo de Gerenciamento de Assets SaaS
             </span>
             <div className="flex items-center gap-2">
               <h2 className="text-2xl font-bold tracking-tight text-white font-sans sm:text-3xl">
-                SaaS Multi-Source Operations
+                Operações Multifonte SaaS
               </h2>
-              <HintTooltip text="Manage SaaS application subscriptions, track user assignments, monitor license utilization, and identify cost optimization opportunities across all SaaS vendors." side="right" size="md" />
+              <HintTooltip text="Gerencie assinaturas de aplicativos SaaS, rastreie atribuições de usuários, monitore a utilização de licenças e identifique oportunidades de otimização de custos em todos os fornecedores SaaS." side="right" size="md" />
             </div>
             <p className="text-slate-400 text-sm max-w-2xl font-medium">
-              Consolidate single-source subscriptions, discover unmanaged shadow IT services, track interactive user activities, and reclaim unassigned software seats instantly.
+              Consolide assinaturas de fonte única, descubra serviços de Shadow IT não gerenciados, monitore atividades interativas de usuários e recupere assentos de software não atribuídos instantaneamente.
             </p>
           </div>
           
@@ -457,7 +457,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
               id="saas-refresh-btn"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? "animate-spin" : ""}`} />
-              Re-evaluate All
+              Reavaliar Tudo
             </button>
             <button
               onClick={handleConsolidate}
@@ -465,7 +465,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
               id="saas-consolidate-btn"
             >
               <Sparkles className="w-3.5 h-3.5" />
-              Consolidate Logins
+              Consolidar Logins
             </button>
           </div>
         </div>
@@ -475,20 +475,20 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
           
           <div className="bg-slate-950/40 p-5 rounded-xl border border-slate-800/50">
             <div className="flex items-center justify-between text-slate-400 mb-2">
-              <span className="text-xs font-semibold uppercase tracking-wider">Total Monthly Spend</span>
+              <span className="text-xs font-semibold uppercase tracking-wider">Gasto Mensal Total</span>
               <DollarSign className="w-4 h-4 text-emerald-400" />
             </div>
             <p className="text-2xl font-extrabold text-white font-mono leading-none">
               ${metrics.totalMonthlySpend.toLocaleString()}<span className="text-xs text-slate-500 ml-1">USD</span>
             </p>
             <p className="text-[10px] text-slate-400 mt-2 font-medium">
-              Across <span className="text-white font-bold">{metrics.activeSubscriptionsCount}</span> active subscriptions
+              Em <span className="text-white font-bold">{metrics.activeSubscriptionsCount}</span> assinaturas ativas
             </p>
           </div>
 
           <div className="bg-slate-950/40 p-5 rounded-xl border border-slate-800/50">
             <div className="flex items-center justify-between text-slate-400 mb-2">
-              <span className="text-xs font-semibold uppercase tracking-wider">Optimizable potential</span>
+              <span className="text-xs font-semibold uppercase tracking-wider">Potencial Otimizável</span>
               <TrendingDown className="w-4 h-4 text-amber-400" />
             </div>
             <p className="text-2xl font-extrabold text-amber-400 font-mono leading-none">
@@ -496,35 +496,35 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
             </p>
             <div className="flex items-center gap-2 mt-2 text-[10px] text-slate-400 font-medium">
               <span className="bg-amber-500/15 text-amber-300 px-1.5 py-0.5 rounded font-bold font-mono">
-                {((metrics.totalOptimizationPotential / (metrics.totalMonthlySpend || 1)) * 100).toFixed(0)}% Waste
+                {((metrics.totalOptimizationPotential / (metrics.totalMonthlySpend || 1)) * 100).toFixed(0)}% Desperdício
               </span>
-              <span>Reclaimable instantly</span>
+              <span>Recuperável instantaneamente</span>
             </div>
           </div>
 
           <div className="bg-slate-950/40 p-5 rounded-xl border border-slate-800/50">
             <div className="flex items-center justify-between text-slate-400 mb-2">
-              <span className="text-xs font-semibold uppercase tracking-wider">Unassigned Seats waste</span>
+              <span className="text-xs font-semibold uppercase tracking-wider">Desperdício em Assentos Não Atribuídos</span>
               <Layers className="w-4 h-4 text-orange-400" />
             </div>
             <p className="text-2xl font-extrabold text-white font-mono leading-none">
               ${metrics.totalUnassignedMonthlyWaste.toLocaleString()}<span className="text-xs text-slate-500 ml-1">/mo</span>
             </p>
             <p className="text-[10px] text-slate-400 mt-2 font-medium">
-              Idle purchased seats awaiting setup
+              Assentos comprados ociosos aguardando configuração
             </p>
           </div>
 
           <div className="bg-slate-950/40 p-5 rounded-xl border border-slate-800/50">
             <div className="flex items-center justify-between text-slate-400 mb-2">
-              <span className="text-xs font-semibold uppercase tracking-wider">Shadow IT Threats</span>
+              <span className="text-xs font-semibold uppercase tracking-wider">Ameaças de Shadow IT</span>
               <ShieldAlert className="w-4 h-4 text-rose-400 animate-pulse" />
             </div>
             <p className="text-2xl font-extrabold text-rose-400 font-mono leading-none">
-              {metrics.shadowApps.length} Unapproved
+              {metrics.shadowApps.length} Não Aprovados
             </p>
             <p className="text-[10px] text-slate-400 mt-2 font-medium">
-              High risk-score SaaS apps discovered
+              Aplicativos SaaS com alto escore de risco descobertos
             </p>
           </div>
 
@@ -548,10 +548,10 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
               }`}
               id={`saas-tab-${tab.toLowerCase()}`}
             >
-              {tab === "OVERVIEW" && "Control Dashboard"}
-              {tab === "SUBSCRIPTIONS" && "Active Subscriptions"}
-              {tab === "USERS" && "Consolidated Identities"}
-              {tab === "CONNECTORS" && "Multi-source Integrations"}
+              {tab === "OVERVIEW" && "Painel de Controle"}
+              {tab === "SUBSCRIPTIONS" && "Assinaturas Ativas"}
+              {tab === "USERS" && "Identidades Consolidadas"}
+              {tab === "CONNECTORS" && "Integrações Multifonte"}
             </button>
           ))}
         </div>
@@ -561,7 +561,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
             <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
             <input
               type="text"
-              placeholder={`Search ${activeTab.toLowerCase()}...`}
+              placeholder={`Pesquisar ${activeTab.toLowerCase()}...`}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-9 pr-4 py-1.5 bg-white border border-slate-200 rounded-lg text-xs focus:outline-hidden focus:ring-1 focus:ring-indigo-500"
@@ -585,10 +585,10 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
               <div className="flex items-center justify-between border-b border-slate-100 pb-4">
                 <div className="flex items-center gap-2">
                   <TrendingDown className="w-4 h-4 text-indigo-500" />
-                  <h3 className="font-bold text-slate-800 text-sm">Critical Cost Reclamation Insights</h3>
+                  <h3 className="font-bold text-slate-800 text-sm">Insights Críticos de Recuperação de Custos</h3>
                 </div>
                 <span className="text-[10px] px-2 py-0.5 rounded font-bold font-mono" style={{background: "#D1E7F3", color: "#1468B3"}}>
-                  Real-time Actionable
+                  Acionável em Tempo Real
                 </span>
               </div>
 
@@ -598,7 +598,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                   <div className="flex items-start gap-3 p-4 bg-amber-50/70 rounded-lg border border-amber-100 text-xs">
                     <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
                     <div className="flex-1 space-y-1">
-                      <p className="font-bold text-slate-900">Adobe Creative Cloud User Inactivity detected</p>
+                      <p className="font-bold text-slate-900">Inatividade do Usuário do Adobe Creative Cloud detectada</p>
                       <p className="text-slate-600">
                         <span className="font-bold text-slate-800">David Miller</span> has an active All Apps license ($80/mo) but has no login activity recorded for <span className="font-bold text-slate-800 font-mono">117 days</span>.
                       </p>
@@ -609,7 +609,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                         }} 
                         className="font-bold hover:underline flex items-center gap-1 mt-1 cursor-pointer" style={{color: "#00549F"}}
                       >
-                        Reallocate/Cancel subscription seat <ArrowRight className="w-3 h-3" />
+                        Realocar/Cancelar assento da assinatura <ArrowRight className="w-3 h-3" />
                       </button>
                     </div>
                     <span className="font-mono font-bold text-amber-700">-$80.00/mo</span>
@@ -621,7 +621,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                   <div className="flex items-start gap-3 p-4 bg-orange-50/70 rounded-lg border border-orange-100 text-xs">
                     <Info className="w-4 h-4 text-orange-600 shrink-0 mt-0.5" />
                     <div className="flex-1 space-y-1">
-                      <p className="font-bold text-slate-900">Unassigned Purchased SaaS Seats detected</p>
+                      <p className="font-bold text-slate-900">Assentos SaaS Adquiridos Não Atribuídos Detectados</p>
                       <div className="text-slate-600 space-y-1">
                         {subscriptions.map(s => {
                           const diff = s.seatsTotal - s.seatsAssigned;
@@ -645,7 +645,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                   <div className="flex items-start gap-3 p-4 bg-rose-50/80 rounded-lg border border-rose-100 text-xs">
                     <ShieldAlert className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
                     <div className="flex-1 space-y-1">
-                      <p className="font-bold text-rose-900">High Risk Shadow IT SaaS Applications Active</p>
+                      <p className="font-bold text-rose-900">Aplicativos SaaS de Shadow IT de Alto Risco Ativos</p>
                       <p className="text-rose-800/80">
                         We detected unapproved third-party cloud tools used via proxy logs or Defender CASB integrations:
                       </p>
@@ -665,7 +665,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                         ))}
                       </div>
                       <p className="text-[10px] text-slate-500 pt-1">
-                        *Mark these applications as approved or block access directly through your integrated CASB rules.
+                        *Marque estes aplicativos como aprovados ou bloqueie o acesso diretamente por meio de suas regras CASB integradas.
                       </p>
                     </div>
                   </div>
@@ -677,8 +677,8 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
             <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="font-bold text-slate-800 text-sm">Discovered SaaS Catalog ({filteredApps.length})</h3>
-                  <p className="text-[10px] text-slate-400">Continuous background detection via browser extensions, CASB, and Okta SSO integrations</p>
+                  <h3 className="font-bold text-slate-800 text-sm">Catálogo SaaS Descoberto ({filteredApps.length})</h3>
+                  <p className="text-[10px] text-slate-400">Detecção contínua em segundo plano via extensões de navegador, CASB e integrações Okta SSO</p>
                 </div>
                 <button
                   onClick={() => {
@@ -688,7 +688,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                   className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
                 >
                   <PlusCircle className="w-3.5 h-3.5" />
-                  Add Custom Vendor
+                  Adicionar Fornecedor Personalizado
                 </button>
               </div>
 
@@ -696,11 +696,11 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                 <table className="w-full text-left text-xs">
                   <thead>
                     <tr className="border-b border-slate-100 text-slate-400 font-bold">
-                      <th className="pb-3 font-semibold">Application</th>
-                      <th className="pb-3 font-semibold">Publisher & Category</th>
-                      <th className="pb-3 font-semibold">Security Risk</th>
-                      <th className="pb-3 font-semibold">Discovery Sources</th>
-                      <th className="pb-3 font-semibold">Governance Status</th>
+                      <th className="pb-3 font-semibold">Aplicativo</th>
+                      <th className="pb-3 font-semibold">Editora & Categoria</th>
+                      <th className="pb-3 font-semibold">Risco de Segurança</th>
+                      <th className="pb-3 font-semibold">Fontes de Descoberta</th>
+                      <th className="pb-3 font-semibold">Status de Governança</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100">
@@ -760,7 +760,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                                 : "bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200/50"
                             }`}
                           >
-                            {app.isApproved ? "Approved Vendor" : "Unapproved Shadow IT"}
+                            {app.isApproved ? "Fornecedor Aprovado" : "Shadow IT Não Aprovado"}
                           </button>
                         </td>
                       </tr>
@@ -778,8 +778,8 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
             {/* Vendor SaaS Families Bento Block */}
             <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4">
               <div className="border-b border-slate-100 pb-3">
-                <h3 className="font-bold text-slate-800 text-sm">Vendor License Families</h3>
-                <p className="text-[10px] text-slate-400">Grouping licenses by software publishers and product lines</p>
+                <h3 className="font-bold text-slate-800 text-sm">Famílias de Licenças por Fornecedor</h3>
+                <p className="text-[10px] text-slate-400">Agrupando licenças por editoras de software e linhas de produtos</p>
               </div>
 
               <div className="space-y-3">
@@ -868,11 +868,11 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
             {/* Simulated CSV/API Bulk Import Portal */}
             <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4">
               <div>
-                <h3 className="font-bold text-slate-800 text-sm flex items-center gap-1.5">
-                  <Upload className="w-4 h-4 text-slate-500" />
-                  Custom CSV / JSON Import
-                </h3>
-                <p className="text-[10px] text-slate-400">Paste bulk cloud usage datasets directly to trigger automated discovery</p>
+                  <h3 className="font-bold text-slate-800 text-sm flex items-center gap-1.5">
+                    <Upload className="w-4 h-4 text-slate-500" />
+                    Importação Personalizada CSV / JSON
+                  </h3>
+                  <p className="text-[10px] text-slate-400">Cole conjuntos de dados de uso em nuvem em massa para acionar a descoberta automatizada</p>
               </div>
 
               <div className="space-y-3">
@@ -894,7 +894,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                   className="w-full py-2 bg-slate-800 hover:bg-slate-700 text-white rounded text-xs font-bold transition-all cursor-pointer shadow-xs"
                   id="saas-import-csv-btn"
                 >
-                  Parse & Import Matrix Logs
+                  Analisar e Importar Logs da Matriz
                 </button>
               </div>
             </div>
@@ -904,14 +904,14 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
               <div>
                 <h3 className="font-bold text-slate-800 text-sm flex items-center gap-1.5">
                   <Layers className="w-4 h-4 text-indigo-500" />
-                  Browser Extension Simulator
+                  Simulador de Extensão de Navegador
                 </h3>
-                <p className="text-[10px] text-slate-400">Simulate background user endpoint activities via Chrome/Edge extension telemetry.</p>
+                <p className="text-[10px] text-slate-400">Simule atividades de endpoint de usuário em segundo plano via telemetria de extensão Chrome/Edge.</p>
               </div>
 
               <div className="space-y-3">
                 <div>
-                  <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Simulated URL Visited</label>
+                    <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">URL Simulada Visitada</label>
                   <select
                     value={extensionUrl}
                     onChange={(e) => setExtensionUrl(e.target.value)}
@@ -931,7 +931,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
 
                 <div className="grid grid-cols-2 gap-2">
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">User Email</label>
+                    <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">E-mail do Usuário</label>
                     <input
                       type="email"
                       value={extensionEmail}
@@ -941,7 +941,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">User Name</label>
+                    <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Nome do Usuário</label>
                     <input
                       type="text"
                       value={extensionName}
@@ -953,7 +953,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Department</label>
+                    <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Departamento</label>
                   <select
                     value={extensionDept}
                     onChange={(e) => setExtensionDept(e.target.value)}
@@ -1002,7 +1002,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                   ) : (
                     <Play className="w-3.5 h-3.5 fill-white" />
                   )}
-                  Transmit Extension Telemetry
+                  Transmitir Telemetria da Extensão
                 </button>
               </div>
             </div>
@@ -1018,8 +1018,8 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
           <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-6">
             <div className="flex items-center justify-between border-b border-slate-100 pb-4">
               <div>
-                <h3 className="font-bold text-slate-800 text-sm">Active License Subscriptions & Contract Sku Costs</h3>
-                <p className="text-[10px] text-slate-400">Configure seats, unit costs, exclusion filters, and renewal milestones</p>
+                <h3 className="font-bold text-slate-800 text-sm">Assinaturas de Licença Ativas e Custos de SKU do Contrato</h3>
+                <p className="text-[10px] text-slate-400">Configure assentos, custos unitários, filtros de exclusão e marcos de renovação</p>
               </div>
               <button
                 onClick={() => {
@@ -1030,7 +1030,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                 id="saas-add-sub-btn"
               >
                 <PlusCircle className="w-4 h-4" />
-                Register Subscription
+                Registrar Assinatura
               </button>
             </div>
 
@@ -1038,14 +1038,14 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
               <table className="w-full text-left text-xs">
                 <thead>
                   <tr className="border-b border-slate-100 text-slate-400 font-bold">
-                    <th className="pb-3 font-semibold">SaaS Product</th>
-                    <th className="pb-3 font-semibold">SKU / Plan Name</th>
-                    <th className="pb-3 font-semibold">Billing Frequency</th>
-                    <th className="pb-3 font-semibold">Seats Total / Assigned</th>
-                    <th className="pb-3 font-semibold">Seat Unit Cost</th>
-                    <th className="pb-3 font-semibold">Total Monthly Cost</th>
-                    <th className="pb-3 font-semibold">Expiry Date</th>
-                    <th className="pb-3 font-semibold text-right">Actions</th>
+                    <th className="pb-3 font-semibold">Produto SaaS</th>
+                    <th className="pb-3 font-semibold">SKU / Nome do Plano</th>
+                    <th className="pb-3 font-semibold">Frequência de Cobrança</th>
+                    <th className="pb-3 font-semibold">Total de Assentos / Atribuídos</th>
+                    <th className="pb-3 font-semibold">Custo por Assento</th>
+                    <th className="pb-3 font-semibold">Custo Mensal Total</th>
+                    <th className="pb-3 font-semibold">Data de Expiração</th>
+                    <th className="pb-3 font-semibold text-right">Ações</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
@@ -1062,13 +1062,13 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                               {app?.name.substring(0, 2) || "SA"}
                             </div>
                             <div>
-                              <p className="font-bold text-slate-900">{app?.name || "Unknown application"}</p>
+                              <p className="font-bold text-slate-900">{app?.name || "Aplicativo desconhecido"}</p>
                               <div className="flex gap-1.5 mt-0.5">
                                 {sub.isFree && (
-                                  <span className="text-[9px] bg-emerald-50 text-emerald-700 font-bold px-1.5 py-0.2 rounded">Free Plan</span>
+                                  <span className="text-[9px] bg-emerald-50 text-emerald-700 font-bold px-1.5 py-0.2 rounded">Plano Gratuito</span>
                                 )}
                                 {sub.isExcluded && (
-                                  <span className="text-[9px] bg-slate-100 text-slate-500 font-bold px-1.5 py-0.2 rounded">Excluded</span>
+                                  <span className="text-[9px] bg-slate-100 text-slate-500 font-bold px-1.5 py-0.2 rounded">Excluído</span>
                                 )}
                               </div>
                             </div>
@@ -1085,11 +1085,11 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                         </td>
                         <td className="py-3.5">
                           <p className="font-bold text-slate-800 font-mono">
-                            {sub.seatsAssigned} / {sub.seatsTotal} <span className="text-[10px] text-slate-400 font-normal font-sans">assigned</span>
+                            {sub.seatsAssigned} / {sub.seatsTotal} <span className="text-[10px] text-slate-400 font-normal font-sans">atribuídos</span>
                           </p>
                           {unassigned > 0 && (
                             <span className="text-[10px] text-amber-600 font-medium">
-                              {unassigned} unassigned seats
+                              {unassigned} assentos não atribuídos
                             </span>
                           )}
                         </td>
@@ -1106,7 +1106,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                               {sub.expirationDate}
                             </span>
                           ) : (
-                            "No Expiration"
+                            "Sem Expiração"
                           )}
                         </td>
                         <td className="py-3.5 text-right">
@@ -1143,15 +1143,15 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
           <div className="lg:col-span-2 bg-white rounded-xl border border-slate-200 p-6 space-y-4">
             <div className="flex items-center justify-between border-b border-slate-100 pb-4">
               <div>
-                <h3 className="font-bold text-slate-800 text-sm">Unified Multi-Source Corporate Identities ({filteredUsers.length})</h3>
-                <p className="text-[10px] text-slate-400">Identities matched across M365, Google, and Okta databases using SaaS Consolidation Engine</p>
+                <h3 className="font-bold text-slate-800 text-sm">Identidades Corporativas Multifonte Unificadas ({filteredUsers.length})</h3>
+                <p className="text-[10px] text-slate-400">Identidades correspondidas entre bancos de dados M365, Google e Okta usando o Mecanismo de Consolidação SaaS</p>
               </div>
               <button
                 onClick={handleConsolidate}
                 className="px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1 cursor-pointer transition-all" style={{background: "#D1E7F3", color: "#1468B3"}}
               >
                 <Sparkles className="w-3.5 h-3.5" />
-                Deduplicate Users
+                Deduplicar Usuários
               </button>
             </div>
 
@@ -1159,10 +1159,10 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
               <table className="w-full text-left text-xs">
                 <thead>
                   <tr className="border-b border-slate-100 text-slate-400 font-bold">
-                    <th className="pb-3 font-semibold">User details</th>
-                    <th className="pb-3 font-semibold">Department</th>
-                    <th className="pb-3 font-semibold">Account Status</th>
-                    <th className="pb-3 font-semibold">Identity Sync Sources</th>
+                    <th className="pb-3 font-semibold">Detalhes do Usuário</th>
+                    <th className="pb-3 font-semibold">Departamento</th>
+                    <th className="pb-3 font-semibold">Status da Conta</th>
+                    <th className="pb-3 font-semibold">Fontes de Sincronização de Identidade</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
@@ -1201,8 +1201,8 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
           {/* Right Column: User activity audit streams */}
           <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4">
             <div className="border-b border-slate-100 pb-3">
-              <h3 className="font-bold text-slate-800 text-sm">Active User Logs & Usage Metering</h3>
-              <p className="text-[10px] text-slate-400">Background web page & extension usage metering</p>
+              <h3 className="font-bold text-slate-800 text-sm">Logs de Usuário Ativos e Medição de Uso</h3>
+              <p className="text-[10px] text-slate-400">Medição de uso de página da web e extensão em segundo plano</p>
             </div>
 
             <div className="space-y-3 max-h-[480px] overflow-y-auto pr-2">
@@ -1213,7 +1213,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                 return (
                   <div key={act.id} className="p-3 bg-slate-50 rounded-lg border border-slate-200/50 text-[11px] space-y-1.5">
                     <div className="flex items-center justify-between">
-                      <span className="font-bold text-slate-900">{user?.name || "Unknown identity"}</span>
+                      <span className="font-bold text-slate-900">{user?.name || "Identidade desconhecida"}</span>
                       <span className={`text-[9px] font-bold px-1.5 py-0.2 rounded ${
                         act.activityLevel === "Active" 
                           ? "bg-emerald-50 text-emerald-700" 
@@ -1287,7 +1287,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                       ) : (
                         <Play className="w-3 h-3 fill-white" />
                       )}
-                      Sync Now
+                      Sincronizar Agora
                     </button>
                   </div>
                 </div>
@@ -1304,13 +1304,13 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                   <span className="w-2.5 h-2.5 rounded-full bg-amber-500 block"></span>
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 block"></span>
                 </div>
-                <span className="text-[10px] text-slate-400 font-bold font-mono uppercase">Multi-Source Sync Monitor</span>
+                <span className="text-[10px] text-slate-400 font-bold font-mono uppercase">Monitor de Sincronização Multifonte</span>
               </div>
               <button 
                 onClick={() => setSyncLogs([])}
                 className="text-[10px] text-slate-500 hover:text-slate-300 font-bold underline cursor-pointer"
               >
-                Clear
+                Limpar
               </button>
             </div>
 
@@ -1340,22 +1340,22 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
           <div className="bg-white rounded-xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-200">
             <div className="bg-slate-900 text-white p-6">
               <h3 className="font-bold text-base">
-                {editingSub ? "Edit Cloud SaaS Subscription" : "Register New SaaS Subscription"}
+                {editingSub ? "Editar Assinatura SaaS" : "Registrar Nova Assinatura SaaS"}
               </h3>
-              <p className="text-slate-400 text-xs mt-1">Configure plan billing variables and link to software discovery vendor catalog.</p>
+              <p className="text-slate-400 text-xs mt-1">Configure variáveis de cobrança do plano e vincule ao catálogo de fornecedores de descoberta de software.</p>
             </div>
 
             <form onSubmit={handleSaveSubscription} className="p-6 space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 
                 <div className="col-span-2">
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Target Application</label>
+                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Aplicativo Alvo</label>
                   <select
                     value={subForm.saasApplicationId}
                     onChange={(e) => setSubForm(p => ({ ...p, saasApplicationId: e.target.value }))}
                     className="w-full bg-white border border-slate-200 rounded-lg p-2 text-xs focus:ring-1 focus:ring-indigo-500 focus:outline-hidden"
                   >
-                    <option value="">-- Select Discovered Application --</option>
+                    <option value="">-- Selecione o Aplicativo Descoberto --</option>
                     {apps.map(app => (
                       <option key={app.id} value={app.id}>{app.name} ({app.publisher})</option>
                     ))}
@@ -1363,7 +1363,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Product SKU code</label>
+                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Código SKU do Produto</label>
                   <input
                     type="text"
                     required
@@ -1375,7 +1375,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Friendly Plan Name</label>
+                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Nome Amigável do Plano</label>
                   <input
                     type="text"
                     required
@@ -1387,7 +1387,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Billing frequency</label>
+                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Frequência de Cobrança</label>
                   <select
                     value={subForm.billingFrequency}
                     onChange={(e) => setSubForm(p => ({ ...p, billingFrequency: e.target.value as "Monthly" | "Annually" }))}
@@ -1399,7 +1399,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Cost Per Seat ($)</label>
+                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Custo por Assento ($)</label>
                   <input
                     type="number"
                     min="0"
@@ -1411,7 +1411,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Total Seats Purchased</label>
+                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Total de Assentos Adquiridos</label>
                   <input
                     type="number"
                     min="1"
@@ -1423,7 +1423,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Seats Currently Assigned</label>
+                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Assentos Atualmente Atribuídos</label>
                   <input
                     type="number"
                     min="0"
@@ -1435,7 +1435,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Expiration/Renewal Date</label>
+                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Data de Expiração/Renovação</label>
                   <input
                     type="date"
                     value={subForm.expirationDate}
@@ -1445,7 +1445,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Subscription Status</label>
+                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Status da Assinatura</label>
                   <select
                     value={subForm.status}
                     onChange={(e) => setSubForm(p => ({ ...p, status: e.target.value as "Active" | "Expired" | "Suspended" }))}
@@ -1465,7 +1465,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                       onChange={(e) => setSubForm(p => ({ ...p, isFree: e.target.checked }))}
                       className="rounded border-slate-300" style={{color: "#00549F", accentColor: "#00549F"}}
                     />
-                    Mark as Free / Trial Plan
+                    Marcar como Plano Gratuito / Trial
                   </label>
 
                   <label className="flex items-center gap-2 text-xs font-semibold text-slate-700 cursor-pointer">
@@ -1475,7 +1475,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                       onChange={(e) => setSubForm(p => ({ ...p, isExcluded: e.target.checked }))}
                       className="rounded border-slate-300" style={{color: "#00549F", accentColor: "#00549F"}}
                     />
-                    Exclude from Compliance Cost calculations
+                    Excluir dos cálculos de Custo de Compliance
                   </label>
                 </div>
 
@@ -1487,13 +1487,13 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                   onClick={() => setIsSubModalOpen(false)}
                   className="px-4 py-2 text-slate-500 hover:bg-slate-100 rounded-lg text-xs font-bold transition-all cursor-pointer"
                 >
-                  Cancel
+                  Cancelar
                 </button>
                 <button
                   type="submit"
                   className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-bold transition-all cursor-pointer"
                 >
-                  Save Subscription SKU
+                  Salvar SKU da Assinatura
                 </button>
               </div>
             </form>

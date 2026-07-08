@@ -21,7 +21,7 @@ export function LoginView({ onLogin }: LoginViewProps) {
     setIsLoading(true);
     try {
       if (isRegister) {
-        if (!name.trim()) { throw new Error("Name is required"); }
+        if (!name.trim()) { throw new Error("Nome é obrigatório"); }
         const result = await apiRegister(name.trim(), email.trim(), password);
         onLogin(result.token, result.user);
       } else {
@@ -29,7 +29,7 @@ export function LoginView({ onLogin }: LoginViewProps) {
         onLogin(result.token, result.user);
       }
     } catch (err: any) {
-      setError(err.message || "An error occurred");
+      setError(err.message || "Ocorreu um erro");
     } finally {
       setIsLoading(false);
     }
@@ -55,12 +55,12 @@ export function LoginView({ onLogin }: LoginViewProps) {
         {/* Card */}
         <div className="rounded-xl p-8" style={{ background: "#1A2B4C", border: "1px solid #243B5E" }}>
           <h2 className="text-lg font-semibold text-white mb-1">
-            {isRegister ? "Create Account" : "Sign In"}
+            {isRegister ? "Criar Conta" : "Entrar"}
           </h2>
           <p className="text-xs mb-6" style={{ color: "#8A8C8E" }}>
             {isRegister
-              ? "Register a new administrator account"
-              : "Enter your credentials to access the platform"}
+              ? "Registrar uma nova conta de administrador"
+              : "Insira suas credenciais para acessar a plataforma"}
           </p>
 
           {error && (
@@ -75,14 +75,14 @@ export function LoginView({ onLogin }: LoginViewProps) {
             {isRegister && (
               <div>
                 <label className="block text-xs font-medium mb-1.5" style={{ color: "#B0B8C5" }}>
-                  Name
+                  Nome
                 </label>
                 <div className="relative">
                   <input
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="Your name"
+                    placeholder="Seu nome"
                     className="w-full px-3 py-2.5 pl-10 rounded-lg text-sm text-white outline-none transition-all"
                     style={{ background: "#0F1923", border: "1px solid #243B5E" }}
                     onFocus={(e) => e.target.style.borderColor = "#00A1DE"}
@@ -95,14 +95,14 @@ export function LoginView({ onLogin }: LoginViewProps) {
 
             <div>
               <label className="block text-xs font-medium mb-1.5" style={{ color: "#B0B8C5" }}>
-                Email
+                E-mail
               </label>
               <div className="relative">
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@company.com"
+                  placeholder="voce@empresa.com"
                   className="w-full px-3 py-2.5 pl-10 rounded-lg text-sm text-white outline-none transition-all"
                   style={{ background: "#0F1923", border: "1px solid #243B5E" }}
                   onFocus={(e) => e.target.style.borderColor = "#00A1DE"}
@@ -114,14 +114,14 @@ export function LoginView({ onLogin }: LoginViewProps) {
 
             <div>
               <label className="block text-xs font-medium mb-1.5" style={{ color: "#B0B8C5" }}>
-                Password
+                Senha
               </label>
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter your password"
+                  placeholder="Digite sua senha"
                   className="w-full px-3 py-2.5 pl-10 pr-10 rounded-lg text-sm text-white outline-none transition-all"
                   style={{ background: "#0F1923", border: "1px solid #243B5E" }}
                   onFocus={(e) => e.target.style.borderColor = "#00A1DE"}
@@ -150,9 +150,9 @@ export function LoginView({ onLogin }: LoginViewProps) {
               {isLoading ? (
                 <Loader2 className="w-4 h-4 animate-spin mx-auto" />
               ) : isRegister ? (
-                "Create Account"
+                "Criar Conta"
               ) : (
-                "Sign In"
+                "Entrar"
               )}
             </button>
           </form>
@@ -164,15 +164,15 @@ export function LoginView({ onLogin }: LoginViewProps) {
               style={{ color: "#00A1DE" }}
             >
               {isRegister
-                ? "Already have an account? Sign In"
-                : "Don't have an account? Register"}
+                ? "Já tem uma conta? Entrar"
+                : "Não tem uma conta? Cadastre-se"}
             </button>
           </div>
         </div>
 
         {/* Footer */}
         <p className="text-center text-[10px] mt-6" style={{ color: "#5A6D8A" }}>
-          © 2026 Snow Atlas SAM Core. All rights reserved.
+          © 2026 Snow Atlas SAM Core. Todos os direitos reservados.
         </p>
       </div>
     </div>

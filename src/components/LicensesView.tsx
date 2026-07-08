@@ -103,7 +103,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
     e.preventDefault();
     setCreateError(null);
     if (!softwareName || !publisher || !metricType) {
-      setCreateError("Software Name and Publisher are required.");
+      setCreateError("Nome do Software e Editora são obrigatórios.");
       return;
     }
 
@@ -134,8 +134,8 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
       });
 
       if (!res.ok) {
-        const errData = await res.json().catch(() => ({ error: "Unknown server error" }));
-        setCreateError(errData.error || `Server returned ${res.status}`);
+        const errData = await res.json().catch(() => ({ error: "Erro desconhecido do servidor" }));
+        setCreateError(errData.error || `Servidor retornou ${res.status}`);
         return;
       }
 
@@ -151,7 +151,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
       setShowCreateModal(false);
       onRefresh();
     } catch (e: any) {
-      setCreateError(e.message || "Network error. Is the server running?");
+      setCreateError(e.message || "Erro de rede. O servidor está em execução?");
     }
   };
 
@@ -203,7 +203,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
   };
 
   const handleDeleteLicense = async (licId: string) => {
-    if (!confirm("Are you sure you want to completely delete this license contract? This action is irreversible.")) return;
+    if (!confirm("Tem certeza de que deseja excluir completamente este contrato de licença? Esta ação é irreversível.")) return;
     try {
       const res = await fetch(`/api/licenses/${licId}`, {
         method: "DELETE"
@@ -302,7 +302,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
   };
 
   const handleDeletePool = async (poolId: string) => {
-    if (!confirm("Are you sure you want to delete this license pool? This will not delete the licenses inside, but will remove their association.")) return;
+    if (!confirm("Tem certeza de que deseja excluir este pool de licenças? Isso não excluirá as licenças internas, mas removerá suas associações.")) return;
 
     try {
       const res = await fetch(`/api/license-pools/${poolId}`, {
@@ -322,11 +322,11 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold tracking-tight" style={{ color: "#001833" }}>Licenses Inventory</h1>
-            <HintTooltip text="Manage all software license entitlements: create new licenses, track allocations, manage pools, and audit compliance status across your enterprise." side="right" size="md" />
+            <h1 className="text-2xl font-bold tracking-tight" style={{ color: "#001833" }}>Inventário de Licenças</h1>
+            <HintTooltip text="Gerencie todos os direitos de licença de software: crie novas licenças, acompanhe alocações, gerencie pools e audite a conformidade em toda a sua empresa." side="right" size="md" />
           </div>
           <p className="text-sm" style={{ color: "#595959" }}>
-            Create, audit, archive and manage allocations for enterprise license assets.
+            Crie, audite, arquive e gerencie alocações de ativos de licença corporativos.
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -337,7 +337,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
               onChange={(e) => setSelectedPoolFilter(e.target.value)}
               className="text-xs border border-slate-200 rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-1 focus:ring-indigo-500 font-medium"
             >
-              <option value="">All License Pools</option>
+              <option value="">Todos os Pools de Licenças</option>
               {licensePools.map((pool) => (
                 <option key={pool.id} value={pool.id}>Pool: {pool.name}</option>
               ))}
@@ -349,7 +349,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
             className="flex items-center justify-center gap-1.5 px-3 py-2 border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-lg text-xs font-semibold shadow-xs transition-all cursor-pointer bg-white"
           >
             <Folder className="w-4 h-4 text-purple-600" />
-            Manage Pools
+            Gerenciar Pools
           </button>
 
           <button
@@ -357,7 +357,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
             className="flex items-center justify-center gap-1.5 px-4 py-2 text-white rounded-lg text-xs font-semibold shadow-sm transition-all cursor-pointer" style={{background: "#00549F"}}
           >
             <Plus className="w-4 h-4" />
-            Create License
+            Criar Licença
           </button>
         </div>
       </div>
@@ -378,7 +378,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                   : "border-transparent text-slate-500 hover:text-slate-800"
               }`}
             >
-              Active Titles
+              Títulos Ativos
             </button>
             <button
               onClick={() => { setActiveTab("INCOMPLETE"); setSelectedLicense(null); }}
@@ -388,7 +388,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                   : "border-transparent text-slate-500 hover:text-slate-800"
               }`}
             >
-              Incomplete Policy Checks
+              Verificações de Política Incompletas
               {licenses.filter(l => l.status === "Incomplete").length > 0 && (
                 <span className="bg-amber-100 text-amber-800 rounded-full px-1.5 py-0.5 text-[10px] font-bold">
                   {licenses.filter(l => l.status === "Incomplete").length}
@@ -403,7 +403,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                   : "border-transparent text-slate-500 hover:text-slate-800"
               }`}
             >
-              Archived
+              Arquivados
             </button>
           </div>
 
@@ -412,8 +412,8 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
             {filteredLicenses.length === 0 ? (
               <div className="bg-slate-50 rounded-xl p-12 text-center border border-slate-100">
                 <Folder className="w-8 h-8 text-slate-300 mx-auto mb-2" />
-                <p className="text-xs font-medium text-slate-700">No software assets found in this state.</p>
-                <p className="text-[10px] text-slate-400 mt-0.5">Use the "Create License" or "Invoice Ingest" option to populate the inventory.</p>
+                <p className="text-xs font-medium text-slate-700">Nenhum ativo de software encontrado neste estado.</p>
+                <p className="text-[10px] text-slate-400 mt-0.5">Use a opção "Criar Licença" ou "Importar Nota Fiscal" para preencher o inventário.</p>
               </div>
             ) : (
               filteredLicenses.map((lic) => {
@@ -436,7 +436,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                         <span className="font-semibold text-xs text-slate-900">{lic.softwareName}</span>
                         {lic.isSubscription && (
                           <span className="bg-sky-50 text-sky-700 text-[9px] font-bold px-1.5 py-0.5 rounded border border-sky-200">
-                            Subscription
+                            Assinatura
                           </span>
                         )}
                         {pool && (
@@ -446,12 +446,12 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                         )}
                         {isInc && (
                           <span className="bg-amber-50 text-amber-700 text-[9px] font-bold px-1.5 py-0.5 rounded border border-amber-200 flex items-center gap-0.5">
-                            <ShieldAlert className="w-2.5 h-2.5" /> Policy Incomplete
+                            <ShieldAlert className="w-2.5 h-2.5" /> Política Incompleta
                           </span>
                         )}
                       </div>
                       <p className="text-slate-500 text-[11px] mt-1">
-                        Publisher: <strong className="text-slate-700">{lic.publisher}</strong> | Metric: <strong className="text-slate-700">{lic.metricType}</strong>
+                        Editora: <strong className="text-slate-700">{lic.publisher}</strong> | Métrica: <strong className="text-slate-700">{lic.metricType}</strong>
                       </p>
                       {lic.sku && (
                         <p className="text-[10px] text-slate-400 font-mono mt-0.5">SKU: {lic.sku}</p>
@@ -460,15 +460,15 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
 
                     <div className="flex items-center gap-6 self-start sm:self-center">
                       <div className="text-right">
-                        <span className="block text-[10px] uppercase font-medium text-slate-400 tracking-wider">Entitlements</span>
+                        <span className="block text-[10px] uppercase font-medium text-slate-400 tracking-wider">Direitos</span>
                         <span className="text-sm font-bold text-slate-800">{lic.totalQuantity}</span>
                       </div>
                       <div className="text-right">
-                        <span className="block text-[10px] uppercase font-medium text-slate-400 tracking-wider">Allocated</span>
+                        <span className="block text-[10px] uppercase font-medium text-slate-400 tracking-wider">Alocados</span>
                         <span className="text-sm font-bold text-slate-800">{lic.allocatedQuantity || 0}</span>
                       </div>
                       <div className="text-right">
-                        <span className="block text-[10px] uppercase font-medium text-slate-400 tracking-wider">Unassigned</span>
+                        <span className="block text-[10px] uppercase font-medium text-slate-400 tracking-wider">Não Atribuídos</span>
                         <span className="text-sm font-bold" style={{color: "#00549F"}}>
                           {Math.max(0, lic.totalQuantity - (lic.allocatedQuantity || 0))}
                         </span>
@@ -494,7 +494,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                     <button
                       onClick={startEdit}
                       className="p-1 hover:bg-slate-100 rounded text-slate-500 hover:text-slate-800 cursor-pointer"
-                      title="Edit license properties"
+                      title="Editar propriedades da licença"
                     >
                       <Edit className="w-4 h-4" />
                     </button>
@@ -502,7 +502,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                       <button
                         onClick={() => handleArchiveLicense(selectedLicense.id)}
                         className="p-1 hover:bg-slate-100 rounded text-slate-500 hover:text-amber-700 cursor-pointer"
-                        title="Archive license"
+                        title="Arquivar licença"
                       >
                         <Archive className="w-4 h-4" />
                       </button>
@@ -510,22 +510,22 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                     <button
                       onClick={() => handleDeleteLicense(selectedLicense.id)}
                       className="p-1 hover:bg-slate-100 rounded text-slate-500 hover:text-rose-700 cursor-pointer"
-                      title="Delete license contract"
+                      title="Excluir contrato de licença"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
-                <p className="text-[11px] text-slate-400 mt-0.5">Asset ID: {selectedLicense.id}</p>
+                <p className="text-[11px] text-slate-400 mt-0.5">ID do Ativo: {selectedLicense.id}</p>
               </div>
 
               {isEditing ? (
                 /* EDITING PROPERTIES STATE */
                 <form onSubmit={handleUpdateLicense} className="space-y-4">
-                  <h4 className="text-xs font-bold uppercase tracking-wider" style={{color: "#00549F"}}>Edit Properties</h4>
+                  <h4 className="text-xs font-bold uppercase tracking-wider" style={{color: "#00549F"}}>Editar Propriedades</h4>
                   
                   <div>
-                    <label className="block text-[10px] font-semibold text-slate-500 uppercase">Product Title</label>
+                    <label className="block text-[10px] font-semibold text-slate-500 uppercase">Título do Produto</label>
                     <input
                       type="text"
                       required
@@ -536,7 +536,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-semibold text-slate-500 uppercase">Publisher</label>
+                    <label className="block text-[10px] font-semibold text-slate-500 uppercase">Editora</label>
                     <input
                       type="text"
                       required
@@ -547,7 +547,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-semibold text-slate-500 uppercase">Metric Model</label>
+                    <label className="block text-[10px] font-semibold text-slate-500 uppercase">Modelo de Métrica</label>
                     <select
                       value={editMetricType}
                       onChange={(e) => setEditMetricType(e.target.value as MetricType)}
@@ -560,13 +560,13 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-semibold text-slate-500 uppercase">Agreement (Contract)</label>
+                    <label className="block text-[10px] font-semibold text-slate-500 uppercase">Contrato (Acordo)</label>
                     <select
                       value={editAgreementId}
                       onChange={(e) => setEditAgreementId(e.target.value)}
                       className="w-full text-xs border border-slate-200 rounded p-1.5 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     >
-                      <option value="">-- No Contract Binding --</option>
+                      <option value="">-- Sem Contrato Vinculado --</option>
                       {agreements.map((a) => (
                         <option key={a.id} value={a.id}>{a.name} ({a.number})</option>
                       ))}
@@ -574,13 +574,13 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-semibold text-slate-500 uppercase">License Pool</label>
+                    <label className="block text-[10px] font-semibold text-slate-500 uppercase">Pool de Licenças</label>
                     <select
                       value={editLicensePoolId}
                       onChange={(e) => setEditLicensePoolId(e.target.value)}
                       className="w-full text-xs border border-slate-200 rounded p-1.5 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     >
-                      <option value="">-- No License Pool --</option>
+                      <option value="">-- Nenhum Pool de Licenças --</option>
                       {licensePools.map((p) => (
                         <option key={p.id} value={p.id}>{p.name}</option>
                       ))}
@@ -588,23 +588,23 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-semibold text-slate-500 uppercase">SKU (Part Number)</label>
+                    <label className="block text-[10px] font-semibold text-slate-500 uppercase">SKU (Nº de Peça)</label>
                     <input
                       type="text"
                       value={editSku}
                       onChange={(e) => setEditSku(e.target.value)}
-                      placeholder="e.g. SKU-123-X"
+                      placeholder="ex.: SKU-123-X"
                       className="w-full text-xs border border-slate-200 rounded p-1.5 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-semibold text-slate-500 uppercase">Version</label>
+                    <label className="block text-[10px] font-semibold text-slate-500 uppercase">Versão</label>
                     <input
                       type="text"
                       value={editVersion}
                       onChange={(e) => setEditVersion(e.target.value)}
-                      placeholder="e.g. 2025 Enterprise"
+                      placeholder="ex.: 2025 Enterprise"
                       className="w-full text-xs border border-slate-200 rounded p-1.5 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     />
                   </div>
@@ -616,7 +616,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                         checked={editDowngrade}
                         onChange={(e) => setEditDowngrade(e.target.checked)}
                       />
-                      Downgrade Rights
+                      Direitos de Downgrade
                     </label>
                     <label className="flex items-center gap-1 text-xs text-slate-700 font-medium">
                       <input
@@ -624,7 +624,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                         checked={editIsSub}
                         onChange={(e) => setEditIsSub(e.target.checked)}
                       />
-                      SaaS Subscription
+                      Assinatura SaaS
                     </label>
                   </div>
 
@@ -633,14 +633,14 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                       type="submit"
                       className="px-3 py-1.5 text-white rounded text-xs font-semibold cursor-pointer" style={{background: "#00549F"}}
                     >
-                      Save Changes
+                      Salvar Alterações
                     </button>
                     <button
                       type="button"
                       onClick={() => setIsEditing(false)}
                       className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded text-xs font-semibold cursor-pointer"
                     >
-                      Cancel
+                      Cancelar
                     </button>
                   </div>
                 </form>
@@ -650,33 +650,33 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                   {/* Local Org Policy Validation Widget */}
                   <div className="p-3 bg-slate-50 rounded-lg border border-slate-150">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-bold text-slate-700 uppercase tracking-wider">License Policy Check</span>
+                      <span className="text-[10px] font-bold text-slate-700 uppercase tracking-wider">Verificação de Política de Licença</span>
                       {selectedLicense.status === "Incomplete" ? (
                         <span className="text-[10px] text-amber-700 font-bold bg-amber-100 px-1.5 py-0.5 rounded flex items-center gap-0.5">
-                          <AlertCircle className="w-3 h-3" /> Incomplete Action Needed
+                          <AlertCircle className="w-3 h-3" /> Ação Incompleta Necessária
                         </span>
                       ) : (
                         <span className="text-[10px] text-emerald-700 font-bold bg-emerald-100 px-1.5 py-0.5 rounded flex items-center gap-0.5">
-                          <CheckCircle className="w-3 h-3" /> Policy Approved
+                          <CheckCircle className="w-3 h-3" /> Política Aprovada
                         </span>
                       )}
                     </div>
                     
                     <div className="mt-2 space-y-1 text-[10px]">
                       <div className="flex items-center justify-between">
-                        <span className="text-slate-500">Bound to Agreement Contract</span>
+                        <span className="text-slate-500">Vinculado a Contrato</span>
                         {selectedLicense.agreementId ? (
-                          <span className="text-emerald-600 font-semibold">Verified</span>
+                          <span className="text-emerald-600 font-semibold">Verificado</span>
                         ) : (
-                          <span className="text-amber-600 font-bold">Missing Required Field</span>
+                          <span className="text-amber-600 font-bold">Campo Obrigatório Ausente</span>
                         )}
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-slate-500">Valid SKUs & Manufacturer Part ID</span>
+                        <span className="text-slate-500">SKUs Válidos e ID de Peça do Fabricante</span>
                         {selectedLicense.sku ? (
-                          <span className="text-emerald-600 font-semibold">Verified</span>
+                          <span className="text-emerald-600 font-semibold">Verificado</span>
                         ) : (
-                          <span className="text-amber-600 font-bold">Missing Required Field</span>
+                          <span className="text-amber-600 font-bold">Campo Obrigatório Ausente</span>
                         )}
                       </div>
                     </div>
@@ -685,15 +685,15 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                   {/* General Specifications info */}
                   <div className="grid grid-cols-2 gap-3 text-xs">
                     <div>
-                      <span className="block text-[10px] font-semibold text-slate-400 uppercase">Publisher</span>
+                      <span className="block text-[10px] font-semibold text-slate-400 uppercase">Editora</span>
                       <span className="font-semibold text-slate-800">{selectedLicense.publisher}</span>
                     </div>
                     <div>
-                      <span className="block text-[10px] font-semibold text-slate-400 uppercase">Metric Model</span>
+                      <span className="block text-[10px] font-semibold text-slate-400 uppercase">Modelo de Métrica</span>
                       <span className="font-semibold text-slate-800">{selectedLicense.metricType}</span>
                     </div>
                     <div>
-                      <span className="block text-[10px] font-semibold text-slate-400 uppercase">Version</span>
+                      <span className="block text-[10px] font-semibold text-slate-400 uppercase">Versão</span>
                       <span className="font-medium text-slate-800">{selectedLicense.version || "N/A"}</span>
                     </div>
                     <div>
@@ -701,26 +701,26 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                       <span className="font-mono text-slate-800">{selectedLicense.sku || "N/A"}</span>
                     </div>
                     <div>
-                      <span className="block text-[10px] font-semibold text-slate-400 uppercase">Agreement</span>
+                      <span className="block text-[10px] font-semibold text-slate-400 uppercase">Contrato</span>
                       <span className="font-semibold hover:underline cursor-pointer" style={{color: "#00549F"}}>
-                        {agreements.find(a => a.id === selectedLicense.agreementId)?.name || "Unbound Contract"}
+                        {agreements.find(a => a.id === selectedLicense.agreementId)?.name || "Contrato Desvinculado"}
                       </span>
                     </div>
                     <div>
-                      <span className="block text-[10px] font-semibold text-slate-400 uppercase">Downgrade Rights</span>
-                      <span className="font-medium text-slate-800">{selectedLicense.downgradeRights ? "Yes" : "No"}</span>
+                      <span className="block text-[10px] font-semibold text-slate-400 uppercase">Direitos de Downgrade</span>
+                      <span className="font-medium text-slate-800">{selectedLicense.downgradeRights ? "Sim" : "Não"}</span>
                     </div>
                     <div>
-                      <span className="block text-[10px] font-semibold text-slate-400 uppercase">License Pool</span>
+                      <span className="block text-[10px] font-semibold text-slate-400 uppercase">Pool de Licenças</span>
                       <span className="font-semibold text-purple-700">
-                        {licensePools.find(p => p.id === selectedLicense.licensePoolId)?.name || "Unassociated"}
+                        {licensePools.find(p => p.id === selectedLicense.licensePoolId)?.name || "Não Associado"}
                       </span>
                     </div>
                   </div>
 
                   {selectedLicense.notes && (
                     <div>
-                      <span className="block text-[10px] font-semibold text-slate-400 uppercase">Notes</span>
+                      <span className="block text-[10px] font-semibold text-slate-400 uppercase">Observações</span>
                       <p className="text-[11px] text-slate-500 mt-1 italic">{selectedLicense.notes}</p>
                     </div>
                   )}
@@ -729,26 +729,26 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                   <div className="border-t border-slate-100 pt-4 space-y-3">
                     <div className="flex items-center justify-between">
                       <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1">
-                        <UserPlus className="w-3.5 h-3.5" /> Manual Allocations
+                        <UserPlus className="w-3.5 h-3.5" /> Alocações Manuais
                       </h4>
                       <span className="text-[10px] text-slate-500">
-                        {assignments.reduce((sum, a) => sum + a.quantity, 0)} allocated
+                        {assignments.reduce((sum, a) => sum + a.quantity, 0)} alocados
                       </span>
                     </div>
 
                     {/* Form to add new assignment */}
                     {selectedLicense.status !== "Archived" && (
                       <form onSubmit={handleAllocate} className="bg-slate-50 p-2.5 rounded-lg border border-slate-150 flex flex-col gap-2">
-                        <span className="block text-[10px] font-semibold text-slate-600">Allocate Entitlement:</span>
+                        <span className="block text-[10px] font-semibold text-slate-600">Alocar Direito:</span>
                         <div className="flex gap-2">
                           <select
                             value={allocTargetType}
                             onChange={(e) => setAllocTargetType(e.target.value as any)}
                             className="text-[10px] border border-slate-200 rounded px-1.5 py-1 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white"
                           >
-                            <option value="User">User</option>
-                            <option value="Device">Device</option>
-                            <option value="OrgUnit">Org Unit</option>
+                            <option value="User">Usuário</option>
+                            <option value="Device">Dispositivo</option>
+                            <option value="OrgUnit">Unidade Organizacional</option>
                           </select>
                           <input
                             type="text"
@@ -758,7 +758,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                                 ? "email@domain.com" 
                                 : allocTargetType === "Device" 
                                 ? "DESKTOP-J89A" 
-                                : "Sales Department"
+                                : "Departamento de Vendas"
                             }
                             value={allocTargetId}
                             onChange={(e) => setAllocTargetId(e.target.value)}
@@ -777,7 +777,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                             disabled={isAllocating}
                             className="px-2 py-1 text-white font-semibold rounded text-[10px] disabled:opacity-50 cursor-pointer" style={{background: "#00549F"}}
                           >
-                            Assign
+                            Atribuir
                           </button>
                         </div>
                       </form>
@@ -786,17 +786,17 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                     {/* Assignments List */}
                     <div className="max-h-[160px] overflow-y-auto space-y-1.5 pr-1">
                       {isAssignmentsLoading ? (
-                        <p className="text-[10px] text-slate-400 text-center py-2">Loading assignments...</p>
+                        <p className="text-[10px] text-slate-400 text-center py-2">Carregando alocações...</p>
                       ) : assignments.length === 0 ? (
                         <p className="text-[10px] text-slate-400 text-center py-2 bg-slate-50 rounded italic border border-dashed border-slate-200">
-                          No manual allocations mapped. All entitlements are autoallocated dynamically by the Compliance calculations.
+                          Nenhuma alocação manual mapeada. Todos os direitos são autoalocados dinamicamente pelos cálculos de Compliance.
                         </p>
                       ) : (
                         assignments.map((asg) => (
                           <div key={asg.id} className="bg-white border border-slate-150 p-2 rounded-lg flex items-center justify-between gap-2 shadow-sm text-[10px]">
                             <div>
                               <div className="flex items-center gap-1">
-                                <span className="font-semibold text-slate-700">Type: {asg.targetType}</span>
+                                <span className="font-semibold text-slate-700">Tipo: {asg.targetType}</span>
                                 <span className="text-[9px] text-slate-400">({new Date(asg.allocatedAt).toLocaleDateString()})</span>
                               </div>
                               <span className="block text-slate-500 font-mono text-[9px] truncate max-w-[140px]">{asg.targetId}</span>
@@ -806,7 +806,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                               <button
                                 onClick={() => handleDeallocate(asg.id)}
                                 className="p-0.5 hover:bg-rose-50 text-slate-400 hover:text-rose-600 rounded cursor-pointer"
-                                title="Deallocate allocation"
+                                title="Desalocar alocação"
                               >
                                 <X className="w-3.5 h-3.5" />
                               </button>
@@ -822,8 +822,8 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
           ) : (
             <div className="flex flex-col items-center justify-center text-center h-full text-slate-400 py-12">
               <Settings className="w-10 h-10 text-slate-200 mb-2 animate-pulse" />
-              <p className="text-xs font-semibold text-slate-600">No License Selected</p>
-              <p className="text-[10px] mt-0.5">Click any software title card to view audit policies, assignments logs, contract spec alignments, and settings drawer.</p>
+              <p className="text-xs font-semibold text-slate-600">Nenhuma Licença Selecionada</p>
+              <p className="text-[10px] mt-0.5">Clique em qualquer cartão de título de software para visualizar políticas de auditoria, logs de alocações, alinhamentos de especificações de contrato e painel de configurações.</p>
             </div>
           )}
         </div>
@@ -841,7 +841,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
             >
               <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
                 <h3 className="font-bold text-slate-900 text-sm flex items-center gap-1.5">
-                  <FileText className="w-4 h-4" style={{color: "#00549F"}} /> Create Enterprise License Asset
+                  <FileText className="w-4 h-4" style={{color: "#00549F"}} /> Criar Ativo de Licença Corporativa
                 </h3>
                 <button
                   onClick={() => setShowCreateModal(false)}
@@ -855,11 +855,11 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Product Title *</label>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Título do Produto *</label>
                     <input
                       type="text"
                       required
-                      placeholder="e.g. Office 365 Enterprise"
+                      placeholder="ex.: Office 365 Enterprise"
                       value={softwareName}
                       onChange={(e) => setSoftwareName(e.target.value)}
                       className="w-full text-xs border border-slate-200 rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
@@ -867,11 +867,11 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Publisher / Manufacturer *</label>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Editora / Fabricante *</label>
                     <input
                       type="text"
                       required
-                      placeholder="e.g. Microsoft"
+                      placeholder="ex.: Microsoft"
                       value={publisher}
                       onChange={(e) => setPublisher(e.target.value)}
                       className="w-full text-xs border border-slate-200 rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
@@ -881,7 +881,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Metric Reconciliation Model *</label>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Modelo de Reconciliação de Métrica *</label>
                     <select
                       value={metricType}
                       onChange={(e) => setMetricType(e.target.value as MetricType)}
@@ -895,15 +895,15 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
 
                   <div>
                     <label className="block text-[10px] font-bold text-slate-500 uppercase flex items-center justify-between">
-                      <span>Agreement (Contract)</span>
-                      <span className="text-[8px] text-amber-600 font-bold">Policy Mandatory</span>
+                      <span>Contrato (Acordo)</span>
+                      <span className="text-[8px] text-amber-600 font-bold">Obrigatório por Política</span>
                     </label>
                     <select
                       value={agreementId}
                       onChange={(e) => setAgreementId(e.target.value)}
                       className="w-full text-xs border border-slate-200 rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     >
-                      <option value="">-- Leave Unbound (Forces Incomplete) --</option>
+                      <option value="">-- Deixar Desvinculado (Força Incompleto) --</option>
                       {agreements.map((a) => (
                         <option key={a.id} value={a.id}>{a.name} ({a.number})</option>
                       ))}
@@ -912,13 +912,13 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-bold text-slate-500 uppercase">License Pool</label>
+                  <label className="block text-[10px] font-bold text-slate-500 uppercase">Pool de Licenças</label>
                   <select
                     value={licensePoolId}
                     onChange={(e) => setLicensePoolId(e.target.value)}
                     className="w-full text-xs border border-slate-200 rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                   >
-                    <option value="">-- No License Pool --</option>
+                    <option value="">-- Nenhum Pool de Licenças --</option>
                     {licensePools.map((pool) => (
                       <option key={pool.id} value={pool.id}>{pool.name}</option>
                     ))}
@@ -928,12 +928,12 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-[10px] font-bold text-slate-500 uppercase flex items-center justify-between">
-                      <span>SKU Code (Part Number)</span>
-                      <span className="text-[8px] text-amber-600 font-bold">Policy Mandatory</span>
+                      <span>Código SKU (Nº de Peça)</span>
+                      <span className="text-[8px] text-amber-600 font-bold">Obrigatório por Política</span>
                     </label>
                     <input
                       type="text"
-                      placeholder="e.g. MS-WS22-CORE"
+                      placeholder="ex.: MS-WS22-CORE"
                       value={sku}
                       onChange={(e) => setSku(e.target.value)}
                       className="w-full text-xs border border-slate-200 rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
@@ -941,10 +941,10 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Version Tag</label>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Tag de Versão</label>
                     <input
                       type="text"
-                      placeholder="e.g. 2022 R2"
+                      placeholder="ex.: 2022 R2"
                       value={version}
                       onChange={(e) => setVersion(e.target.value)}
                       className="w-full text-xs border border-slate-200 rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
@@ -955,12 +955,12 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                 {/* Initial Purchase Information (Creates purchase entitlement) */}
                 <div className="p-4 bg-slate-50 border border-slate-200 rounded-lg space-y-3">
                   <h4 className="text-[10px] font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1">
-                    <Calendar className="w-3.5 h-3.5" style={{color: "#00549F"}} /> Initial Purchase Entitlement (PO / Invoice line)
+                    <Calendar className="w-3.5 h-3.5" style={{color: "#00549F"}} /> Direito de Compra Inicial (PO / Linha de Nota Fiscal)
                   </h4>
                   
                   <div className="grid grid-cols-3 gap-3">
                     <div>
-                      <label className="block text-[9px] font-semibold text-slate-500 uppercase">Quantity</label>
+                      <label className="block text-[9px] font-semibold text-slate-500 uppercase">Quantidade</label>
                       <input
                         type="number"
                         required
@@ -971,7 +971,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                       />
                     </div>
                     <div>
-                      <label className="block text-[9px] font-semibold text-slate-500 uppercase">Unit Cost ($)</label>
+                      <label className="block text-[9px] font-semibold text-slate-500 uppercase">Custo Unitário ($)</label>
                       <input
                         type="number"
                         required
@@ -982,7 +982,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                       />
                     </div>
                     <div>
-                      <label className="block text-[9px] font-semibold text-slate-500 uppercase">Invoice #</label>
+                      <label className="block text-[9px] font-semibold text-slate-500 uppercase">Nº da Nota Fiscal</label>
                       <input
                         type="text"
                         required
@@ -1001,7 +1001,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                       checked={downgradeRights}
                       onChange={(e) => setDowngradeRights(e.target.checked)}
                     />
-                    Grant Downgrade Rights
+                    Conceder Direitos de Downgrade
                   </label>
                   <label className="flex items-center gap-1.5 text-xs text-slate-700 font-medium">
                     <input
@@ -1009,15 +1009,15 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                       checked={isSubscription}
                       onChange={(e) => setIsSubscription(e.target.checked)}
                     />
-                    SaaS Cloud Subscription
+                    Assinatura SaaS em Nuvem
                   </label>
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-bold text-slate-500 uppercase">Notes & Audit Instructions</label>
+                  <label className="block text-[10px] font-bold text-slate-500 uppercase">Observações e Instruções de Auditoria</label>
                   <textarea
                     rows={2}
-                    placeholder="Enter special contract notes or downgrade paths."
+                    placeholder="Insira observações especiais do contrato ou caminhos de downgrade."
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                     className="w-full text-xs border border-slate-200 rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
@@ -1037,13 +1037,13 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                     onClick={() => setShowCreateModal(false)}
                     className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold cursor-pointer"
                   >
-                    Cancel
+                    Cancelar
                   </button>
                   <button
                     type="submit"
                     className="px-4 py-2 text-white rounded-lg text-xs font-semibold cursor-pointer" style={{background: "#00549F"}}
                   >
-                    Save & Reconcile
+                    Salvar e Reconciliar
                   </button>
                 </div>
               </form>
@@ -1064,7 +1064,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
             >
               <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
                 <h3 className="font-bold text-slate-900 text-sm flex items-center gap-1.5">
-                  <Folder className="w-4 h-4 text-purple-600" /> Manage Enterprise License Pools
+                  <Folder className="w-4 h-4 text-purple-600" /> Gerenciar Pools de Licenças Corporativas
                 </h3>
                 <button
                   onClick={() => setShowPoolManager(false)}
@@ -1078,14 +1078,14 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                 
                 {/* Left Side: Create New Pool Form */}
                 <div className="space-y-4 border-r border-slate-100 pr-0 md:pr-6">
-                  <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider">Create New Pool</h4>
+                  <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider">Criar Novo Pool</h4>
                   <form onSubmit={handleCreatePool} className="space-y-3">
                     <div>
-                      <label className="block text-[10px] font-bold text-slate-500 uppercase">Pool Name *</label>
+                      <label className="block text-[10px] font-bold text-slate-500 uppercase">Nome do Pool *</label>
                       <input
                         type="text"
                         required
-                        placeholder="e.g. European Operations Pool"
+                        placeholder="ex.: Pool de Operações Europeias"
                         value={newPoolName}
                         onChange={(e) => setNewPoolName(e.target.value)}
                         className="w-full text-xs border border-slate-200 rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
@@ -1093,10 +1093,10 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                     </div>
 
                     <div>
-                      <label className="block text-[10px] font-bold text-slate-500 uppercase">Description</label>
+                      <label className="block text-[10px] font-bold text-slate-500 uppercase">Descrição</label>
                       <textarea
                         rows={3}
-                        placeholder="Purpose or region alignment..."
+                        placeholder="Propósito ou alinhamento de região..."
                         value={newPoolDesc}
                         onChange={(e) => setNewPoolDesc(e.target.value)}
                         className="w-full text-xs border border-slate-200 rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
@@ -1104,10 +1104,10 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                     </div>
 
                     <div>
-                      <label className="block text-[10px] font-bold text-slate-500 uppercase">Owner Org Node / Department</label>
+                      <label className="block text-[10px] font-bold text-slate-500 uppercase">Nó Organizacional / Departamento Responsável</label>
                       <input
                         type="text"
-                        placeholder="e.g. EMEA Division"
+                        placeholder="ex.: Divisão EMEA"
                         value={newPoolOwner}
                         onChange={(e) => setNewPoolOwner(e.target.value)}
                         className="w-full text-xs border border-slate-200 rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
@@ -1118,7 +1118,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                       type="submit"
                       className="w-full py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg text-xs transition-all cursor-pointer"
                     >
-                      Create Pool
+                      Criar Pool
                     </button>
                   </form>
                 </div>
@@ -1126,7 +1126,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                 {/* Right Side: Pools List */}
                 <div className="space-y-4">
                   <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center justify-between">
-                    <span>Active License Pools</span>
+                    <span>Pools de Licenças Ativos</span>
                     <span className="bg-purple-100 text-purple-800 rounded-full px-2 py-0.5 text-[9px] font-bold">
                       {licensePools.length} pools
                     </span>
@@ -1135,7 +1135,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                   <div className="space-y-2.5 max-h-[300px] overflow-y-auto pr-1">
                     {licensePools.length === 0 ? (
                       <div className="text-center py-8 text-slate-400 text-xs italic">
-                        No custom pools defined. Use the form to establish your first license containment boundary.
+                        Nenhum pool personalizado definido. Use o formulário para estabelecer seu primeiro limite de contenção de licenças.
                       </div>
                     ) : (
                       licensePools.map((pool) => {
@@ -1149,7 +1149,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                             <button
                               onClick={() => handleDeletePool(pool.id)}
                               className="absolute top-2 right-2 p-1 text-slate-400 hover:text-rose-600 rounded opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
-                              title="Delete License Pool"
+                              title="Excluir Pool de Licenças"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
                             </button>
@@ -1158,11 +1158,11 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                               <p className="text-slate-500 text-[10px] mt-0.5 leading-snug">{pool.description}</p>
                             )}
                             {pool.ownerOrgNodeId && (
-                              <p className="text-[9px] text-purple-600 font-semibold mt-1">Owner: {pool.ownerOrgNodeId}</p>
+                              <p className="text-[9px] text-purple-600 font-semibold mt-1">Responsável: {pool.ownerOrgNodeId}</p>
                             )}
                             <div className="mt-2 pt-2 border-t border-slate-200/60 flex items-center justify-between text-[9px] text-slate-500">
-                              <span>Licenses associated: <strong>{associatedCount}</strong></span>
-                              <span>Total Quantity: <strong className="text-purple-700">{totalEntitlements}</strong></span>
+                              <span>Licenças associadas: <strong>{associatedCount}</strong></span>
+                              <span>Quantidade Total: <strong className="text-purple-700">{totalEntitlements}</strong></span>
                             </div>
                           </div>
                         );
@@ -1179,7 +1179,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                   onClick={() => setShowPoolManager(false)}
                   className="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-lg text-xs font-semibold cursor-pointer"
                 >
-                  Close Manager
+                  Fechar Gerenciador
                 </button>
               </div>
             </motion.div>

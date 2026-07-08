@@ -48,7 +48,7 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
     if (!file) return;
 
     if (!file.type.startsWith("image/") && file.type !== "application/pdf") {
-      setError("Please upload an image file (PNG/JPG) or document.");
+      setError("Faça upload de um arquivo de imagem (PNG/JPG) ou documento.");
       return;
     }
 
@@ -68,7 +68,7 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
 
   const handleIngest = async () => {
     if (!customText && !uploadedImage) {
-      setError("Please upload an invoice file or select a sample description first.");
+      setError("Faça upload de um arquivo de fatura ou selecione uma descrição de amostra primeiro.");
       return;
     }
 
@@ -90,14 +90,14 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
 
       if (!res.ok) {
         const errJson = await res.json();
-        throw new Error(errJson.error || "Failed to extract entitlement from document.");
+        throw new Error(errJson.error || "Falha ao extrair direito do documento.");
       }
 
       const extracted = await res.json();
       setExtractedData(extracted);
     } catch (e: any) {
       console.error(e);
-      setError(e.message || "An unexpected error occurred during AI invoice parsing.");
+      setError(e.message || "Ocorreu um erro inesperado durante o parsing de fatura por IA.");
     } finally {
       setIsProcessing(false);
     }
@@ -124,7 +124,7 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
         metricType: data.metricType,
         sku: data.sku || "N/A",
         version: "v1.0",
-        notes: `Manual entry. Invoice ${data.invoiceNumber || "N/A"}, vendor ${data.vendor || "N/A"}.`,
+        notes: `Inserção manual. Fatura ${data.invoiceNumber || "N/D"}, fornecedor ${data.vendor || "N/D"}.`,
         isSubscription: false,
         purchases: [{
           quantity: data.quantity,
@@ -137,13 +137,13 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
     });
     if (!res.ok) {
       const err = await res.json();
-      throw new Error(err.error || "Failed to save license.");
+      throw new Error(err.error || "Falha ao salvar licença.");
     }
   };
 
   const handleSaveManual = async () => {
     if (!manualForm.softwareName || !manualForm.publisher) {
-      setError("Software Name and Publisher are required.");
+      setError("Nome do Software e Editora são obrigatórios.");
       return;
     }
     setError(null);
@@ -190,7 +190,7 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
       setIsSaved(true);
       onRefresh();
     } catch (e: any) {
-      setError(e.message || "Failed to register AI-extracted license.");
+      setError(e.message || "Falha ao registrar licença extraída por IA.");
     }
   };
 
@@ -201,12 +201,12 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
         <div className="flex items-center gap-2">
           <h1 className="text-2xl font-bold tracking-tight text-slate-900">
             <Sparkles className="w-6 h-6 text-[#00549F]" />
-            AI-Based Entitlement Ingestion
+            Ingestão de Direitos Baseada em IA
           </h1>
-          <HintTooltip text="Upload and process invoice files to automatically populate license purchase records. Supports CSV, PDF, and EDI formats with line-item extraction." side="right" size="md" />
+          <HintTooltip text="Faça upload e processe arquivos de fatura para preencher automaticamente registros de compra de licenças. Suporta formatos CSV, PDF e EDI com extração de itens de linha." side="right" size="md" />
         </div>
         <p className="text-slate-500 text-sm">
-          Upload receipt images or input purchase descriptions. Our Gemini parsing model extracts licensing quantities, values, currencies, and SKUs.
+          Faça upload de imagens de recibos ou insira descrições de compra. Nosso modelo de parsing Gemini extrai quantidades de licenciamento, valores, moedas e SKUs.
         </p>
       </div>
 
@@ -218,7 +218,7 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
           
           {/* File Upload card */}
           <div className="bg-white border border-[#DDDDDD] rounded-xl p-5 shadow-sm space-y-4">
-            <h3 className="font-semibold text-slate-800 text-xs uppercase tracking-wider">Option A: Upload Invoice / PO Receipt</h3>
+            <h3 className="font-semibold text-slate-800 text-xs uppercase tracking-wider">Opção A: Upload de Fatura / Recibo de PO</h3>
             
             <div className="border-2 border-dashed border-[#DDDDDD] hover:border-[#00549F] rounded-xl p-8 text-center transition-all cursor-pointer relative">
               <input
@@ -228,21 +228,21 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
                 className="absolute inset-0 opacity-0 cursor-pointer"
               />
               <Upload className="w-10 h-10 text-slate-300 mx-auto mb-3" />
-              <p className="text-xs font-semibold text-slate-700">Drag & drop or click to upload</p>
-              <p className="text-[10px] text-slate-400 mt-1">Supports PNG, JPG, JPEG, and PDF documents</p>
+              <p className="text-xs font-semibold text-slate-700">Arraste e solte ou clique para fazer upload</p>
+              <p className="text-[10px] text-slate-400 mt-1">Suporta PNG, JPG, JPEG e documentos PDF</p>
             </div>
 
             {uploadedImage && (
               <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-150 flex items-center justify-between text-xs">
                 <div className="flex items-center gap-2">
                   <FileText className="w-4 h-4 text-[#00549F]" />
-                  <span className="font-semibold text-slate-700">Invoice Image Attached</span>
+                  <span className="font-semibold text-slate-700">Imagem de Fatura Anexada</span>
                 </div>
                 <button
                   onClick={() => { setUploadedImage(null); setImageMime(null); }}
                   className="text-[10px] font-bold text-rose-600 hover:underline cursor-pointer"
                 >
-                  Remove
+                  Remover
                 </button>
               </div>
             )}
@@ -251,33 +251,33 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
           {/* Option B: Manual Entry Form */}
           <div className="bg-white border border-[#DDDDDD] rounded-xl p-5 shadow-sm space-y-4">
             <div className="flex items-center gap-2">
-              <h3 className="font-semibold text-slate-800 text-xs uppercase tracking-wider">Option B: Manual Contract Entry</h3>
-              <span className="text-[10px] bg-sky-50 text-sky-700 px-2 py-0.5 rounded-full font-bold">Direct Save</span>
+              <h3 className="font-semibold text-slate-800 text-xs uppercase tracking-wider">Opção B: Inserção Manual de Contrato</h3>
+              <span className="text-[10px] bg-sky-50 text-sky-700 px-2 py-0.5 rounded-full font-bold">Salvamento Direto</span>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#595959" }}>Software Name *</label>
+                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#595959" }}>Nome do Software *</label>
                 <input
                   type="text"
                   value={manualForm.softwareName}
                   onChange={(e) => setManualForm({ ...manualForm, softwareName: e.target.value })}
-                  placeholder="e.g. Microsoft SQL Server"
+                  placeholder="ex.: Microsoft SQL Server"
                   className="w-full text-xs border border-[#DDDDDD] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#00549F] bg-white"
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#595959" }}>Publisher *</label>
+                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#595959" }}>Editora *</label>
                 <input
                   type="text"
                   value={manualForm.publisher}
                   onChange={(e) => setManualForm({ ...manualForm, publisher: e.target.value })}
-                  placeholder="e.g. Microsoft Corporation"
+                  placeholder="ex.: Microsoft Corporation"
                   className="w-full text-xs border border-[#DDDDDD] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#00549F] bg-white"
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#595959" }}>Quantity</label>
+                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#595959" }}>Quantidade</label>
                 <input
                   type="number"
                   min={1}
@@ -287,7 +287,7 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#595959" }}>Unit Cost</label>
+                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#595959" }}>Custo Unitário</label>
                 <input
                   type="number"
                   min={0}
@@ -298,7 +298,7 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#595959" }}>Currency</label>
+                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#595959" }}>Moeda</label>
                 <select
                   value={manualForm.currency}
                   onChange={(e) => setManualForm({ ...manualForm, currency: e.target.value })}
@@ -310,7 +310,7 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
                 </select>
               </div>
               <div>
-                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#595959" }}>Metric Type</label>
+                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#595959" }}>Tipo de Métrica</label>
                 <select
                   value={manualForm.metricType}
                   onChange={(e) => setManualForm({ ...manualForm, metricType: e.target.value as MetricType })}
@@ -322,27 +322,27 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
                 </select>
               </div>
               <div>
-                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#595959" }}>SKU / Part Number</label>
+                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#595959" }}>SKU / Nº de Peça</label>
                 <input
                   type="text"
                   value={manualForm.sku}
                   onChange={(e) => setManualForm({ ...manualForm, sku: e.target.value })}
-                  placeholder="Optional"
+                  placeholder="Opcional"
                   className="w-full text-xs border border-[#DDDDDD] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#00549F] bg-white"
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#595959" }}>Invoice Number</label>
+                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#595959" }}>Nº da Fatura</label>
                 <input
                   type="text"
                   value={manualForm.invoiceNumber}
                   onChange={(e) => setManualForm({ ...manualForm, invoiceNumber: e.target.value })}
-                  placeholder="Optional"
+                  placeholder="Opcional"
                   className="w-full text-xs border border-[#DDDDDD] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#00549F] bg-white"
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#595959" }}>Purchase Date</label>
+                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#595959" }}>Data de Compra</label>
                 <input
                   type="date"
                   value={manualForm.purchaseDate}
@@ -351,12 +351,12 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#595959" }}>Vendor</label>
+                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#595959" }}>Fornecedor</label>
                 <input
                   type="text"
                   value={manualForm.vendor}
                   onChange={(e) => setManualForm({ ...manualForm, vendor: e.target.value })}
-                  placeholder="Optional"
+                  placeholder="Opcional"
                   className="w-full text-xs border border-[#DDDDDD] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#00549F] bg-white"
                 />
               </div>
@@ -368,7 +368,7 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
               className="w-full py-2.5 bg-[#00549F] text-white text-xs font-semibold rounded-lg flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm disabled:opacity-50"
             >
               <Save className="w-4 h-4" />
-              {isProcessing ? "Saving..." : "Save Contract to License Inventory"}
+              {isProcessing ? "Salvando..." : "Salvar Contrato no Inventário de Licenças"}
             </button>
           </div>
         </div>
@@ -377,14 +377,14 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
         <div className="bg-white border border-[#DDDDDD] rounded-xl p-5 shadow-sm flex flex-col justify-between">
           <div className="space-y-6">
             <h3 className="font-semibold text-slate-800 text-xs uppercase tracking-wider border-b border-slate-100 pb-3">
-              AI Structured Extraction Preview
+              Pré-visualização de Extração Estruturada por IA
             </h3>
 
             {error && (
               <div className="p-4 bg-rose-50 border border-rose-200 rounded-lg flex gap-2 text-xs text-rose-700">
                 <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
                 <div>
-                  <p className="font-semibold">Extraction Failed</p>
+                  <p className="font-semibold">Falha na Extração</p>
                   <p className="text-[10px] mt-0.5 leading-relaxed">{error}</p>
                 </div>
               </div>
@@ -393,16 +393,16 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
             {isProcessing && (
               <div className="p-12 text-center text-slate-400 space-y-3">
                 <RefreshCw className="w-8 h-8 animate-spin text-[#00549F] mx-auto" />
-                <p className="text-xs font-semibold text-slate-700">Scanning document OCR & structures...</p>
-                <p className="text-[10px]">Reconciling product SKUs, licensing matrices, and vendor entities.</p>
+                <p className="text-xs font-semibold text-slate-700">Escaneando OCR e estruturas do documento...</p>
+                <p className="text-[10px]">Conciliando SKUs de produtos, matrizes de licenciamento e entidades de fornecedores.</p>
               </div>
             )}
 
             {!extractedData && !isProcessing && !error && (
               <div className="p-12 text-center text-slate-400">
                 <Sparkles className="w-10 h-10 text-slate-200 mx-auto mb-3" />
-                <p className="text-xs font-semibold text-slate-600">Waiting for AI Ingest Trigger</p>
-                <p className="text-[10px] mt-0.5">Upload a receipt or select an interactive template above to see Gemini OCR and metadata mapping.</p>
+                <p className="text-xs font-semibold text-slate-600">Aguardando Gatilho de Ingestão por IA</p>
+                <p className="text-[10px] mt-0.5">Faça upload de um recibo ou selecione um template interativo acima para ver o OCR Gemini e o mapeamento de metadados.</p>
               </div>
             )}
 
@@ -411,46 +411,46 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
                 <div className="p-3.5 bg-emerald-50 rounded-lg border border-emerald-200 flex gap-2 text-emerald-800 text-[11px]">
                   <Check className="w-4 h-4 shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-semibold">Gemini Ingest Successful!</p>
-                    <p className="text-[10px] mt-0.5">Metadata structured and validated against Snow Atlas Data Catalog heuristics.</p>
+                    <p className="font-semibold">Ingestão Gemini Bem-sucedida!</p>
+                    <p className="text-[10px] mt-0.5">Metadados estruturados e validados contra heurísticas do Catálogo de Dados Snow Atlas.</p>
                   </div>
                 </div>
 
                 {/* Structured details display */}
                 <div className="grid grid-cols-2 gap-4 text-xs border border-slate-150 p-4 rounded-xl bg-slate-50/50">
                   <div>
-                    <span className="block text-[10px] font-bold text-slate-400 uppercase">Product Name</span>
+                    <span className="block text-[10px] font-bold text-slate-400 uppercase">Nome do Produto</span>
                     <span className="font-semibold text-slate-800">{extractedData.softwareName}</span>
                   </div>
                   <div>
-                    <span className="block text-[10px] font-bold text-slate-400 uppercase">Publisher</span>
+                    <span className="block text-[10px] font-bold text-slate-400 uppercase">Editora</span>
                     <span className="font-semibold text-slate-800">{extractedData.publisher}</span>
                   </div>
                   <div>
-                    <span className="block text-[10px] font-bold text-slate-400 uppercase">Purchased Quantity</span>
-                    <span className="font-bold text-slate-800">{extractedData.quantity} Licenses</span>
+                    <span className="block text-[10px] font-bold text-slate-400 uppercase">Quantidade Adquirida</span>
+                    <span className="font-bold text-slate-800">{extractedData.quantity} Licenças</span>
                   </div>
                   <div>
-                    <span className="block text-[10px] font-bold text-slate-400 uppercase">Unit Cost</span>
+                    <span className="block text-[10px] font-bold text-slate-400 uppercase">Custo Unitário</span>
                     <span className="font-semibold text-slate-800">
-                      {new Intl.NumberFormat("en-US", { style: "currency", currency: extractedData.currency || "USD" }).format(extractedData.unitCost)}
+                      {new Intl.NumberFormat("pt-BR", { style: "currency", currency: extractedData.currency || "USD" }).format(extractedData.unitCost)}
                     </span>
                   </div>
                   <div>
-                    <span className="block text-[10px] font-bold text-slate-400 uppercase">SKU / Part Number</span>
-                    <span className="font-mono text-slate-800">{extractedData.sku || "N/A"}</span>
+                    <span className="block text-[10px] font-bold text-slate-400 uppercase">SKU / Nº de Peça</span>
+                    <span className="font-mono text-slate-800">{extractedData.sku || "N/D"}</span>
                   </div>
                   <div>
-                    <span className="block text-[10px] font-bold text-slate-400 uppercase">Invoice Number</span>
-                    <span className="font-mono text-slate-800">{extractedData.invoiceNumber || "N/A"}</span>
+                    <span className="block text-[10px] font-bold text-slate-400 uppercase">Nº da Fatura</span>
+                    <span className="font-mono text-slate-800">{extractedData.invoiceNumber || "N/D"}</span>
                   </div>
                   <div>
-                    <span className="block text-[10px] font-bold text-slate-400 uppercase">Purchase Date</span>
-                    <span className="font-medium text-slate-800">{extractedData.purchaseDate || "N/A"}</span>
+                    <span className="block text-[10px] font-bold text-slate-400 uppercase">Data de Compra</span>
+                    <span className="font-medium text-slate-800">{extractedData.purchaseDate || "N/D"}</span>
                   </div>
                   <div>
-                    <span className="block text-[10px] font-bold text-slate-400 uppercase">Vendor Store</span>
-                    <span className="font-medium text-slate-800">{extractedData.vendor || "N/A"}</span>
+                    <span className="block text-[10px] font-bold text-slate-400 uppercase">Loja do Fornecedor</span>
+                    <span className="font-medium text-slate-800">{extractedData.vendor || "N/D"}</span>
                   </div>
                 </div>
               </div>
@@ -465,26 +465,26 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
                   <div className="bg-emerald-500 text-white rounded-full p-2">
                     <Check className="w-5 h-5" />
                   </div>
-                  <p className="text-xs font-bold text-slate-800">Asset Saved & Active!</p>
-                  <p className="text-[10px] text-slate-400">The entitlement has been registered and compliance snaps are recalculated.</p>
+                  <p className="text-xs font-bold text-slate-800">Ativo Salvo e Ativo!</p>
+                  <p className="text-[10px] text-slate-400">O direito foi registrado e os snapshots de conformidade foram recalculados.</p>
                   <button
                     onClick={onNavigateToLicenses}
                     className="mt-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-lg transition-all cursor-pointer"
                   >
-                    Go to Licenses Inventory
+                    Ir para Inventário de Licenças
                   </button>
                 </div>
               ) : (
                 <div className="space-y-3">
                   <p className="text-[10px] text-slate-400">
-                    Registering this extracted data creates a new official software license record and seeds an entitlement purchase line dynamically bound to compliance snapshots.
+                    O registro destes dados extraídos cria um novo registro oficial de licença de software e gera uma linha de compra de direito dinamicamente vinculada a snapshots de conformidade.
                   </p>
                   <button
                     onClick={handleRegisterExtracted}
                     className="w-full py-2.5 bg-[#00549F] text-white text-xs font-semibold rounded-lg flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm"
                   >
                     <Layers className="w-4 h-4" />
-                    Register Entitlement to Asset Catalog
+                    Registrar Direito no Catálogo de Ativos
                   </button>
                 </div>
               )}

@@ -38,10 +38,10 @@ export function ReportsView() {
         setReports(await repRes.json());
         setSchedules(await schedRes.json());
       } else {
-        setError("Failed to fetch reports database.");
+        setError("Falha ao buscar banco de dados de relatórios.");
       }
     } catch (e: any) {
-      setError(e.message || "An error occurred");
+      setError(e.message || "Ocorreu um erro");
     } finally {
       setLoading(false);
     }
@@ -55,19 +55,19 @@ export function ReportsView() {
   const getAvailableColumns = (target: string) => {
     switch (target) {
       case "Licenses":
-        return ["Software Name", "Publisher", "Metric Type", "Total Quantity", "Allocated Quantity", "Status"];
+        return ["Nome do Software", "Editora", "Tipo de Métrica", "Quantidade Total", "Quantidade Alocada", "Status"];
       case "Computers":
-        return ["Name", "Cores", "Is Virtual", "OS", "RAM GB", "CPU Model", "Brand", "Model", "Serial Number", "Warranty Status"];
+        return ["Nome", "Núcleos", "É Virtual", "SO", "GB RAM", "Modelo da CPU", "Marca", "Modelo", "Nº de Série", "Status de Garantia"];
       case "Applications":
-        return ["Software Name", "Publisher", "Category Id", "Default Sku", "Version", "EOL Date", "EOS Date", "Is Malware"];
+        return ["Nome do Software", "Editora", "ID da Categoria", "SKU Padrão", "Versão", "Data EOL", "Data EOS", "É Malware"];
       case "Subscriptions":
-        return ["Name", "Publisher", "Category", "Risk Score", "Is Approved", "Family Name", "Discovered Sources"];
+        return ["Nome", "Editora", "Categoria", "Pontuação de Risco", "Aprovado", "Nome da Família", "Fontes Descobertas"];
       case "Cloud":
-        return ["Name", "Provider", "Type", "Cost", "Pricing Model", "Software Installed", "Recommendation"];
+        return ["Nome", "Provedor", "Tipo", "Custo", "Modelo de Precificação", "Software Instalado", "Recomendação"];
       case "Containers":
-        return ["Pod Name", "Namespace", "Container Name", "Image Name", "Software Running", "License Status"];
+        return ["Nome do Pod", "Namespace", "Nome do Container", "Nome da Imagem", "Software em Execução", "Status da Licença"];
       default:
-        return ["ID", "Name"];
+        return ["ID", "Nome"];
     }
   };
 
@@ -105,10 +105,10 @@ export function ReportsView() {
         setShowBuilder(false);
         await fetchData();
       } else {
-        setError("Failed to save report template.");
+        setError("Falha ao salvar template de relatório.");
       }
     } catch (e: any) {
-      setError(e.message || "Error saving report");
+      setError(e.message || "Erro ao salvar relatório");
     }
   };
 
@@ -135,10 +135,10 @@ export function ReportsView() {
         setShowScheduler(false);
         await fetchData();
       } else {
-        setError("Failed to configure report schedule.");
+        setError("Falha ao configurar agendamento de relatório.");
       }
     } catch (e: any) {
-      setError(e.message || "Error scheduling report");
+      setError(e.message || "Erro ao agendar relatório");
     }
   };
 
@@ -158,10 +158,10 @@ export function ReportsView() {
           mimeType: fileData.mimeType
         });
       } else {
-        setError("Failed to execute report export.");
+        setError("Falha ao executar exportação de relatório.");
       }
     } catch (e: any) {
-      setError(e.message || "Error during report export");
+      setError(e.message || "Erro durante exportação de relatório");
     }
   };
 
@@ -182,7 +182,7 @@ export function ReportsView() {
       {error && (
         <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-md text-xs text-red-700 flex items-center justify-between">
           <span>{error}</span>
-          <button onClick={() => setError(null)} className="font-bold underline cursor-pointer">Dismiss</button>
+          <button onClick={() => setError(null)} className="font-bold underline cursor-pointer">Dispensar</button>
         </div>
       )}
 
@@ -192,8 +192,8 @@ export function ReportsView() {
         <div className="bg-white p-6 rounded-xl border border-[#DDDDDD] shadow-xs space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900">Effective License Position Reports</h3>
-              <p className="text-[10px] text-slate-400 mt-0.5">Select a pre-built standard report or run exports</p>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900">Relatórios de Posição Efetiva de Licenças</h3>
+              <p className="text-[10px] text-slate-400 mt-0.5">Selecione um relatório padrão pré-construído ou execute exportações</p>
             </div>
             <button
               onClick={() => setShowBuilder(!showBuilder)}
@@ -201,57 +201,57 @@ export function ReportsView() {
               id="btn-custom-report-builder"
             >
               <Plus className="w-3.5 h-3.5" />
-              Build Report
+              Construir Relatório
             </button>
           </div>
 
           {/* Builder Form */}
           {showBuilder && (
             <form onSubmit={handleSaveReport} className="bg-slate-50 p-5 rounded-lg border border-[#DDDDDD] space-y-4">
-              <h4 className="text-[11px] font-bold uppercase tracking-wider text-slate-700 border-b border-[#DDDDDD] pb-2">Custom Report Configuration</h4>
+              <h4 className="text-[11px] font-bold uppercase tracking-wider text-slate-700 border-b border-[#DDDDDD] pb-2">Configuração de Relatório Personalizado</h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[10px] font-bold text-slate-500 mb-1">Report Name</label>
+                  <label className="block text-[10px] font-bold text-slate-500 mb-1">Nome do Relatório</label>
                   <input
                     type="text"
                     value={reportName}
                     onChange={e => setReportName(e.target.value)}
-                    placeholder="E.g. Oracle Database Deployment Status"
+                    placeholder="Ex.: Status de Implantação do Oracle Database"
                     className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-[10px] font-bold text-slate-500 mb-1">Target Entity Module</label>
+                  <label className="block text-[10px] font-bold text-slate-500 mb-1">Módulo de Entidade Alvo</label>
                   <select
                     value={reportTarget}
                     onChange={e => setReportTarget(e.target.value as any)}
                     className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800"
                   >
-                    <option value="Licenses">Licenses (SAM Core)</option>
-                    <option value="Computers">Computers (HAM / Hardware)</option>
-                    <option value="Applications">Applications (Intelligence Catalog)</option>
-                    <option value="Subscriptions">Subscriptions (SaaS SSM)</option>
-                    <option value="Cloud">Cloud Licenses (AWS/Azure/GCP)</option>
-                    <option value="Containers">K8s Containers (K8s/OpenShift)</option>
+                    <option value="Licenses">Licenças (SAM Core)</option>
+                    <option value="Computers">Computadores (HAM / Hardware)</option>
+                    <option value="Applications">Aplicativos (Catálogo de Inteligência)</option>
+                    <option value="Subscriptions">Assinaturas (SaaS SSM)</option>
+                    <option value="Cloud">Licenças Cloud (AWS/Azure/GCP)</option>
+                    <option value="Containers">Containers K8s (K8s/OpenShift)</option>
                   </select>
                 </div>
               </div>
 
               <div>
-                <label className="block text-[10px] font-bold text-slate-500 mb-1">Description</label>
+                <label className="block text-[10px] font-bold text-slate-500 mb-1">Descrição</label>
                 <input
                   type="text"
                   value={reportDesc}
                   onChange={e => setReportDesc(e.target.value)}
-                  placeholder="E.g. Full inventory of active Oracle components matched against downgrade rights"
+                  placeholder="Ex.: Inventário completo de componentes Oracle ativos comparados com direitos de downgrade"
                   className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800"
                 />
               </div>
 
               {/* Column Selector */}
               <div>
-                <label className="block text-[10px] font-bold text-slate-500 mb-1">Available Columns (Check/Uncheck)</label>
+                <label className="block text-[10px] font-bold text-slate-500 mb-1">Colunas Disponíveis (Marcar/Desmarcar)</label>
                 <div className="flex flex-wrap gap-2 p-2.5 bg-white border border-[#DDDDDD] rounded-lg max-h-32 overflow-y-auto">
                   {getAvailableColumns(reportTarget).map(col => {
                     const checked = selectedColumns.includes(col);
@@ -280,22 +280,22 @@ export function ReportsView() {
               {/* Advanced Filters */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-white p-3 rounded-lg border border-slate-100">
                 <div>
-                  <label className="block text-[9px] font-bold text-slate-400 uppercase">Filter: Publisher/Vendor Match</label>
+                  <label className="block text-[9px] font-bold text-slate-400 uppercase">Filtro: Correspondência Editora/Fornecedor</label>
                   <input
                     type="text"
                     value={filterPublisher}
                     onChange={e => setFilterPublisher(e.target.value)}
-                    placeholder="E.g. Microsoft"
+                    placeholder="Ex.: Microsoft"
                     className="w-full text-xs px-2.5 py-1.5 bg-slate-50 border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800 mt-1"
                   />
                 </div>
                 <div>
-                  <label className="block text-[9px] font-bold text-slate-400 uppercase">Filter: Minimum Risk Score</label>
+                  <label className="block text-[9px] font-bold text-slate-400 uppercase">Filtro: Pontuação de Risco Mínima</label>
                   <input
                     type="number"
                     value={filterRiskMin}
                     onChange={e => setFilterRiskMin(e.target.value)}
-                    placeholder="E.g. 70"
+                    placeholder="Ex.: 70"
                     className="w-full text-xs px-2.5 py-1.5 bg-slate-50 border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800 mt-1"
                   />
                 </div>
@@ -307,13 +307,13 @@ export function ReportsView() {
                   onClick={() => setShowBuilder(false)}
                   className="px-3 py-1.5 text-xs bg-white border border-[#DDDDDD] rounded-lg text-slate-600"
                 >
-                  Cancel
+                  Cancelar
                 </button>
                 <button
                   type="submit"
                   className="px-3 py-1.5 text-xs bg-[#00549F] text-white font-bold rounded-lg cursor-pointer"
                 >
-                  Save Report Template
+                  Salvar Template de Relatório
                 </button>
               </div>
             </form>
@@ -338,32 +338,32 @@ export function ReportsView() {
 
                 {/* Export Action Controls */}
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className="text-[10px] text-slate-400 font-semibold mr-1">Export:</span>
+                  <span className="text-[10px] text-slate-400 font-semibold mr-1">Exportar:</span>
                   <button
                     onClick={() => handleExport(rep.id, "CSV")}
                     className="p-1.5 hover:bg-white border border-[#DDDDDD] rounded bg-slate-100 text-slate-700 text-[10px] font-bold flex items-center gap-0.5"
-                    title="CSV Export"
+                    title="Exportar CSV"
                   >
                     CSV
                   </button>
                   <button
                     onClick={() => handleExport(rep.id, "XLSX")}
                     className="p-1.5 hover:bg-white border border-[#DDDDDD] rounded bg-slate-100 text-emerald-700 text-[10px] font-bold flex items-center gap-0.5"
-                    title="XLSX Export"
+                    title="Exportar XLSX"
                   >
                     XLSX
                   </button>
                   <button
                     onClick={() => handleExport(rep.id, "PDF")}
                     className="p-1.5 hover:bg-white border border-[#DDDDDD] rounded bg-slate-100 text-red-700 text-[10px] font-bold flex items-center gap-0.5"
-                    title="PDF Print layout"
+                    title="Layout de Impressão PDF"
                   >
                     PDF
                   </button>
                   <button
                     onClick={() => handleExport(rep.id, "XML")}
                     className="p-1.5 hover:bg-white border border-[#DDDDDD] rounded bg-slate-100 text-orange-700 text-[10px] font-bold flex items-center gap-0.5"
-                    title="XML API Payload"
+                    title="Payload de API XML"
                   >
                     XML
                   </button>
@@ -377,8 +377,8 @@ export function ReportsView() {
         <div className="bg-white p-6 rounded-xl border border-[#DDDDDD] shadow-xs space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900">Email & SharePoint Schedules</h3>
-              <p className="text-[10px] text-slate-400 mt-0.5">Automate compliance snapshots and log reports weekly/monthly</p>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900">Agendamentos de Email e SharePoint</h3>
+              <p className="text-[10px] text-slate-400 mt-0.5">Automatize snapshots de conformidade e relatórios de log semanal/mensal</p>
             </div>
             <button
               onClick={() => setShowScheduler(!showScheduler)}
@@ -386,7 +386,7 @@ export function ReportsView() {
               id="btn-schedule-delivery"
             >
               <Calendar className="w-3.5 h-3.5" />
-              Schedule Delivery
+              Agendar Entrega
             </button>
           </div>
 
@@ -394,14 +394,14 @@ export function ReportsView() {
           {showScheduler && (
             <form onSubmit={handleSaveSchedule} className="bg-slate-50 p-4 rounded-lg border border-[#DDDDDD] space-y-3">
               <div>
-                <label className="block text-[10px] font-bold text-slate-500 mb-1">Select Saved Report</label>
+                <label className="block text-[10px] font-bold text-slate-500 mb-1">Selecionar Relatório Salvo</label>
                 <select
                   value={schedReportId}
                   onChange={e => setSchedReportId(e.target.value)}
                   className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800"
                   required
                 >
-                  <option value="">-- Choose template --</option>
+                  <option value="">-- Escolher template --</option>
                   {reports.map(r => (
                     <option key={r.id} value={r.id}>{r.name}</option>
                   ))}
@@ -410,39 +410,39 @@ export function ReportsView() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-[10px] font-bold text-slate-500 mb-1">Frequency</label>
+                  <label className="block text-[10px] font-bold text-slate-500 mb-1">Frequência</label>
                   <select
                     value={schedFreq}
                     onChange={e => setSchedFreq(e.target.value as any)}
                     className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800"
                   >
-                    <option value="Daily">Daily Audit</option>
-                    <option value="Weekly">Weekly Digest</option>
-                    <option value="Monthly">Monthly ELP Position</option>
+                    <option value="Daily">Auditoria Diária</option>
+                    <option value="Weekly">Resumo Semanal</option>
+                    <option value="Monthly">Posição ELP Mensal</option>
                   </select>
                 </div>
                 <div>
-                  <label className="block text-[10px] font-bold text-slate-500 mb-1">Delivery Gateway</label>
+                  <label className="block text-[10px] font-bold text-slate-500 mb-1">Gateway de Entrega</label>
                   <select
                     value={schedType}
                     onChange={e => setSchedType(e.target.value as any)}
                     className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800"
                   >
-                    <option value="Email">Secure SMTP Email</option>
-                    <option value="SharePoint">SharePoint Enterprise Link</option>
+                    <option value="Email">Email SMTP Seguro</option>
+                    <option value="SharePoint">Link SharePoint Enterprise</option>
                   </select>
                 </div>
               </div>
 
               <div>
                 <label className="block text-[10px] font-bold text-slate-500 mb-1">
-                  Recipients / SharePoint URLs (comma separated)
+                  Destinatários / URLs do SharePoint (separados por vírgula)
                 </label>
                 <input
                   type="text"
                   value={schedRecipients}
                   onChange={e => setSchedRecipients(e.target.value)}
-                  placeholder="it-compliance@company.com, aud-officer@company.com"
+                  placeholder="conformidade@empresa.com.br, auditoria@empresa.com.br"
                   className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800"
                   required
                 />
@@ -454,13 +454,13 @@ export function ReportsView() {
                   onClick={() => setShowScheduler(false)}
                   className="px-2 py-1 text-[10px] bg-white border border-[#DDDDDD] rounded text-slate-600"
                 >
-                  Cancel
+                  Cancelar
                 </button>
                 <button
                   type="submit"
                   className="px-2 py-1 text-[10px] bg-[#00549F] text-white font-bold rounded cursor-pointer"
                 >
-                  Save Schedule
+                  Salvar Agendamento
                 </button>
               </div>
             </form>
@@ -477,9 +477,9 @@ export function ReportsView() {
                       {sch.deliveryType === "Email" ? <Mail className="w-4 h-4 text-indigo-500" /> : <Server className="w-4 h-4 text-emerald-500" />}
                     </div>
                     <div>
-                      <h4 className="text-xs font-bold text-slate-800">{report ? report.name : "Custom Report"}</h4>
+                      <h4 className="text-xs font-bold text-slate-800">{report ? report.name : "Relatório Personalizado"}</h4>
                       <p className="text-[10px] text-slate-400">
-                        {sch.frequency} deliver to: <span className="font-mono text-slate-500 text-[9px]">{sch.recipients.join(", ")}</span>
+                        {sch.frequency} entregar para: <span className="font-mono text-slate-500 text-[9px]">{sch.recipients.join(", ")}</span>
                       </p>
                     </div>
                   </div>
@@ -497,12 +497,12 @@ export function ReportsView() {
           <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1.5 text-slate-300 font-mono text-[9px]">
             <h4 className="text-white text-[10px] font-bold border-b border-slate-800 pb-1 flex items-center gap-1">
               <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full block animate-pulse"></span>
-              Scheduler SMTP/SharePoint Delivery Engine Logs
+              Logs do Mecanismo de Entrega SMTP/SharePoint do Agendador
             </h4>
-            <p className="text-slate-500">[2026-07-07 09:00:00] Initialized scheduled email dispatcher cron jobs...</p>
-            <p className="text-slate-400">[2026-07-07 09:05:12] Email sent: "Microsoft Compliance ELP Report" exported to CSV. Sent to: it-compliance@company.com (SUCCESS)</p>
-            <p className="text-slate-400">[2026-07-07 09:05:15] SharePoint Link Sync: uploaded "High Risk Shadow IT Applications.xml" to Teams ITAM portal (SUCCESS)</p>
-            <p className="text-slate-500">[2026-07-07 09:40:00] Scheduled background queue listener: idle, waiting for next period...</p>
+            <p className="text-slate-500">[2026-07-07 09:00:00] Trabalhos cron do despachante de email agendado inicializados...</p>
+            <p className="text-slate-400">[2026-07-07 09:05:12] Email enviado: "Microsoft Compliance ELP Report" exportado para CSV. Enviado para: conformidade@empresa.com.br (SUCESSO)</p>
+            <p className="text-slate-400">[2026-07-07 09:05:15] Sinc. de Link SharePoint: "High Risk Shadow IT Applications.xml" enviado para portal ITAM do Teams (SUCESSO)</p>
+            <p className="text-slate-500">[2026-07-07 09:40:00] Ouvinte de fila em segundo plano agendado: ocioso, aguardando próximo período...</p>
           </div>
         </div>
       </div>
@@ -515,7 +515,7 @@ export function ReportsView() {
               <span className="p-1 bg-indigo-100 text-indigo-700 rounded font-bold text-xs">{exportedFile.format}</span>
               <div>
                 <h4 className="text-xs font-bold text-slate-900">{exportedFile.filename}</h4>
-                <p className="text-[9px] text-slate-400">File MIME Type: {exportedFile.mimeType} • Size: {exportedFile.content.length} characters</p>
+                <p className="text-[9px] text-slate-400">Tipo MIME do Arquivo: {exportedFile.mimeType} • Tamanho: {exportedFile.content.length} caracteres</p>
               </div>
             </div>
             <div className="flex gap-2">
@@ -524,13 +524,13 @@ export function ReportsView() {
                 className="px-3 py-1.5 bg-[#00549F] text-white rounded-lg text-[10px] font-bold flex items-center gap-1 cursor-pointer"
               >
                 <Download className="w-3.5 h-3.5" />
-                Download File
+                Baixar Arquivo
               </button>
               <button
                 onClick={() => setExportedFile(null)}
                 className="px-3 py-1.5 bg-slate-100 text-slate-600 rounded-lg text-[10px] font-bold hover:bg-slate-200 cursor-pointer"
               >
-                Close Preview
+                Fechar Pré-visualização
               </button>
             </div>
           </div>

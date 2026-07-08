@@ -1,5 +1,3 @@
-import * as fs from "fs";
-import * as path from "path";
 import { ensureSchema, loadState, saveState } from "./db.js";
 import { 
   Agreement, 
@@ -47,9 +45,6 @@ import {
   UploadedFile,
   LicensePool
 } from "./types.js";
-
-const DB_DIR = path.join(process.cwd(), "data");
-const DB_FILE = path.join(DB_DIR, "db.json");
 
 export interface DatabaseState {
   agreements: Agreement[];
@@ -1688,172 +1683,56 @@ export function getDatabase(): DatabaseState {
   // Check PostgreSQL cache first (loaded at startup)
   if (cachedPgState) return cachedPgState;
 
-  // Try PostgreSQL first
+  // Try PostgreSQL
   const pgState = tryLoadFromPg();
   if (pgState) return pgState;
 
-  if (!fs.existsSync(DB_DIR)) {
-    fs.mkdirSync(DB_DIR, { recursive: true });
-  }
-
-  if (!fs.existsSync(DB_FILE)) {
-    const initialState: DatabaseState = {
-      agreements: DEFAULT_AGREEMENTS,
-      licenses: DEFAULT_LICENSES,
-      purchases: DEFAULT_PURCHASES,
-      assignments: DEFAULT_ASSIGNMENTS,
-      subscriptionLicenses: DEFAULT_SUBSCRIPTION_LICENSES,
-      computers: DEFAULT_COMPUTERS,
-      installations: DEFAULT_INSTALLATIONS,
-      mobileDevices: DEFAULT_MOBILE_DEVICES,
-      applicationCategories: DEFAULT_APPLICATION_CATEGORIES,
-      manufacturers: DEFAULT_MANUFACTURERS,
-      softwareCatalog: DEFAULT_SOFTWARE_CATALOG,
-      discoveredApplications: DEFAULT_DISCOVERED_APPLICATIONS,
-      privateCatalog: DEFAULT_PRIVATE_CATALOG,
-      saasApplications: DEFAULT_SAAS_APPLICATIONS,
-      saasSubscriptions: DEFAULT_SAAS_SUBSCRIPTIONS,
-      saasSubscriptionPurchases: DEFAULT_SAAS_SUBSCRIPTION_PURCHASES,
-      saasUsers: DEFAULT_SAAS_USERS,
-      saasUserActivities: DEFAULT_SAAS_USER_ACTIVITIES,
-      saasConnectors: DEFAULT_SAAS_CONNECTORS,
-      cloudConnectors: DEFAULT_CLOUD_CONNECTORS,
-      cloudResources: DEFAULT_CLOUD_RESOURCES,
-      k8sConnectors: DEFAULT_K8S_CONNECTORS,
-      k8sClusters: DEFAULT_K8S_CLUSTERS,
-      containerPods: DEFAULT_CONTAINER_PODS,
-      customFieldDefinitions: DEFAULT_CUSTOM_FIELD_DEFINITIONS,
-      customFieldValues: DEFAULT_CUSTOM_FIELD_VALUES,
-      customMetrics: DEFAULT_CUSTOM_METRICS,
-      savedReports: DEFAULT_SAVED_REPORTS,
-      reportSchedules: DEFAULT_REPORT_SCHEDULES,
-      ssoConfigs: DEFAULT_SSO_CONFIGS,
-      oauthClients: DEFAULT_OAUTH_CLIENTS,
-      adminRoles: DEFAULT_ADMIN_ROLES,
-      userGroups: DEFAULT_USER_GROUPS,
-      adminUsers: DEFAULT_ADMIN_USERS,
-      orgNodes: DEFAULT_ORG_NODES,
-      enrollmentSites: DEFAULT_ENROLLMENT_SITES,
-      auditLogs: DEFAULT_AUDIT_LOGS,
-      currencyRates: DEFAULT_CURRENCY_RATES,
-      ipPolicies: DEFAULT_IP_POLICIES,
-      mspCustomers: DEFAULT_MSP_CUSTOMERS,
-      adminNotifications: DEFAULT_ADMIN_NOTIFICATIONS,
-      uploadedFiles: DEFAULT_UPLOADED_FILES,
-      licensePools: DEFAULT_LICENSE_POOLS
-    };
-    saveDatabase(initialState);
-    return initialState;
-  }
-
-  try {
-    const data = fs.readFileSync(DB_FILE, "utf-8");
-    const parsed = JSON.parse(data) as any;
-    
-    // Graceful backward-compatibility schema upgrade
-    let upgraded = false;
-    if (!parsed.mobileDevices) { parsed.mobileDevices = DEFAULT_MOBILE_DEVICES; upgraded = true; }
-    if (!parsed.applicationCategories) { parsed.applicationCategories = DEFAULT_APPLICATION_CATEGORIES; upgraded = true; }
-    if (!parsed.manufacturers) { parsed.manufacturers = DEFAULT_MANUFACTURERS; upgraded = true; }
-    if (!parsed.softwareCatalog) { parsed.softwareCatalog = DEFAULT_SOFTWARE_CATALOG; upgraded = true; }
-    if (!parsed.discoveredApplications) { parsed.discoveredApplications = DEFAULT_DISCOVERED_APPLICATIONS; upgraded = true; }
-    if (!parsed.privateCatalog) { parsed.privateCatalog = DEFAULT_PRIVATE_CATALOG; upgraded = true; }
-    if (!parsed.saasApplications) { parsed.saasApplications = DEFAULT_SAAS_APPLICATIONS; upgraded = true; }
-    if (!parsed.saasSubscriptions) { parsed.saasSubscriptions = DEFAULT_SAAS_SUBSCRIPTIONS; upgraded = true; }
-    if (!parsed.saasSubscriptionPurchases) { parsed.saasSubscriptionPurchases = DEFAULT_SAAS_SUBSCRIPTION_PURCHASES; upgraded = true; }
-    if (!parsed.saasUsers) { parsed.saasUsers = DEFAULT_SAAS_USERS; upgraded = true; }
-    if (!parsed.saasUserActivities) { parsed.saasUserActivities = DEFAULT_SAAS_USER_ACTIVITIES; upgraded = true; }
-    if (!parsed.saasConnectors) { parsed.saasConnectors = DEFAULT_SAAS_CONNECTORS; upgraded = true; }
-    if (!parsed.cloudConnectors) { parsed.cloudConnectors = DEFAULT_CLOUD_CONNECTORS; upgraded = true; }
-    if (!parsed.cloudResources) { parsed.cloudResources = DEFAULT_CLOUD_RESOURCES; upgraded = true; }
-    if (!parsed.k8sConnectors) { parsed.k8sConnectors = DEFAULT_K8S_CONNECTORS; upgraded = true; }
-    if (!parsed.k8sClusters) { parsed.k8sClusters = DEFAULT_K8S_CLUSTERS; upgraded = true; }
-    if (!parsed.containerPods) { parsed.containerPods = DEFAULT_CONTAINER_PODS; upgraded = true; }
-    if (!parsed.customFieldDefinitions) { parsed.customFieldDefinitions = DEFAULT_CUSTOM_FIELD_DEFINITIONS; upgraded = true; }
-    if (!parsed.customFieldValues) { parsed.customFieldValues = DEFAULT_CUSTOM_FIELD_VALUES; upgraded = true; }
-    if (!parsed.customMetrics) { parsed.customMetrics = DEFAULT_CUSTOM_METRICS; upgraded = true; }
-    if (!parsed.savedReports) { parsed.savedReports = DEFAULT_SAVED_REPORTS; upgraded = true; }
-    if (!parsed.reportSchedules) { parsed.reportSchedules = DEFAULT_REPORT_SCHEDULES; upgraded = true; }
-    
-    // Admin module upgrades
-    if (!parsed.ssoConfigs) { parsed.ssoConfigs = DEFAULT_SSO_CONFIGS; upgraded = true; }
-    if (!parsed.oauthClients) { parsed.oauthClients = DEFAULT_OAUTH_CLIENTS; upgraded = true; }
-    if (!parsed.adminRoles) { parsed.adminRoles = DEFAULT_ADMIN_ROLES; upgraded = true; }
-    if (!parsed.userGroups) { parsed.userGroups = DEFAULT_USER_GROUPS; upgraded = true; }
-    if (!parsed.adminUsers) { parsed.adminUsers = DEFAULT_ADMIN_USERS; upgraded = true; }
-    if (!parsed.orgNodes) { parsed.orgNodes = DEFAULT_ORG_NODES; upgraded = true; }
-    if (!parsed.enrollmentSites) { parsed.enrollmentSites = DEFAULT_ENROLLMENT_SITES; upgraded = true; }
-    if (!parsed.auditLogs) { parsed.auditLogs = DEFAULT_AUDIT_LOGS; upgraded = true; }
-    if (!parsed.currencyRates) { parsed.currencyRates = DEFAULT_CURRENCY_RATES; upgraded = true; }
-    if (!parsed.ipPolicies) { parsed.ipPolicies = DEFAULT_IP_POLICIES; upgraded = true; }
-    if (!parsed.mspCustomers) { parsed.mspCustomers = DEFAULT_MSP_CUSTOMERS; upgraded = true; }
-    if (!parsed.adminNotifications) { parsed.adminNotifications = DEFAULT_ADMIN_NOTIFICATIONS; upgraded = true; }
-    if (!parsed.uploadedFiles) { parsed.uploadedFiles = DEFAULT_UPLOADED_FILES; upgraded = true; }
-    if (!parsed.licensePools) { parsed.licensePools = DEFAULT_LICENSE_POOLS; upgraded = true; }
-
-    // Ensure our computers have the new HAM fields populated if they are empty
-    parsed.computers = parsed.computers.map((c: any) => {
-      const match = DEFAULT_COMPUTERS.find(dc => dc.id === c.id);
-      if (match && (!c.serialNumber || !c.brand)) {
-        upgraded = true;
-        return { ...match, ...c }; // merge in existing compliance stats if any, keeping HAM details
-      }
-      return c;
-    });
-
-    if (upgraded) {
-      saveDatabase(parsed);
-    }
-
-    return parsed as DatabaseState;
-  } catch (error) {
-    console.error("Failed to read database, falling back to defaults", error);
-    return {
-      agreements: DEFAULT_AGREEMENTS,
-      licenses: DEFAULT_LICENSES,
-      purchases: DEFAULT_PURCHASES,
-      assignments: DEFAULT_ASSIGNMENTS,
-      subscriptionLicenses: DEFAULT_SUBSCRIPTION_LICENSES,
-      computers: DEFAULT_COMPUTERS,
-      installations: DEFAULT_INSTALLATIONS,
-      mobileDevices: DEFAULT_MOBILE_DEVICES,
-      applicationCategories: DEFAULT_APPLICATION_CATEGORIES,
-      manufacturers: DEFAULT_MANUFACTURERS,
-      softwareCatalog: DEFAULT_SOFTWARE_CATALOG,
-      discoveredApplications: DEFAULT_DISCOVERED_APPLICATIONS,
-      privateCatalog: DEFAULT_PRIVATE_CATALOG,
-      saasApplications: DEFAULT_SAAS_APPLICATIONS,
-      saasSubscriptions: DEFAULT_SAAS_SUBSCRIPTIONS,
-      saasSubscriptionPurchases: DEFAULT_SAAS_SUBSCRIPTION_PURCHASES,
-      saasUsers: DEFAULT_SAAS_USERS,
-      saasUserActivities: DEFAULT_SAAS_USER_ACTIVITIES,
-      saasConnectors: DEFAULT_SAAS_CONNECTORS,
-      cloudConnectors: DEFAULT_CLOUD_CONNECTORS,
-      cloudResources: DEFAULT_CLOUD_RESOURCES,
-      k8sConnectors: DEFAULT_K8S_CONNECTORS,
-      k8sClusters: DEFAULT_K8S_CLUSTERS,
-      containerPods: DEFAULT_CONTAINER_PODS,
-      customFieldDefinitions: DEFAULT_CUSTOM_FIELD_DEFINITIONS,
-      customFieldValues: DEFAULT_CUSTOM_FIELD_VALUES,
-      customMetrics: DEFAULT_CUSTOM_METRICS,
-      savedReports: DEFAULT_SAVED_REPORTS,
-      reportSchedules: DEFAULT_REPORT_SCHEDULES,
-      ssoConfigs: DEFAULT_SSO_CONFIGS,
-      oauthClients: DEFAULT_OAUTH_CLIENTS,
-      adminRoles: DEFAULT_ADMIN_ROLES,
-      userGroups: DEFAULT_USER_GROUPS,
-      adminUsers: DEFAULT_ADMIN_USERS,
-      orgNodes: DEFAULT_ORG_NODES,
-      enrollmentSites: DEFAULT_ENROLLMENT_SITES,
-      auditLogs: DEFAULT_AUDIT_LOGS,
-      currencyRates: DEFAULT_CURRENCY_RATES,
-      ipPolicies: DEFAULT_IP_POLICIES,
-      mspCustomers: DEFAULT_MSP_CUSTOMERS,
-      adminNotifications: DEFAULT_ADMIN_NOTIFICATIONS,
-      uploadedFiles: DEFAULT_UPLOADED_FILES,
-      licensePools: DEFAULT_LICENSE_POOLS
-    };
-  }
+  // Fallback to defaults when no database is available
+  return {
+    agreements: DEFAULT_AGREEMENTS,
+    licenses: DEFAULT_LICENSES,
+    purchases: DEFAULT_PURCHASES,
+    assignments: DEFAULT_ASSIGNMENTS,
+    subscriptionLicenses: DEFAULT_SUBSCRIPTION_LICENSES,
+    computers: DEFAULT_COMPUTERS,
+    installations: DEFAULT_INSTALLATIONS,
+    mobileDevices: DEFAULT_MOBILE_DEVICES,
+    applicationCategories: DEFAULT_APPLICATION_CATEGORIES,
+    manufacturers: DEFAULT_MANUFACTURERS,
+    softwareCatalog: DEFAULT_SOFTWARE_CATALOG,
+    discoveredApplications: DEFAULT_DISCOVERED_APPLICATIONS,
+    privateCatalog: DEFAULT_PRIVATE_CATALOG,
+    saasApplications: DEFAULT_SAAS_APPLICATIONS,
+    saasSubscriptions: DEFAULT_SAAS_SUBSCRIPTIONS,
+    saasSubscriptionPurchases: DEFAULT_SAAS_SUBSCRIPTION_PURCHASES,
+    saasUsers: DEFAULT_SAAS_USERS,
+    saasUserActivities: DEFAULT_SAAS_USER_ACTIVITIES,
+    saasConnectors: DEFAULT_SAAS_CONNECTORS,
+    cloudConnectors: DEFAULT_CLOUD_CONNECTORS,
+    cloudResources: DEFAULT_CLOUD_RESOURCES,
+    k8sConnectors: DEFAULT_K8S_CONNECTORS,
+    k8sClusters: DEFAULT_K8S_CLUSTERS,
+    containerPods: DEFAULT_CONTAINER_PODS,
+    customFieldDefinitions: DEFAULT_CUSTOM_FIELD_DEFINITIONS,
+    customFieldValues: DEFAULT_CUSTOM_FIELD_VALUES,
+    customMetrics: DEFAULT_CUSTOM_METRICS,
+    savedReports: DEFAULT_SAVED_REPORTS,
+    reportSchedules: DEFAULT_REPORT_SCHEDULES,
+    ssoConfigs: DEFAULT_SSO_CONFIGS,
+    oauthClients: DEFAULT_OAUTH_CLIENTS,
+    adminRoles: DEFAULT_ADMIN_ROLES,
+    userGroups: DEFAULT_USER_GROUPS,
+    adminUsers: DEFAULT_ADMIN_USERS,
+    orgNodes: DEFAULT_ORG_NODES,
+    enrollmentSites: DEFAULT_ENROLLMENT_SITES,
+    auditLogs: DEFAULT_AUDIT_LOGS,
+    currencyRates: DEFAULT_CURRENCY_RATES,
+    ipPolicies: DEFAULT_IP_POLICIES,
+    mspCustomers: DEFAULT_MSP_CUSTOMERS,
+    adminNotifications: DEFAULT_ADMIN_NOTIFICATIONS,
+    uploadedFiles: DEFAULT_UPLOADED_FILES,
+    licensePools: DEFAULT_LICENSE_POOLS
+  };
 }
 
 export function saveDatabase(db: DatabaseState): void {

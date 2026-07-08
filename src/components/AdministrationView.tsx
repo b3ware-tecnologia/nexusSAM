@@ -758,12 +758,12 @@ export function AdministrationView() {
           <div className="flex items-center gap-2">
             <h1 className="text-2xl font-bold tracking-tight text-white" id="admin-main-title">
               <Shield className="h-6 w-6 text-indigo-500" />
-              Administration &amp; Security Settings
+              Configurações de Administração e Segurança
             </h1>
-            <HintTooltip text="Configure system settings: SSO authentication, API integrations, role-based access control, organization hierarchy, and audit log monitoring." side="right" size="md" />
+            <HintTooltip text="Configure configurações do sistema: autenticação SSO, integrações de API, controle de acesso baseado em funções, hierarquia organizacional e monitoramento de logs de auditoria." side="right" size="md" />
           </div>
           <p className="text-sm text-gray-400 mt-1" id="admin-subtitle">
-            Manage enterprise single sign-on, tenant-isolation, network firewalls, custom role RBAC, and multi-currency consolidation.
+            Gerencie single sign-on empresarial, isolamento de locatários, firewalls de rede, RBAC de função personalizada e consolidação multimoeda.
           </p>
         </div>
 
@@ -771,7 +771,7 @@ export function AdministrationView() {
           {/* Active Tenant Switcher Simulation */}
           <div className="flex items-center gap-2 bg-gray-900 border border-gray-800 px-3 py-1.5 rounded-lg text-xs text-gray-300" id="tenant-sw-wrapper">
             <Briefcase className="h-3.5 w-3.5 text-[#00549F]/60" />
-            <span>Active MSP Client:</span>
+            <span>Cliente MSP Ativo:</span>
             <select 
               value={selectedTenant} 
               onChange={(e) => {
@@ -793,7 +793,7 @@ export function AdministrationView() {
             id="admin-btn-sync"
           >
             <RefreshCw className={`h-3 w-3 ${loading ? 'animate-spin' : ''}`} />
-            Sync Config
+            Sincronizar Config
           </button>
         </div>
       </div>
@@ -812,7 +812,7 @@ export function AdministrationView() {
             id="tab-auth"
           >
             <Key className="h-4 w-4" />
-            SSO &amp; API Key Clients
+            Clientes SSO e Chaves de API
           </button>
 
           <button
@@ -825,7 +825,7 @@ export function AdministrationView() {
             id="tab-users"
           >
             <Users className="h-4 w-4" />
-            RBAC Users &amp; Roles
+            Usuários e Funções RBAC
           </button>
 
           <button
@@ -838,7 +838,7 @@ export function AdministrationView() {
             id="tab-org"
           >
             <Network className="h-4 w-4" />
-            Org Hierarchy &amp; Nodes
+            Hierarquia Organizacional e Nós
           </button>
 
           <button
@@ -851,7 +851,7 @@ export function AdministrationView() {
             id="tab-security"
           >
             <Lock className="h-4 w-4" />
-            IP Firewalls &amp; GDPR
+            Firewalls de IP e LGPD
           </button>
 
           <button
@@ -864,7 +864,7 @@ export function AdministrationView() {
             id="tab-msp"
           >
             <Briefcase className="h-4 w-4" />
-            MSP Partner Layer
+            Camada de Parceiro MSP
           </button>
 
           <button
@@ -877,7 +877,7 @@ export function AdministrationView() {
             id="tab-audit"
           >
             <Activity className="h-4 w-4" />
-            Audit Action Trail
+            Trilha de Ações de Auditoria
           </button>
 
           <button
@@ -890,7 +890,7 @@ export function AdministrationView() {
             id="tab-currency"
           >
             <DollarSign className="h-4 w-4" />
-            Consolidated Currency
+            Moeda Consolidada
           </button>
 
           <button
@@ -903,7 +903,7 @@ export function AdministrationView() {
             id="tab-files"
           >
             <HardDrive className="h-4 w-4" />
-            My Vault &amp; Notifications
+            Meu Cofre e Notificações
           </button>
 
           <button
@@ -916,7 +916,7 @@ export function AdministrationView() {
             id="tab-extenders"
           >
             <Server className="h-4 w-4" />
-            Snow Extenders &amp; Builder
+            Snow Extenders e Construtor
           </button>
 
           <button
@@ -929,7 +929,7 @@ export function AdministrationView() {
             id="tab-itsm"
           >
             <Share2 className="h-4 w-4" />
-            ITSM Integrations
+            Integrações ITSM
           </button>
 
           <button
@@ -942,28 +942,28 @@ export function AdministrationView() {
             id="tab-assist"
           >
             <Bot className="h-4 w-4" />
-            Flexera Assist AI
+            Flexera Assist IA
           </button>
 
           {/* Micro stats block */}
           <div className="pt-6 border-t border-gray-800 mt-6 hidden lg:block" id="admin-micro-stats">
-            <h5 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Workspace Health</h5>
+            <h5 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Saúde do Workspace</h5>
             <div className="bg-gray-950 p-3 rounded-lg border border-gray-900 space-y-2 text-[11px] text-gray-400">
               <div className="flex justify-between">
-                <span>SSO Status</span>
-                <span className="text-emerald-400 font-medium">Fully Active</span>
+                <span>Status SSO</span>
+                <span className="text-emerald-400 font-medium">Totalmente Ativo</span>
               </div>
               <div className="flex justify-between">
-                <span>Heartbeat Gateways</span>
-                <span className="text-emerald-400 font-medium">2 Active</span>
+                <span>Gateways Heartbeat</span>
+                <span className="text-emerald-400 font-medium">2 Ativos</span>
               </div>
               <div className="flex justify-between">
-                <span>Audit Records</span>
-                <span className="text-gray-300">{auditLogs.length} logged</span>
+                <span>Registros de Auditoria</span>
+                <span className="text-gray-300">{auditLogs.length} registrados</span>
               </div>
               <div className="flex justify-between">
-                <span>Criptography</span>
-                <span className="text-[#00549F]/60 font-medium">AES-256 Enabled</span>
+                <span>Criptografia</span>
+                <span className="text-[#00549F]/60 font-medium">AES-256 Habilitado</span>
               </div>
             </div>
           </div>
@@ -978,9 +978,9 @@ export function AdministrationView() {
               <div className="bg-gray-900 rounded-xl border border-gray-800 p-6">
                 <div className="flex items-center justify-between border-b border-gray-800 pb-4 mb-4">
                   <div>
-                    <h3 className="text-base font-semibold text-white">Enterprise Identity &amp; SSO Integration</h3>
+                    <h3 className="text-base font-semibold text-white">Integração de Identidade Corporativa e SSO</h3>
                     <p className="text-xs text-gray-400 mt-1">
-                      Configure and manage OAuth 2.0 / OpenID Connect and SAML integrations for active staff access.
+                      Configure e gerencie integrações OAuth 2.0 / OpenID Connect e SAML para acesso ativo de funcionários.
                     </p>
                   </div>
                   <Lock className="h-5 w-5 text-[#00549F]/60 shrink-0" />
@@ -1016,7 +1016,7 @@ export function AdministrationView() {
                               : "bg-emerald-950 text-emerald-300 border border-emerald-500/20 hover:bg-emerald-900"
                           }`}
                         >
-                          {sso.status === "Enabled" ? "Deactivate Provider" : "Activate Provider"}
+                          {sso.status === "Enabled" ? "Desativar Provedor" : "Ativar Provedor"}
                         </button>
                       </div>
                     </div>
@@ -1028,9 +1028,9 @@ export function AdministrationView() {
               <div className="bg-gray-900 rounded-xl border border-gray-800 p-6">
                 <div className="flex items-center justify-between border-b border-gray-800 pb-4 mb-4">
                   <div>
-                    <h3 className="text-base font-semibold text-white">OAuth 2.0 Security Client Keys</h3>
+                    <h3 className="text-base font-semibold text-white">Chaves de Cliente de Segurança OAuth 2.0</h3>
                     <p className="text-xs text-gray-400 mt-1">
-                      Credentials for secure inbound data transmission. Used by on-premises <strong>Snow Extenders</strong>, ServiceNow, and external CMDB agents.
+                      Credenciais para transmissão segura de dados de entrada. Usadas por <strong>Snow Extenders</strong> locais, ServiceNow e agentes CMDB externos.
                     </p>
                   </div>
                   <Key className="h-5 w-5 text-[#00549F]/60 shrink-0" />
@@ -1041,10 +1041,10 @@ export function AdministrationView() {
                   <div className="bg-amber-950/40 border border-amber-500/30 rounded-lg p-4 mb-6 space-y-3 animate-fade-in text-xs" id="newly-created-credentials-banner">
                     <div className="flex items-center gap-2 text-amber-300 font-semibold uppercase tracking-wider text-[11px]">
                       <AlertTriangle className="h-4 w-4 text-amber-400 shrink-0" />
-                      CRITICAL: Copy credentials now!
+                      CRÍTICO: Copie as credenciais agora!
                     </div>
                     <p className="text-amber-100">
-                      The client secret is hashed immediately. It will never be displayed to you again.
+                      O segredo do cliente é hash imediatamente. Nunca mais será exibido para você.
                     </p>
                     <div className="font-mono space-y-1.5 bg-gray-950 p-3 rounded border border-gray-800">
                       <div className="flex justify-between"><span className="text-gray-500">Client ID:</span> <span className="text-white select-all">{newlyCreatedClient.clientId}</span></div>
@@ -1055,7 +1055,7 @@ export function AdministrationView() {
                       onClick={() => setNewlyCreatedClient(null)}
                       className="bg-amber-900 hover:bg-amber-800 text-amber-200 px-3 py-1 rounded font-medium transition"
                     >
-                      I have saved these credentials
+                      Salvei estas credenciais
                     </button>
                   </div>
                 )}
@@ -1063,23 +1063,23 @@ export function AdministrationView() {
                 {/* Provision client form */}
                 <form onSubmit={handleCreateOAuthClient} className="bg-gray-950 border border-gray-800 p-4 rounded-lg mb-6 flex flex-col md:flex-row items-end gap-4">
                   <div className="flex-1 space-y-1">
-                    <label className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Client Name / Target Agent Integration</label>
+                    <label className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Nome do Cliente / Integração do Agente Alvo</label>
                     <input 
                       type="text" 
-                      placeholder="e.g. Snow Extender Gateway - Frankfurt Branch" 
+                      placeholder="ex: Snow Extender Gateway - Filial Frankfurt" 
                       value={newClientName}
                       onChange={(e) => setNewClientName(e.target.value)}
                       className="w-full bg-gray-900 border border-gray-800 text-sm text-white px-3 py-1.5 rounded outline-none focus:border-[#00549F]"
                     />
                   </div>
                   <div className="w-full md:w-64 space-y-1">
-                    <label className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Assigned Scopes</label>
+                    <label className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Escopos Atribuídos</label>
                     <select 
                       onChange={(e) => setNewClientScopes([e.target.value])}
                       className="w-full bg-gray-900 border border-gray-800 text-sm text-indigo-300 px-2 py-1.5 rounded outline-none"
                     >
                       <option value="inventory:write">inventory:write (Extenders)</option>
-                      <option value="computers:read,licenses:read">read-only integration</option>
+                      <option value="computers:read,licenses:read">integração somente leitura</option>
                       <option value="compliance:read">compliance:read (ServiceNow)</option>
                     </select>
                   </div>
@@ -1087,7 +1087,7 @@ export function AdministrationView() {
                     type="submit" 
                     className="bg-[#00549F] text-white cursor-pointer font-semibold text-xs px-4 py-2 rounded shrink-0 h-9 transition flex items-center gap-1"
                   >
-                    <Plus className="h-3.5 w-3.5" /> Provision API Client Key
+                    <Plus className="h-3.5 w-3.5" /> Provisionar Chave de Cliente de API
                   </button>
                 </form>
 
@@ -1096,11 +1096,11 @@ export function AdministrationView() {
                   <table className="w-full text-left text-xs text-gray-300">
                     <thead className="bg-gray-950 border-b border-gray-800 uppercase text-[10px] font-semibold text-gray-400">
                       <tr>
-                        <th className="p-3">Client Identifier Name</th>
-                        <th className="p-3">Client ID Key</th>
-                        <th className="p-3">Allowed Scopes</th>
-                        <th className="p-3">Last Heartbeat Activity</th>
-                        <th className="p-3 text-right">Actions</th>
+                        <th className="p-3">Nome do Identificador do Cliente</th>
+                        <th className="p-3">Chave de ID do Cliente</th>
+                        <th className="p-3">Escopos Permitidos</th>
+                        <th className="p-3">Última Atividade Heartbeat</th>
+                        <th className="p-3 text-right">Ações</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-800">
@@ -1113,7 +1113,7 @@ export function AdministrationView() {
                               <span key={s} className="bg-gray-900 border border-gray-800 px-1.5 py-0.5 rounded text-[#00549F]/60 text-[10px] mr-1">{s}</span>
                             ))}
                           </td>
-                          <td className="p-3 text-gray-400">{client.lastUsedAt ? new Date(client.lastUsedAt).toLocaleString() : "Never active"}</td>
+                          <td className="p-3 text-gray-400">{client.lastUsedAt ? new Date(client.lastUsedAt).toLocaleString() : "Nunca ativo"}</td>
                           <td className="p-3 text-right">
                             <button 
                               onClick={() => handleRevokeOAuthClient(client.id)}
@@ -1139,9 +1139,9 @@ export function AdministrationView() {
               <div className="bg-gray-900 rounded-xl border border-gray-800 p-6">
                 <div className="flex items-center justify-between border-b border-gray-800 pb-4 mb-4">
                   <div>
-                    <h3 className="text-base font-semibold text-white">Security Directory &amp; RBAC Access Controls</h3>
+                    <h3 className="text-base font-semibold text-white">Diretório de Segurança e Controles de Acesso RBAC</h3>
                     <p className="text-xs text-gray-400 mt-1">
-                      Audit active administrative profiles, map security groups, and enforce role permissions.
+                      Audite perfis administrativos ativos, mapeie grupos de segurança e aplique permissões de funções.
                     </p>
                   </div>
                   <div className="flex gap-2">
@@ -1149,13 +1149,13 @@ export function AdministrationView() {
                       onClick={() => setShowUserModal(true)} 
                       className="bg-[#00549F] text-white cursor-pointer px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-1 transition"
                     >
-                      <Plus className="h-3.5 w-3.5" /> Invite User
+                      <Plus className="h-3.5 w-3.5" /> Convidar Usuário
                     </button>
                     <button 
                       onClick={() => setShowGroupModal(true)} 
                       className="bg-gray-800 hover:bg-gray-750 text-white px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-1 transition border border-gray-700"
                     >
-                      <Plus className="h-3.5 w-3.5" /> New Group
+                      <Plus className="h-3.5 w-3.5" /> Novo Grupo
                     </button>
                   </div>
                 </div>
@@ -1164,16 +1164,16 @@ export function AdministrationView() {
                   {userGroups.map(grp => (
                     <div key={grp.id} className="bg-gray-950 border border-gray-800 p-4 rounded-lg flex flex-col justify-between" id={`group-card-${grp.id}`}>
                       <div>
-                        <span className="text-[10px] bg-gray-900 border border-gray-800 px-1.5 py-0.5 rounded text-gray-400 uppercase font-mono tracking-wider">Security Group</span>
+                        <span className="text-[10px] bg-gray-900 border border-gray-800 px-1.5 py-0.5 rounded text-gray-400 uppercase font-mono tracking-wider">Grupo de Segurança</span>
                         <h4 className="font-semibold text-sm text-white mt-1.5">{grp.name}</h4>
                         <div className="text-xs text-gray-400 mt-2 flex justify-between">
-                          <span>Target RBAC mapping:</span>
+                          <span>Mapeamento de RBAC alvo:</span>
                           <span className="text-[#00549F]/60 font-medium">{(adminRoles.find(r => r.id === grp.roleId))?.name || "User"}</span>
                         </div>
                       </div>
                       <div className="border-t border-gray-850 pt-3 mt-4 text-xs text-gray-500 flex justify-between items-center">
-                        <span>Total Members</span>
-                        <span className="font-semibold text-gray-300">{grp.memberCount} active</span>
+                        <span>Total de Membros</span>
+                        <span className="font-semibold text-gray-300">{grp.memberCount} ativos</span>
                       </div>
                     </div>
                   ))}
@@ -1183,13 +1183,13 @@ export function AdministrationView() {
                   <table className="w-full text-left text-xs text-gray-300">
                     <thead className="bg-gray-950 border-b border-gray-800 uppercase text-[10px] font-semibold text-gray-400">
                       <tr>
-                        <th className="p-3">Staff Identity Member</th>
-                        <th className="p-3">Email Address</th>
-                        <th className="p-3">Primary RBAC Role</th>
-                        <th className="p-3">Security Groups</th>
+                        <th className="p-3">Membro de Identidade</th>
+                        <th className="p-3">Endereço de E-mail</th>
+                        <th className="p-3">Função RBAC Primária</th>
+                        <th className="p-3">Grupos de Segurança</th>
                         <th className="p-3">Status</th>
-                        <th className="p-3">Date Joined</th>
-                        <th className="p-3 text-right">Actions</th>
+                        <th className="p-3">Data de Entrada</th>
+                        <th className="p-3 text-right">Ações</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-800">
@@ -1214,7 +1214,7 @@ export function AdministrationView() {
                                   return <span key={gId} className="bg-gray-900 border border-gray-800 text-[10px] px-1.5 py-0.5 rounded text-gray-300 mr-1 font-medium">{gp?.name || gId}</span>;
                                 })
                               ) : (
-                                <span className="text-gray-600 italic">No groups mapped</span>
+                                <span className="text-gray-600 italic">Nenhum grupo mapeado</span>
                               )}
                             </td>
                             <td className="p-3">
@@ -1242,7 +1242,7 @@ export function AdministrationView() {
                                 }}
                                 className="bg-gray-900 border border-gray-800 rounded text-[11px] px-1.5 py-0.5 text-gray-300 focus:outline-none"
                               >
-                                <option value="">Manage State</option>
+                                <option value="">Gerenciar Estado</option>
                                 <option value="Active">Active</option>
                                 <option value="Suspended">Suspend</option>
                               </select>
@@ -1259,16 +1259,16 @@ export function AdministrationView() {
               <div className="bg-gray-900 rounded-xl border border-gray-800 p-6">
                 <div className="flex items-center justify-between border-b border-gray-800 pb-4 mb-4">
                   <div>
-                    <h3 className="text-base font-semibold text-white">Granular Role Profiles (RBAC Engine)</h3>
+                    <h3 className="text-base font-semibold text-white">Perfis de Função Granulares (Mecanismo RBAC)</h3>
                     <p className="text-xs text-gray-400 mt-1">
-                      Configure structural permissions for Custom and Default platform roles.
+                      Configure permissões estruturais para funções personalizadas e padrão da plataforma.
                     </p>
                   </div>
                   <button 
                     onClick={() => setShowRoleModal(true)} 
                     className="bg-[#00549F] text-white cursor-pointer px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-1 transition"
                   >
-                    <Plus className="h-3.5 w-3.5" /> Create Custom Role
+                    <Plus className="h-3.5 w-3.5" /> Criar Função Personalizada
                   </button>
                 </div>
 
@@ -1283,29 +1283,29 @@ export function AdministrationView() {
                               ? "bg-gray-900 border border-gray-800 text-[#00549F]/60" 
                               : "bg-amber-950 border border-amber-500/20 text-amber-300"
                           }`}>
-                            {role.isSystem ? "System Native" : "Custom Profile"}
+                            {role.isSystem ? "Nativo do Sistema" : "Perfil Personalizado"}
                           </span>
                         </div>
 
                         <div className="space-y-1.5 mt-4 text-xs">
                           <div className="flex justify-between border-b border-gray-900 pb-1.5">
-                            <span className="text-gray-500">SAM Licenses Module:</span>
+                            <span className="text-gray-500">Módulo de Licenças SAM:</span>
                             <span className={`font-semibold ${role.permissions.licenses === 'Write' ? 'text-emerald-400' : role.permissions.licenses === 'Read' ? 'text-indigo-300' : 'text-gray-600'}`}>{role.permissions.licenses}</span>
                           </div>
                           <div className="flex justify-between border-b border-gray-900 pb-1.5">
-                            <span className="text-gray-500">SaaS Applications Management:</span>
+                            <span className="text-gray-500">Gerenciamento de Aplicativos SaaS:</span>
                             <span className={`font-semibold ${role.permissions.saas === 'Write' ? 'text-emerald-400' : role.permissions.saas === 'Read' ? 'text-indigo-300' : 'text-gray-600'}`}>{role.permissions.saas}</span>
                           </div>
                           <div className="flex justify-between border-b border-gray-900 pb-1.5">
-                            <span className="text-gray-500">Cloud &amp; Container Licenses:</span>
+                            <span className="text-gray-500">Licenças de Nuvem e Contêiner:</span>
                             <span className={`font-semibold ${role.permissions.cloud === 'Write' ? 'text-emerald-400' : role.permissions.cloud === 'Read' ? 'text-indigo-300' : 'text-gray-600'}`}>{role.permissions.cloud}</span>
                           </div>
                           <div className="flex justify-between border-b border-gray-900 pb-1.5">
-                            <span className="text-gray-500">Administration Panel Config:</span>
+                            <span className="text-gray-500">Config. do Painel de Administração:</span>
                             <span className={`font-semibold ${role.permissions.admin === 'Write' ? 'text-emerald-400' : role.permissions.admin === 'Read' ? 'text-indigo-300' : 'text-gray-600'}`}>{role.permissions.admin}</span>
                           </div>
                           <div className="flex justify-between pb-0.5">
-                            <span className="text-gray-500">Security Audit Logs access:</span>
+                            <span className="text-gray-500">Acesso a Logs de Auditoria de Segurança:</span>
                             <span className={`font-semibold ${role.permissions.auditLogs === 'Write' ? 'text-emerald-400' : role.permissions.auditLogs === 'Read' ? 'text-indigo-300' : 'text-gray-600'}`}>{role.permissions.auditLogs}</span>
                           </div>
                         </div>
@@ -1317,7 +1317,7 @@ export function AdministrationView() {
                             onClick={() => handleDeleteRole(role.id)}
                             className="text-xs text-rose-400 hover:text-rose-300 flex items-center gap-1 ml-auto"
                           >
-                            <Trash2 className="h-3.5 w-3.5" /> Delete Role
+                              <Trash2 className="h-3.5 w-3.5" /> Excluir Função
                           </button>
                         </div>
                       )}
@@ -1335,16 +1335,16 @@ export function AdministrationView() {
               <div className="bg-gray-900 rounded-xl border border-gray-800 p-6">
                 <div className="flex items-center justify-between border-b border-gray-800 pb-4 mb-4">
                   <div>
-                    <h3 className="text-base font-semibold text-white">Multi-level Corporate Structure Tree</h3>
+                    <h3 className="text-base font-semibold text-white">Árvore de Estrutura Corporativa Multinível</h3>
                     <p className="text-xs text-gray-400 mt-1">
-                      Configure multi-tier legal entities, regional corporate divisions, and map software license quotas by structure nodes.
+                      Configure entidades legais em vários níveis, divisões corporativas regionais e mapeie cotas de licença de software por nós estruturais.
                     </p>
                   </div>
                   <button 
                     onClick={() => setShowNodeModal(true)} 
                     className="bg-[#00549F] text-white cursor-pointer px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-1 transition animate-pulse"
                   >
-                    <Plus className="h-3.5 w-3.5" /> New Structure Node
+                    <Plus className="h-3.5 w-3.5" /> Novo Nó Estrutural
                   </button>
                 </div>
 
@@ -1353,7 +1353,7 @@ export function AdministrationView() {
                   <div className="flex items-center gap-3 border-b border-gray-900 pb-3">
                     <Building className="h-5 w-5 text-[#00549F]/60 shrink-0" />
                     <div>
-                      <span className="text-[10px] uppercase font-mono tracking-wider bg-indigo-950/45 px-1.5 py-0.5 rounded text-indigo-300">Root Holding Group</span>
+                      <span className="text-[10px] uppercase font-mono tracking-wider bg-indigo-950/45 px-1.5 py-0.5 rounded text-indigo-300">Grupo Holding Raiz</span>
                       <h4 className="font-bold text-sm text-white mt-1">Acme Corporation (Global Head Office)</h4>
                     </div>
                   </div>
@@ -1368,11 +1368,11 @@ export function AdministrationView() {
                           </div>
                           <div className="flex items-center gap-4 text-xs">
                             <div className="text-gray-400">
-                              Software License quota allocation: <strong className="text-white font-semibold">{node.allocatedLicenseCount} items</strong>
+                              Alocação de cota de licença de software: <strong className="text-white font-semibold">{node.allocatedLicenseCount} itens</strong>
                             </div>
                             <span className="text-gray-600">|</span>
                             <div className="text-gray-400">
-                              Active Sites: <strong className="text-emerald-400">{(enrollmentSites.filter(s => s.orgNodeId === node.id)).length} assigned</strong>
+                              Sites Ativos: <strong className="text-emerald-400">{(enrollmentSites.filter(s => s.orgNodeId === node.id)).length} atribuídos</strong>
                             </div>
                           </div>
                         </div>
@@ -1399,16 +1399,16 @@ export function AdministrationView() {
               <div className="bg-gray-900 rounded-xl border border-gray-800 p-6">
                 <div className="flex items-center justify-between border-b border-gray-800 pb-4 mb-4">
                   <div>
-                    <h3 className="text-base font-semibold text-white">On-Premises Discovery Gateways (Snow Extenders)</h3>
+                    <h3 className="text-base font-semibold text-white">Gateways de Descoberta On-Premises (Snow Extenders)</h3>
                     <p className="text-xs text-gray-400 mt-1">
-                      Register local logical offices and monitor automated on-premises extender heartbeats.
+                      Registre escritórios lógicos locais e monitore heartbeats automáticos de extenders locais.
                     </p>
                   </div>
                   <button 
                     onClick={() => setShowSiteModal(true)} 
                     className="bg-gray-800 hover:bg-gray-750 text-white px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-1 transition border border-gray-700"
                   >
-                    <Plus className="h-3.5 w-3.5" /> Register Enrollment Site
+                    <Plus className="h-3.5 w-3.5" /> Registrar Site de Registro
                   </button>
                 </div>
 
@@ -1417,7 +1417,7 @@ export function AdministrationView() {
                     <div key={site.id} className="bg-gray-950 rounded-lg p-4 border border-gray-850 flex flex-col justify-between" id={`site-card-${site.id}`}>
                       <div>
                         <div className="flex justify-between items-center">
-                          <span className="text-[10px] bg-indigo-950 text-indigo-300 font-semibold uppercase tracking-wider px-2 py-0.5 rounded">Site</span>
+                          <span className="text-[10px] bg-indigo-950 text-indigo-300 font-semibold uppercase tracking-wider px-2 py-0.5 rounded">Site de Registro</span>
                           <span className={`px-2 py-0.5 rounded text-[10px] font-semibold ${
                             site.extenderStatus === "Online" 
                               ? "bg-emerald-950 text-emerald-300 border border-emerald-500/20" 
@@ -1428,13 +1428,13 @@ export function AdministrationView() {
                         </div>
                         <h4 className="font-semibold text-sm text-white mt-2">{site.name}</h4>
                         <p className="text-xs text-gray-400 mt-2">
-                          Logical unit connected directly to the central asset discovery pipeline.
+                          Unidade lógica conectada diretamente ao pipeline central de descoberta de ativos.
                         </p>
                       </div>
 
                       <div className="border-t border-gray-850 pt-3 mt-4 text-xs text-gray-500 flex justify-between">
-                        <span>Extenders registered:</span>
-                        <span className="font-bold text-gray-300">{site.snowExtenderCount} active</span>
+                        <span>Extenders registrados:</span>
+                        <span className="font-bold text-gray-300">{site.snowExtenderCount} ativos</span>
                       </div>
                     </div>
                   ))}
@@ -1450,16 +1450,16 @@ export function AdministrationView() {
               <div className="bg-gray-900 rounded-xl border border-gray-800 p-6">
                 <div className="flex items-center justify-between border-b border-gray-800 pb-4 mb-4">
                   <div>
-                    <h3 className="text-base font-semibold text-white">Network IP Whitelists (Administrative Protection)</h3>
+                    <h3 className="text-base font-semibold text-white">Listas Brancas de IP de Rede (Proteção Administrativa)</h3>
                     <p className="text-xs text-gray-400 mt-1">
-                      Restrict access to the IT Asset management portal by enforcing custom IP Allow/Deny policies.
+                      Restrinja o acesso ao portal de gerenciamento de ativos de TI aplicando políticas personalizadas de Permissão/Negação de IP.
                     </p>
                   </div>
                   <button 
                     onClick={() => setShowIpModal(true)} 
                     className="bg-[#00549F] text-white cursor-pointer px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-1 transition"
                   >
-                    <Plus className="h-3.5 w-3.5" /> Append Inbound Network Rule
+                    <Plus className="h-3.5 w-3.5" /> Adicionar Regra de Rede de Entrada
                   </button>
                 </div>
 
@@ -1467,11 +1467,11 @@ export function AdministrationView() {
                   <table className="w-full text-left text-xs text-gray-300">
                     <thead className="bg-gray-950 border-b border-gray-800 uppercase text-[10px] font-semibold text-gray-400">
                       <tr>
-                        <th className="p-3">CIDR Address Range Block</th>
-                        <th className="p-3">Description Name</th>
-                        <th className="p-3">Security Action Policy</th>
-                        <th className="p-3">Rule Status</th>
-                        <th className="p-3 text-right">Actions</th>
+                        <th className="p-3">Bloco de Faixa de Endereço CIDR</th>
+                        <th className="p-3">Nome da Descrição</th>
+                        <th className="p-3">Política de Ação de Segurança</th>
+                        <th className="p-3">Status da Regra</th>
+                        <th className="p-3 text-right">Ações</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-800">
@@ -1510,9 +1510,9 @@ export function AdministrationView() {
               <div className="bg-gray-900 rounded-xl border border-gray-800 p-6">
                 <div className="flex items-center justify-between border-b border-gray-800 pb-4 mb-4">
                   <div>
-                    <h3 className="text-base font-semibold text-white">GDPR Compliance &amp; PII Data Obfuscation</h3>
+                    <h3 className="text-base font-semibold text-white">Conformidade com LGPD e Ofuscação de Dados PII</h3>
                     <p className="text-xs text-gray-400 mt-1">
-                      Configure privacy settings to automatically pseudonymize hardware owners and email addresses discovered by inventory agents.
+                      Configure configurações de privacidade para pseudonimizar automaticamente proprietários de hardware e endereços de e-mail descobertos por agentes de inventário.
                     </p>
                   </div>
                   <Sliders className="h-5 w-5 text-[#00549F]/60 shrink-0" />
@@ -1521,26 +1521,26 @@ export function AdministrationView() {
                 <div className="space-y-4 text-xs text-gray-300">
                   <div className="flex items-center justify-between bg-gray-950 p-4 rounded-lg border border-gray-800">
                     <div>
-                      <h4 className="font-semibold text-sm text-white">Anonymize Discovered User Accounts</h4>
-                      <p className="text-xs text-gray-400 mt-0.5">Strip native email domains and replace owner tags with secure random tokens.</p>
+                      <h4 className="font-semibold text-sm text-white">Anonimizar Contas de Usuário Descobertas</h4>
+                      <p className="text-xs text-gray-400 mt-0.5">Remova domínios de e-mail nativos e substitua tags de proprietário por tokens aleatórios seguros.</p>
                     </div>
-                    <span className="text-emerald-400 font-bold bg-emerald-950 border border-emerald-500/10 px-2 py-1 rounded">ACTIVE / ENFORCED</span>
+                    <span className="text-emerald-400 font-bold bg-emerald-950 border border-emerald-500/10 px-2 py-1 rounded">ATIVO / EM VIGOR</span>
                   </div>
 
                   <div className="flex items-center justify-between bg-gray-950 p-4 rounded-lg border border-gray-800">
                     <div>
-                      <h4 className="font-semibold text-sm text-white">Exclude Specific Active Directory domains</h4>
-                      <p className="text-xs text-gray-400 mt-0.5">Devices belonging to designated domains (e.g. staging-internal.net) will not register in the SAM catalog.</p>
+                      <h4 className="font-semibold text-sm text-white">Excluir Domínios Específicos do Active Directory</h4>
+                      <p className="text-xs text-gray-400 mt-0.5">Dispositivos pertencentes a domínios designados (ex: staging-internal.net) não serão registrados no catálogo SAM.</p>
                     </div>
-                    <span className="text-gray-400 font-semibold bg-gray-900 border border-gray-800 px-2 py-1 rounded">2 DOMAINS EXCLUDED</span>
+                    <span className="text-gray-400 font-semibold bg-gray-900 border border-gray-800 px-2 py-1 rounded">2 DOMÍNIOS EXCLUÍDOS</span>
                   </div>
 
                   <div className="flex items-center justify-between bg-gray-950 p-4 rounded-lg border border-gray-800">
                     <div>
-                      <h4 className="font-semibold text-sm text-white">Quarantine Device Automation Cycles</h4>
-                      <p className="text-xs text-gray-400 mt-0.5">Automatically tag idle computers as Suspended/Archived if no scanner heartbeat is received for 90 days.</p>
+                      <h4 className="font-semibold text-sm text-white">Ciclos de Automação de Isolamento de Dispositivos</h4>
+                      <p className="text-xs text-gray-400 mt-0.5">Marque automaticamente computadores ociosos como Suspensos/Arquivados se nenhum heartbeat do scanner for recebido por 90 dias.</p>
                     </div>
-                    <span className="text-emerald-400 font-bold bg-emerald-950 border border-emerald-500/10 px-2 py-1 rounded">90 DAYS MAX AGE</span>
+                    <span className="text-emerald-400 font-bold bg-emerald-950 border border-emerald-500/10 px-2 py-1 rounded">90 DIAS IDADE MÁXIMA</span>
                   </div>
                 </div>
               </div>
@@ -1553,23 +1553,23 @@ export function AdministrationView() {
               <div className="bg-gray-900 rounded-xl border border-gray-800 p-6">
                 <div className="flex items-center justify-between border-b border-gray-800 pb-4 mb-4">
                   <div>
-                    <h3 className="text-base font-semibold text-white">Managed Service Provider (MSP) Partner Console</h3>
+                    <h3 className="text-base font-semibold text-white">Console de Parceiro MSP (Provedor de Serviços Gerenciados)</h3>
                     <p className="text-xs text-gray-400 mt-1">
-                      Consolidated overview of multi-tenant clients managed under your master account structure.
+                      Visão geral consolidada de clientes multilocatários gerenciados sob sua estrutura de conta mestre.
                     </p>
                   </div>
                   <button 
                     onClick={() => setShowMspModal(true)} 
                     className="bg-[#00549F] text-white cursor-pointer px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-1 transition"
                   >
-                    <Plus className="h-3.5 w-3.5" /> Provision Client Tenant Workspace
+                    <Plus className="h-3.5 w-3.5" /> Provisionar Workspace de Locatário do Cliente
                   </button>
                 </div>
 
                 {/* Simulated tenant visual overview */}
                 <div className="bg-indigo-950/20 border border-[#00549F]/20 rounded-lg p-4 mb-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
                   <div>
-                    <div className="text-[10px] text-[#00549F]/60 uppercase tracking-wider font-semibold">Active simulated login session:</div>
+                    <div className="text-[10px] text-[#00549F]/60 uppercase tracking-wider font-semibold">Sessão de login simulada ativa:</div>
                     <h4 className="text-base font-bold text-white mt-1">{activeTenantObj?.name || "Acme corporation"}</h4>
                     <p className="text-gray-400 mt-1">
                       Access Token successfully generated. Security context restricts API responses only to client database ID: <strong className="font-mono text-indigo-300">{activeTenantObj?.id}</strong>
@@ -1577,15 +1577,15 @@ export function AdministrationView() {
                   </div>
                   <div className="flex items-center gap-6">
                     <div className="text-center">
-                      <span className="text-gray-500 block">Compliance Grade</span>
+                      <span className="text-gray-500 block">Nota de Compliance</span>
                       <strong className={`text-sm font-bold ${activeTenantObj?.complianceScore >= 90 ? 'text-emerald-400' : 'text-amber-400'}`}>{activeTenantObj?.complianceScore}%</strong>
                     </div>
                     <div className="text-center">
-                      <span className="text-gray-500 block">Licenses Owned</span>
+                      <span className="text-gray-500 block">Licenças Próprias</span>
                       <strong className="text-sm font-bold text-white">{activeTenantObj?.totalLicenses}</strong>
                     </div>
                     <div className="text-center">
-                      <span className="text-gray-500 block">Discovered Devices</span>
+                      <span className="text-gray-500 block">Dispositivos Descobertos</span>
                       <strong className="text-sm font-bold text-white">{activeTenantObj?.totalDevices}</strong>
                     </div>
                   </div>
@@ -1607,7 +1607,7 @@ export function AdministrationView() {
                       id={`msp-card-${cust.id}`}
                     >
                       <div className="flex justify-between items-start">
-                        <span className="text-[10px] uppercase font-mono tracking-wider bg-gray-900 border border-gray-800 text-indigo-300 px-1.5 py-0.5 rounded">MSP Customer</span>
+                        <span className="text-[10px] uppercase font-mono tracking-wider bg-gray-900 border border-gray-800 text-indigo-300 px-1.5 py-0.5 rounded">Cliente MSP</span>
                         <span className={`px-2 py-0.5 rounded text-[10px] font-semibold ${
                           cust.status === "Active" 
                             ? "bg-emerald-950 text-emerald-300 border border-emerald-500/10" 
@@ -1619,14 +1619,14 @@ export function AdministrationView() {
                       <h4 className="font-bold text-sm text-white mt-3">{cust.name}</h4>
                       
                       <div className="space-y-1 mt-4 text-xs text-gray-400 border-t border-gray-900 pt-3">
-                        <div className="flex justify-between"><span>Tenant Workspace:</span> <span className="font-mono text-gray-500 text-[10px]">{cust.id}</span></div>
-                        <div className="flex justify-between"><span>Audit state:</span> <span className="text-emerald-400 font-medium">SOC 2 compliant</span></div>
-                        <div className="flex justify-between"><span>Effective Position (ELP):</span> <strong className="text-gray-300">{cust.complianceScore}% score</strong></div>
+                        <div className="flex justify-between"><span>Workspace do Locatário:</span> <span className="font-mono text-gray-500 text-[10px]">{cust.id}</span></div>
+                        <div className="flex justify-between"><span>Estado de auditoria:</span> <span className="text-emerald-400 font-medium">Em conformidade SOC 2</span></div>
+                        <div className="flex justify-between"><span>Posição Efetiva (ELP):</span> <strong className="text-gray-300">{cust.complianceScore}% pontuação</strong></div>
                       </div>
 
                       <div className="mt-4 pt-2 border-t border-gray-900 text-center">
                         <span className="text-[#00549F]/60 font-medium text-[11px] hover:underline flex items-center justify-center gap-1">
-                          <Check className="h-3.5 w-3.5" /> Switched Context
+                          <Check className="h-3.5 w-3.5" /> Contexto Alternado
                         </span>
                       </div>
                     </div>
@@ -1642,9 +1642,9 @@ export function AdministrationView() {
               <div className="bg-gray-900 rounded-xl border border-gray-800 p-6">
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-gray-800 pb-4 mb-4">
                   <div>
-                    <h3 className="text-base font-semibold text-white">Dynamic Centralized Audit Activity Log</h3>
+                    <h3 className="text-base font-semibold text-white">Log de Atividades de Auditoria Centralizado Dinâmico</h3>
                     <p className="text-xs text-gray-400 mt-1">
-                      Immutable tracking record of structural administrative logins, credential changes, and policy modifications.
+                      Registro de rastreamento imutável de logins administrativos estruturais, alterações de credenciais e modificações de políticas.
                     </p>
                   </div>
                   <div className="flex gap-2 shrink-0">
@@ -1671,13 +1671,13 @@ export function AdministrationView() {
                       }}
                       className="bg-[#00549F] text-white cursor-pointer px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-1 transition"
                     >
-                      <Activity className="h-3.5 w-3.5" /> Simulate Admin Event
+                      <Activity className="h-3.5 w-3.5" /> Simular Evento de Admin
                     </button>
                     <button 
                       onClick={handleExportAuditLogs}
                       className="bg-gray-800 hover:bg-gray-750 text-white px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-1 transition border border-gray-700"
                     >
-                      <Download className="h-3.5 w-3.5" /> Export Audit Trail
+                      <Download className="h-3.5 w-3.5" /> Exportar Trilha de Auditoria
                     </button>
                   </div>
                 </div>
@@ -1688,7 +1688,7 @@ export function AdministrationView() {
                     <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-500" />
                     <input 
                       type="text" 
-                      placeholder="Search audit actions, staff details, IP records, or metadata..." 
+                      placeholder="Pesquisar ações de auditoria, detalhes de funcionários, registros de IP ou metadados..." 
                       value={auditQuery}
                       onChange={(e) => setAuditQuery(e.target.value)}
                       className="w-full bg-gray-950 border border-gray-850 text-xs text-white pl-9 pr-3 py-2.5 rounded-lg outline-none focus:border-[#00549F]"
@@ -1701,14 +1701,14 @@ export function AdministrationView() {
                       onChange={(e) => setAuditCategory(e.target.value)}
                       className="w-full bg-gray-950 border border-gray-850 text-xs text-gray-300 px-3 py-2.5 rounded-lg outline-none"
                     >
-                      <option value="All">All Categories</option>
-                      <option value="Auth">Auth &amp; SSO</option>
-                      <option value="Security">Firewalls &amp; Protection</option>
-                      <option value="RBAC">RBAC Access Control</option>
-                      <option value="SAM Core">SAM Core Rules</option>
-                      <option value="Org">Organization Tree</option>
-                      <option value="Cloud">Cloud Connections</option>
-                      <option value="Admin">System Admin</option>
+                      <option value="All">Todas as Categorias</option>
+                      <option value="Auth">Autenticação e SSO</option>
+                      <option value="Security">Firewalls e Proteção</option>
+                      <option value="RBAC">Controle de Acesso RBAC</option>
+                      <option value="SAM Core">Regras do Core SAM</option>
+                      <option value="Org">Árvore Organizacional</option>
+                      <option value="Cloud">Conexões de Nuvem</option>
+                      <option value="Admin">Admin do Sistema</option>
                     </select>
                   </div>
                 </div>
@@ -1718,11 +1718,11 @@ export function AdministrationView() {
                     <thead className="bg-gray-950 border-b border-gray-800 uppercase text-[10px] font-semibold text-gray-400">
                       <tr>
                         <th className="p-3">Timestamp (UTC)</th>
-                        <th className="p-3">Staff Identity Member</th>
-                        <th className="p-3">Audit Category</th>
-                        <th className="p-3">Action performed</th>
-                        <th className="p-3">Client Network IP</th>
-                        <th className="p-3">Activity details description</th>
+                        <th className="p-3">Membro de Identidade</th>
+                        <th className="p-3">Categoria de Auditoria</th>
+                        <th className="p-3">Ação Realizada</th>
+                        <th className="p-3">IP de Rede do Cliente</th>
+                        <th className="p-3">Descrição de Detalhes da Atividade</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-800">
@@ -1744,7 +1744,7 @@ export function AdministrationView() {
                   </table>
                   {filteredAudits.length === 0 && (
                     <div className="p-8 text-center text-gray-500" id="empty-audits-message">
-                      No matching audit action logs found. Try modifying your filters or typing different search queries.
+                      Nenhum log de ação de auditoria correspondente encontrado. Tente modificar seus filtros ou digitar termos de pesquisa diferentes.
                     </div>
                   )}
                 </div>
@@ -1758,16 +1758,16 @@ export function AdministrationView() {
               <div className="bg-gray-900 rounded-xl border border-gray-800 p-6">
                 <div className="flex items-center justify-between border-b border-gray-800 pb-4 mb-4">
                   <div>
-                    <h3 className="text-base font-semibold text-white">Consolidated Multi-Currency Exchange Manager</h3>
+                    <h3 className="text-base font-semibold text-white">Gerenciador de Câmbio Multimoeda Consolidado</h3>
                     <p className="text-xs text-gray-400 mt-1">
-                      Manage conversion factors and exchange ratios to generate consolidated spend dashboards in your base operational currency.
+                      Gerencie fatores de conversão e taxas de câmbio para gerar dashboards de gastos consolidados em sua moeda operacional base.
                     </p>
                   </div>
                   <button 
                     onClick={() => setShowCurModal(true)} 
                     className="bg-[#00549F] text-white cursor-pointer px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-1 transition"
                   >
-                    <Plus className="h-3.5 w-3.5" /> Map Conversion Currency
+                    <Plus className="h-3.5 w-3.5" /> Mapear Moeda de Conversão
                   </button>
                 </div>
 
@@ -1777,11 +1777,11 @@ export function AdministrationView() {
                       <div className="flex justify-between items-center">
                         <span className="font-bold text-lg text-white font-mono">{rate.code} ({rate.symbol})</span>
                         {rate.isBase && (
-                          <span className="bg-emerald-950 text-emerald-400 text-[9px] font-bold px-2 py-0.5 rounded tracking-wider border border-emerald-500/10">BASE CURRENCY</span>
+                          <span className="bg-emerald-950 text-emerald-400 text-[9px] font-bold px-2 py-0.5 rounded tracking-wider border border-emerald-500/10">MOEDA BASE</span>
                         )}
                       </div>
                       <div className="mt-4 pt-3 border-t border-gray-900 flex justify-between text-gray-400">
-                        <span>Rate relative to USD base:</span>
+                        <span>Taxa relativa à base USD:</span>
                         <span className="font-mono text-white font-semibold">{rate.rateToBase.toFixed(4)}</span>
                       </div>
                     </div>
@@ -1789,9 +1789,9 @@ export function AdministrationView() {
                 </div>
 
                 <div className="bg-indigo-950/20 border border-[#00549F]/20 p-4 rounded-lg text-xs text-indigo-300">
-                  <h4 className="font-bold text-sm text-white mb-1">Periodized Financial Conversion Process</h4>
+                  <h4 className="font-bold text-sm text-white mb-1">Processo de Conversão Financeira Periodizada</h4>
                   <p className="mt-1 leading-relaxed">
-                    Financial expenditures are evaluated daily by consolidating local software invoice values based on overnight currency exchange rates. Base currency defaults to United States Dollars ($). To switch operational base systems, please contact the global master administrator account.
+                    Os gastos financeiros são avaliados diariamente consolidando valores de faturas de software locais com base nas taxas de câmbio noturnas. A moeda base padrão é o Dólar Americano ($). Para alterar o sistema operacional base, entre em contato com a conta do administrador mestre global.
                   </p>
                 </div>
               </div>
@@ -1805,9 +1805,9 @@ export function AdministrationView() {
               <div className="bg-gray-900 rounded-xl border border-gray-800 p-6">
                 <div className="flex items-center justify-between border-b border-gray-800 pb-4 mb-4">
                   <div>
-                    <h3 className="text-base font-semibold text-white">System Security &amp; Activity Notifications</h3>
+                    <h3 className="text-base font-semibold text-white">Notificações de Segurança do Sistema e Atividades</h3>
                     <p className="text-xs text-gray-400 mt-1">
-                      Monitor platform alerts, heartbeat monitoring errors, and automated compliance violations.
+                      Monitore alertas da plataforma, erros de monitoramento de heartbeat e violações de compliance automatizadas.
                     </p>
                   </div>
                   <Bell className="h-5 w-5 text-[#00549F]/60 shrink-0" />
@@ -1846,7 +1846,7 @@ export function AdministrationView() {
                           onClick={() => handleReadNotification(notif.id)}
                           className="bg-[#00549F] text-white cursor-pointer px-2.5 py-1 rounded text-[11px] font-semibold shrink-0 transition"
                         >
-                          Mark read
+                          Marcar como lida
                         </button>
                       )}
                     </div>
@@ -1858,9 +1858,9 @@ export function AdministrationView() {
               <div className="bg-gray-900 rounded-xl border border-gray-800 p-6">
                 <div className="flex items-center justify-between border-b border-gray-800 pb-4 mb-4">
                   <div>
-                    <h3 className="text-base font-semibold text-white">Central Storage Vault (My Files)</h3>
+                    <h3 className="text-base font-semibold text-white">Cofre de Armazenamento Central (Meus Arquivos)</h3>
                     <p className="text-xs text-gray-400 mt-1">
-                      Securely access, retrieve, or purge exported compliance documents, system dumps, and invoice receipts.
+                      Acesse, recupere ou remova com segurança documentos de compliance exportados, dumps de sistema e recibos de faturas.
                     </p>
                   </div>
                   <HardDrive className="h-5 w-5 text-[#00549F]/60 shrink-0" />
@@ -1876,7 +1876,7 @@ export function AdministrationView() {
                         </div>
                         <h4 className="font-bold text-gray-200 text-sm mt-3 truncate" title={file.filename}>{file.filename}</h4>
                         <div className="text-gray-500 mt-1 flex justify-between">
-                          <span>Export type:</span>
+                          <span>Tipo de exportação:</span>
                           <span>{file.purpose}</span>
                         </div>
                       </div>
@@ -1898,14 +1898,14 @@ export function AdministrationView() {
                               document.body.removeChild(a);
                             }}
                             className="text-[#00549F]/60 hover:text-indigo-300 p-1 rounded hover:bg-indigo-950/20"
-                            title="Download file"
+                            title="Baixar arquivo"
                           >
                             <Download className="h-4 w-4" />
                           </button>
                           <button 
                             onClick={() => handleDeleteFile(file.id)}
                             className="text-rose-400 hover:text-rose-300 p-1 rounded hover:bg-rose-950/20"
-                            title="Delete file"
+                            title="Excluir arquivo"
                           >
                             <Trash2 className="h-4 w-4" />
                           </button>
@@ -1925,9 +1925,9 @@ export function AdministrationView() {
               <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                   <div>
-                    <h3 className="text-base font-semibold text-white">On-Premises Collection Gateways (Snow Extenders)</h3>
+                    <h3 className="text-base font-semibold text-white">Gateways de Coleta On-Premises (Snow Extenders)</h3>
                     <p className="text-xs text-gray-400 mt-1">
-                      Manage secure connection gateways, monitor active directory discovery scopes, and test File Elevator upload daemons.
+                      Gerencie gateways de conexão segura, monitore escopos de descoberta do Active Directory e teste daemons de upload do File Elevator.
                     </p>
                   </div>
                   <Server className="h-6 w-6 text-[#00549F]/60 shrink-0" />
@@ -1938,7 +1938,7 @@ export function AdministrationView() {
                 {/* Gateways Registry & Subsystem Testing */}
                 <div className="lg:col-span-2 space-y-6">
                   <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-                    <h4 className="text-sm font-semibold text-white mb-4">Active Gateways &amp; Sites</h4>
+                    <h4 className="text-sm font-semibold text-white mb-4">Gateways e Sites Ativos</h4>
                     
                     <div className="space-y-4">
                       {enrollmentSites.map(site => (
@@ -1961,54 +1961,54 @@ export function AdministrationView() {
 
                           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs border-t border-gray-900 pt-3">
                             <div>
-                              <span className="text-gray-500 block">Extenders deployed</span>
-                              <span className="text-gray-300 font-mono font-bold">{site.snowExtenderCount} servers</span>
+                              <span className="text-gray-500 block">Extenders implantados</span>
+                              <span className="text-gray-300 font-mono font-bold">{site.snowExtenderCount} servidores</span>
                             </div>
                             <div>
-                              <span className="text-gray-500 block">Gateway protocol</span>
+                              <span className="text-gray-500 block">Protocolo do gateway</span>
                               <span className="text-[#00549F]/60 font-mono">TLS 1.3 (Port 443)</span>
                             </div>
                             <div>
-                              <span className="text-gray-500 block">Hot Directory elevator</span>
-                              <span className="text-emerald-400">Monitoring Active</span>
+                              <span className="text-gray-500 block">Elevador de diretório Hot</span>
+                              <span className="text-emerald-400">Monitoramento Ativo</span>
                             </div>
                             <div>
-                              <span className="text-gray-500 block">AD LDAP Sync</span>
+                              <span className="text-gray-500 block">Sincronização AD LDAP</span>
                               <span className="text-gray-300 font-mono">Every 12 Hours</span>
                             </div>
                           </div>
 
                           {/* Subsystem Testing Controls */}
                           <div className="bg-gray-900/50 p-3 rounded-lg border border-gray-900 mt-2">
-                            <span className="text-[10px] font-semibold text-gray-400 block mb-2 uppercase tracking-wider">Gateway Subsystem Diagnostic Testing</span>
+                            <span className="text-[10px] font-semibold text-gray-400 block mb-2 uppercase tracking-wider">Teste de Diagnóstico de Subsistema do Gateway</span>
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                               <button
                                 onClick={() => handleTestExtenderComponent("gateway")}
                                 disabled={!!testingExtender}
                                 className="bg-gray-950 border border-gray-800 text-gray-300 hover:text-white hover:bg-gray-900 px-2 py-1.5 rounded text-[10px] font-medium transition text-center"
                               >
-                                {testingExtender === "gateway" ? "Testing..." : "Test Gateway"}
+                                {testingExtender === "gateway" ? "Testando..." : "Testar Gateway"}
                               </button>
                               <button
                                 onClick={() => handleTestExtenderComponent("elevator")}
                                 disabled={!!testingExtender}
                                 className="bg-gray-950 border border-gray-800 text-gray-300 hover:text-white hover:bg-gray-900 px-2 py-1.5 rounded text-[10px] font-medium transition text-center"
                               >
-                                {testingExtender === "elevator" ? "Testing..." : "Test Elevator"}
+                                {testingExtender === "elevator" ? "Testando..." : "Testar Elevator"}
                               </button>
                               <button
                                 onClick={() => handleTestExtenderComponent("ad")}
                                 disabled={!!testingExtender}
                                 className="bg-gray-950 border border-gray-800 text-gray-300 hover:text-white hover:bg-gray-900 px-2 py-1.5 rounded text-[10px] font-medium transition text-center"
                               >
-                                {testingExtender === "ad" ? "Testing..." : "AD Discovery Scan"}
+                                {testingExtender === "ad" ? "Testando..." : "Varredura de Descoberta AD"}
                               </button>
                               <button
                                 onClick={() => handleTestExtenderComponent("forwarder")}
                                 disabled={!!testingExtender}
                                 className="bg-gray-950 border border-gray-800 text-gray-300 hover:text-white hover:bg-gray-900 px-2 py-1.5 rounded text-[10px] font-medium transition text-center"
                               >
-                                {testingExtender === "forwarder" ? "Testing..." : "Test Forwarder"}
+                                {testingExtender === "forwarder" ? "Testando..." : "Testar Forwarder"}
                               </button>
                             </div>
                           </div>
@@ -2022,14 +2022,14 @@ export function AdministrationView() {
                     <div className="flex items-center justify-between border-b border-gray-800 pb-3 mb-4">
                       <div className="flex items-center gap-2">
                         <Terminal className="h-4 w-4 text-emerald-400" />
-                        <h4 className="text-sm font-semibold text-white">Extender Secure Handshake Diagnostic Output</h4>
+                        <h4 className="text-sm font-semibold text-white">Saída de Diagnóstico de Handshake Seguro do Extender</h4>
                       </div>
                       {activeExtenderDiagnostic && (
                         <button 
                           onClick={() => setActiveExtenderDiagnostic(null)}
                           className="text-gray-500 hover:text-gray-300 text-xs"
                         >
-                          Clear
+                          Limpar
                         </button>
                       )}
                     </div>
@@ -2053,10 +2053,10 @@ export function AdministrationView() {
                         {testingExtender ? (
                           <div className="flex flex-col items-center gap-2">
                             <RefreshCw className="h-5 w-5 animate-spin text-[#00549F]/60" />
-                            <span>Requesting secure token handshake from Gateway Extender endpoint...</span>
+                            <span>Solicitando handshake de token seguro do endpoint do Gateway Extender...</span>
                           </div>
                         ) : (
-                          "Trigger a subsystem gateway test above to capture cryptographically signed JSON diagnostic reports."
+                          "Acione um teste de subsistema do gateway acima para capturar relatórios de diagnóstico JSON criptografados criptograficamente."
                         )}
                       </div>
                     )}
@@ -2066,16 +2066,16 @@ export function AdministrationView() {
                 {/* Agent Package Builder Console */}
                 <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 space-y-5 h-fit">
                   <div>
-                    <h4 className="text-sm font-semibold text-white">Agent Installer Package Builder</h4>
+                    <h4 className="text-sm font-semibold text-white">Construtor de Pacote do Instalador do Agente</h4>
                     <p className="text-xs text-gray-400 mt-1">
-                      Compile customized agent installer packages targeting physical devices, embedded clusters, and hypervisors.
+                      Compile pacotes de instalador de agente personalizados para dispositivos físicos, clusters incorporados e hipervisores.
                     </p>
                   </div>
 
                   <div className="space-y-4 text-xs text-gray-300">
                     {/* Platform Selector */}
                     <div className="space-y-1.5">
-                      <label className="font-semibold text-gray-400">Target Operating System Platform</label>
+                      <label className="font-semibold text-gray-400">Plataforma do Sistema Operacional Alvo</label>
                       <div className="grid grid-cols-3 gap-2">
                         {(["Windows", "Linux", "macOS"] as const).map(plat => (
                           <button
@@ -2095,7 +2095,7 @@ export function AdministrationView() {
 
                     {/* Module Inclusion Checkboxes */}
                     <div className="space-y-2 bg-gray-950 p-3 rounded-lg border border-gray-850">
-                      <span className="font-semibold text-gray-400 block mb-1">Components to Bundle in Package</span>
+                      <span className="font-semibold text-gray-400 block mb-1">Componentes para Empacotar</span>
                       
                       <label className="flex items-center gap-2.5 cursor-pointer text-gray-300 hover:text-white">
                         <input 
@@ -2104,7 +2104,7 @@ export function AdministrationView() {
                           onChange={(e) => setPbGateway(e.target.checked)}
                           className="rounded border-gray-800 bg-gray-900 text-[#00549F]"
                         />
-                        Secure Gateway module
+                        Módulo de Gateway Seguro
                       </label>
 
                       <label className="flex items-center gap-2.5 cursor-pointer text-gray-300 hover:text-white">
@@ -2114,7 +2114,7 @@ export function AdministrationView() {
                           onChange={(e) => setPbElevator(e.target.checked)}
                           className="rounded border-gray-800 bg-gray-900 text-[#00549F]"
                         />
-                        File Elevator watcher
+                        Vigia do File Elevator
                       </label>
 
                       <label className="flex items-center gap-2.5 cursor-pointer text-gray-300 hover:text-white">
@@ -2124,7 +2124,7 @@ export function AdministrationView() {
                           onChange={(e) => setPbAD(e.target.checked)}
                           className="rounded border-gray-800 bg-gray-900 text-[#00549F]"
                         />
-                        Active Directory scan plug-in
+                        Plug-in de varredura do Active Directory
                       </label>
 
                       <label className="flex items-center gap-2.5 cursor-pointer text-gray-300 hover:text-white">
@@ -2134,23 +2134,23 @@ export function AdministrationView() {
                           onChange={(e) => setPbForwarder(e.target.checked)}
                           className="rounded border-gray-800 bg-gray-900 text-[#00549F]"
                         />
-                        Data Forwarder daemon
+                        Daemon do Data Forwarder
                       </label>
                     </div>
 
                     {/* Scan Interval */}
                     <div className="space-y-1">
-                      <label className="font-semibold text-gray-400">Inventory Metering Frequency</label>
+                      <label className="font-semibold text-gray-400">Frequência de Medição de Inventário</label>
                       <select 
                         value={pbInterval}
                         onChange={(e) => setPbInterval(e.target.value)}
                         className="w-full bg-gray-950 border border-gray-800 rounded px-3 py-2 text-white outline-none"
                       >
-                        <option value="1">Every 1 Hour (High density)</option>
-                        <option value="4">Every 4 Hours</option>
-                        <option value="8">Every 8 Hours</option>
-                        <option value="12">Every 12 Hours (Recommended)</option>
-                        <option value="24">Every 24 Hours (Conservative)</option>
+                        <option value="1">A Cada 1 Hora (Alta densidade)</option>
+                        <option value="4">A Cada 4 Horas</option>
+                        <option value="8">A Cada 8 Horas</option>
+                        <option value="12">A Cada 12 Horas (Recomendado)</option>
+                        <option value="24">A Cada 24 Horas (Conservador)</option>
                       </select>
                     </div>
 
@@ -2158,7 +2158,7 @@ export function AdministrationView() {
                     {pbCompiling ? (
                       <div className="bg-gray-950 p-4 rounded-lg border border-indigo-950/40 text-center space-y-3">
                         <RefreshCw className="h-6 w-6 text-[#00549F]/60 animate-spin mx-auto" />
-                        <span className="font-semibold text-white block">Compiling Installer Package...</span>
+                        <span className="font-semibold text-white block">Compilando Pacote do Instalador...</span>
                         <p className="text-[10px] text-gray-400 font-mono italic">{pbCompileStep}</p>
                       </div>
                     ) : (
@@ -2167,7 +2167,7 @@ export function AdministrationView() {
                         className="w-full bg-[#00549F] text-white cursor-pointer font-semibold py-2.5 rounded-lg transition text-center flex items-center justify-center gap-2"
                       >
                         <Wrench className="h-4 w-4" />
-                        Compile Agent Package ({pbPlatform})
+                        Compilar Pacote do Agente ({pbPlatform})
                       </button>
                     )}
                   </div>
@@ -2183,9 +2183,9 @@ export function AdministrationView() {
               <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                   <div>
-                    <h3 className="text-base font-semibold text-white">ITSM CMDB Connectors &amp; Enrichers</h3>
+                    <h3 className="text-base font-semibold text-white">Conectores ITSM CMDB &amp; Enrichers</h3>
                     <p className="text-xs text-gray-400 mt-1">
-                      Enrich ServiceNow and Jira CMDB tables with normalized hardware cycles, warranty statuses, and software EOL/EOS dates.
+                      Enriqueça tabelas CMDB do ServiceNow e Jira com ciclos de hardware normalizados, status de garantia e datas de EOL/EOS de software.
                     </p>
                   </div>
                   <Share2 className="h-6 w-6 text-[#00549F]/60 shrink-0" />
@@ -2198,13 +2198,13 @@ export function AdministrationView() {
                   {/* Connectors Registry list */}
                   <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
                     <div className="flex justify-between items-center mb-4">
-                      <h4 className="text-sm font-semibold text-white">Active ITSM Gateway Connectors</h4>
+                      <h4 className="text-sm font-semibold text-white">Conectores de Gateway ITSM Ativos</h4>
                       <button
                         onClick={() => setShowItsmModal(true)}
                         className="bg-[#00549F] text-white cursor-pointer font-semibold px-3 py-1.5 rounded-lg text-xs flex items-center gap-1 transition"
                       >
                         <Plus className="h-3.5 w-3.5" />
-                        Configure Connector
+                        Configurar Conector
                       </button>
                     </div>
 
@@ -2225,11 +2225,11 @@ export function AdministrationView() {
 
                           <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs border-t border-gray-900 pt-3">
                             <div>
-                              <span className="text-gray-500 block">System Type</span>
+                              <span className="text-gray-500 block">Tipo de Sistema</span>
                               <span className="text-gray-300 font-semibold">{conn.type}</span>
                             </div>
                             <div>
-                              <span className="text-gray-500 block">Schedule frequency</span>
+                              <span className="text-gray-500 block">Frequência de agendamento</span>
                               <span className="text-gray-300 font-mono">{conn.syncInterval}</span>
                             </div>
                             <div>
@@ -2239,7 +2239,7 @@ export function AdministrationView() {
                               </span>
                             </div>
                             <div>
-                              <span className="text-gray-500 block">Last Sync Date</span>
+                              <span className="text-gray-500 block">Última Sincronização</span>
                               <span className="text-gray-400 font-mono">{new Date(conn.lastSynced).toLocaleString()}</span>
                             </div>
                           </div>
@@ -2249,7 +2249,7 @@ export function AdministrationView() {
                               onClick={() => handleTestItsmConnection(conn.type, conn.url)}
                               className="bg-gray-900 hover:bg-gray-850 border border-gray-800 text-gray-300 px-3 py-1 rounded text-[11px] transition font-semibold"
                             >
-                              Test Handshake
+                              Testar Handshake
                             </button>
                           </div>
                         </div>
@@ -2259,48 +2259,48 @@ export function AdministrationView() {
 
                   {/* Field Mapping Definitions */}
                   <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-                    <h4 className="text-sm font-semibold text-white mb-4">ITSM Enhancer CMDB Attribute Mapping</h4>
+                    <h4 className="text-sm font-semibold text-white mb-4">Mapeamento de Atributos CMDB do ITSM Enhancer</h4>
                     
                     <div className="overflow-x-auto">
                       <table className="w-full text-left text-xs border-collapse">
                         <thead>
                           <tr className="border-b border-gray-800 text-gray-400">
-                            <th className="pb-2.5">Discovered SAM Asset</th>
-                            <th className="pb-2.5">Data Intelligence Normalization</th>
-                            <th className="pb-2.5">ITSM CMDB Target Mapping</th>
-                            <th className="pb-2.5 text-right">Synchronization</th>
+                            <th className="pb-2.5">Ativo SAM Descoberto</th>
+                            <th className="pb-2.5">Normalização de Data Intelligence</th>
+                            <th className="pb-2.5">Mapeamento Alvo ITSM CMDB</th>
+                            <th className="pb-2.5 text-right">Sincronização</th>
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-900 text-gray-300">
                           <tr>
-                            <td className="py-2.5">Computer Model/CPU</td>
+                            <td className="py-2.5">Modelo do Computador/CPU</td>
                             <td className="py-2.5 font-mono text-[11px] text-emerald-400">EnrichedSpecs</td>
                             <td className="py-2.5">cmdb_ci_computer.hardware_spec</td>
-                            <td className="py-2.5 text-right text-gray-500">Unconditional</td>
+                            <td className="py-2.5 text-right text-gray-500">Incondicional</td>
                           </tr>
                           <tr>
-                            <td className="py-2.5">Hardware Serial</td>
+                            <td className="py-2.5">Serial do Hardware</td>
                             <td className="py-2.5 font-mono text-[11px] text-emerald-400 font-bold">SHA-Verified</td>
                             <td className="py-2.5">cmdb_ci_hardware.serial_number</td>
-                            <td className="py-2.5 text-right text-gray-500">Unconditional</td>
+                            <td className="py-2.5 text-right text-gray-500">Incondicional</td>
                           </tr>
                           <tr>
-                            <td className="py-2.5">Software Publisher</td>
+                            <td className="py-2.5">Editora do Software</td>
                             <td className="py-2.5 font-mono text-[11px] text-emerald-400">DIS Catalog Title</td>
                             <td className="py-2.5">cmdb_software_instance.publisher</td>
-                            <td className="py-2.5 text-right text-gray-500">On Recognition</td>
+                            <td className="py-2.5 text-right text-gray-500">Sob Reconhecimento</td>
                           </tr>
                           <tr>
-                            <td className="py-2.5">Application Version</td>
+                            <td className="py-2.5">Versão do Aplicativo</td>
                             <td className="py-2.5 font-mono text-[11px] text-emerald-400">DIS Normalization</td>
                             <td className="py-2.5">cmdb_software_instance.version</td>
-                            <td className="py-2.5 text-right text-gray-500">On Recognition</td>
+                            <td className="py-2.5 text-right text-gray-500">Sob Reconhecimento</td>
                           </tr>
                           <tr>
-                            <td className="py-2.5">Lifecycle dates (EOL/EOS)</td>
+                            <td className="py-2.5">Datas de ciclo de vida (EOL/EOS)</td>
                             <td className="py-2.5 font-mono text-[11px] text-emerald-400">EOL/EOS Metadata</td>
                             <td className="py-2.5">cmdb_software_instance.lifecycle_status</td>
-                            <td className="py-2.5 text-right text-gray-500">On Recognition</td>
+                            <td className="py-2.5 text-right text-gray-500">Sob Reconhecimento</td>
                           </tr>
                         </tbody>
                       </table>
@@ -2311,17 +2311,17 @@ export function AdministrationView() {
                 {/* CMDB Enricher Action Dashboard */}
                 <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 space-y-6 h-fit">
                   <div>
-                    <h4 className="text-sm font-semibold text-white">ITSM CMDB Enhancer Controller</h4>
+                    <h4 className="text-sm font-semibold text-white">Controlador do ITSM CMDB Enhancer</h4>
                     <p className="text-xs text-gray-400 mt-1">
-                      Execute CMDB table synchronization. This cleans redundant entries, unifies manufacturer spelling variances, and enriches service desk records with lifecycle milestones.
+                      Execute a sincronização de tabelas CMDB. Isso limpa entradas redundantes, unifica variações ortográficas de fabricantes e enriquece registros do service desk com marcos de ciclo de vida.
                     </p>
                   </div>
 
                   {itsmEnriching ? (
                     <div className="bg-gray-950 p-4 rounded-lg border border-indigo-950/30 text-center space-y-2">
                       <RefreshCw className="h-6 w-6 text-[#00549F]/60 animate-spin mx-auto" />
-                      <span className="font-semibold text-white block text-xs">Syncing CMDB Data Tables...</span>
-                      <span className="text-[10px] text-gray-500 font-mono">Pushing clean DIS entries to ServiceNow</span>
+                      <span className="font-semibold text-white block text-xs">Sincronizando Tabelas de Dados CMDB...</span>
+                      <span className="text-[10px] text-gray-500 font-mono">Enviando entradas DIS limpas para ServiceNow</span>
                     </div>
                   ) : (
                     <button
@@ -2329,7 +2329,7 @@ export function AdministrationView() {
                       className="w-full bg-[#00549F] text-white cursor-pointer font-semibold py-2.5 rounded-lg transition flex items-center justify-center gap-2 text-xs"
                     >
                       <RefreshCw className="h-4 w-4" />
-                      Trigger CMDB Table Enrichment Sync
+                      Acionar Sincronização de Enriquecimento de Tabela CMDB
                     </button>
                   )}
 
@@ -2337,17 +2337,17 @@ export function AdministrationView() {
                     <div className="bg-gray-950 border border-emerald-500/20 p-4 rounded-lg space-y-3">
                       <div className="flex items-center gap-2 text-emerald-400 font-bold text-xs border-b border-gray-900 pb-2">
                         <Check className="h-4 w-4" />
-                        <span>Enrichment Sync Success</span>
+                        <span>Sincronização de Enriquecimento Concluída</span>
                       </div>
                       <p className="text-[11px] text-gray-400">{itsmEnrichResult.message}</p>
                       
                       <div className="grid grid-cols-2 gap-2 text-xs pt-1">
                         <div className="bg-gray-900 p-2 rounded border border-gray-850">
-                          <span className="text-gray-500 block text-[10px]">Hardware updated</span>
+                          <span className="text-gray-500 block text-[10px]">Hardware atualizado</span>
                           <span className="text-gray-200 font-bold font-mono">{itsmEnrichResult.syncedHardware} nodes</span>
                         </div>
                         <div className="bg-gray-900 p-2 rounded border border-gray-850">
-                          <span className="text-gray-500 block text-[10px]">Software normalized</span>
+                          <span className="text-gray-500 block text-[10px]">Software normalizado</span>
                           <span className="text-gray-200 font-bold font-mono">{itsmEnrichResult.syncedSoftware} items</span>
                         </div>
                       </div>
@@ -2368,7 +2368,7 @@ export function AdministrationView() {
                   <div>
                     <h3 className="text-base font-semibold text-white">Flexera Assist AI Co-Pilot Hub</h3>
                     <p className="text-xs text-gray-400 mt-1">
-                      Solve complex licensing scenarios, review audit readiness strategies, or request step-by-step gateway configurations powered by Gemini 3.5 Flash.
+                      Resolva cenários complexos de licenciamento, revise estratégias de prontidão para auditoria ou solicite configurações passo a passo de gateway com tecnologia Gemini 3.5 Flash.
                     </p>
                   </div>
                   <Bot className="h-6 w-6 text-[#00549F]/60 shrink-0" />
@@ -2455,7 +2455,7 @@ export function AdministrationView() {
                         </div>
                         <div className="bg-gray-950 border border-gray-850 p-4 rounded-xl text-gray-400 flex items-center gap-2.5">
                           <RefreshCw className="h-3.5 w-3.5 animate-spin text-[#00549F]/60" />
-                          <span>Flexera Assist is reasoning and parsing SAM rules engine...</span>
+                          <span>Flexera Assist está raciocinando e analisando o motor de regras SAM...</span>
                         </div>
                       </div>
                     )}
@@ -2490,9 +2490,9 @@ export function AdministrationView() {
                 {/* Quick-Click Suggestions Panel */}
                 <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 space-y-4 h-fit">
                   <div>
-                    <h4 className="text-sm font-semibold text-white">Suggested Assistance Queries</h4>
+                    <h4 className="text-sm font-semibold text-white">Consultas de Assistência Sugeridas</h4>
                     <p className="text-[11px] text-gray-400 mt-1">
-                      Select a standard pre-modeled help-desk scenario to review automated compliance calculation parameters.
+                      Selecione um cenário padrão pré-modelado de help-desk para revisar parâmetros automatizados de cálculo de compliance.
                     </p>
                   </div>
 
@@ -2502,8 +2502,8 @@ export function AdministrationView() {
                       disabled={chatLoading}
                       className="w-full text-left bg-gray-950 border border-gray-850 hover:bg-gray-900 hover:border-gray-800 p-3 rounded-lg text-[11px] text-gray-300 transition hover:text-white block space-y-1"
                     >
-                      <span className="font-bold text-[#00549F]/60 block">Cloud BYOL Optimization</span>
-                      <span>Learn how to match active licenses directly to AWS/Azure VM specs.</span>
+                      <span className="font-bold text-[#00549F]/60 block">Otimização de BYOL na Nuvem</span>
+                      <span>Aprenda a combinar licenças ativas diretamente com especificações de VMs AWS/Azure.</span>
                     </button>
 
                     <button
@@ -2511,8 +2511,8 @@ export function AdministrationView() {
                       disabled={chatLoading}
                       className="w-full text-left bg-gray-950 border border-gray-850 hover:bg-gray-900 hover:border-gray-800 p-3 rounded-lg text-[11px] text-gray-300 transition hover:text-white block space-y-1"
                     >
-                      <span className="font-bold text-[#00549F]/60 block">Snow Extender setup</span>
-                      <span>Review directory scanning parameters for local .snow XML files.</span>
+                      <span className="font-bold text-[#00549F]/60 block">Configuração do Snow Extender</span>
+                      <span>Revise parâmetros de varredura de diretório para arquivos .snow XML locais.</span>
                     </button>
 
                     <button
@@ -2520,8 +2520,8 @@ export function AdministrationView() {
                       disabled={chatLoading}
                       className="w-full text-left bg-gray-950 border border-gray-850 hover:bg-gray-900 hover:border-gray-800 p-3 rounded-lg text-[11px] text-gray-300 transition hover:text-white block space-y-1"
                     >
-                      <span className="font-bold text-[#00549F]/60 block">ServiceNow CMDB Integration</span>
-                      <span>How mapped specs and manufacturer deduplication updates target CMDB.</span>
+                      <span className="font-bold text-[#00549F]/60 block">Integração CMDB ServiceNow</span>
+                      <span>Como especificações mapeadas e deduplicação de fabricantes atualizam o CMDB alvo.</span>
                     </button>
 
                     <button
@@ -2529,8 +2529,8 @@ export function AdministrationView() {
                       disabled={chatLoading}
                       className="w-full text-left bg-gray-950 border border-gray-850 hover:bg-gray-900 hover:border-gray-800 p-3 rounded-lg text-[11px] text-gray-300 transition hover:text-white block space-y-1"
                     >
-                      <span className="font-bold text-[#00549F]/60 block">Effective License Position (ELP)</span>
-                      <span>Understand bought entitlements vs discovered cluster-wide installations.</span>
+                      <span className="font-bold text-[#00549F]/60 block">Posição de Licenciamento Efetiva (ELP)</span>
+                      <span>Entenda entitlements comprados vs. instalações descobertas em todo o cluster.</span>
                     </button>
                   </div>
                 </div>
@@ -2544,13 +2544,13 @@ export function AdministrationView() {
       {showUserModal && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in" id="modal-invite-user">
           <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 w-full max-w-md space-y-4">
-            <h3 className="font-bold text-white text-base">Invite Staff Member Profile</h3>
+            <h3 className="font-bold text-white text-base">Convidar Perfil de Membro da Equipe</h3>
             <form onSubmit={handleAddUser} className="space-y-3 text-xs text-gray-300">
               <div className="space-y-1">
-                <label className="font-semibold text-gray-400">Name</label>
+                <label className="font-semibold text-gray-400">Nome</label>
                 <input 
                   type="text" 
-                  placeholder="e.g. Érico B." 
+                  placeholder="ex.: Érico B." 
                   value={usrName} 
                   onChange={(e) => setUsrName(e.target.value)}
                   className="w-full bg-gray-950 border border-gray-800 rounded px-3 py-2 text-white outline-none" 
@@ -2558,10 +2558,10 @@ export function AdministrationView() {
                 />
               </div>
               <div className="space-y-1">
-                <label className="font-semibold text-gray-400">Email Address</label>
+                <label className="font-semibold text-gray-400">Endereço de Email</label>
                 <input 
                   type="email" 
-                  placeholder="e.g. employee@company.com" 
+                  placeholder="ex.: funcionario@empresa.com" 
                   value={usrEmail} 
                   onChange={(e) => setUsrEmail(e.target.value)}
                   className="w-full bg-gray-950 border border-gray-800 rounded px-3 py-2 text-white outline-none" 
@@ -2569,7 +2569,7 @@ export function AdministrationView() {
                 />
               </div>
               <div className="space-y-1">
-                <label className="font-semibold text-gray-400">Primary Role Assignment</label>
+                <label className="font-semibold text-gray-400">Atribuição de Função Principal</label>
                 <select 
                   value={usrRole} 
                   onChange={(e) => setUsrRole(e.target.value)}
@@ -2581,8 +2581,8 @@ export function AdministrationView() {
                 </select>
               </div>
               <div className="flex justify-end gap-2 pt-4">
-                <button type="button" onClick={() => setShowUserModal(false)} className="bg-gray-850 hover:bg-gray-800 px-4 py-2 rounded font-semibold text-white">Cancel</button>
-                <button type="submit" className="bg-[#00549F] cursor-pointer px-4 py-2 rounded font-semibold text-white">Send Invite Proposal</button>
+                <button type="button" onClick={() => setShowUserModal(false)} className="bg-gray-850 hover:bg-gray-800 px-4 py-2 rounded font-semibold text-white">Cancelar</button>
+                <button type="submit" className="bg-[#00549F] cursor-pointer px-4 py-2 rounded font-semibold text-white">Enviar Convite</button>
               </div>
             </form>
           </div>
@@ -2592,13 +2592,13 @@ export function AdministrationView() {
       {showRoleModal && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in" id="modal-create-role">
           <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 w-full max-w-md space-y-4">
-            <h3 className="font-bold text-white text-base">Configure Custom Role Profile</h3>
+            <h3 className="font-bold text-white text-base">Configurar Perfil de Função Personalizada</h3>
             <form onSubmit={handleAddRole} className="space-y-3 text-xs text-gray-300">
               <div className="space-y-1">
-                <label className="font-semibold text-gray-400">Role Title</label>
+                <label className="font-semibold text-gray-400">Título da Função</label>
                 <input 
                   type="text" 
-                  placeholder="e.g. Finance Inspector" 
+                  placeholder="ex.: Inspetor Financeiro" 
                   value={roleName} 
                   onChange={(e) => setRoleName(e.target.value)}
                   className="w-full bg-gray-950 border border-gray-800 rounded px-3 py-2 text-white outline-none" 
@@ -2606,26 +2606,26 @@ export function AdministrationView() {
                 />
               </div>
               <div className="space-y-3 pt-2 border-t border-gray-850">
-                <label className="font-bold text-white block">Permissions Matrix</label>
+                <label className="font-bold text-white block">Matriz de Permissões</label>
                 
                 {["licenses", "saas", "cloud", "admin", "auditLogs"].map(permKey => (
                   <div key={permKey} className="flex justify-between items-center bg-gray-950 p-2 rounded">
-                    <span className="capitalize text-gray-300 font-medium">{permKey} modules:</span>
+                    <span className="capitalize text-gray-300 font-medium">{permKey} módulos:</span>
                     <select 
                       value={rolePerms[permKey]} 
                       onChange={(e) => setRolePerms({...rolePerms, [permKey]: e.target.value as any})}
                       className="bg-gray-900 border border-gray-800 rounded px-1.5 py-0.5 text-indigo-300"
                     >
-                      <option value="None">None</option>
-                      <option value="Read">Read-Only</option>
-                      <option value="Write">Write / CRUD</option>
+                      <option value="None">Nenhum</option>
+                      <option value="Read">Somente Leitura</option>
+                      <option value="Write">Escrita / CRUD</option>
                     </select>
                   </div>
                 ))}
               </div>
               <div className="flex justify-end gap-2 pt-4">
-                <button type="button" onClick={() => setShowRoleModal(false)} className="bg-gray-850 hover:bg-gray-800 px-4 py-2 rounded font-semibold text-white">Cancel</button>
-                <button type="submit" className="bg-[#00549F] cursor-pointer px-4 py-2 rounded font-semibold text-white">Save Role</button>
+                <button type="button" onClick={() => setShowRoleModal(false)} className="bg-gray-850 hover:bg-gray-800 px-4 py-2 rounded font-semibold text-white">Cancelar</button>
+                <button type="submit" className="bg-[#00549F] cursor-pointer px-4 py-2 rounded font-semibold text-white">Salvar Função</button>
               </div>
             </form>
           </div>
@@ -2635,13 +2635,13 @@ export function AdministrationView() {
       {showGroupModal && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in" id="modal-create-group">
           <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 w-full max-w-md space-y-4">
-            <h3 className="font-bold text-white text-base">New Security Mapping Group</h3>
+            <h3 className="font-bold text-white text-base">Novo Grupo de Mapeamento de Segurança</h3>
             <form onSubmit={handleAddGroup} className="space-y-3 text-xs text-gray-300">
               <div className="space-y-1">
-                <label className="font-semibold text-gray-400">Security Group Name</label>
+                <label className="font-semibold text-gray-400">Nome do Grupo de Segurança</label>
                 <input 
                   type="text" 
-                  placeholder="e.g. Audit Analysts EMEA" 
+                  placeholder="ex.: Auditores EMEA" 
                   value={gpName} 
                   onChange={(e) => setGpName(e.target.value)}
                   className="w-full bg-gray-950 border border-gray-800 rounded px-3 py-2 text-white outline-none" 
@@ -2649,7 +2649,7 @@ export function AdministrationView() {
                 />
               </div>
               <div className="space-y-1">
-                <label className="font-semibold text-gray-400">Target Role Mapping</label>
+                <label className="font-semibold text-gray-400">Mapeamento de Função Alvo</label>
                 <select 
                   value={gpRole} 
                   onChange={(e) => setGpRole(e.target.value)}
@@ -2661,8 +2661,8 @@ export function AdministrationView() {
                 </select>
               </div>
               <div className="flex justify-end gap-2 pt-4">
-                <button type="button" onClick={() => setShowGroupModal(false)} className="bg-gray-850 hover:bg-gray-800 px-4 py-2 rounded font-semibold text-white">Cancel</button>
-                <button type="submit" className="bg-[#00549F] cursor-pointer px-4 py-2 rounded font-semibold text-white">Configure Group</button>
+                <button type="button" onClick={() => setShowGroupModal(false)} className="bg-gray-850 hover:bg-gray-800 px-4 py-2 rounded font-semibold text-white">Cancelar</button>
+                <button type="submit" className="bg-[#00549F] cursor-pointer px-4 py-2 rounded font-semibold text-white">Configurar Grupo</button>
               </div>
             </form>
           </div>
@@ -2672,13 +2672,13 @@ export function AdministrationView() {
       {showNodeModal && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in" id="modal-create-node">
           <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 w-full max-w-md space-y-4">
-            <h3 className="font-bold text-white text-base">Add Hierarchy Division Level</h3>
+            <h3 className="font-bold text-white text-base">Adicionar Nível de Divisão Hierárquica</h3>
             <form onSubmit={handleAddNode} className="space-y-3 text-xs text-gray-300">
               <div className="space-y-1">
-                <label className="font-semibold text-gray-400">Division Name</label>
+                <label className="font-semibold text-gray-400">Nome da Divisão</label>
                 <input 
                   type="text" 
-                  placeholder="e.g. LATAM Region Headquarters" 
+                  placeholder="ex.: Matriz da Região LATAM" 
                   value={nodeName} 
                   onChange={(e) => setNodeName(e.target.value)}
                   className="w-full bg-gray-950 border border-gray-800 rounded px-3 py-2 text-white outline-none" 
@@ -2686,10 +2686,10 @@ export function AdministrationView() {
                 />
               </div>
               <div className="space-y-1">
-                <label className="font-semibold text-gray-400">Org Unique Identifier Code</label>
+                <label className="font-semibold text-gray-400">Código Identificador Único da Org</label>
                 <input 
                   type="text" 
-                  placeholder="e.g. ACM-LATAM" 
+                  placeholder="ex.: ACM-LATAM" 
                   value={nodeCode} 
                   onChange={(e) => setNodeCode(e.target.value)}
                   className="w-full bg-gray-950 border border-gray-800 rounded px-3 py-2 text-white outline-none" 
@@ -2697,20 +2697,20 @@ export function AdministrationView() {
                 />
               </div>
               <div className="space-y-1">
-                <label className="font-semibold text-gray-400">Parent structural node</label>
+                <label className="font-semibold text-gray-400">Nó estrutural pai</label>
                 <select 
                   value={nodeParent} 
                   onChange={(e) => setNodeParent(e.target.value)}
                   className="w-full bg-gray-950 border border-gray-800 rounded px-3 py-2 text-gray-300 outline-none"
                 >
-                  <option value="">(None - root structure)</option>
+                  <option value="">(Nenhum - estrutura raiz)</option>
                   {orgNodes.map(o => (
                     <option key={o.id} value={o.id}>{o.name}</option>
                   ))}
                 </select>
               </div>
               <div className="space-y-1">
-                <label className="font-semibold text-gray-400">Allocated license capacity</label>
+                <label className="font-semibold text-gray-400">Capacidade de licenças alocadas</label>
                 <input 
                   type="number" 
                   value={nodeLicenseCount} 
@@ -2720,8 +2720,8 @@ export function AdministrationView() {
                 />
               </div>
               <div className="flex justify-end gap-2 pt-4">
-                <button type="button" onClick={() => setShowNodeModal(false)} className="bg-gray-850 hover:bg-gray-800 px-4 py-2 rounded font-semibold text-white">Cancel</button>
-                <button type="submit" className="bg-[#00549F] cursor-pointer px-4 py-2 rounded font-semibold text-white">Add Node</button>
+                <button type="button" onClick={() => setShowNodeModal(false)} className="bg-gray-850 hover:bg-gray-800 px-4 py-2 rounded font-semibold text-white">Cancelar</button>
+                <button type="submit" className="bg-[#00549F] cursor-pointer px-4 py-2 rounded font-semibold text-white">Adicionar Nó</button>
               </div>
             </form>
           </div>
@@ -2731,13 +2731,13 @@ export function AdministrationView() {
       {showSiteModal && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in" id="modal-create-site">
           <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 w-full max-w-md space-y-4">
-            <h3 className="font-bold text-white text-base">Register Enrollment Site Gateways</h3>
+            <h3 className="font-bold text-white text-base">Registrar Gateways de Site de Inscrição</h3>
             <form onSubmit={handleAddSite} className="space-y-3 text-xs text-gray-300">
               <div className="space-y-1">
-                <label className="font-semibold text-gray-400">Site Location Name</label>
+                <label className="font-semibold text-gray-400">Nome do Local do Site</label>
                 <input 
                   type="text" 
-                  placeholder="e.g. LATAM - São Paulo Office" 
+                  placeholder="ex.: LATAM - Escritório São Paulo" 
                   value={siteName} 
                   onChange={(e) => setSiteName(e.target.value)}
                   className="w-full bg-gray-950 border border-gray-800 rounded px-3 py-2 text-white outline-none" 
@@ -2745,22 +2745,22 @@ export function AdministrationView() {
                 />
               </div>
               <div className="space-y-1">
-                <label className="font-semibold text-gray-400">Mapped Corporate Org Node</label>
+                <label className="font-semibold text-gray-400">Nó Org Corporativo Mapeado</label>
                 <select 
                   value={siteNodeId} 
                   onChange={(e) => setSiteNodeId(e.target.value)}
                   className="w-full bg-gray-950 border border-gray-800 rounded px-3 py-2 text-gray-300 outline-none"
                   required
                 >
-                  <option value="">Select Structure Node Mapped</option>
+                  <option value="">Selecione o Nó Estrutural Mapeado</option>
                   {orgNodes.map(o => (
                     <option key={o.id} value={o.id}>{o.name}</option>
                   ))}
                 </select>
               </div>
               <div className="flex justify-end gap-2 pt-4">
-                <button type="button" onClick={() => setShowSiteModal(false)} className="bg-gray-850 hover:bg-gray-800 px-4 py-2 rounded font-semibold text-white">Cancel</button>
-                <button type="submit" className="bg-[#00549F] cursor-pointer px-4 py-2 rounded font-semibold text-white">Register Site</button>
+                <button type="button" onClick={() => setShowSiteModal(false)} className="bg-gray-850 hover:bg-gray-800 px-4 py-2 rounded font-semibold text-white">Cancelar</button>
+                <button type="submit" className="bg-[#00549F] cursor-pointer px-4 py-2 rounded font-semibold text-white">Registrar Site</button>
               </div>
             </form>
           </div>
@@ -2770,13 +2770,13 @@ export function AdministrationView() {
       {showIpModal && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in" id="modal-create-ip">
           <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 w-full max-w-md space-y-4">
-            <h3 className="font-bold text-white text-base">Inbound Network Protection Rule</h3>
+            <h3 className="font-bold text-white text-base">Regra de Proteção de Rede de Entrada</h3>
             <form onSubmit={handleAddIpPolicy} className="space-y-3 text-xs text-gray-300">
               <div className="space-y-1">
-                <label className="font-semibold text-gray-400">CIDR IP Block</label>
+                <label className="font-semibold text-gray-400">Bloco CIDR IP</label>
                 <input 
                   type="text" 
-                  placeholder="e.g. 201.55.12.0/24" 
+                  placeholder="ex.: 201.55.12.0/24" 
                   value={ipCidr} 
                   onChange={(e) => setIpCidr(e.target.value)}
                   className="w-full bg-gray-950 border border-gray-800 rounded px-3 py-2 text-white outline-none" 
@@ -2784,29 +2784,29 @@ export function AdministrationView() {
                 />
               </div>
               <div className="space-y-1">
-                <label className="font-semibold text-gray-400">Brief rule description</label>
+                <label className="font-semibold text-gray-400">Descrição breve da regra</label>
                 <input 
                   type="text" 
-                  placeholder="e.g. São Paulo secure developer VPN" 
+                  placeholder="ex.: VPN segura de desenvolvedores São Paulo" 
                   value={ipDesc} 
                   onChange={(e) => setIpDesc(e.target.value)}
                   className="w-full bg-gray-950 border border-gray-800 rounded px-3 py-2 text-white outline-none" 
                 />
               </div>
               <div className="space-y-1">
-                <label className="font-semibold text-gray-400">Access Action</label>
+                <label className="font-semibold text-gray-400">Ação de Acesso</label>
                 <select 
                   value={ipType} 
                   onChange={(e) => setIpType(e.target.value as any)}
                   className="w-full bg-gray-950 border border-gray-800 rounded px-3 py-2 text-gray-300 outline-none"
                 >
-                  <option value="Allow">ALLOW inbound connection</option>
-                  <option value="Deny">DENY / BLOCK inbound traffic</option>
+                  <option value="Allow">PERMITIR conexão de entrada</option>
+                  <option value="Deny">NEGAR/BLOQUEAR tráfego de entrada</option>
                 </select>
               </div>
               <div className="flex justify-end gap-2 pt-4">
-                <button type="button" onClick={() => setShowIpModal(false)} className="bg-gray-850 hover:bg-gray-800 px-4 py-2 rounded font-semibold text-white">Cancel</button>
-                <button type="submit" className="bg-[#00549F] cursor-pointer px-4 py-2 rounded font-semibold text-white">Enforce Policy</button>
+                <button type="button" onClick={() => setShowIpModal(false)} className="bg-gray-850 hover:bg-gray-800 px-4 py-2 rounded font-semibold text-white">Cancelar</button>
+                <button type="submit" className="bg-[#00549F] cursor-pointer px-4 py-2 rounded font-semibold text-white">Aplicar Política</button>
               </div>
             </form>
           </div>
@@ -2816,13 +2816,13 @@ export function AdministrationView() {
       {showCurModal && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in" id="modal-create-cur">
           <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 w-full max-w-md space-y-4">
-            <h3 className="font-bold text-white text-base">Consolidated Currency Conversion Ratio</h3>
+            <h3 className="font-bold text-white text-base">Taxa de Conversão de Moeda Consolidada</h3>
             <form onSubmit={handleAddCurrency} className="space-y-3 text-xs text-gray-300">
               <div className="space-y-1">
-                <label className="font-semibold text-gray-400">Currency acronym Code</label>
+                <label className="font-semibold text-gray-400">Código da moeda (sigla)</label>
                 <input 
                   type="text" 
-                  placeholder="e.g. CAD" 
+                  placeholder="ex.: CAD" 
                   value={curCode} 
                   onChange={(e) => setCurCode(e.target.value)}
                   className="w-full bg-gray-950 border border-gray-800 rounded px-3 py-2 text-white outline-none" 
@@ -2830,10 +2830,10 @@ export function AdministrationView() {
                 />
               </div>
               <div className="space-y-1">
-                <label className="font-semibold text-gray-400">Symbol Representation</label>
+                <label className="font-semibold text-gray-400">Representação do Símbolo</label>
                 <input 
                   type="text" 
-                  placeholder="e.g. C$" 
+                  placeholder="ex.: C$" 
                   value={curSymbol} 
                   onChange={(e) => setCurSymbol(e.target.value)}
                   className="w-full bg-gray-950 border border-gray-800 rounded px-3 py-2 text-white outline-none" 
@@ -2841,10 +2841,10 @@ export function AdministrationView() {
                 />
               </div>
               <div className="space-y-1">
-                <label className="font-semibold text-gray-400">Conversion Rate base factor relative to USD</label>
+                <label className="font-semibold text-gray-400">Fator de taxa de conversão base relativo ao USD</label>
                 <input 
                   type="number" 
-                  placeholder="e.g. 1.35" 
+                  placeholder="ex.: 1.35" 
                   value={curRate} 
                   step="0.001"
                   onChange={(e) => setCurRate(e.target.value)}
@@ -2853,8 +2853,8 @@ export function AdministrationView() {
                 />
               </div>
               <div className="flex justify-end gap-2 pt-4">
-                <button type="button" onClick={() => setShowCurModal(false)} className="bg-gray-850 hover:bg-gray-800 px-4 py-2 rounded font-semibold text-white">Cancel</button>
-                <button type="submit" className="bg-[#00549F] cursor-pointer px-4 py-2 rounded font-semibold text-white">Register Rate</button>
+                <button type="button" onClick={() => setShowCurModal(false)} className="bg-gray-850 hover:bg-gray-800 px-4 py-2 rounded font-semibold text-white">Cancelar</button>
+                <button type="submit" className="bg-[#00549F] cursor-pointer px-4 py-2 rounded font-semibold text-white">Registrar Taxa</button>
               </div>
             </form>
           </div>
@@ -2864,13 +2864,13 @@ export function AdministrationView() {
       {showMspModal && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in" id="modal-create-msp">
           <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 w-full max-w-md space-y-4">
-            <h3 className="font-bold text-white text-base">Provision Multi-Client Tenant Area</h3>
+            <h3 className="font-bold text-white text-base">Provisionar Área de Tenant Multicliente</h3>
             <form onSubmit={handleAddMspCustomer} className="space-y-3 text-xs text-gray-300">
               <div className="space-y-1">
-                <label className="font-semibold text-gray-400">Client Enterprise Legal Name</label>
+                <label className="font-semibold text-gray-400">Nome Legal da Empresa Cliente</label>
                 <input 
                   type="text" 
-                  placeholder="e.g. Delta Air Lines inc" 
+                  placeholder="ex.: Delta Air Lines inc" 
                   value={mspName} 
                   onChange={(e) => setMspName(e.target.value)}
                   className="w-full bg-gray-950 border border-gray-800 rounded px-3 py-2 text-white outline-none" 
@@ -2878,7 +2878,7 @@ export function AdministrationView() {
                 />
               </div>
               <div className="space-y-1">
-                <label className="font-semibold text-gray-400">Initial Compliance score target (%)</label>
+                <label className="font-semibold text-gray-400">Alvo inicial de pontuação de Compliance (%)</label>
                 <input 
                   type="number" 
                   value={mspScore} 
@@ -2888,7 +2888,7 @@ export function AdministrationView() {
                 />
               </div>
               <div className="space-y-1">
-                <label className="font-semibold text-gray-400">Initial licenses owned count</label>
+                <label className="font-semibold text-gray-400">Quantidade inicial de licenças possuídas</label>
                 <input 
                   type="number" 
                   value={mspLics} 
@@ -2898,7 +2898,7 @@ export function AdministrationView() {
                 />
               </div>
               <div className="space-y-1">
-                <label className="font-semibold text-gray-400">Initial discovered devices count</label>
+                <label className="font-semibold text-gray-400">Quantidade inicial de dispositivos descobertos</label>
                 <input 
                   type="number" 
                   value={mspDevs} 
@@ -2908,8 +2908,8 @@ export function AdministrationView() {
                 />
               </div>
               <div className="flex justify-end gap-2 pt-4">
-                <button type="button" onClick={() => setShowMspModal(false)} className="bg-gray-850 hover:bg-gray-800 px-4 py-2 rounded font-semibold text-white">Cancel</button>
-                <button type="submit" className="bg-[#00549F] cursor-pointer px-4 py-2 rounded font-semibold text-white">Provision Tenant</button>
+                <button type="button" onClick={() => setShowMspModal(false)} className="bg-gray-850 hover:bg-gray-800 px-4 py-2 rounded font-semibold text-white">Cancelar</button>
+                <button type="submit" className="bg-[#00549F] cursor-pointer px-4 py-2 rounded font-semibold text-white">Provisionar Tenant</button>
               </div>
             </form>
           </div>
@@ -2919,13 +2919,13 @@ export function AdministrationView() {
       {showItsmModal && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in" id="modal-create-itsm">
           <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 w-full max-w-md space-y-4">
-            <h3 className="font-bold text-white text-base">Configure ITSM Gateway Connection</h3>
+            <h3 className="font-bold text-white text-base">Configurar Conexão de Gateway ITSM</h3>
             <form onSubmit={handleCreateItsmConnector} className="space-y-3 text-xs text-gray-300">
               <div className="space-y-1">
-                <label className="font-semibold text-gray-400">Connection Title</label>
+                <label className="font-semibold text-gray-400">Título da Conexão</label>
                 <input 
                   type="text" 
-                  placeholder="e.g. Production ServiceNow Instance" 
+                  placeholder="ex.: Instância ServiceNow de Produção" 
                   value={newItsmName} 
                   onChange={(e) => setNewItsmName(e.target.value)}
                   className="w-full bg-gray-950 border border-gray-800 rounded px-3 py-2 text-white outline-none" 
@@ -2934,22 +2934,22 @@ export function AdministrationView() {
               </div>
               
               <div className="space-y-1">
-                <label className="font-semibold text-gray-400">Platform Provider Type</label>
+                <label className="font-semibold text-gray-400">Tipo de Provedor da Plataforma</label>
                 <select 
                   value={newItsmType}
                   onChange={(e) => setNewItsmType(e.target.value as any)}
                   className="w-full bg-gray-950 border border-gray-800 rounded px-3 py-2 text-white outline-none"
                 >
-                  <option value="ServiceNow">ServiceNow (V2 API)</option>
+                  <option value="ServiceNow">ServiceNow (API V2)</option>
                   <option value="Jira Service Desk">Jira Service Desk Cloud</option>
                 </select>
               </div>
 
               <div className="space-y-1">
-                <label className="font-semibold text-gray-400">Target Endpoint REST API URL</label>
+                <label className="font-semibold text-gray-400">URL do Endpoint REST API Alvo</label>
                 <input 
                   type="url" 
-                  placeholder="https://your-instance.service-now.com" 
+                  placeholder="https://sua-instancia.service-now.com" 
                   value={newItsmUrl} 
                   onChange={(e) => setNewItsmUrl(e.target.value)}
                   className="w-full bg-gray-950 border border-gray-800 rounded px-3 py-2 text-white outline-none font-mono" 
@@ -2958,16 +2958,16 @@ export function AdministrationView() {
               </div>
 
               <div className="space-y-1">
-                <label className="font-semibold text-gray-400">Sync Frequency Schedule</label>
+                <label className="font-semibold text-gray-400">Agendamento de Frequência de Sincronização</label>
                 <select 
                   value={newItsmSyncInterval}
                   onChange={(e) => setNewItsmSyncInterval(e.target.value)}
                   className="w-full bg-gray-950 border border-gray-800 rounded px-3 py-2 text-white outline-none"
                 >
-                  <option value="Every 6 Hours">Every 6 Hours</option>
-                  <option value="Every 12 Hours">Every 12 Hours (Recommended)</option>
-                  <option value="Every 24 Hours">Every 24 Hours</option>
-                  <option value="Weekly Sync">Weekly Sync</option>
+                  <option value="Every 6 Hours">A Cada 6 Horas</option>
+                  <option value="Every 12 Hours">A Cada 12 Horas (Recomendado)</option>
+                  <option value="Every 24 Hours">A Cada 24 Horas</option>
+                  <option value="Weekly Sync">Sincronização Semanal</option>
                 </select>
               </div>
 
@@ -2979,13 +2979,13 @@ export function AdministrationView() {
                     onChange={(e) => setNewItsmEnrichCMDB(e.target.checked)}
                     className="rounded border-gray-800 bg-gray-900 text-[#00549F]"
                   />
-                  <span>Enrich CMDB tables with hardware EOL &amp; software titles</span>
+                  <span>Enriquecer tabelas CMDB com EOL de hardware e títulos de software</span>
                 </label>
               </div>
 
               <div className="flex justify-end gap-2 pt-4">
-                <button type="button" onClick={() => setShowItsmModal(false)} className="bg-gray-850 hover:bg-gray-800 px-4 py-2 rounded font-semibold text-white">Cancel</button>
-                <button type="submit" className="bg-[#00549F] cursor-pointer px-4 py-2 rounded font-semibold text-white">Save Connector</button>
+                <button type="button" onClick={() => setShowItsmModal(false)} className="bg-gray-850 hover:bg-gray-800 px-4 py-2 rounded font-semibold text-white">Cancelar</button>
+                <button type="submit" className="bg-[#00549F] cursor-pointer px-4 py-2 rounded font-semibold text-white">Salvar Conector</button>
               </div>
             </form>
           </div>

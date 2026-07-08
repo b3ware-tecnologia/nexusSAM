@@ -138,7 +138,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
 
   const handleTriggerAgentScan = async (compId: string) => {
     setIsScanning(compId);
-    showNotification("info", "Executing Snow Extender Agent Inventory collection scan on target endpoint...");
+    showNotification("info", "Executando scan de inventário do Snow Extender Agent no endpoint alvo...");
     try {
       const res = await fetch("/api/inventory/agent-scan", {
         method: "POST",
@@ -158,10 +158,10 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
           handleSelectComputer(result.computer);
         }
       } else {
-        showNotification("error", "Agent failed to respond or scan was rejected.");
+        showNotification("error", "O agente falhou ao responder ou o scan foi rejeitado.");
       }
     } catch (e) {
-      showNotification("error", "Connection error with agent secure gateway.");
+      showNotification("error", "Erro de conexão com o gateway seguro do agente.");
     } finally {
       setIsScanning(null);
     }
@@ -176,7 +176,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
     try {
       const res = await fetch(endpoint, { method: "POST" });
       if (res.ok) {
-        showNotification("success", `Lifecycle status updated successfully to: ${status}`);
+        showNotification("success", `Status do ciclo de vida atualizado com sucesso para: ${status}`);
         const updatedComp = await res.json();
         
         // update local list
@@ -187,7 +187,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
         onRefreshAll();
       }
     } catch (e) {
-      showNotification("error", "Failed to update lifecycle.");
+      showNotification("error", "Falha ao atualizar o ciclo de vida.");
     }
   };
 
@@ -214,31 +214,31 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
       });
 
       if (res.ok) {
-        showNotification("success", "Custom endpoint added to IT inventory catalogue.");
+        showNotification("success", "Endpoint personalizado adicionado ao catálogo de inventário de TI.");
         setShowAddComputerModal(false);
         setNewCompName("");
         loadInventoryData();
       } else {
-        showNotification("error", "Failed to register custom device.");
+        showNotification("error", "Falha ao registrar dispositivo personalizado.");
       }
     } catch (e) {
-      showNotification("error", "Internal network error.");
+      showNotification("error", "Erro interno de rede.");
     }
   };
 
   const handleDeleteComputer = async (compId: string) => {
-    if (!confirm("Are you sure you want to remove this hardware asset? This wipes all discovered software logs for it.")) return;
+    if (!confirm("Tem certeza de que deseja remover este ativo de hardware? Isso apagará todos os logs de software descobertos para ele.")) return;
     try {
       const res = await fetch(`/api/computers/${compId}`, { method: "DELETE" });
       if (res.ok) {
-        showNotification("success", "Hardware asset decommissioned successfully.");
+        showNotification("success", "Ativo de hardware descomissionado com sucesso.");
         setSelectedComputer(null);
         setComputerDetails(null);
         loadInventoryData();
         onRefreshAll();
       }
     } catch (e) {
-      showNotification("error", "Error decommissioning hardware asset.");
+      showNotification("error", "Erro ao descomissionar ativo de hardware.");
     }
   };
 
@@ -261,7 +261,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
       });
 
       if (res.ok) {
-        showNotification("success", "Mobile device enrolled successfully in HAM registry.");
+        showNotification("success", "Dispositivo móvel cadastrado com sucesso no registro HAM.");
         setShowAddMobileModal(false);
         setNewMobName("");
         setNewMobUser("");
@@ -269,20 +269,20 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
         loadInventoryData();
       }
     } catch (e) {
-      showNotification("error", "Failed to enroll mobile device.");
+      showNotification("error", "Falha ao cadastrar dispositivo móvel.");
     }
   };
 
   const handleDeleteMobile = async (id: string) => {
-    if (!confirm("Remove this mobile device from asset tracking?")) return;
+    if (!confirm("Remover este dispositivo móvel do rastreamento de ativos?")) return;
     try {
       const res = await fetch(`/api/mobile-devices/${id}`, { method: "DELETE" });
       if (res.ok) {
-        showNotification("success", "Mobile device tracking stopped.");
+        showNotification("success", "Rastreamento do dispositivo móvel interrompido.");
         loadInventoryData();
       }
     } catch (e) {
-      showNotification("error", "Failed to remove device.");
+      showNotification("error", "Falha ao remover dispositivo.");
     }
   };
 
@@ -302,7 +302,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
       });
 
       if (res.ok) {
-        showNotification("success", "Private Application Recognition rule added. Next scans will map it!");
+        showNotification("success", "Regra de reconhecimento de aplicativo privado adicionada. Os próximos scans a mapearão!");
         setShowAddPrivateModal(false);
         setPrivAppName("");
         setPrivPublisher("");
@@ -311,20 +311,20 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
         loadInventoryData();
       }
     } catch (e) {
-      showNotification("error", "Failed to add custom recognition pattern.");
+      showNotification("error", "Falha ao adicionar padrão de reconhecimento personalizado.");
     }
   };
 
   const handleDeletePrivateItem = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this custom recognition rule?")) return;
+    if (!confirm("Tem certeza de que deseja excluir esta regra de reconhecimento personalizada?")) return;
     try {
       const res = await fetch(`/api/private-catalog/${id}`, { method: "DELETE" });
       if (res.ok) {
-        showNotification("success", "Private catalog recognition rule deleted.");
+        showNotification("success", "Regra de reconhecimento do catálogo privado excluída.");
         loadInventoryData();
       }
     } catch (e) {
-      showNotification("error", "Failed to delete pattern.");
+      showNotification("error", "Falha ao excluir padrão.");
     }
   };
 
@@ -383,12 +383,12 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
         <div className="flex items-center gap-2">
           <h1 className="text-2xl font-bold tracking-tight text-slate-900">
             <HardDrive className="w-6 h-6" style={{color: "#00549F"}} />
-            DIS Asset Intelligence & HAM Core
+            DIS Asset Intelligence & Núcleo HAM
           </h1>
-          <HintTooltip text="Manage discovered computers, mobile devices, and software inventory across your enterprise. Track hardware specs, warranty status, and lifecycle states." side="right" size="md" />
+          <HintTooltip text="Gerencie computadores descobertos, dispositivos móveis e inventário de software em toda a sua empresa. Monitore especificações de hardware, status de garantia e estados do ciclo de vida." side="right" size="md" />
         </div>
         <p className="text-slate-500 text-sm">
-          Snow Atlas equivalent Data Intelligence Service catalogue for software recognition combined with Hardware Asset lifecycle governance.
+          Catálogo do Data Intelligence Service — equivalente ao Snow Atlas — para reconhecimento de software combinado com governança do ciclo de vida de ativos de hardware.
         </p>
       </div>
 
@@ -399,8 +399,8 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
             <CheckCircle className="w-5 h-5" />
           </div>
           <div>
-            <span className="block text-[10px] uppercase font-bold text-slate-400">Active Endpoints</span>
-            <span className="text-lg font-bold text-slate-800">{activeCompCount} <span className="text-xs text-slate-400">devices</span></span>
+            <span className="block text-[10px] uppercase font-bold text-slate-400">Endpoints Ativos</span>
+            <span className="text-lg font-bold text-slate-800">{activeCompCount} <span className="text-xs text-slate-400">dispositivos</span></span>
           </div>
         </div>
 
@@ -409,8 +409,8 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
             <AlertTriangle className="w-5 h-5" />
           </div>
           <div>
-            <span className="block text-[10px] uppercase font-bold text-slate-400">Quarantined</span>
-            <span className="text-lg font-bold text-slate-800">{quarantinedCompCount} <span className="text-xs text-slate-400">assets</span></span>
+            <span className="block text-[10px] uppercase font-bold text-slate-400">Em Quarentena</span>
+            <span className="text-lg font-bold text-slate-800">{quarantinedCompCount} <span className="text-xs text-slate-400">ativos</span></span>
           </div>
         </div>
 
@@ -419,8 +419,8 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
             <Clock className="w-5 h-5" />
           </div>
           <div>
-            <span className="block text-[10px] uppercase font-bold text-slate-400">Inactive / Idle</span>
-            <span className="text-lg font-bold text-slate-800">{inactiveCompCount} <span className="text-xs text-slate-400">flagged</span></span>
+            <span className="block text-[10px] uppercase font-bold text-slate-400">Inativo / Ocioso</span>
+            <span className="text-lg font-bold text-slate-800">{inactiveCompCount} <span className="text-xs text-slate-400">sinalizados</span></span>
           </div>
         </div>
 
@@ -429,8 +429,8 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
             <ShieldCheck className="w-5 h-5" />
           </div>
           <div>
-            <span className="block text-[10px] uppercase font-bold text-slate-400">Under Warranty</span>
-            <span className="text-lg font-bold text-slate-800">{underWarrantyCount} <span className="text-xs text-slate-400">covered</span></span>
+            <span className="block text-[10px] uppercase font-bold text-slate-400">Sob Garantia</span>
+            <span className="text-lg font-bold text-slate-800">{underWarrantyCount} <span className="text-xs text-slate-400">cobertos</span></span>
           </div>
         </div>
       </div>
@@ -446,7 +446,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
           : "border-transparent text-slate-500 hover:text-slate-800"
             }`}
           >
-            <span className="flex items-center gap-1.5"><HardDrive className="w-3.5 h-3.5" /> Computers & Server Nodes</span>
+            <span className="flex items-center gap-1.5"><HardDrive className="w-3.5 h-3.5" /> Computadores & Nós Servidores</span>
           </button>
           
           <button
@@ -457,7 +457,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                 : "border-transparent text-slate-500 hover:text-slate-800"
             }`}
           >
-            <span className="flex items-center gap-1.5"><Smartphone className="w-3.5 h-3.5" /> Mobile Registry (HAM)</span>
+            <span className="flex items-center gap-1.5"><Smartphone className="w-3.5 h-3.5" /> Registro Móvel (HAM)</span>
           </button>
 
           <button
@@ -468,7 +468,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                 : "border-transparent text-slate-500 hover:text-slate-800"
             }`}
           >
-            <span className="flex items-center gap-1.5"><Layers className="w-3.5 h-3.5" /> Discovered Apps & Metering</span>
+            <span className="flex items-center gap-1.5"><Layers className="w-3.5 h-3.5" /> Apps Descobertas & Medição</span>
           </button>
 
           <button
@@ -479,7 +479,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                 : "border-transparent text-slate-500 hover:text-slate-800"
             }`}
           >
-            <span className="flex items-center gap-1.5"><Building className="w-3.5 h-3.5" /> DIS 800K+ Catalog Search</span>
+            <span className="flex items-center gap-1.5"><Building className="w-3.5 h-3.5" /> Pesquisa no Catálogo DIS 800K+</span>
           </button>
 
           <button
@@ -490,7 +490,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                 : "border-transparent text-slate-500 hover:text-slate-800"
             }`}
           >
-            <span className="flex items-center gap-1.5"><Settings className="w-3.5 h-3.5" /> Private Catalog Rules</span>
+            <span className="flex items-center gap-1.5"><Settings className="w-3.5 h-3.5" /> Regras do Catálogo Privado</span>
           </button>
         </div>
 
@@ -501,7 +501,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
               onClick={() => setShowAddComputerModal(true)}
               className="flex items-center gap-1.5 px-3 py-1.5 text-white rounded-lg text-xs font-semibold cursor-pointer shadow-sm transition-all" style={{background: "#00549F"}}
             >
-              <Plus className="w-4 h-4" /> Enregister Server/PC
+              <Plus className="w-4 h-4" /> Registrar Servidor/PC
             </button>
           )}
           {activeTab === "MOBILES" && (
@@ -509,7 +509,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
               onClick={() => setShowAddMobileModal(true)}
               className="flex items-center gap-1.5 px-3 py-1.5 text-white rounded-lg text-xs font-semibold cursor-pointer shadow-sm transition-all" style={{background: "#00549F"}}
             >
-              <Plus className="w-4 h-4" /> Enroll Mobile Asset
+              <Plus className="w-4 h-4" /> Cadastrar Ativo Móvel
             </button>
           )}
           {activeTab === "PRIVATE_CATALOG" && (
@@ -517,7 +517,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
               onClick={() => setShowAddPrivateModal(true)}
               className="flex items-center gap-1.5 px-3 py-1.5 text-white rounded-lg text-xs font-semibold cursor-pointer shadow-sm transition-all" style={{background: "#00549F"}}
             >
-              <PlusCircle className="w-4 h-4" /> Add Pattern Recognition
+              <PlusCircle className="w-4 h-4" /> Adicionar Reconhecimento de Padrão
             </button>
           )}
         </div>
@@ -537,7 +537,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                   <Search className="w-4 h-4 absolute left-3 top-2.5 text-slate-400" />
                   <input
                     type="text"
-                    placeholder="Search by Computer Name, Serial Number, OS, or Manufacturer..."
+                    placeholder="Pesquisar por nome do computador, número de série, SO ou fabricante..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="w-full text-xs pl-9 pr-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-slate-50"
@@ -548,18 +548,18 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                   <table className="w-full text-left border-collapse">
                     <thead>
                       <tr className="border-b border-slate-100 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                        <th className="py-2.5">Endpoint Name</th>
-                        <th className="py-2.5">Hardware / Specs</th>
-                        <th className="py-2.5">Warranty Status</th>
-                        <th className="py-2.5 text-center">Lifecycle Status</th>
-                        <th className="py-2.5 text-right">Actions</th>
+                        <th className="py-2.5">Nome do Endpoint</th>
+                        <th className="py-2.5">Hardware / Especificações</th>
+                        <th className="py-2.5">Status da Garantia</th>
+                        <th className="py-2.5 text-center">Ciclo de Vida</th>
+                        <th className="py-2.5 text-right">Ações</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100 text-xs text-slate-700">
                       {filteredComputers.length === 0 ? (
                         <tr>
                           <td colSpan={5} className="py-8 text-center text-slate-400">
-                            No matching computer endpoints found in HAM registry.
+                            Nenhum endpoint de computador correspondente encontrado no registro HAM.
                           </td>
                         </tr>
                       ) : (
@@ -584,14 +584,14 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                                   }`} />
                                   <div>
                                     <span className="block font-bold text-slate-800">{comp.name}</span>
-                                    <span className="text-[10px] text-slate-400 font-mono">{comp.serialNumber || "No Serial"}</span>
+                                    <span className="text-[10px] text-slate-400 font-mono">{comp.serialNumber || "Sem Nº de Série"}</span>
                                   </div>
                                 </div>
                               </td>
                               <td className="py-3">
                                 <div className="text-[11px]">
                                   <span className="font-semibold">{comp.brand} {comp.model}</span>
-                                  <span className="block text-[10px] text-slate-400 font-mono">{comp.cores} Cores • {comp.ramGB}GB RAM • {comp.os}</span>
+                                  <span className="block text-[10px] text-slate-400 font-mono">{comp.cores} Núcleos • {comp.ramGB}GB RAM • {comp.os}</span>
                                 </div>
                               </td>
                               <td className="py-3">
@@ -605,7 +605,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                                   {comp.warrantyStatus}
                                 </span>
                                 {comp.warrantyExpirationDate && (
-                                  <span className="block text-[9px] text-slate-400 font-mono mt-0.5">Exp: {comp.warrantyExpirationDate}</span>
+                                  <span className="block text-[9px] text-slate-400 font-mono mt-0.5">Expira em: {comp.warrantyExpirationDate}</span>
                                 )}
                               </td>
                               <td className="py-3 text-center">
@@ -627,14 +627,14 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                                     onClick={() => handleTriggerAgentScan(comp.id)}
                                     disabled={isScanning !== null}
                                     className="p-1 rounded transition-all cursor-pointer" style={{color: "#00549F"}}
-                                    title="Trigger secure agent on-premises scan (Snow Extender Agent)"
+                                    title="Acionar scan seguro do agente on-premises (Snow Extender Agent)"
                                   >
                                     <RefreshCw className={`w-3.5 h-3.5 ${isScanning === comp.id ? "animate-spin text-amber-600" : ""}`} />
                                   </button>
                                   <button
                                     onClick={() => handleDeleteComputer(comp.id)}
                                     className="p-1 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded transition-all cursor-pointer"
-                                    title="Decommission Hardware Asset"
+                                    title="Descomissionar Ativo de Hardware"
                                   >
                                     <Trash2 className="w-3.5 h-3.5" />
                                   </button>
@@ -657,7 +657,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                   <div className="border-b border-slate-100 pb-3 flex items-center justify-between">
                     <div>
                       <h3 className="font-bold text-slate-900 text-sm">{computerDetails.computer.name}</h3>
-                      <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest block">Endpoint Deep Diagnostics</span>
+                      <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest block">Diagnósticos Avançados do Endpoint</span>
                     </div>
                     <button
                       onClick={() => handleTriggerAgentScan(computerDetails.computer.id)}
@@ -665,45 +665,45 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                       className="px-2.5 py-1 rounded text-[10px] font-bold flex items-center gap-1 cursor-pointer transition-all" style={{background: "#D1E7F3", color: "#1468B3"}}
                     >
                       <RefreshCw className={`w-3 h-3 ${isScanning === computerDetails.computer.id ? "animate-spin text-amber-600" : ""}`} />
-                      {isScanning === computerDetails.computer.id ? "Scanning..." : "Agent Scan"}
+                      {isScanning === computerDetails.computer.id ? "Scan em andamento..." : "Scan do Agente"}
                     </button>
                   </div>
 
                   {/* Device properties */}
                   <div className="grid grid-cols-2 gap-3 text-[11px] bg-slate-50 p-3 rounded-lg border border-slate-100">
                     <div>
-                      <span className="block text-[9px] uppercase font-bold text-slate-400">Hardware Brand</span>
-                      <span className="font-semibold text-slate-800">{computerDetails.computer.brand || "Generic"}</span>
+                      <span className="block text-[9px] uppercase font-bold text-slate-400">Marca do Hardware</span>
+                      <span className="font-semibold text-slate-800">{computerDetails.computer.brand || "Genérico"}</span>
                     </div>
                     <div>
-                      <span className="block text-[9px] uppercase font-bold text-slate-400">Model Structure</span>
-                      <span className="font-semibold text-slate-800">{computerDetails.computer.model || "Unknown Unit"}</span>
+                      <span className="block text-[9px] uppercase font-bold text-slate-400">Estrutura do Modelo</span>
+                      <span className="font-semibold text-slate-800">{computerDetails.computer.model || "Unidade Desconhecida"}</span>
                     </div>
                     <div>
-                      <span className="block text-[9px] uppercase font-bold text-slate-400">RAM Allocation</span>
+                      <span className="block text-[9px] uppercase font-bold text-slate-400">Alocação de RAM</span>
                       <span className="font-semibold text-slate-800 font-mono">{computerDetails.computer.ramGB} GB RAM</span>
                     </div>
                     <div>
-                      <span className="block text-[9px] uppercase font-bold text-slate-400">Storage Size</span>
+                      <span className="block text-[9px] uppercase font-bold text-slate-400">Tamanho do Armazenamento</span>
                       <span className="font-semibold text-slate-800 font-mono">{computerDetails.computer.storageGB || 256} GB SSD</span>
                     </div>
                     <div>
-                      <span className="block text-[9px] uppercase font-bold text-slate-400">Processor Matrix</span>
-                      <span className="font-semibold text-slate-800 font-mono">{computerDetails.computer.cores} Cores • {computerDetails.computer.cpuModel}</span>
+                      <span className="block text-[9px] uppercase font-bold text-slate-400">Matriz do Processador</span>
+                      <span className="font-semibold text-slate-800 font-mono">{computerDetails.computer.cores} Núcleos • {computerDetails.computer.cpuModel}</span>
                     </div>
                     <div>
-                      <span className="block text-[9px] uppercase font-bold text-slate-400">Last Scanned Date</span>
+                      <span className="block text-[9px] uppercase font-bold text-slate-400">Data do Último Scan</span>
                       <span className="font-semibold text-slate-800 font-mono text-[10px]">
-                        {computerDetails.computer.lastActiveDate ? new Date(computerDetails.computer.lastActiveDate).toLocaleString() : "Never Scanned"}
+                        {computerDetails.computer.lastActiveDate ? new Date(computerDetails.computer.lastActiveDate).toLocaleString() : "Nunca Escaneado"}
                       </span>
                     </div>
                   </div>
 
                   {/* HAM Quarantine & Lifecycle Management Actions */}
                   <div className="border border-slate-200 rounded-lg p-3 space-y-2">
-                    <span className="block text-[10px] font-bold text-slate-500 uppercase tracking-wide">ITAM Governance & Quarantine Actions</span>
+                    <span className="block text-[10px] font-bold text-slate-500 uppercase tracking-wide">Ações de Governança ITAM & Quarentena</span>
                     <p className="text-[10px] text-slate-400 leading-normal">
-                      quarantine an inactive asset to isolate licenses, archive decommissioned hardware, or flag as idle.
+                      Coloque em quarentena um ativo inativo para isolar licenças, arquive hardware descomissionado ou sinalize como ocioso.
                     </p>
                     <div className="grid grid-cols-2 gap-2 pt-1.5">
                       {computerDetails.computer.lifecycleStatus !== "Active" && (
@@ -711,7 +711,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                           onClick={() => handleUpdateLifecycle(computerDetails.computer.id, "Active")}
                           className="px-2 py-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-[10px] font-bold rounded text-center cursor-pointer transition-all border border-emerald-100"
                         >
-                          Recover Active
+                          Recuperar Ativo
                         </button>
                       )}
                       {computerDetails.computer.lifecycleStatus !== "Quarantined" && (
@@ -719,7 +719,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                           onClick={() => handleUpdateLifecycle(computerDetails.computer.id, "Quarantined")}
                           className="px-2 py-1 bg-amber-50 hover:bg-amber-100 text-amber-700 text-[10px] font-bold rounded text-center cursor-pointer transition-all border border-amber-100"
                         >
-                          Quarantine Device
+                          Colocar em Quarentena
                         </button>
                       )}
                       {computerDetails.computer.lifecycleStatus !== "Inactive" && (
@@ -727,7 +727,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                           onClick={() => handleUpdateLifecycle(computerDetails.computer.id, "Inactive")}
                           className="px-2 py-1 bg-slate-50 hover:bg-slate-100 text-slate-700 text-[10px] font-bold rounded text-center cursor-pointer transition-all border border-slate-200"
                         >
-                          Flag Inactive
+                          Sinalizar Inativo
                         </button>
                       )}
                       {computerDetails.computer.lifecycleStatus !== "Archived" && (
@@ -735,7 +735,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                           onClick={() => handleUpdateLifecycle(computerDetails.computer.id, "Archived")}
                           className="px-2 py-1 bg-rose-50 hover:bg-rose-100 text-rose-700 text-[10px] font-bold rounded text-center cursor-pointer transition-all border border-rose-100"
                         >
-                          Archive Asset
+                          Arquivar Ativo
                         </button>
                       )}
                     </div>
@@ -744,19 +744,19 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                   {/* Discovered Apps on this endpoint */}
                   <div className="space-y-2">
                     <span className="block text-[10px] font-bold text-slate-500 uppercase tracking-wide flex items-center justify-between">
-                      <span>Detected Apps on Endpoint ({computerDetails.applications.length})</span>
-                      <span className="text-[9px] px-1.5 py-0.5 rounded font-mono uppercase tracking-widest font-bold" style={{color: "#00549F", background: "#D1E7F3"}}>DIS Verified</span>
+                      <span>Apps Detectadas no Endpoint ({computerDetails.applications.length})</span>
+                      <span className="text-[9px] px-1.5 py-0.5 rounded font-mono uppercase tracking-widest font-bold" style={{color: "#00549F", background: "#D1E7F3"}}>Verificado pelo DIS</span>
                     </span>
 
                     {computerDetails.applications.length === 0 ? (
                       <div className="p-6 bg-slate-50 text-center rounded-lg border border-dashed border-slate-200">
                         <AlertTriangle className="w-5 h-5 text-slate-400 mx-auto mb-1" />
-                        <p className="text-[10px] text-slate-500">No applications matching catalog signatures.</p>
+                        <p className="text-[10px] text-slate-500">Nenhum aplicativo correspondente às assinaturas do catálogo.</p>
                         <button
                           onClick={() => handleTriggerAgentScan(computerDetails.computer.id)}
                           className="mt-2 text-[10px] font-bold hover:underline cursor-pointer" style={{color: "#00549F"}}
                         >
-                          Run Scan Now
+                          Executar Scan Agora
                         </button>
                       </div>
                     ) : (
@@ -768,19 +768,19 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                                 <span className={`font-bold text-[11px] ${app.catalogItemId ? "text-slate-800" : "text-slate-500"}`}>
                                   {app.softwareName}
                                 </span>
-                                {app.isPrivateCatalogMatch && (
-                                  <span className="bg-purple-100 text-purple-800 px-1 py-0.2 rounded text-[8px] font-extrabold uppercase">Private</span>
+                                  {app.isPrivateCatalogMatch && (
+                                  <span className="bg-purple-100 text-purple-800 px-1 py-0.2 rounded text-[8px] font-extrabold uppercase">Privado</span>
                                 )}
                               </div>
-                              <span className="block text-[9px] text-slate-400">Publisher: {app.publisher} • v{app.version}</span>
-                              <span className="block text-[8px] font-mono text-slate-400 uppercase mt-0.5">Raw signature: "{app.rawSoftwareName}"</span>
+                              <span className="block text-[9px] text-slate-400">Fabricante: {app.publisher} • v{app.version}</span>
+                              <span className="block text-[8px] font-mono text-slate-400 uppercase mt-0.5">Assinatura bruta: "{app.rawSoftwareName}"</span>
                             </div>
                             <div className="text-right shrink-0">
                               <span className="block text-[9px] font-bold font-mono flex items-center justify-end gap-0.5" style={{color: "#00549F"}}>
                                 <Clock className="w-2.5 h-2.5" />
                                 {app.usageDurationMinutes} min
                               </span>
-                              <span className="block text-[8px] text-slate-400">Usage Metering</span>
+                              <span className="block text-[8px] text-slate-400">Medição de Uso</span>
                             </div>
                           </div>
                         ))}
@@ -792,9 +792,9 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
               ) : (
                 <div className="p-12 text-center text-slate-400 flex flex-col items-center justify-center h-full space-y-2">
                   <Info className="w-8 h-8 text-slate-300" />
-                  <p className="text-xs font-semibold">No Endpoint Selected</p>
+                  <p className="text-xs font-semibold">Nenhum Endpoint Selecionado</p>
                   <p className="text-[10px] leading-normal max-w-xs text-slate-400">
-                    Select a managed computer node on the left list to diagnose specs, monitor warranty schedules, perform on-demand Extender scans, or quarantine licenses.
+                    Selecione um nó de computador gerenciado na lista à esquerda para diagnosticar especificações, monitorar cronogramas de garantia, executar scans Extender sob demanda ou colocar licenças em quarentena.
                   </p>
                 </div>
               )}
@@ -808,9 +808,9 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
           <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-4">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <div>
-                <h3 className="font-bold text-slate-800 text-xs uppercase tracking-wider">Managed Corporate Mobile Assets</h3>
+                <h3 className="font-bold text-slate-800 text-xs uppercase tracking-wider">Ativos Móveis Corporativos Gerenciados</h3>
                 <p className="text-[10px] text-slate-400">
-                  Track smartphones, tablets, handheld scanner endpoints and warranty schedules linked with Active Directory users.
+                  Monitore smartphones, tablets, endpoints de scanners portáteis e cronogramas de garantia vinculados a usuários do Active Directory.
                 </p>
               </div>
             </div>
@@ -818,7 +818,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {filteredMobiles.length === 0 ? (
                 <div className="col-span-full py-12 text-center text-slate-400 text-xs">
-                  No mobile devices enrolled in tracking databases.
+                  Nenhum dispositivo móvel cadastrado nos bancos de rastreamento.
                 </div>
               ) : (
                 filteredMobiles.map((mob) => (
@@ -826,7 +826,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                     <button
                       onClick={() => handleDeleteMobile(mob.id)}
                       className="absolute top-4 right-4 text-slate-400 hover:text-rose-600 transition-all cursor-pointer"
-                      title="De-enroll asset"
+                      title="Desvincular ativo"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
@@ -837,21 +837,21 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                       </div>
                       <div>
                         <h4 className="font-bold text-slate-800 text-xs">{mob.name}</h4>
-                        <span className="text-[9px] text-slate-400 font-mono block">Serial: {mob.serialNumber}</span>
+                        <span className="text-[9px] text-slate-400 font-mono block">Nº de Série: {mob.serialNumber}</span>
                       </div>
                     </div>
 
                     <div className="grid grid-cols-2 gap-2 text-[10px] pt-1">
                       <div>
-                        <span className="block text-slate-400 font-bold uppercase text-[8px]">Specs</span>
+                        <span className="block text-slate-400 font-bold uppercase text-[8px]">Especificações</span>
                         <span className="font-semibold text-slate-700">{mob.brand} {mob.model} ({mob.os})</span>
                       </div>
                       <div>
-                        <span className="block text-slate-400 font-bold uppercase text-[8px]">Primary User</span>
+                        <span className="block text-slate-400 font-bold uppercase text-[8px]">Usuário Principal</span>
                         <span className="font-semibold text-slate-700">{mob.userName}</span>
                       </div>
                       <div>
-                        <span className="block text-slate-400 font-bold uppercase text-[8px]">Warranty Schedule</span>
+                        <span className="block text-slate-400 font-bold uppercase text-[8px]">Cronograma de Garantia</span>
                         <span className={`inline-block px-1.5 py-0.2 rounded font-semibold text-[8px] ${
                           mob.warrantyStatus === "Under Warranty" ? "bg-emerald-100 text-emerald-800" : "bg-rose-100 text-rose-800"
                         }`}>
@@ -859,8 +859,8 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                         </span>
                       </div>
                       <div>
-                        <span className="block text-slate-400 font-bold uppercase text-[8px]">Expiration</span>
-                        <span className="font-semibold text-slate-700 font-mono text-[9px]">{mob.warrantyExpirationDate || "N/A"}</span>
+                        <span className="block text-slate-400 font-bold uppercase text-[8px]">Expiração</span>
+                        <span className="font-semibold text-slate-700 font-mono text-[9px]">{mob.warrantyExpirationDate || "N/D"}</span>
                       </div>
                     </div>
                   </div>
@@ -875,9 +875,9 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
           <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-3">
               <div>
-                <h3 className="font-bold text-slate-800 text-xs uppercase tracking-wider">Discovered Endpoint Software & Core Metering</h3>
+                <h3 className="font-bold text-slate-800 text-xs uppercase tracking-wider">Software Descoberto em Endpoints & Medição do Núcleo</h3>
                 <p className="text-[10px] text-slate-400">
-                  Global ledger of software detected on endpoints. Features malware flagging, private application catalog mapping, and passive usage duration metering.
+                  Registro global de software detectado em endpoints. Inclui sinalização de malware, mapeamento de catálogo de aplicativos privados e medição passiva de duração de uso.
                 </p>
               </div>
 
@@ -885,7 +885,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                 <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-400" />
                 <input
                   type="text"
-                  placeholder="Filter software, publishers, or raw signatures..."
+                  placeholder="Filtrar software, fabricantes ou assinaturas brutas..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full text-xs pl-8 pr-3 py-1.5 border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-slate-50"
@@ -897,18 +897,18 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="border-b border-slate-100 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                    <th className="py-2.5">Discovered Software</th>
-                    <th className="py-2.5">Publisher</th>
-                    <th className="py-2.5">Endpoint Host</th>
-                    <th className="py-2.5">Recognition Quality</th>
-                    <th className="py-2.5 text-right">Usage Metering</th>
+                    <th className="py-2.5">Software Descoberto</th>
+                    <th className="py-2.5">Fabricante</th>
+                    <th className="py-2.5">Host do Endpoint</th>
+                    <th className="py-2.5">Qualidade do Reconhecimento</th>
+                    <th className="py-2.5 text-right">Medição de Uso</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 text-xs text-slate-700">
                   {filteredDisApps.length === 0 ? (
                     <tr>
                       <td colSpan={5} className="py-12 text-center text-slate-400">
-                        No discovered applications reported in this category.
+                        Nenhum aplicativo descoberto relatado nesta categoria.
                       </td>
                     </tr>
                   ) : (
@@ -932,7 +932,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                                 <span className={`font-bold ${isDanger ? "text-rose-600 font-extrabold" : "text-slate-800"}`}>
                                   {da.softwareName}
                                 </span>
-                                <span className="block text-[8px] font-mono text-slate-400">Signature: "{da.rawSoftwareName}"</span>
+                                <span className="block text-[8px] font-mono text-slate-400">Assinatura: "{da.rawSoftwareName}"</span>
                               </div>
                             </div>
                           </td>
@@ -944,27 +944,27 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                                 {hostComp.name} ({hostComp.os})
                               </span>
                             ) : (
-                              "Decommissioned host"
+                              "Host descomissionado"
                             )}
                           </td>
                           <td className="py-3">
                             {da.isPrivateCatalogMatch ? (
                               <span className="bg-purple-100 text-purple-800 px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider">
-                                Private Custom App
+                                App Personalizado Privado
                               </span>
                             ) : da.catalogItemId ? (
                               <span className="bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider">
-                                DIS Normalized
+                                Normalizado pelo DIS
                               </span>
                             ) : (
                               <span className="bg-slate-100 text-slate-600 px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider">
-                                Unrecognized Raw
+                                Bruto Não Reconhecido
                               </span>
                             )}
                           </td>
                           <td className="py-3 text-right">
                             <span className="font-bold text-slate-800 font-mono">{da.usageDurationMinutes || 0} min</span>
-                            <span className="block text-[9px] text-slate-400">Last used: {da.lastUsed ? new Date(da.lastUsed).toLocaleDateString() : "N/A"}</span>
+                            <span className="block text-[9px] text-slate-400">Último uso: {da.lastUsed ? new Date(da.lastUsed).toLocaleDateString() : "N/D"}</span>
                           </td>
                         </tr>
                       );
@@ -981,9 +981,9 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
           <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-3">
               <div>
-                <h3 className="font-bold text-slate-800 text-xs uppercase tracking-wider">Data Intelligence Service Catalogue (800K+ recognized titles)</h3>
+                <h3 className="font-bold text-slate-800 text-xs uppercase tracking-wider">Catálogo do Data Intelligence Service (mais de 800 mil títulos reconhecidos)</h3>
                 <p className="text-[10px] text-slate-400">
-                  Global repository of official vendor product signatures, default SKUs, lifecycle policies (EOL / EOS), malware signatures, and OS support specifications.
+                  Repositório global de assinaturas oficiais de produtos de fornecedores, SKUs padrão, políticas de ciclo de vida (EOL/EOS), assinaturas de malware e especificações de suporte a SO.
                 </p>
               </div>
 
@@ -991,7 +991,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                 <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-400" />
                 <input
                   type="text"
-                  placeholder="Search catalog by software, publisher, SKU..."
+                  placeholder="Pesquisar no catálogo por software, fabricante, SKU..."
                   value={catalogSearch}
                   onChange={(e) => setCatalogSearch(e.target.value)}
                   className="w-full text-xs pl-8 pr-3 py-1.5 border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-slate-50"
@@ -1001,7 +1001,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {filteredCatalog.map((item) => {
-                const category = categories.find(cat => cat.id === item.categoryId)?.name || "Utility";
+                const category = categories.find(cat => cat.id === item.categoryId)?.name || "Utilitário";
                 const isThreat = item.isMalware;
 
                 return (
@@ -1015,7 +1015,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                   >
                     {isThreat && (
                       <span className="absolute top-4 right-4 bg-rose-100 text-rose-800 px-2 py-0.5 rounded text-[8px] font-extrabold uppercase flex items-center gap-1">
-                        <ShieldAlert className="w-2.5 h-2.5" /> High Risk / Malware
+                        <ShieldAlert className="w-2.5 h-2.5" /> Alto Risco / Malware
                       </span>
                     )}
 
@@ -1033,19 +1033,19 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                         
                         <div className="grid grid-cols-2 gap-2 text-[10px] pt-1 border-t border-slate-100 mt-2">
                           <div>
-                            <span className="text-slate-400 block font-bold text-[8px] uppercase">Default SKU</span>
-                            <span className="font-mono text-slate-700">{item.defaultSku || "N/A"}</span>
+                            <span className="text-slate-400 block font-bold text-[8px] uppercase">SKU Padrão</span>
+                            <span className="font-mono text-slate-700">{item.defaultSku || "N/D"}</span>
                           </div>
                           <div>
-                            <span className="text-slate-400 block font-bold text-[8px] uppercase">Category</span>
+                            <span className="text-slate-400 block font-bold text-[8px] uppercase">Categoria</span>
                             <span className="font-semibold text-slate-700">{category}</span>
                           </div>
                           <div>
-                            <span className="text-slate-400 block font-bold text-[8px] uppercase">EOL Date</span>
-                            <span className="font-semibold text-rose-600 font-mono">{item.eolDate || "No scheduled EOL"}</span>
+                            <span className="text-slate-400 block font-bold text-[8px] uppercase">Data de EOL</span>
+                            <span className="font-semibold text-rose-600 font-mono">{item.eolDate || "Nenhum EOL agendado"}</span>
                           </div>
                           <div>
-                            <span className="text-slate-400 block font-bold text-[8px] uppercase">Compatibility</span>
+                            <span className="text-slate-400 block font-bold text-[8px] uppercase">Compatibilidade</span>
                             <span className="font-semibold text-slate-600">{item.compatibleOS.join(", ")}</span>
                           </div>
                         </div>
@@ -1063,9 +1063,9 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
           <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-4">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <div>
-                <h3 className="font-bold text-slate-800 text-xs uppercase tracking-wider">Private Custom Application Signatures</h3>
+                <h3 className="font-bold text-slate-800 text-xs uppercase tracking-wider">Assinaturas de Aplicativos Personalizados Privados</h3>
                 <p className="text-[10px] text-slate-400">
-                  Register proprietary internally-built tools or custom URLs. Scan engines map raw string hits on endpoints instantly to these definitions.
+                  Registre ferramentas proprietárias internas ou URLs personalizadas. Os mecanismos de scan mapeiam instantaneamente ocorrências de strings brutas em endpoints para estas definições.
                 </p>
               </div>
             </div>
@@ -1073,21 +1073,21 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
             <div className="space-y-3">
               {privateCatalog.length === 0 ? (
                 <div className="p-8 text-center text-slate-400 text-xs">
-                  No custom recognition rules registered yet. Click "Add Pattern Recognition" above.
+                  Nenhuma regra de reconhecimento personalizada registrada ainda. Clique em "Adicionar Reconhecimento de Padrão" acima.
                 </div>
               ) : (
                 privateCatalog.map((p) => {
-                  const catName = categories.find(cat => cat.id === p.categoryId)?.name || "Corporate Custom";
+                  const catName = categories.find(cat => cat.id === p.categoryId)?.name || "Personalizado Corporativo";
                   return (
                     <div key={p.id} className="border border-slate-200 hover:border-slate-300 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-50/40">
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
                           <h4 className="font-bold text-slate-800 text-xs">{p.softwareName}</h4>
-                          <span className="bg-purple-100 text-purple-800 px-1.5 py-0.2 rounded text-[8px] font-bold uppercase">Private Pattern</span>
+                          <span className="bg-purple-100 text-purple-800 px-1.5 py-0.2 rounded text-[8px] font-bold uppercase">Padrão Privado</span>
                         </div>
-                        <span className="block text-[10px] text-slate-500 font-semibold">Registered Vendor: {p.publisher} • Category: {catName}</span>
+                        <span className="block text-[10px] text-slate-500 font-semibold">Fornecedor Registrado: {p.publisher} • Categoria: {catName}</span>
                         <div className="pt-1 flex items-center gap-1">
-                          <span className="text-[9px] text-slate-400 uppercase font-bold">Regex / Substring Match:</span>
+                          <span className="text-[9px] text-slate-400 uppercase font-bold">Correspondência Regex / Substring:</span>
                           <span className="bg-slate-100 px-2 py-0.5 rounded font-mono text-[10px] font-bold border border-slate-200" style={{color: "#1468B3"}}>
                             {p.matchPattern}
                           </span>
@@ -1099,7 +1099,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                         onClick={() => handleDeletePrivateItem(p.id)}
                         className="px-2.5 py-1.5 border border-rose-200 hover:bg-rose-50 text-rose-600 rounded-lg text-[10px] font-bold flex items-center gap-1 cursor-pointer transition-all shrink-0"
                       >
-                        <Trash2 className="w-3.5 h-3.5" /> Remove Rule
+                        <Trash2 className="w-3.5 h-3.5" /> Remover Regra
                       </button>
                     </div>
                   );
@@ -1126,7 +1126,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
             <form onSubmit={handleAddComputer}>
               <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
                 <h3 className="font-bold text-slate-900 text-sm flex items-center gap-1.5">
-                  <HardDrive className="w-4 h-4" style={{color: "#00549F"}} /> Enroll Managed Node (Computer/Server)
+                  <HardDrive className="w-4 h-4" style={{color: "#00549F"}} /> Cadastrar Nó Gerenciado (Computador/Servidor)
                 </h3>
                 <button
                   type="button"
@@ -1140,11 +1140,11 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
               <div className="p-6 space-y-4 max-h-[450px] overflow-y-auto">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Computer Hostname</label>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Hostname do Computador</label>
                     <input
                       type="text"
                       required
-                      placeholder="e.g. SRV-ACTIVE-01"
+                      placeholder="ex.: SRV-ACTIVE-01"
                       value={newCompName}
                       onChange={(e) => setNewCompName(e.target.value)}
                       className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
@@ -1152,7 +1152,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Operating System</label>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Sistema Operacional</label>
                     <select
                       value={newCompOS}
                       onChange={(e) => setNewCompOS(e.target.value as any)}
@@ -1167,20 +1167,20 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Brand / Manufacturer</label>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Marca / Fabricante</label>
                     <input
                       type="text"
-                      placeholder="e.g. Dell"
+                      placeholder="ex.: Dell"
                       value={newCompBrand}
                       onChange={(e) => setNewCompBrand(e.target.value)}
                       className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Model Specification</label>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Especificação do Modelo</label>
                     <input
                       type="text"
-                      placeholder="e.g. PowerEdge R750"
+                      placeholder="ex.: PowerEdge R750"
                       value={newCompModel}
                       onChange={(e) => setNewCompModel(e.target.value)}
                       className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
@@ -1190,7 +1190,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
 
                 <div className="grid grid-cols-3 gap-3">
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Cores</label>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Núcleos</label>
                     <input
                       type="number"
                       min="1"
@@ -1210,7 +1210,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Storage (GB)</label>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Armazenamento (GB)</label>
                     <input
                       type="number"
                       min="1"
@@ -1222,10 +1222,10 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-bold text-slate-500 uppercase">CPU Model</label>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Modelo da CPU</label>
                   <input
                     type="text"
-                    placeholder="e.g. Intel Xeon Platinum 8380"
+                    placeholder="ex.: Intel Xeon Platinum 8380"
                     value={newCompCpu}
                     onChange={(e) => setNewCompCpu(e.target.value)}
                     className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
@@ -1234,19 +1234,19 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
 
                 <div className="grid grid-cols-2 gap-4 border-t border-slate-100 pt-3">
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Warranty Scheme</label>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Esquema de Garantia</label>
                     <select
                       value={newCompWarranty}
                       onChange={(e) => setNewCompWarranty(e.target.value as any)}
                       className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     >
-                      <option value="Under Warranty">Under Warranty</option>
-                      <option value="Expired">Expired</option>
-                      <option value="No Info">No Info</option>
+                      <option value="Under Warranty">Sob Garantia</option>
+                      <option value="Expired">Expirada</option>
+                      <option value="No Info">Sem Informação</option>
                     </select>
                   </div>
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Expiration Date</label>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Data de Expiração</label>
                     <input
                       type="date"
                       value={newCompWarrantyDate}
@@ -1263,13 +1263,13 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                   onClick={() => setShowAddComputerModal(false)}
                   className="px-3.5 py-2 text-xs font-semibold text-slate-600 hover:text-slate-800 bg-white border border-slate-200 rounded-lg cursor-pointer"
                 >
-                  Cancel
+                  Cancelar
                 </button>
                 <button
                   type="submit"
                   className="px-4 py-2 text-xs font-semibold text-white rounded-lg cursor-pointer shadow-sm" style={{background: "#00549F"}}
                 >
-                  Save Hardware Node
+                  Salvar Nó de Hardware
                 </button>
               </div>
             </form>
@@ -1288,7 +1288,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
             <form onSubmit={handleAddMobile}>
               <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
                 <h3 className="font-bold text-slate-900 text-sm flex items-center gap-1.5">
-                  <Smartphone className="w-4 h-4" style={{color: "#00549F"}} /> Enroll Corporate Mobile Asset
+                  <Smartphone className="w-4 h-4" style={{color: "#00549F"}} /> Cadastrar Ativo Móvel Corporativo
                 </h3>
                 <button
                   type="button"
@@ -1302,11 +1302,11 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
               <div className="p-6 space-y-4 max-h-[450px] overflow-y-auto">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Device Host Name</label>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Nome do Dispositivo Host</label>
                     <input
                       type="text"
                       required
-                      placeholder="e.g. IPHONE-EB-02"
+                      placeholder="ex.: IPHONE-EB-02"
                       value={newMobName}
                       onChange={(e) => setNewMobName(e.target.value)}
                       className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
@@ -1314,10 +1314,10 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">OS (Firmware)</label>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase">SO (Firmware)</label>
                     <input
                       type="text"
-                      placeholder="e.g. iOS 17.5"
+                      placeholder="ex.: iOS 17.5"
                       value={newMobOS}
                       onChange={(e) => setNewMobOS(e.target.value)}
                       className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
@@ -1327,20 +1327,20 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Brand / Maker</label>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Marca / Fabricante</label>
                     <input
                       type="text"
-                      placeholder="e.g. Apple"
+                      placeholder="ex.: Apple"
                       value={newMobBrand}
                       onChange={(e) => setNewMobBrand(e.target.value)}
                       className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Model</label>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Modelo</label>
                     <input
                       type="text"
-                      placeholder="e.g. iPhone 15 Pro"
+                      placeholder="ex.: iPhone 15 Pro"
                       value={newMobModel}
                       onChange={(e) => setNewMobModel(e.target.value)}
                       className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
@@ -1350,20 +1350,20 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Serial Number</label>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Número de Série</label>
                     <input
                       type="text"
-                      placeholder="e.g. SN-MOB-99212"
+                      placeholder="ex.: SN-MOB-99212"
                       value={newMobSerial}
                       onChange={(e) => setNewMobSerial(e.target.value)}
                       className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Linked User Email</label>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase">E-mail do Usuário Vinculado</label>
                     <input
                       type="email"
-                      placeholder="e.g. ericob3ware@gmail.com"
+                      placeholder="ex.: ericob3ware@gmail.com"
                       value={newMobUser}
                       onChange={(e) => setNewMobUser(e.target.value)}
                       className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
@@ -1373,19 +1373,19 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
 
                 <div className="grid grid-cols-2 gap-4 border-t border-slate-100 pt-3">
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Warranty Scheme</label>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Esquema de Garantia</label>
                     <select
                       value={newMobWarranty}
                       onChange={(e) => setNewMobWarranty(e.target.value as any)}
                       className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     >
-                      <option value="Under Warranty">Under Warranty</option>
-                      <option value="Expired">Expired</option>
-                      <option value="No Info">No Info</option>
+                      <option value="Under Warranty">Sob Garantia</option>
+                      <option value="Expired">Expirada</option>
+                      <option value="No Info">Sem Informação</option>
                     </select>
                   </div>
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Expiration Date</label>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Data de Expiração</label>
                     <input
                       type="date"
                       value={newMobWarrantyDate}
@@ -1402,13 +1402,13 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                   onClick={() => setShowAddMobileModal(false)}
                   className="px-3.5 py-2 text-xs font-semibold text-slate-600 hover:text-slate-800 bg-white border border-slate-200 rounded-lg cursor-pointer"
                 >
-                  Cancel
+                  Cancelar
                 </button>
                 <button
                   type="submit"
                   className="px-4 py-2 text-xs font-semibold text-white rounded-lg cursor-pointer shadow-sm" style={{background: "#00549F"}}
                 >
-                  Enroll Mobile Device
+                  Cadastrar Dispositivo Móvel
                 </button>
               </div>
             </form>
@@ -1427,7 +1427,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
             <form onSubmit={handleAddPrivatePattern}>
               <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
                 <h3 className="font-bold text-slate-900 text-sm flex items-center gap-1.5">
-                  <PlusCircle className="w-4 h-4" style={{color: "#00549F"}} /> Create Recognition Matching Rule
+                  <PlusCircle className="w-4 h-4" style={{color: "#00549F"}} /> Criar Regra de Correspondência de Reconhecimento
                 </h3>
                 <button
                   type="button"
@@ -1441,11 +1441,11 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
               <div className="p-6 space-y-4 max-h-[450px] overflow-y-auto">
                 <div className="space-y-3">
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Custom Application Name</label>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Nome do Aplicativo Personalizado</label>
                     <input
                       type="text"
                       required
-                      placeholder="e.g. Corporate TimeTracker"
+                      placeholder="ex.: Corporate TimeTracker"
                       value={privAppName}
                       onChange={(e) => setPrivAppName(e.target.value)}
                       className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
@@ -1453,11 +1453,11 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Manufacturer / Vendor</label>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Fabricante / Fornecedor</label>
                     <input
                       type="text"
                       required
-                      placeholder="e.g. Internal IT Systems"
+                      placeholder="ex.: Internal IT Systems"
                       value={privPublisher}
                       onChange={(e) => setPrivPublisher(e.target.value)}
                       className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
@@ -1465,7 +1465,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Category</label>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Categoria</label>
                     <select
                       value={privCategory}
                       onChange={(e) => setPrivCategory(e.target.value)}
@@ -1478,24 +1478,24 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Recognition Match Pattern (Substring Match)</label>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Padrão de Correspondência (Substring)</label>
                     <input
                       type="text"
                       required
-                      placeholder="e.g. timetracker.internal (will map any raw string containing this!)"
+                      placeholder="ex.: timetracker.internal (mapeia qualquer string bruta que contenha este padrão)"
                       value={privPattern}
                       onChange={(e) => setPrivPattern(e.target.value)}
                       className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-slate-50 font-mono text-indigo-700 font-bold mt-1"
                     />
                     <p className="text-[9px] text-slate-400 mt-1">
-                      If an on-premises agent detects a registry value, file path, or browser process containing this exact pattern, DIS automatically normalizes it into this private app model.
+                      Se um agente on-premises detectar um valor de registro, caminho de arquivo ou processo de navegador contendo este padrão exato, o DIS o normaliza automaticamente para este modelo de aplicativo privado.
                     </p>
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Special Ingestion Notes</label>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Observações Especiais de Ingestão</label>
                     <textarea
-                      placeholder="Enter special internal inventory, downgrade paths, or support contacts."
+                      placeholder="Insira observações especiais de inventário interno, caminhos de downgrade ou contatos de suporte."
                       value={privNotes}
                       onChange={(e) => setPrivNotes(e.target.value)}
                       rows={2}
@@ -1511,13 +1511,13 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                   onClick={() => setShowAddPrivateModal(false)}
                   className="px-3.5 py-2 text-xs font-semibold text-slate-600 hover:text-slate-800 bg-white border border-slate-200 rounded-lg cursor-pointer"
                 >
-                  Cancel
+                  Cancelar
                 </button>
                 <button
                   type="submit"
                   className="px-4 py-2 text-xs font-semibold text-white rounded-lg cursor-pointer shadow-sm" style={{background: "#00549F"}}
                 >
-                  Save Ingestion Rule
+                  Salvar Regra de Ingestão
                 </button>
               </div>
             </form>

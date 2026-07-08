@@ -85,7 +85,7 @@ export function ContainerView() {
       {error && (
         <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-md text-xs text-red-700 flex items-center justify-between">
           <span>{error}</span>
-          <button onClick={() => setError(null)} className="font-bold underline cursor-pointer">Dismiss</button>
+          <button onClick={() => setError(null)} className="font-bold underline cursor-pointer">Dispensar</button>
         </div>
       )}
 
@@ -93,45 +93,45 @@ export function ContainerView() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
         <div className="bg-white p-5 rounded-xl border border-[#DDDDDD] shadow-xs flex flex-col justify-between" id="card-k8s-clusters">
           <div className="flex items-center justify-between mb-3">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Monitored Clusters</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Clusters Monitorados</span>
             <Layers className="w-4 h-4 text-indigo-500" />
           </div>
           <div>
-            <h3 className="text-xl font-bold text-slate-900">{clusters.length} K8s Clusters</h3>
-            <p className="text-[10px] text-slate-500 mt-1">AWS EKS & On-Premises OpenShift</p>
+            <h3 className="text-xl font-bold text-slate-900">{clusters.length} Clusters K8s</h3>
+            <p className="text-[10px] text-slate-500 mt-1">AWS EKS e OpenShift On-Premises</p>
           </div>
         </div>
 
         <div className="bg-white p-5 rounded-xl border border-[#DDDDDD] shadow-xs flex flex-col justify-between" id="card-k8s-namespaces">
           <div className="flex items-center justify-between mb-3">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total Namespaces</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total de Namespaces</span>
             <Box className="w-4 h-4 text-[#00549F]/60" />
           </div>
           <div>
             <h3 className="text-xl font-bold text-slate-900">{clusters.reduce((acc, curr) => acc + curr.namespaceCount, 0)} Namespaces</h3>
-            <p className="text-[10px] text-slate-500 mt-1">Scoped for license catalog scan</p>
+            <p className="text-[10px] text-slate-500 mt-1">Escopo para varredura do catálogo de licenças</p>
           </div>
         </div>
 
         <div className="bg-white p-5 rounded-xl border border-[#DDDDDD] shadow-xs flex flex-col justify-between" id="card-k8s-pods">
           <div className="flex items-center justify-between mb-3">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Inspected Container Pods</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Pods de Contêiner Inspecionados</span>
             <Box className="w-4 h-4 text-emerald-500" />
           </div>
           <div>
-            <h3 className="text-xl font-bold text-slate-900">{pods.length} Active Pods</h3>
-            <p className="text-[10px] text-slate-500 mt-1">Containers matching software patterns</p>
+            <h3 className="text-xl font-bold text-slate-900">{pods.length} Pods Ativos</h3>
+            <p className="text-[10px] text-slate-500 mt-1">Contêineres correspondentes a padrões de software</p>
           </div>
         </div>
 
         <div className="bg-slate-900 text-white p-5 rounded-xl border border-slate-800 shadow-xs flex flex-col justify-between" id="card-k8s-warnings">
           <div className="flex items-center justify-between mb-3">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Container Compliance Anomalies</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Anomalias de Compliance em Contêineres</span>
             <ShieldAlert className="w-4 h-4 text-red-500 animate-pulse" />
           </div>
           <div>
-            <h3 className="text-xl font-bold text-red-400">{unlicensedCount} Unlicensed Apps</h3>
-            <p className="text-[10px] text-slate-400 mt-1">Requires core license assignments</p>
+            <h3 className="text-xl font-bold text-red-400">{unlicensedCount} Apps Não Licenciados</h3>
+            <p className="text-[10px] text-slate-400 mt-1">Requer atribuições de licença principal</p>
           </div>
         </div>
       </div>
@@ -141,26 +141,26 @@ export function ContainerView() {
         {/* Left column: K8s cluster gateways */}
         <div className="bg-white p-6 rounded-xl border border-[#DDDDDD] shadow-xs lg:col-span-1">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900">K8s Cluster Gateways</h3>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900">Gateways de Cluster K8s</h3>
             <button
               onClick={() => setShowAddForm(!showAddForm)}
               className="px-2 py-1 bg-slate-900 text-white text-[10px] font-bold rounded-lg flex items-center gap-1 hover:bg-slate-800 transition cursor-pointer"
               id="btn-add-k8s-connector"
             >
               <Plus className="w-3 h-3" />
-              Add
+              Adicionar
             </button>
           </div>
 
           {showAddForm && (
             <form onSubmit={handleAddConnector} className="bg-slate-50 p-4 rounded-lg border border-[#DDDDDD] mb-4 space-y-3">
               <div>
-                <label className="block text-[10px] font-bold text-slate-500 mb-1">Gateway Name</label>
+                <label className="block text-[10px] font-bold text-slate-500 mb-1">Nome do Gateway</label>
                 <input
                   type="text"
                   value={newConnName}
                   onChange={e => setNewConnName(e.target.value)}
-                  placeholder="EKS Dev Cluster Scanner"
+                  placeholder="Scanner do Cluster de Desenvolvimento EKS"
                   className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800"
                   required
                 />
@@ -171,13 +171,13 @@ export function ContainerView() {
                   onClick={() => setShowAddForm(false)}
                   className="px-2 py-1 text-[10px] bg-white border border-[#DDDDDD] rounded text-slate-600"
                 >
-                  Cancel
+                  Cancelar
                 </button>
                 <button
                   type="submit"
                   className="px-2 py-1 text-[10px] bg-[#00549F] text-white font-bold rounded cursor-pointer"
                 >
-                  Save Gateway
+                  Salvar Gateway
                 </button>
               </div>
             </form>
@@ -185,7 +185,7 @@ export function ContainerView() {
 
           <div className="space-y-3">
             {connectors.length === 0 ? (
-              <div className="text-center py-6 text-xs text-slate-400">No Kubernetes connectors configured.</div>
+              <div className="text-center py-6 text-xs text-slate-400">Nenhum conector Kubernetes configurado.</div>
             ) : (
               connectors.map(conn => (
                 <div key={conn.id} className="p-3 bg-slate-50 border border-slate-100 rounded-lg flex items-center justify-between">
@@ -212,7 +212,7 @@ export function ContainerView() {
               className="w-full py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-lg font-bold text-xs flex items-center justify-center gap-2 transition cursor-pointer"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${syncing ? "animate-spin" : ""}`} />
-              {syncing ? "Scanning Containers..." : "Scan K8s Container Licenses"}
+              {syncing ? "Escaneando Contêineres..." : "Escaneear Licenças de Contêiner K8s"}
             </button>
           </div>
         </div>
@@ -220,24 +220,24 @@ export function ContainerView() {
         {/* Right column: Pods licensing inventory */}
         <div className="bg-white p-6 rounded-xl border border-[#DDDDDD] shadow-xs lg:col-span-2">
           <div className="mb-4">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900">Container Application Discovery List</h3>
-            <p className="text-[10px] text-slate-400 mt-0.5">Scans running container images, matching against the Snow Software Recognition catalog</p>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900">Lista de Descoberta de Aplicativos em Contêineres</h3>
+            <p className="text-[10px] text-slate-400 mt-0.5">Escaneia imagens de contêiner em execução, combinando com o catálogo de reconhecimento do Snow Software</p>
           </div>
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs text-slate-600">
               <thead>
                 <tr className="border-b border-[#DDDDDD] text-[10px] font-bold text-slate-400 uppercase bg-[#F8F8F8]/50">
-                  <th className="py-2.5 px-3">Pod Name / Namespace</th>
-                  <th className="py-2.5 px-3">Container Image Name</th>
-                  <th className="py-2.5 px-3">Detected License software</th>
-                  <th className="py-2.5 px-3">Compliance status</th>
+                  <th className="py-2.5 px-3">Nome do Pod / Namespace</th>
+                  <th className="py-2.5 px-3">Nome da Imagem do Contêiner</th>
+                  <th className="py-2.5 px-3">Software de Licença Detectado</th>
+                  <th className="py-2.5 px-3">Status de Compliance</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {pods.length === 0 ? (
                   <tr>
-                    <td colSpan={4} className="py-8 text-center text-xs text-slate-400">No discovered container software found.</td>
+                    <td colSpan={4} className="py-8 text-center text-xs text-slate-400">Nenhum software de contêiner descoberto encontrado.</td>
                   </tr>
                 ) : (
                   pods.map(pod => {
