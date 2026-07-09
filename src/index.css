@@ -1,51 +1,50 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Source Sans Pro", "Nunito", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-sans: "Noto Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFont-Regular, monospace;
 
-  /* Flexera / Snow Atlas Brand Colors */
-  --color-snow-primary: #00549F;
-  --color-snow-primary-hover: #1468B3;
-  --color-snow-primary-active: #297DC8;
-  --color-snow-primary-disabled: rgba(0, 84, 159, 0.3);
-  --color-snow-tertiary: #00A1DE;
-  --color-snow-tertiary-hover: #0AABE8;
-  --color-snow-tertiary-active: #14B5F2;
-  --color-snow-sidebar: #1A2B4C;
-  --color-snow-sidebar-hover: #243B5E;
-  --color-snow-sidebar-active: #2E4A6F;
-  --color-snow-brand-cyan: #00AAE7;
-  --color-snow-success: #386015;
-  --color-snow-success-secondary: #DFEFD1;
-  --color-snow-warning: #ECC200;
-  --color-snow-warning-secondary: #806B3C;
-  --color-snow-warning-tertiary: #FBF3CC;
-  --color-snow-error: #D0021B;
-  --color-snow-destructive: #C32525;
-  --color-snow-text: #333333;
-  --color-snow-grey-0: #F8F8F8;
-  --color-snow-grey-1: #F1F1F1;
-  --color-snow-grey-2: #DDDDDD;
-  --color-snow-grey-3: #C1C1C1;
-  --color-snow-grey-4: #9B9B9B;
-  --color-snow-grey-5: #595959;
-  --color-snow-grey-6: #333333;
-  --color-snow-focus: #99D9F2;
+  --color-sym-sidebar: #213C60;
+  --color-sym-sidebar-hover: #2A4D7A;
+  --color-sym-sidebar-active: #2E4A6F;
+  --color-sym-primary: #366BB2;
+  --color-sym-primary-hover: #4079C4;
+  --color-sym-primary-active: #2D5C9E;
+  --color-sym-page-bg: #F2F2F2;
+  --color-sym-text: #212424;
+  --color-sym-text-light: #6E7070;
+  --color-sym-border: #D0D0D0;
+  --color-sym-card: #FFFFFF;
+  --color-sym-input-border: #6E7070;
+  --color-sym-grey-0: #FFFFFF;
+  --color-sym-grey-1: #F2F2F2;
+  --color-sym-grey-2: #D0D0D0;
+  --color-sym-grey-3: #A0A0A0;
+  --color-sym-grey-4: #6E7070;
+  --color-sym-grey-5: #212424;
+  --color-sym-success: #2E7D32;
+  --color-sym-warning: #E17000;
+  --color-sym-error: #C32525;
+  --color-sym-focus: #99D9F2;
 
-  --shadow-snow-card: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
-  --shadow-snow-dropdown: 0 4px 16px 0 rgba(0, 0, 0, 0.12);
+  --shadow-sym-card: 0 1px 4px 0 rgba(0, 0, 0, 0.08);
+  --shadow-sym-dropdown: 0 4px 12px 0 rgba(0, 0, 0, 0.12);
 }
 
 body {
-  color: var(--color-snow-text);
+  color: var(--color-sym-text);
+  font-family: "Noto Sans", ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body, input, button, select, textarea {
+  font-family: "Noto Sans", ui-sans-serif, system-ui, sans-serif;
 }
 
 /* Scrollbar styling */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--color-snow-grey-2); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--color-snow-grey-3); }
+::-webkit-scrollbar-thumb { background: var(--color-sym-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-sym-grey-3); }
