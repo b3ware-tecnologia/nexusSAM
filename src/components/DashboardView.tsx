@@ -4,7 +4,8 @@ import {
   Shield, AlertTriangle, CheckCircle, TrendingUp, Cpu, Users, Layers,
   HardDrive, RefreshCw, Cloud, ArrowUpRight, Database, Activity, Clock,
   FileText, BarChart3, PieChart, Gauge, Search, ChevronRight, Info,
-  DollarSign, Target, Zap, Calendar, Download, Eye, Filter
+  DollarSign, Target, Zap, Calendar, Download, Eye, Filter, Brain,
+  ArrowRight
 } from "lucide-react";
 import {
   PieChart as RePieChart, Pie, Cell, ResponsiveContainer, Tooltip as ReTooltip,
@@ -12,6 +13,78 @@ import {
   AreaChart as ReAreaChart, Area, Legend
 } from "recharts";
 import { HintTooltip } from "./HintTooltip.js";
+
+const AI_BANNER_SVG = `data:image/svg+xml;base64,${btoa(`<svg xmlns="http://www.w3.org/2000/svg" width="866" height="90" viewBox="0 0 866 90">
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1D2B4D" stop-opacity="0"/>
+      <stop offset="30%" stop-color="#1D2B4D" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#253E6E" stop-opacity="0.6"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#00A4B7" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#00A4B7" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="g3" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#366BB2" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#366BB2" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="g4" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5BC0EB" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#5BC0EB" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <!-- Base overlay -->
+  <rect x="0" y="0" width="866" height="90" fill="url(#g1)"/>
+  <!-- Diagonal tech lines -->
+  <g stroke="#00A4B7" stroke-opacity="0.12" stroke-width="0.5" fill="none">
+    <line x1="600" y1="0" x2="866" y2="90"/>
+    <line x1="500" y1="0" x2="766" y2="90"/>
+    <line x1="650" y1="0" x2="866" y2="55"/>
+    <line x1="550" y1="0" x2="816" y2="90"/>
+    <line x1="700" y1="0" x2="866" y2="30"/>
+    <line x1="450" y1="0" x2="716" y2="90"/>
+    <line x1="400" y1="0" x2="666" y2="90"/>
+    <line x1="750" y1="0" x2="866" y2="20"/>
+  </g>
+  <!-- Circuit nodes -->
+  <g fill="#00A4B7" fill-opacity="0.2">
+    <circle cx="620" cy="15" r="2"/>
+    <circle cx="700" cy="45" r="2.5"/>
+    <circle cx="780" cy="25" r="1.5"/>
+    <circle cx="660" cy="70" r="2"/>
+    <circle cx="820" cy="60" r="1.8"/>
+    <circle cx="590" cy="50" r="1.5"/>
+  </g>
+  <!-- Horizontal connection lines -->
+  <g stroke="#5BC0EB" stroke-opacity="0.08" stroke-width="0.8" fill="none">
+    <path d="M520,30 Q580,20 620,30 T700,25 T760,35"/>
+    <path d="M540,60 Q600,70 650,55 T720,65 T800,55"/>
+    <path d="M480,45 Q550,35 600,45 T680,40 T740,50"/>
+  </g>
+  <!-- Glow dots -->
+  <g fill="#5BC0EB" fill-opacity="0.3">
+    <circle cx="650" cy="30" r="1.5">
+      <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="750" cy="55" r="1.2">
+      <animate attributeName="opacity" values="0.2;0.7;0.2" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="590" cy="45" r="1">
+      <animate attributeName="opacity" values="0.15;0.6;0.15" dur="3s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  <!-- Right gradient overlays -->
+  <rect x="400" y="0" width="466" height="90" fill="url(#g2)" opacity="0.5"/>
+  <rect x="300" y="0" width="566" height="90" fill="url(#g3)" opacity="0.3"/>
+  <rect x="500" y="0" width="366" height="90" fill="url(#g4)" opacity="0.4"/>
+  <!-- Subtle horizontal scan line -->
+  <g stroke="#FFFFFF" stroke-opacity="0.03" stroke-width="0.3">
+    <line x1="450" y1="20" x2="866" y2="20"/>
+    <line x1="500" y1="45" x2="866" y2="45"/>
+    <line x1="550" y1="70" x2="866" y2="70"/>
+  </g>
+</svg>`)}`;
 
 interface DashboardViewProps {
   onNavigateToLicenses: () => void;
@@ -114,8 +187,76 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
     );
   };
 
+  const insights = React.useMemo(() => {
+    const hasUnder = underLicensedCount > 0;
+    const hasOver = overLicensedCount > 0;
+    const renewalRisk = forecasts.filter(f => f.daysUntilExpiry <= 30).length;
+    return {
+      icon: Brain,
+      title: "ELP AI Insights",
+      items: [
+        hasUnder
+          ? `${underLicensedCount} título${underLicensedCount !== 1 ? "s" : ""} sublicenciado${underLicensedCount !== 1 ? "s" : ""} — risco financeiro de ${formatCurrency(totalFinancialRisk)}`
+          : "Todos os títulos em conformidade — nenhum risco de auditoria detectado",
+        hasOver
+          ? `${overLicensedCount} título${overLicensedCount !== 1 ? "s" : ""} sobrerlicenciado${overLicensedCount !== 1 ? "s" : ""} — ${formatCurrency(totalWastedSpend)} em gastos excessivos`
+          : "Nenhum gasto excessivo identificado no período",
+        renewalRisk > 0
+          ? `${renewalRisk} renovação${renewalRisk !== 1 ? "ões" : ""} nos próximos 30 dias — revise contratos`
+          : "Nenhuma renovação crítica nos próximos 30 dias",
+        avgCompliancePct < 90
+          ? `Pontuação de conformidade em ${avgCompliancePct}% — abaixo da meta de 90%`
+          : `Pontuação de conformidade em ${avgCompliancePct}% — dentro da meta`,
+      ],
+    };
+  }, [underLicensedCount, overLicensedCount, totalFinancialRisk, totalWastedSpend, forecasts, avgCompliancePct]);
+
   return (
     <div className="space-y-6">
+      {/* AI Insights Banner (Symantec Protection Bulletin style) */}
+      <div
+        className="flex overflow-hidden"
+        style={{
+          height: "90px",
+          borderRadius: "0px",
+          background: "#171D31",
+          backgroundImage: `url(${AI_BANNER_SVG})`,
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "100% 0",
+          backgroundSize: "866px 90px",
+          marginBottom: "15px",
+        }}
+      >
+        <div className="flex-1 flex items-center" style={{ padding: "12px 40px" }}>
+          <div className="flex items-start gap-4 w-full">
+            <div className="flex items-center gap-3 mt-0.5 shrink-0">
+              <insights.icon className="w-6 h-6" style={{ color: "#00A4B7" }} />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div style={{ color: "#FFFFFF", fontSize: "20px", fontWeight: 400, lineHeight: 1.3 }}>
+                {insights.title}
+              </div>
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-0.5 mt-1" style={{ color: "rgba(255,255,255,0.85)", fontSize: "13px" }}>
+                {insights.items.filter(Boolean).map((item, i) => (
+                  <span key={i} className="flex items-center gap-1">
+                    <span style={{ color: "#00A4B7", fontSize: "10px" }}>●</span>
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div
+              className="shrink-0 flex items-center gap-1 text-sm cursor-pointer whitespace-nowrap mt-1"
+              style={{ color: "#C8DFFF" }}
+              onClick={() => {}}
+            >
+              Ver análise completa
+              <ArrowRight className="w-3.5 h-3.5" />
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Page Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
