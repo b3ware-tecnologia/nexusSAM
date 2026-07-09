@@ -30,6 +30,13 @@
 
   --shadow-sym-card: 0 1px 4px 0 rgba(0, 0, 0, 0.08);
   --shadow-sym-dropdown: 0 4px 12px 0 rgba(0, 0, 0, 0.12);
+
+  --radius-lg: 3px;
+  --radius-xl: 4px;
+}
+
+input, select, textarea {
+  border-radius: 0px;
 }
 
 body {
