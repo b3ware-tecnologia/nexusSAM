@@ -77,7 +77,7 @@ export function DiagnosticsView() {
       <div>
         <div className="flex items-center gap-2">
           <h1 className="text-2xl font-bold tracking-tight text-slate-900">
-            <ShieldCheck className="w-6 h-6 text-[#00549F]" />
+            <ShieldCheck className="w-6 h-6 text-[#366BB2]" />
             Diagnósticos de Conformidade do SAM Core
           </h1>
           <HintTooltip text="Execute diagnósticos de sistema e verificações de integridade no mecanismo SAM Core. Teste cálculos de conformidade, verifique status de conectores e revise métricas de desempenho." side="right" size="md" />
@@ -89,7 +89,7 @@ export function DiagnosticsView() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Unit tests card control */}
-        <div className="bg-white border border-[#DDDDDD] rounded-xl p-5 shadow-sm space-y-4">
+        <div className="bg-white border border-[#D0D0D0] rounded-xl p-5 shadow-sm space-y-4">
           <h3 className="font-semibold text-slate-800 text-xs uppercase tracking-wider">Controle de Suíte de Testes</h3>
           <p className="text-xs text-slate-500 leading-relaxed">
             Mecanismos de ITAM exigem precisão matemática absoluta. Nosso framework de teste valida fórmulas de métricas, limites de consolidação multi-dispositivo, contagens de máquinas virtuais, valores de núcleos e multiplicadores PVU.
@@ -97,7 +97,7 @@ export function DiagnosticsView() {
           <button
             onClick={runTests}
             disabled={isRunning}
-            className="w-full py-2.5 bg-[#00549F] text-white font-semibold rounded-lg text-xs flex items-center justify-center gap-2 disabled:opacity-50 transition-all cursor-pointer"
+            className="w-full py-2.5 bg-[#366BB2] text-white font-semibold rounded-lg text-xs flex items-center justify-center gap-2 disabled:opacity-50 transition-all cursor-pointer"
           >
             <PlayCircle className="w-4 h-4" />
             {isRunning ? "Executando asserções..." : "Reexecutar Suíte de Diagnóstico"}
@@ -105,15 +105,15 @@ export function DiagnosticsView() {
         </div>
 
         {/* Results output screen */}
-        <div className="lg:col-span-2 bg-white border border-[#DDDDDD] rounded-xl p-5 shadow-sm flex flex-col justify-between">
+        <div className="lg:col-span-2 bg-white border border-[#D0D0D0] rounded-xl p-5 shadow-sm flex flex-col justify-between">
           <div className="space-y-4">
             <h3 className="font-semibold text-slate-800 text-xs uppercase tracking-wider border-b border-slate-100 pb-3 flex items-center gap-1.5">
-              <Terminal className="w-4 h-4 text-[#00549F]" /> Console de Log de Asserções
+              <Terminal className="w-4 h-4 text-[#366BB2]" /> Console de Log de Asserções
             </h3>
 
             {isRunning ? (
               <div className="p-12 text-center text-slate-400">
-                <div className="animate-spin inline-block w-8 h-8 border-2 border-[#00549F] border-t-transparent rounded-full mb-2"></div>
+                <div className="animate-spin inline-block w-8 h-8 border-2 border-[#366BB2] border-t-transparent rounded-full mb-2"></div>
                 <p className="text-xs font-semibold text-slate-700">Executando suítes de asserções de diagnóstico...</p>
               </div>
             ) : testResult ? (

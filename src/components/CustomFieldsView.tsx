@@ -218,7 +218,7 @@ export function CustomFieldsView() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         {/* Box 1: Custom Metrics Analyzer */}
-        <div className="bg-white p-6 rounded-xl border border-[#DDDDDD] shadow-xs lg:col-span-1 space-y-4">
+        <div className="bg-white p-6 rounded-xl border border-[#D0D0D0] shadow-xs lg:col-span-1 space-y-4">
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 flex items-center gap-1.5">
               <BarChart className="w-4 h-4 text-indigo-500" />
@@ -234,7 +234,7 @@ export function CustomFieldsView() {
                 value={newMetName}
                 onChange={e => setNewMetName(e.target.value)}
                 placeholder="Nome da Métrica (ex.: Desperdício Adobe)"
-                className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800"
+                className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#D0D0D0] rounded-lg focus:outline-indigo-500 text-slate-800"
                 required
               />
               <input
@@ -242,7 +242,7 @@ export function CustomFieldsView() {
                 value={newMetCriteria}
                 onChange={e => setNewMetCriteria(e.target.value)}
                 placeholder="Consulta/Critério (ex.: risco Adobe > 50)"
-                className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800"
+                className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#D0D0D0] rounded-lg focus:outline-indigo-500 text-slate-800"
                 required
               />
               <div className="grid grid-cols-2 gap-2">
@@ -251,7 +251,7 @@ export function CustomFieldsView() {
                   value={newMetValue}
                   onChange={e => setNewMetValue(e.target.value)}
                   placeholder="Custo Calculado ($)"
-                  className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800"
+                  className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#D0D0D0] rounded-lg focus:outline-indigo-500 text-slate-800"
                 />
                 <button
                   type="submit"
@@ -282,7 +282,7 @@ export function CustomFieldsView() {
         </div>
 
         {/* Box 2: Custom Field Dictionary definitions */}
-        <div className="bg-white p-6 rounded-xl border border-[#DDDDDD] shadow-xs lg:col-span-1 space-y-4">
+        <div className="bg-white p-6 rounded-xl border border-[#D0D0D0] shadow-xs lg:col-span-1 space-y-4">
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 flex items-center gap-1.5">
               <Tags className="w-4 h-4 text-indigo-500" />
@@ -298,14 +298,14 @@ export function CustomFieldsView() {
                 value={newDefName}
                 onChange={e => setNewDefName(e.target.value)}
                 placeholder="Rótulo do Campo (ex.: Centro de Custo)"
-                className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800"
+                className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#D0D0D0] rounded-lg focus:outline-indigo-500 text-slate-800"
                 required
               />
               <div className="grid grid-cols-2 gap-2">
                 <select
                   value={newDefTarget}
                   onChange={e => setNewDefTarget(e.target.value as any)}
-                  className="text-xs px-2.5 py-1.5 bg-white border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800"
+                  className="text-xs px-2.5 py-1.5 bg-white border border-[#D0D0D0] rounded-lg focus:outline-indigo-500 text-slate-800"
                 >
                   <option value="License">Licenças SAM</option>
                   <option value="Computer">Computadores (HAM)</option>
@@ -315,7 +315,7 @@ export function CustomFieldsView() {
                 <select
                   value={newDefType}
                   onChange={e => setNewDefType(e.target.value as any)}
-                  className="text-xs px-2.5 py-1.5 bg-white border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800"
+                  className="text-xs px-2.5 py-1.5 bg-white border border-[#D0D0D0] rounded-lg focus:outline-indigo-500 text-slate-800"
                 >
                   <option value="Text">Texto (String)</option>
                   <option value="Number">Número (Float)</option>
@@ -325,7 +325,7 @@ export function CustomFieldsView() {
               </div>
               <button
                 type="submit"
-                className="w-full py-1.5 text-xs bg-[#00549F] text-white font-bold rounded-lg cursor-pointer"
+                className="w-full py-1.5 text-xs bg-[#366BB2] text-white font-bold rounded-lg cursor-pointer"
               >
                 Definir Campo Personalizado
               </button>
@@ -354,7 +354,7 @@ export function CustomFieldsView() {
         <div className="bg-slate-900 text-slate-200 p-6 rounded-xl border border-slate-800 shadow-xs lg:col-span-1 flex flex-col justify-between">
           <div>
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 border-b border-slate-800 pb-2 flex items-center gap-1.5">
-              <Settings className="w-4 h-4 text-[#00549F]/60" />
+              <Settings className="w-4 h-4 text-[#366BB2]/60" />
               Proteção de Prontidão para Auditoria ITAM
             </h3>
             <div className="mt-4 space-y-3 text-xs">
@@ -375,7 +375,7 @@ export function CustomFieldsView() {
       </div>
 
       {/* Section 4: Dynamic Assets Custom Fields values editor & BULK Write API */}
-      <div className="bg-white p-6 rounded-xl border border-[#DDDDDD] shadow-xs" id="custom-fields-bulk-editor">
+      <div className="bg-white p-6 rounded-xl border border-[#D0D0D0] shadow-xs" id="custom-fields-bulk-editor">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4 mb-4">
           <div>
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 flex items-center gap-1.5">
@@ -391,7 +391,7 @@ export function CustomFieldsView() {
             <select
               value={selectedTargetType}
               onChange={e => setSelectedTargetType(e.target.value as any)}
-              className="text-xs bg-slate-50 border border-[#DDDDDD] rounded-lg px-3 py-1.5 font-semibold text-slate-700 focus:outline-indigo-500"
+              className="text-xs bg-slate-50 border border-[#D0D0D0] rounded-lg px-3 py-1.5 font-semibold text-slate-700 focus:outline-indigo-500"
             >
               <option value="License">Licenças SAM Core</option>
               <option value="Computer">Computadores (HAM)</option>
@@ -401,7 +401,7 @@ export function CustomFieldsView() {
 
             <button
               onClick={handleBulkUpdate}
-              className="px-4 py-1.5 bg-[#00549F] text-white text-[11px] font-bold rounded-lg flex items-center gap-1 cursor-pointer"
+              className="px-4 py-1.5 bg-[#366BB2] text-white text-[11px] font-bold rounded-lg flex items-center gap-1 cursor-pointer"
             >
               <Check className="w-3.5 h-3.5" />
               Atualizar Ativos em Lote
@@ -413,7 +413,7 @@ export function CustomFieldsView() {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs text-slate-600">
             <thead>
-              <tr className="border-b border-[#DDDDDD] text-[10px] font-bold text-slate-400 uppercase bg-[#F8F8F8]/50">
+              <tr className="border-b border-[#D0D0D0] text-[10px] font-bold text-slate-400 uppercase bg-[#F2F2F2]/50">
                 <th className="py-2.5 px-3">ID do Ativo</th>
                 <th className="py-2.5 px-3">Título do Ativo / Fornecedor</th>
                 {targetDefs.map(def => (
@@ -468,7 +468,7 @@ export function CustomFieldsView() {
                               className={`text-xs px-2 py-1 w-full rounded border transition-all ${
                                 isModified 
                                   ? "bg-amber-50 border-amber-400 focus:outline-amber-500" 
-                                  : "bg-white border-[#DDDDDD] focus:outline-indigo-500"
+                                  : "bg-white border-[#D0D0D0] focus:outline-indigo-500"
                               }`}
                             />
                           </td>

@@ -91,7 +91,7 @@ export function ContainerView() {
 
       {/* Cluster Summary Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
-        <div className="bg-white p-5 rounded-xl border border-[#DDDDDD] shadow-xs flex flex-col justify-between" id="card-k8s-clusters">
+        <div className="bg-white p-5 rounded-xl border border-[#D0D0D0] shadow-xs flex flex-col justify-between" id="card-k8s-clusters">
           <div className="flex items-center justify-between mb-3">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Clusters Monitorados</span>
             <Layers className="w-4 h-4 text-indigo-500" />
@@ -102,10 +102,10 @@ export function ContainerView() {
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-xl border border-[#DDDDDD] shadow-xs flex flex-col justify-between" id="card-k8s-namespaces">
+        <div className="bg-white p-5 rounded-xl border border-[#D0D0D0] shadow-xs flex flex-col justify-between" id="card-k8s-namespaces">
           <div className="flex items-center justify-between mb-3">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total de Namespaces</span>
-            <Box className="w-4 h-4 text-[#00549F]/60" />
+            <Box className="w-4 h-4 text-[#366BB2]/60" />
           </div>
           <div>
             <h3 className="text-xl font-bold text-slate-900">{clusters.reduce((acc, curr) => acc + curr.namespaceCount, 0)} Namespaces</h3>
@@ -113,7 +113,7 @@ export function ContainerView() {
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-xl border border-[#DDDDDD] shadow-xs flex flex-col justify-between" id="card-k8s-pods">
+        <div className="bg-white p-5 rounded-xl border border-[#D0D0D0] shadow-xs flex flex-col justify-between" id="card-k8s-pods">
           <div className="flex items-center justify-between mb-3">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Pods de Contêiner Inspecionados</span>
             <Box className="w-4 h-4 text-emerald-500" />
@@ -139,7 +139,7 @@ export function ContainerView() {
       {/* Connectors and Pods table */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left column: K8s cluster gateways */}
-        <div className="bg-white p-6 rounded-xl border border-[#DDDDDD] shadow-xs lg:col-span-1">
+        <div className="bg-white p-6 rounded-xl border border-[#D0D0D0] shadow-xs lg:col-span-1">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900">Gateways de Cluster K8s</h3>
             <button
@@ -153,7 +153,7 @@ export function ContainerView() {
           </div>
 
           {showAddForm && (
-            <form onSubmit={handleAddConnector} className="bg-slate-50 p-4 rounded-lg border border-[#DDDDDD] mb-4 space-y-3">
+            <form onSubmit={handleAddConnector} className="bg-slate-50 p-4 rounded-lg border border-[#D0D0D0] mb-4 space-y-3">
               <div>
                 <label className="block text-[10px] font-bold text-slate-500 mb-1">Nome do Gateway</label>
                 <input
@@ -161,7 +161,7 @@ export function ContainerView() {
                   value={newConnName}
                   onChange={e => setNewConnName(e.target.value)}
                   placeholder="Scanner do Cluster de Desenvolvimento EKS"
-                  className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800"
+                  className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#D0D0D0] rounded-lg focus:outline-indigo-500 text-slate-800"
                   required
                 />
               </div>
@@ -169,13 +169,13 @@ export function ContainerView() {
                 <button
                   type="button"
                   onClick={() => setShowAddForm(false)}
-                  className="px-2 py-1 text-[10px] bg-white border border-[#DDDDDD] rounded text-slate-600"
+                  className="px-2 py-1 text-[10px] bg-white border border-[#D0D0D0] rounded text-slate-600"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="px-2 py-1 text-[10px] bg-[#00549F] text-white font-bold rounded cursor-pointer"
+                  className="px-2 py-1 text-[10px] bg-[#366BB2] text-white font-bold rounded cursor-pointer"
                 >
                   Salvar Gateway
                 </button>
@@ -218,7 +218,7 @@ export function ContainerView() {
         </div>
 
         {/* Right column: Pods licensing inventory */}
-        <div className="bg-white p-6 rounded-xl border border-[#DDDDDD] shadow-xs lg:col-span-2">
+        <div className="bg-white p-6 rounded-xl border border-[#D0D0D0] shadow-xs lg:col-span-2">
           <div className="mb-4">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900">Lista de Descoberta de Aplicativos em Contêineres</h3>
             <p className="text-[10px] text-slate-400 mt-0.5">Escaneia imagens de contêiner em execução, combinando com o catálogo de reconhecimento do Snow Software</p>
@@ -227,7 +227,7 @@ export function ContainerView() {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs text-slate-600">
               <thead>
-                <tr className="border-b border-[#DDDDDD] text-[10px] font-bold text-slate-400 uppercase bg-[#F8F8F8]/50">
+                <tr className="border-b border-[#D0D0D0] text-[10px] font-bold text-slate-400 uppercase bg-[#F2F2F2]/50">
                   <th className="py-2.5 px-3">Nome do Pod / Namespace</th>
                   <th className="py-2.5 px-3">Nome da Imagem do Contêiner</th>
                   <th className="py-2.5 px-3">Software de Licença Detectado</th>

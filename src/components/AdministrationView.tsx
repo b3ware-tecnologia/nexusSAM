@@ -770,7 +770,7 @@ export function AdministrationView() {
         <div className="flex items-center gap-2 shrink-0" id="admin-quick-switches">
           {/* Active Tenant Switcher Simulation */}
           <div className="flex items-center gap-2 bg-gray-900 border border-gray-800 px-3 py-1.5 rounded-lg text-xs text-gray-300" id="tenant-sw-wrapper">
-            <Briefcase className="h-3.5 w-3.5 text-[#00549F]/60" />
+            <Briefcase className="h-3.5 w-3.5 text-[#366BB2]/60" />
             <span>Cliente MSP Ativo:</span>
             <select 
               value={selectedTenant} 
@@ -806,7 +806,7 @@ export function AdministrationView() {
             onClick={() => setActiveTab("auth")}
             className={`w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition font-medium ${
               activeTab === "auth" 
-                ? "bg-indigo-600/15 border-l-2 border-[#00549F] text-indigo-200" 
+                ? "bg-indigo-600/15 border-l-2 border-[#366BB2] text-indigo-200" 
                 : "text-gray-400 hover:bg-gray-900 hover:text-white"
             }`}
             id="tab-auth"
@@ -819,7 +819,7 @@ export function AdministrationView() {
             onClick={() => setActiveTab("users")}
             className={`w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition font-medium ${
               activeTab === "users" 
-                ? "bg-indigo-600/15 border-l-2 border-[#00549F] text-indigo-200" 
+                ? "bg-indigo-600/15 border-l-2 border-[#366BB2] text-indigo-200" 
                 : "text-gray-400 hover:bg-gray-900 hover:text-white"
             }`}
             id="tab-users"
@@ -832,7 +832,7 @@ export function AdministrationView() {
             onClick={() => setActiveTab("org")}
             className={`w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition font-medium ${
               activeTab === "org" 
-                ? "bg-indigo-600/15 border-l-2 border-[#00549F] text-indigo-200" 
+                ? "bg-indigo-600/15 border-l-2 border-[#366BB2] text-indigo-200" 
                 : "text-gray-400 hover:bg-gray-900 hover:text-white"
             }`}
             id="tab-org"
@@ -845,7 +845,7 @@ export function AdministrationView() {
             onClick={() => setActiveTab("security")}
             className={`w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition font-medium ${
               activeTab === "security" 
-                ? "bg-indigo-600/15 border-l-2 border-[#00549F] text-indigo-200" 
+                ? "bg-indigo-600/15 border-l-2 border-[#366BB2] text-indigo-200" 
                 : "text-gray-400 hover:bg-gray-900 hover:text-white"
             }`}
             id="tab-security"
@@ -858,7 +858,7 @@ export function AdministrationView() {
             onClick={() => setActiveTab("msp")}
             className={`w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition font-medium ${
               activeTab === "msp" 
-                ? "bg-indigo-600/15 border-l-2 border-[#00549F] text-indigo-200" 
+                ? "bg-indigo-600/15 border-l-2 border-[#366BB2] text-indigo-200" 
                 : "text-gray-400 hover:bg-gray-900 hover:text-white"
             }`}
             id="tab-msp"
@@ -871,7 +871,7 @@ export function AdministrationView() {
             onClick={() => setActiveTab("audit")}
             className={`w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition font-medium ${
               activeTab === "audit" 
-                ? "bg-indigo-600/15 border-l-2 border-[#00549F] text-indigo-200" 
+                ? "bg-indigo-600/15 border-l-2 border-[#366BB2] text-indigo-200" 
                 : "text-gray-400 hover:bg-gray-900 hover:text-white"
             }`}
             id="tab-audit"
@@ -884,7 +884,7 @@ export function AdministrationView() {
             onClick={() => setActiveTab("currency")}
             className={`w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition font-medium ${
               activeTab === "currency" 
-                ? "bg-indigo-600/15 border-l-2 border-[#00549F] text-indigo-200" 
+                ? "bg-indigo-600/15 border-l-2 border-[#366BB2] text-indigo-200" 
                 : "text-gray-400 hover:bg-gray-900 hover:text-white"
             }`}
             id="tab-currency"
@@ -897,7 +897,7 @@ export function AdministrationView() {
             onClick={() => setActiveTab("files")}
             className={`w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition font-medium ${
               activeTab === "files" 
-                ? "bg-indigo-600/15 border-l-2 border-[#00549F] text-indigo-200" 
+                ? "bg-indigo-600/15 border-l-2 border-[#366BB2] text-indigo-200" 
                 : "text-gray-400 hover:bg-gray-900 hover:text-white"
             }`}
             id="tab-files"
@@ -910,7 +910,7 @@ export function AdministrationView() {
             onClick={() => setActiveTab("extenders")}
             className={`w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition font-medium ${
               activeTab === "extenders" 
-                ? "bg-indigo-600/15 border-l-2 border-[#00549F] text-indigo-200" 
+                ? "bg-indigo-600/15 border-l-2 border-[#366BB2] text-indigo-200" 
                 : "text-gray-400 hover:bg-gray-900 hover:text-white"
             }`}
             id="tab-extenders"
@@ -923,7 +923,7 @@ export function AdministrationView() {
             onClick={() => setActiveTab("itsm")}
             className={`w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition font-medium ${
               activeTab === "itsm" 
-                ? "bg-indigo-600/15 border-l-2 border-[#00549F] text-indigo-200" 
+                ? "bg-indigo-600/15 border-l-2 border-[#366BB2] text-indigo-200" 
                 : "text-gray-400 hover:bg-gray-900 hover:text-white"
             }`}
             id="tab-itsm"
@@ -936,7 +936,7 @@ export function AdministrationView() {
             onClick={() => setActiveTab("assist")}
             className={`w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition font-medium ${
               activeTab === "assist" 
-                ? "bg-indigo-600/15 border-l-2 border-[#00549F] text-indigo-200" 
+                ? "bg-indigo-600/15 border-l-2 border-[#366BB2] text-indigo-200" 
                 : "text-gray-400 hover:bg-gray-900 hover:text-white"
             }`}
             id="tab-assist"
@@ -963,7 +963,7 @@ export function AdministrationView() {
               </div>
               <div className="flex justify-between">
                 <span>Criptografia</span>
-                <span className="text-[#00549F]/60 font-medium">AES-256 Habilitado</span>
+                <span className="text-[#366BB2]/60 font-medium">AES-256 Habilitado</span>
               </div>
             </div>
           </div>
@@ -983,7 +983,7 @@ export function AdministrationView() {
                       Configure e gerencie integrações OAuth 2.0 / OpenID Connect e SAML para acesso ativo de funcionários.
                     </p>
                   </div>
-                  <Lock className="h-5 w-5 text-[#00549F]/60 shrink-0" />
+                  <Lock className="h-5 w-5 text-[#366BB2]/60 shrink-0" />
                 </div>
 
                 <div className="grid md:grid-cols-3 gap-4">
@@ -991,7 +991,7 @@ export function AdministrationView() {
                     <div key={sso.id} className="bg-gray-950 rounded-lg p-4 border border-gray-800 flex flex-col justify-between" id={`sso-card-${sso.id}`}>
                       <div>
                         <div className="flex justify-between items-start">
-                          <span className="text-xs font-semibold text-[#00549F]/60 uppercase tracking-wider">{sso.provider}</span>
+                          <span className="text-xs font-semibold text-[#366BB2]/60 uppercase tracking-wider">{sso.provider}</span>
                           <span className={`px-2 py-0.5 rounded text-[10px] font-medium ${
                             sso.status === "Enabled" 
                               ? "bg-emerald-950 text-emerald-300 border border-emerald-500/20" 
@@ -1033,7 +1033,7 @@ export function AdministrationView() {
                       Credenciais para transmissão segura de dados de entrada. Usadas por <strong>Snow Extenders</strong> locais, ServiceNow e agentes CMDB externos.
                     </p>
                   </div>
-                  <Key className="h-5 w-5 text-[#00549F]/60 shrink-0" />
+                  <Key className="h-5 w-5 text-[#366BB2]/60 shrink-0" />
                 </div>
 
                 {/* Securely display newly created client credentials */}
@@ -1069,7 +1069,7 @@ export function AdministrationView() {
                       placeholder="ex: Snow Extender Gateway - Filial Frankfurt" 
                       value={newClientName}
                       onChange={(e) => setNewClientName(e.target.value)}
-                      className="w-full bg-gray-900 border border-gray-800 text-sm text-white px-3 py-1.5 rounded outline-none focus:border-[#00549F]"
+                      className="w-full bg-gray-900 border border-gray-800 text-sm text-white px-3 py-1.5 rounded outline-none focus:border-[#366BB2]"
                     />
                   </div>
                   <div className="w-full md:w-64 space-y-1">
@@ -1085,7 +1085,7 @@ export function AdministrationView() {
                   </div>
                   <button 
                     type="submit" 
-                    className="bg-[#00549F] text-white cursor-pointer font-semibold text-xs px-4 py-2 rounded shrink-0 h-9 transition flex items-center gap-1"
+                    className="bg-[#366BB2] text-white cursor-pointer font-semibold text-xs px-4 py-2 rounded shrink-0 h-9 transition flex items-center gap-1"
                   >
                     <Plus className="h-3.5 w-3.5" /> Provisionar Chave de Cliente de API
                   </button>
@@ -1110,7 +1110,7 @@ export function AdministrationView() {
                           <td className="p-3 font-mono text-[11px] text-gray-400">{client.clientId}</td>
                           <td className="p-3 font-mono text-[11px]">
                             {client.scopes.map(s => (
-                              <span key={s} className="bg-gray-900 border border-gray-800 px-1.5 py-0.5 rounded text-[#00549F]/60 text-[10px] mr-1">{s}</span>
+                              <span key={s} className="bg-gray-900 border border-gray-800 px-1.5 py-0.5 rounded text-[#366BB2]/60 text-[10px] mr-1">{s}</span>
                             ))}
                           </td>
                           <td className="p-3 text-gray-400">{client.lastUsedAt ? new Date(client.lastUsedAt).toLocaleString() : "Nunca ativo"}</td>
@@ -1147,7 +1147,7 @@ export function AdministrationView() {
                   <div className="flex gap-2">
                     <button 
                       onClick={() => setShowUserModal(true)} 
-                      className="bg-[#00549F] text-white cursor-pointer px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-1 transition"
+                      className="bg-[#366BB2] text-white cursor-pointer px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-1 transition"
                     >
                       <Plus className="h-3.5 w-3.5" /> Convidar Usuário
                     </button>
@@ -1168,7 +1168,7 @@ export function AdministrationView() {
                         <h4 className="font-semibold text-sm text-white mt-1.5">{grp.name}</h4>
                         <div className="text-xs text-gray-400 mt-2 flex justify-between">
                           <span>Mapeamento de RBAC alvo:</span>
-                          <span className="text-[#00549F]/60 font-medium">{(adminRoles.find(r => r.id === grp.roleId))?.name || "User"}</span>
+                          <span className="text-[#366BB2]/60 font-medium">{(adminRoles.find(r => r.id === grp.roleId))?.name || "User"}</span>
                         </div>
                       </div>
                       <div className="border-t border-gray-850 pt-3 mt-4 text-xs text-gray-500 flex justify-between items-center">
@@ -1266,7 +1266,7 @@ export function AdministrationView() {
                   </div>
                   <button 
                     onClick={() => setShowRoleModal(true)} 
-                    className="bg-[#00549F] text-white cursor-pointer px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-1 transition"
+                    className="bg-[#366BB2] text-white cursor-pointer px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-1 transition"
                   >
                     <Plus className="h-3.5 w-3.5" /> Criar Função Personalizada
                   </button>
@@ -1280,7 +1280,7 @@ export function AdministrationView() {
                           <h4 className="font-semibold text-sm text-white">{role.name}</h4>
                           <span className={`px-2 py-0.5 rounded text-[9px] font-mono tracking-wider uppercase ${
                             role.isSystem 
-                              ? "bg-gray-900 border border-gray-800 text-[#00549F]/60" 
+                              ? "bg-gray-900 border border-gray-800 text-[#366BB2]/60" 
                               : "bg-amber-950 border border-amber-500/20 text-amber-300"
                           }`}>
                             {role.isSystem ? "Nativo do Sistema" : "Perfil Personalizado"}
@@ -1342,7 +1342,7 @@ export function AdministrationView() {
                   </div>
                   <button 
                     onClick={() => setShowNodeModal(true)} 
-                    className="bg-[#00549F] text-white cursor-pointer px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-1 transition animate-pulse"
+                    className="bg-[#366BB2] text-white cursor-pointer px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-1 transition animate-pulse"
                   >
                     <Plus className="h-3.5 w-3.5" /> Novo Nó Estrutural
                   </button>
@@ -1351,7 +1351,7 @@ export function AdministrationView() {
                 {/* Tree Visual layout */}
                 <div className="bg-gray-950 p-6 rounded-lg border border-gray-800 space-y-4" id="org-tree-viz">
                   <div className="flex items-center gap-3 border-b border-gray-900 pb-3">
-                    <Building className="h-5 w-5 text-[#00549F]/60 shrink-0" />
+                    <Building className="h-5 w-5 text-[#366BB2]/60 shrink-0" />
                     <div>
                       <span className="text-[10px] uppercase font-mono tracking-wider bg-indigo-950/45 px-1.5 py-0.5 rounded text-indigo-300">Grupo Holding Raiz</span>
                       <h4 className="font-bold text-sm text-white mt-1">Acme Corporation (Global Head Office)</h4>
@@ -1363,7 +1363,7 @@ export function AdministrationView() {
                       <div key={node.id} className="space-y-2 bg-gray-900/40 p-4 rounded-lg border border-gray-850" id={`org-node-${node.id}`}>
                         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
                           <div className="flex items-center gap-2">
-                            <span className="font-mono text-xs text-[#00549F]/60">{node.code}</span>
+                            <span className="font-mono text-xs text-[#366BB2]/60">{node.code}</span>
                             <span className="font-semibold text-sm text-white">{node.name}</span>
                           </div>
                           <div className="flex items-center gap-4 text-xs">
@@ -1457,7 +1457,7 @@ export function AdministrationView() {
                   </div>
                   <button 
                     onClick={() => setShowIpModal(true)} 
-                    className="bg-[#00549F] text-white cursor-pointer px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-1 transition"
+                    className="bg-[#366BB2] text-white cursor-pointer px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-1 transition"
                   >
                     <Plus className="h-3.5 w-3.5" /> Adicionar Regra de Rede de Entrada
                   </button>
@@ -1515,7 +1515,7 @@ export function AdministrationView() {
                       Configure configurações de privacidade para pseudonimizar automaticamente proprietários de hardware e endereços de e-mail descobertos por agentes de inventário.
                     </p>
                   </div>
-                  <Sliders className="h-5 w-5 text-[#00549F]/60 shrink-0" />
+                  <Sliders className="h-5 w-5 text-[#366BB2]/60 shrink-0" />
                 </div>
 
                 <div className="space-y-4 text-xs text-gray-300">
@@ -1560,16 +1560,16 @@ export function AdministrationView() {
                   </div>
                   <button 
                     onClick={() => setShowMspModal(true)} 
-                    className="bg-[#00549F] text-white cursor-pointer px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-1 transition"
+                    className="bg-[#366BB2] text-white cursor-pointer px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-1 transition"
                   >
                     <Plus className="h-3.5 w-3.5" /> Provisionar Workspace de Locatário do Cliente
                   </button>
                 </div>
 
                 {/* Simulated tenant visual overview */}
-                <div className="bg-indigo-950/20 border border-[#00549F]/20 rounded-lg p-4 mb-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
+                <div className="bg-indigo-950/20 border border-[#366BB2]/20 rounded-lg p-4 mb-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
                   <div>
-                    <div className="text-[10px] text-[#00549F]/60 uppercase tracking-wider font-semibold">Sessão de login simulada ativa:</div>
+                    <div className="text-[10px] text-[#366BB2]/60 uppercase tracking-wider font-semibold">Sessão de login simulada ativa:</div>
                     <h4 className="text-base font-bold text-white mt-1">{activeTenantObj?.name || "Acme corporation"}</h4>
                     <p className="text-gray-400 mt-1">
                       Access Token successfully generated. Security context restricts API responses only to client database ID: <strong className="font-mono text-indigo-300">{activeTenantObj?.id}</strong>
@@ -1601,7 +1601,7 @@ export function AdministrationView() {
                       }}
                       className={`cursor-pointer bg-gray-950 p-4 rounded-lg border transition ${
                         selectedTenant === cust.id 
-                          ? "border-[#00549F] shadow-md shadow-indigo-500/10" 
+                          ? "border-[#366BB2] shadow-md shadow-indigo-500/10" 
                           : "border-gray-850 hover:border-gray-700"
                       }`}
                       id={`msp-card-${cust.id}`}
@@ -1625,7 +1625,7 @@ export function AdministrationView() {
                       </div>
 
                       <div className="mt-4 pt-2 border-t border-gray-900 text-center">
-                        <span className="text-[#00549F]/60 font-medium text-[11px] hover:underline flex items-center justify-center gap-1">
+                        <span className="text-[#366BB2]/60 font-medium text-[11px] hover:underline flex items-center justify-center gap-1">
                           <Check className="h-3.5 w-3.5" /> Contexto Alternado
                         </span>
                       </div>
@@ -1669,7 +1669,7 @@ export function AdministrationView() {
                         showToast("Simulated event written to security database logs!");
                         loadAllData();
                       }}
-                      className="bg-[#00549F] text-white cursor-pointer px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-1 transition"
+                      className="bg-[#366BB2] text-white cursor-pointer px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-1 transition"
                     >
                       <Activity className="h-3.5 w-3.5" /> Simular Evento de Admin
                     </button>
@@ -1691,7 +1691,7 @@ export function AdministrationView() {
                       placeholder="Pesquisar ações de auditoria, detalhes de funcionários, registros de IP ou metadados..." 
                       value={auditQuery}
                       onChange={(e) => setAuditQuery(e.target.value)}
-                      className="w-full bg-gray-950 border border-gray-850 text-xs text-white pl-9 pr-3 py-2.5 rounded-lg outline-none focus:border-[#00549F]"
+                      className="w-full bg-gray-950 border border-gray-850 text-xs text-white pl-9 pr-3 py-2.5 rounded-lg outline-none focus:border-[#366BB2]"
                       id="audit-search-field"
                     />
                   </div>
@@ -1733,7 +1733,7 @@ export function AdministrationView() {
                           </td>
                           <td className="p-3 font-semibold text-white">{log.userEmail}</td>
                           <td className="p-3">
-                            <span className="bg-gray-900 border border-gray-800 px-1.5 py-0.5 rounded text-[#00549F]/60 text-[10px] font-mono">{log.category}</span>
+                            <span className="bg-gray-900 border border-gray-800 px-1.5 py-0.5 rounded text-[#366BB2]/60 text-[10px] font-mono">{log.category}</span>
                           </td>
                           <td className="p-3 text-indigo-200 font-medium">{log.action}</td>
                           <td className="p-3 font-mono text-gray-400 text-[11px]">{log.ipAddress}</td>
@@ -1765,7 +1765,7 @@ export function AdministrationView() {
                   </div>
                   <button 
                     onClick={() => setShowCurModal(true)} 
-                    className="bg-[#00549F] text-white cursor-pointer px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-1 transition"
+                    className="bg-[#366BB2] text-white cursor-pointer px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-1 transition"
                   >
                     <Plus className="h-3.5 w-3.5" /> Mapear Moeda de Conversão
                   </button>
@@ -1788,7 +1788,7 @@ export function AdministrationView() {
                   ))}
                 </div>
 
-                <div className="bg-indigo-950/20 border border-[#00549F]/20 p-4 rounded-lg text-xs text-indigo-300">
+                <div className="bg-indigo-950/20 border border-[#366BB2]/20 p-4 rounded-lg text-xs text-indigo-300">
                   <h4 className="font-bold text-sm text-white mb-1">Processo de Conversão Financeira Periodizada</h4>
                   <p className="mt-1 leading-relaxed">
                     Os gastos financeiros são avaliados diariamente consolidando valores de faturas de software locais com base nas taxas de câmbio noturnas. A moeda base padrão é o Dólar Americano ($). Para alterar o sistema operacional base, entre em contato com a conta do administrador mestre global.
@@ -1810,7 +1810,7 @@ export function AdministrationView() {
                       Monitore alertas da plataforma, erros de monitoramento de heartbeat e violações de compliance automatizadas.
                     </p>
                   </div>
-                  <Bell className="h-5 w-5 text-[#00549F]/60 shrink-0" />
+                  <Bell className="h-5 w-5 text-[#366BB2]/60 shrink-0" />
                 </div>
 
                 <div className="space-y-3">
@@ -1820,7 +1820,7 @@ export function AdministrationView() {
                       className={`p-4 rounded-lg border flex flex-col md:flex-row justify-between items-start md:items-center gap-3 text-xs transition ${
                         notif.isRead 
                           ? "bg-gray-950 border-gray-900 text-gray-400" 
-                          : "bg-indigo-950/20 border-[#00549F]/20 text-indigo-200"
+                          : "bg-indigo-950/20 border-[#366BB2]/20 text-indigo-200"
                       }`}
                       id={`notification-card-${notif.id}`}
                     >
@@ -1844,7 +1844,7 @@ export function AdministrationView() {
                       {!notif.isRead && (
                         <button 
                           onClick={() => handleReadNotification(notif.id)}
-                          className="bg-[#00549F] text-white cursor-pointer px-2.5 py-1 rounded text-[11px] font-semibold shrink-0 transition"
+                          className="bg-[#366BB2] text-white cursor-pointer px-2.5 py-1 rounded text-[11px] font-semibold shrink-0 transition"
                         >
                           Marcar como lida
                         </button>
@@ -1863,7 +1863,7 @@ export function AdministrationView() {
                       Acesse, recupere ou remova com segurança documentos de compliance exportados, dumps de sistema e recibos de faturas.
                     </p>
                   </div>
-                  <HardDrive className="h-5 w-5 text-[#00549F]/60 shrink-0" />
+                  <HardDrive className="h-5 w-5 text-[#366BB2]/60 shrink-0" />
                 </div>
 
                 <div className="grid md:grid-cols-3 gap-4">
@@ -1897,7 +1897,7 @@ export function AdministrationView() {
                               a.click();
                               document.body.removeChild(a);
                             }}
-                            className="text-[#00549F]/60 hover:text-indigo-300 p-1 rounded hover:bg-indigo-950/20"
+                            className="text-[#366BB2]/60 hover:text-indigo-300 p-1 rounded hover:bg-indigo-950/20"
                             title="Baixar arquivo"
                           >
                             <Download className="h-4 w-4" />
@@ -1930,7 +1930,7 @@ export function AdministrationView() {
                       Gerencie gateways de conexão segura, monitore escopos de descoberta do Active Directory e teste daemons de upload do File Elevator.
                     </p>
                   </div>
-                  <Server className="h-6 w-6 text-[#00549F]/60 shrink-0" />
+                  <Server className="h-6 w-6 text-[#366BB2]/60 shrink-0" />
                 </div>
               </div>
 
@@ -1966,7 +1966,7 @@ export function AdministrationView() {
                             </div>
                             <div>
                               <span className="text-gray-500 block">Protocolo do gateway</span>
-                              <span className="text-[#00549F]/60 font-mono">TLS 1.3 (Port 443)</span>
+                              <span className="text-[#366BB2]/60 font-mono">TLS 1.3 (Port 443)</span>
                             </div>
                             <div>
                               <span className="text-gray-500 block">Elevador de diretório Hot</span>
@@ -2052,7 +2052,7 @@ export function AdministrationView() {
                       <div className="text-center py-8 text-gray-500 text-xs">
                         {testingExtender ? (
                           <div className="flex flex-col items-center gap-2">
-                            <RefreshCw className="h-5 w-5 animate-spin text-[#00549F]/60" />
+                            <RefreshCw className="h-5 w-5 animate-spin text-[#366BB2]/60" />
                             <span>Solicitando handshake de token seguro do endpoint do Gateway Extender...</span>
                           </div>
                         ) : (
@@ -2083,7 +2083,7 @@ export function AdministrationView() {
                             onClick={() => setPbPlatform(plat)}
                             className={`py-2 px-3 rounded text-center font-semibold transition border ${
                               pbPlatform === plat 
-                                ? "bg-indigo-600/15 border-[#00549F] text-indigo-200" 
+                                ? "bg-indigo-600/15 border-[#366BB2] text-indigo-200" 
                                 : "bg-gray-950 border-gray-800 hover:bg-gray-900 text-gray-400"
                             }`}
                           >
@@ -2102,7 +2102,7 @@ export function AdministrationView() {
                           type="checkbox" 
                           checked={pbGateway} 
                           onChange={(e) => setPbGateway(e.target.checked)}
-                          className="rounded border-gray-800 bg-gray-900 text-[#00549F]"
+                          className="rounded border-gray-800 bg-gray-900 text-[#366BB2]"
                         />
                         Módulo de Gateway Seguro
                       </label>
@@ -2112,7 +2112,7 @@ export function AdministrationView() {
                           type="checkbox" 
                           checked={pbElevator} 
                           onChange={(e) => setPbElevator(e.target.checked)}
-                          className="rounded border-gray-800 bg-gray-900 text-[#00549F]"
+                          className="rounded border-gray-800 bg-gray-900 text-[#366BB2]"
                         />
                         Vigia do File Elevator
                       </label>
@@ -2122,7 +2122,7 @@ export function AdministrationView() {
                           type="checkbox" 
                           checked={pbAD} 
                           onChange={(e) => setPbAD(e.target.checked)}
-                          className="rounded border-gray-800 bg-gray-900 text-[#00549F]"
+                          className="rounded border-gray-800 bg-gray-900 text-[#366BB2]"
                         />
                         Plug-in de varredura do Active Directory
                       </label>
@@ -2132,7 +2132,7 @@ export function AdministrationView() {
                           type="checkbox" 
                           checked={pbForwarder} 
                           onChange={(e) => setPbForwarder(e.target.checked)}
-                          className="rounded border-gray-800 bg-gray-900 text-[#00549F]"
+                          className="rounded border-gray-800 bg-gray-900 text-[#366BB2]"
                         />
                         Daemon do Data Forwarder
                       </label>
@@ -2157,14 +2157,14 @@ export function AdministrationView() {
                     {/* Build Button or Loader */}
                     {pbCompiling ? (
                       <div className="bg-gray-950 p-4 rounded-lg border border-indigo-950/40 text-center space-y-3">
-                        <RefreshCw className="h-6 w-6 text-[#00549F]/60 animate-spin mx-auto" />
+                        <RefreshCw className="h-6 w-6 text-[#366BB2]/60 animate-spin mx-auto" />
                         <span className="font-semibold text-white block">Compilando Pacote do Instalador...</span>
                         <p className="text-[10px] text-gray-400 font-mono italic">{pbCompileStep}</p>
                       </div>
                     ) : (
                       <button
                         onClick={handleBuildAgentPackage}
-                        className="w-full bg-[#00549F] text-white cursor-pointer font-semibold py-2.5 rounded-lg transition text-center flex items-center justify-center gap-2"
+                        className="w-full bg-[#366BB2] text-white cursor-pointer font-semibold py-2.5 rounded-lg transition text-center flex items-center justify-center gap-2"
                       >
                         <Wrench className="h-4 w-4" />
                         Compilar Pacote do Agente ({pbPlatform})
@@ -2188,7 +2188,7 @@ export function AdministrationView() {
                       Enriqueça tabelas CMDB do ServiceNow e Jira com ciclos de hardware normalizados, status de garantia e datas de EOL/EOS de software.
                     </p>
                   </div>
-                  <Share2 className="h-6 w-6 text-[#00549F]/60 shrink-0" />
+                  <Share2 className="h-6 w-6 text-[#366BB2]/60 shrink-0" />
                 </div>
               </div>
 
@@ -2201,7 +2201,7 @@ export function AdministrationView() {
                       <h4 className="text-sm font-semibold text-white">Conectores de Gateway ITSM Ativos</h4>
                       <button
                         onClick={() => setShowItsmModal(true)}
-                        className="bg-[#00549F] text-white cursor-pointer font-semibold px-3 py-1.5 rounded-lg text-xs flex items-center gap-1 transition"
+                        className="bg-[#366BB2] text-white cursor-pointer font-semibold px-3 py-1.5 rounded-lg text-xs flex items-center gap-1 transition"
                       >
                         <Plus className="h-3.5 w-3.5" />
                         Configurar Conector
@@ -2214,7 +2214,7 @@ export function AdministrationView() {
                           <div className="flex justify-between items-start">
                             <div>
                               <h5 className="text-sm font-bold text-gray-200">{conn.name}</h5>
-                              <span className="text-[10px] font-mono text-[#00549F]/60">{conn.url}</span>
+                              <span className="text-[10px] font-mono text-[#366BB2]/60">{conn.url}</span>
                             </div>
                             <div className="flex items-center gap-2">
                               <span className="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-500/20 text-[10px] font-bold">
@@ -2319,14 +2319,14 @@ export function AdministrationView() {
 
                   {itsmEnriching ? (
                     <div className="bg-gray-950 p-4 rounded-lg border border-indigo-950/30 text-center space-y-2">
-                      <RefreshCw className="h-6 w-6 text-[#00549F]/60 animate-spin mx-auto" />
+                      <RefreshCw className="h-6 w-6 text-[#366BB2]/60 animate-spin mx-auto" />
                       <span className="font-semibold text-white block text-xs">Sincronizando Tabelas de Dados CMDB...</span>
                       <span className="text-[10px] text-gray-500 font-mono">Enviando entradas DIS limpas para ServiceNow</span>
                     </div>
                   ) : (
                     <button
                       onClick={handleTriggerItsmEnrich}
-                      className="w-full bg-[#00549F] text-white cursor-pointer font-semibold py-2.5 rounded-lg transition flex items-center justify-center gap-2 text-xs"
+                      className="w-full bg-[#366BB2] text-white cursor-pointer font-semibold py-2.5 rounded-lg transition flex items-center justify-center gap-2 text-xs"
                     >
                       <RefreshCw className="h-4 w-4" />
                       Acionar Sincronização de Enriquecimento de Tabela CMDB
@@ -2371,7 +2371,7 @@ export function AdministrationView() {
                       Resolva cenários complexos de licenciamento, revise estratégias de prontidão para auditoria ou solicite configurações passo a passo de gateway com tecnologia Gemini 3.5 Flash.
                     </p>
                   </div>
-                  <Bot className="h-6 w-6 text-[#00549F]/60 shrink-0" />
+                  <Bot className="h-6 w-6 text-[#366BB2]/60 shrink-0" />
                 </div>
               </div>
 
@@ -2385,14 +2385,14 @@ export function AdministrationView() {
                         className={`flex gap-3 text-xs ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
                       >
                         {msg.sender === "bot" && (
-                          <div className="h-7 w-7 rounded-full bg-indigo-600/25 border border-[#00549F]/20 flex items-center justify-center shrink-0">
-                            <Bot className="h-4 w-4 text-[#00549F]/60" />
+                          <div className="h-7 w-7 rounded-full bg-indigo-600/25 border border-[#366BB2]/20 flex items-center justify-center shrink-0">
+                            <Bot className="h-4 w-4 text-[#366BB2]/60" />
                           </div>
                         )}
                         
                         <div className={`p-4 rounded-xl max-w-[85%] space-y-2 leading-relaxed ${
                           msg.sender === "user" 
-                            ? "bg-gray-950 border border-[#00549F]/20 text-indigo-100 rounded-tr-none" 
+                            ? "bg-gray-950 border border-[#366BB2]/20 text-indigo-100 rounded-tr-none" 
                             : "bg-gray-950 border border-gray-850 text-gray-300 rounded-tl-none"
                         }`}>
                           {/* Rich formatting parser */}
@@ -2450,11 +2450,11 @@ export function AdministrationView() {
 
                     {chatLoading && (
                       <div className="flex gap-3 text-xs justify-start">
-                        <div className="h-7 w-7 rounded-full bg-indigo-600/25 border border-[#00549F]/20 flex items-center justify-center shrink-0">
-                          <Bot className="h-4 w-4 text-[#00549F]/60" />
+                        <div className="h-7 w-7 rounded-full bg-indigo-600/25 border border-[#366BB2]/20 flex items-center justify-center shrink-0">
+                          <Bot className="h-4 w-4 text-[#366BB2]/60" />
                         </div>
                         <div className="bg-gray-950 border border-gray-850 p-4 rounded-xl text-gray-400 flex items-center gap-2.5">
-                          <RefreshCw className="h-3.5 w-3.5 animate-spin text-[#00549F]/60" />
+                          <RefreshCw className="h-3.5 w-3.5 animate-spin text-[#366BB2]/60" />
                           <span>Flexera Assist está raciocinando e analisando o motor de regras SAM...</span>
                         </div>
                       </div>
@@ -2478,7 +2478,7 @@ export function AdministrationView() {
                       <button
                         type="submit"
                         disabled={chatLoading || !chatInput.trim()}
-                        className="bg-[#00549F] cursor-pointer disabled:opacity-40 text-white font-semibold px-4 py-2 rounded-lg transition flex items-center gap-1 text-xs shrink-0"
+                        className="bg-[#366BB2] cursor-pointer disabled:opacity-40 text-white font-semibold px-4 py-2 rounded-lg transition flex items-center gap-1 text-xs shrink-0"
                       >
                         <Send className="h-3.5 w-3.5" />
                         Enviar
@@ -2502,7 +2502,7 @@ export function AdministrationView() {
                       disabled={chatLoading}
                       className="w-full text-left bg-gray-950 border border-gray-850 hover:bg-gray-900 hover:border-gray-800 p-3 rounded-lg text-[11px] text-gray-300 transition hover:text-white block space-y-1"
                     >
-                      <span className="font-bold text-[#00549F]/60 block">Otimização de BYOL na Nuvem</span>
+                      <span className="font-bold text-[#366BB2]/60 block">Otimização de BYOL na Nuvem</span>
                       <span>Aprenda a combinar licenças ativas diretamente com especificações de VMs AWS/Azure.</span>
                     </button>
 
@@ -2511,7 +2511,7 @@ export function AdministrationView() {
                       disabled={chatLoading}
                       className="w-full text-left bg-gray-950 border border-gray-850 hover:bg-gray-900 hover:border-gray-800 p-3 rounded-lg text-[11px] text-gray-300 transition hover:text-white block space-y-1"
                     >
-                      <span className="font-bold text-[#00549F]/60 block">Configuração do Snow Extender</span>
+                      <span className="font-bold text-[#366BB2]/60 block">Configuração do Snow Extender</span>
                       <span>Revise parâmetros de varredura de diretório para arquivos .snow XML locais.</span>
                     </button>
 
@@ -2520,7 +2520,7 @@ export function AdministrationView() {
                       disabled={chatLoading}
                       className="w-full text-left bg-gray-950 border border-gray-850 hover:bg-gray-900 hover:border-gray-800 p-3 rounded-lg text-[11px] text-gray-300 transition hover:text-white block space-y-1"
                     >
-                      <span className="font-bold text-[#00549F]/60 block">Integração CMDB ServiceNow</span>
+                      <span className="font-bold text-[#366BB2]/60 block">Integração CMDB ServiceNow</span>
                       <span>Como especificações mapeadas e deduplicação de fabricantes atualizam o CMDB alvo.</span>
                     </button>
 
@@ -2529,7 +2529,7 @@ export function AdministrationView() {
                       disabled={chatLoading}
                       className="w-full text-left bg-gray-950 border border-gray-850 hover:bg-gray-900 hover:border-gray-800 p-3 rounded-lg text-[11px] text-gray-300 transition hover:text-white block space-y-1"
                     >
-                      <span className="font-bold text-[#00549F]/60 block">Posição de Licenciamento Efetiva (ELP)</span>
+                      <span className="font-bold text-[#366BB2]/60 block">Posição de Licenciamento Efetiva (ELP)</span>
                       <span>Entenda entitlements comprados vs. instalações descobertas em todo o cluster.</span>
                     </button>
                   </div>
@@ -2582,7 +2582,7 @@ export function AdministrationView() {
               </div>
               <div className="flex justify-end gap-2 pt-4">
                 <button type="button" onClick={() => setShowUserModal(false)} className="bg-gray-850 hover:bg-gray-800 px-4 py-2 rounded font-semibold text-white">Cancelar</button>
-                <button type="submit" className="bg-[#00549F] cursor-pointer px-4 py-2 rounded font-semibold text-white">Enviar Convite</button>
+                <button type="submit" className="bg-[#366BB2] cursor-pointer px-4 py-2 rounded font-semibold text-white">Enviar Convite</button>
               </div>
             </form>
           </div>
@@ -2625,7 +2625,7 @@ export function AdministrationView() {
               </div>
               <div className="flex justify-end gap-2 pt-4">
                 <button type="button" onClick={() => setShowRoleModal(false)} className="bg-gray-850 hover:bg-gray-800 px-4 py-2 rounded font-semibold text-white">Cancelar</button>
-                <button type="submit" className="bg-[#00549F] cursor-pointer px-4 py-2 rounded font-semibold text-white">Salvar Função</button>
+                <button type="submit" className="bg-[#366BB2] cursor-pointer px-4 py-2 rounded font-semibold text-white">Salvar Função</button>
               </div>
             </form>
           </div>
@@ -2662,7 +2662,7 @@ export function AdministrationView() {
               </div>
               <div className="flex justify-end gap-2 pt-4">
                 <button type="button" onClick={() => setShowGroupModal(false)} className="bg-gray-850 hover:bg-gray-800 px-4 py-2 rounded font-semibold text-white">Cancelar</button>
-                <button type="submit" className="bg-[#00549F] cursor-pointer px-4 py-2 rounded font-semibold text-white">Configurar Grupo</button>
+                <button type="submit" className="bg-[#366BB2] cursor-pointer px-4 py-2 rounded font-semibold text-white">Configurar Grupo</button>
               </div>
             </form>
           </div>
@@ -2721,7 +2721,7 @@ export function AdministrationView() {
               </div>
               <div className="flex justify-end gap-2 pt-4">
                 <button type="button" onClick={() => setShowNodeModal(false)} className="bg-gray-850 hover:bg-gray-800 px-4 py-2 rounded font-semibold text-white">Cancelar</button>
-                <button type="submit" className="bg-[#00549F] cursor-pointer px-4 py-2 rounded font-semibold text-white">Adicionar Nó</button>
+                <button type="submit" className="bg-[#366BB2] cursor-pointer px-4 py-2 rounded font-semibold text-white">Adicionar Nó</button>
               </div>
             </form>
           </div>
@@ -2760,7 +2760,7 @@ export function AdministrationView() {
               </div>
               <div className="flex justify-end gap-2 pt-4">
                 <button type="button" onClick={() => setShowSiteModal(false)} className="bg-gray-850 hover:bg-gray-800 px-4 py-2 rounded font-semibold text-white">Cancelar</button>
-                <button type="submit" className="bg-[#00549F] cursor-pointer px-4 py-2 rounded font-semibold text-white">Registrar Site</button>
+                <button type="submit" className="bg-[#366BB2] cursor-pointer px-4 py-2 rounded font-semibold text-white">Registrar Site</button>
               </div>
             </form>
           </div>
@@ -2806,7 +2806,7 @@ export function AdministrationView() {
               </div>
               <div className="flex justify-end gap-2 pt-4">
                 <button type="button" onClick={() => setShowIpModal(false)} className="bg-gray-850 hover:bg-gray-800 px-4 py-2 rounded font-semibold text-white">Cancelar</button>
-                <button type="submit" className="bg-[#00549F] cursor-pointer px-4 py-2 rounded font-semibold text-white">Aplicar Política</button>
+                <button type="submit" className="bg-[#366BB2] cursor-pointer px-4 py-2 rounded font-semibold text-white">Aplicar Política</button>
               </div>
             </form>
           </div>
@@ -2854,7 +2854,7 @@ export function AdministrationView() {
               </div>
               <div className="flex justify-end gap-2 pt-4">
                 <button type="button" onClick={() => setShowCurModal(false)} className="bg-gray-850 hover:bg-gray-800 px-4 py-2 rounded font-semibold text-white">Cancelar</button>
-                <button type="submit" className="bg-[#00549F] cursor-pointer px-4 py-2 rounded font-semibold text-white">Registrar Taxa</button>
+                <button type="submit" className="bg-[#366BB2] cursor-pointer px-4 py-2 rounded font-semibold text-white">Registrar Taxa</button>
               </div>
             </form>
           </div>
@@ -2909,7 +2909,7 @@ export function AdministrationView() {
               </div>
               <div className="flex justify-end gap-2 pt-4">
                 <button type="button" onClick={() => setShowMspModal(false)} className="bg-gray-850 hover:bg-gray-800 px-4 py-2 rounded font-semibold text-white">Cancelar</button>
-                <button type="submit" className="bg-[#00549F] cursor-pointer px-4 py-2 rounded font-semibold text-white">Provisionar Tenant</button>
+                <button type="submit" className="bg-[#366BB2] cursor-pointer px-4 py-2 rounded font-semibold text-white">Provisionar Tenant</button>
               </div>
             </form>
           </div>
@@ -2977,7 +2977,7 @@ export function AdministrationView() {
                     type="checkbox" 
                     checked={newItsmEnrichCMDB} 
                     onChange={(e) => setNewItsmEnrichCMDB(e.target.checked)}
-                    className="rounded border-gray-800 bg-gray-900 text-[#00549F]"
+                    className="rounded border-gray-800 bg-gray-900 text-[#366BB2]"
                   />
                   <span>Enriquecer tabelas CMDB com EOL de hardware e títulos de software</span>
                 </label>
@@ -2985,7 +2985,7 @@ export function AdministrationView() {
 
               <div className="flex justify-end gap-2 pt-4">
                 <button type="button" onClick={() => setShowItsmModal(false)} className="bg-gray-850 hover:bg-gray-800 px-4 py-2 rounded font-semibold text-white">Cancelar</button>
-                <button type="submit" className="bg-[#00549F] cursor-pointer px-4 py-2 rounded font-semibold text-white">Salvar Conector</button>
+                <button type="submit" className="bg-[#366BB2] cursor-pointer px-4 py-2 rounded font-semibold text-white">Salvar Conector</button>
               </div>
             </form>
           </div>

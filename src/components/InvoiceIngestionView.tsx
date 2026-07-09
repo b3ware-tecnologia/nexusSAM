@@ -200,7 +200,7 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
       <div>
         <div className="flex items-center gap-2">
           <h1 className="text-2xl font-bold tracking-tight text-slate-900">
-            <Sparkles className="w-6 h-6 text-[#00549F]" />
+            <Sparkles className="w-6 h-6 text-[#366BB2]" />
             Ingestão de Direitos Baseada em IA
           </h1>
           <HintTooltip text="Faça upload e processe arquivos de fatura para preencher automaticamente registros de compra de licenças. Suporta formatos CSV, PDF e EDI com extração de itens de linha." side="right" size="md" />
@@ -217,10 +217,10 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
         <div className="space-y-6">
           
           {/* File Upload card */}
-          <div className="bg-white border border-[#DDDDDD] rounded-xl p-5 shadow-sm space-y-4">
+          <div className="bg-white border border-[#D0D0D0] rounded-xl p-5 shadow-sm space-y-4">
             <h3 className="font-semibold text-slate-800 text-xs uppercase tracking-wider">Opção A: Upload de Fatura / Recibo de PO</h3>
             
-            <div className="border-2 border-dashed border-[#DDDDDD] hover:border-[#00549F] rounded-xl p-8 text-center transition-all cursor-pointer relative">
+            <div className="border-2 border-dashed border-[#D0D0D0] hover:border-[#366BB2] rounded-xl p-8 text-center transition-all cursor-pointer relative">
               <input
                 type="file"
                 accept="image/*,application/pdf"
@@ -235,7 +235,7 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
             {uploadedImage && (
               <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-150 flex items-center justify-between text-xs">
                 <div className="flex items-center gap-2">
-                  <FileText className="w-4 h-4 text-[#00549F]" />
+                  <FileText className="w-4 h-4 text-[#366BB2]" />
                   <span className="font-semibold text-slate-700">Imagem de Fatura Anexada</span>
                 </div>
                 <button
@@ -249,7 +249,7 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
           </div>
 
           {/* Option B: Manual Entry Form */}
-          <div className="bg-white border border-[#DDDDDD] rounded-xl p-5 shadow-sm space-y-4">
+          <div className="bg-white border border-[#D0D0D0] rounded-xl p-5 shadow-sm space-y-4">
             <div className="flex items-center gap-2">
               <h3 className="font-semibold text-slate-800 text-xs uppercase tracking-wider">Opção B: Inserção Manual de Contrato</h3>
               <span className="text-[10px] bg-sky-50 text-sky-700 px-2 py-0.5 rounded-full font-bold">Salvamento Direto</span>
@@ -257,52 +257,52 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#595959" }}>Nome do Software *</label>
+                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#6E7070" }}>Nome do Software *</label>
                 <input
                   type="text"
                   value={manualForm.softwareName}
                   onChange={(e) => setManualForm({ ...manualForm, softwareName: e.target.value })}
                   placeholder="ex.: Microsoft SQL Server"
-                  className="w-full text-xs border border-[#DDDDDD] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#00549F] bg-white"
+                  className="w-full text-xs border border-[#D0D0D0] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#366BB2] bg-white"
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#595959" }}>Editora *</label>
+                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#6E7070" }}>Editora *</label>
                 <input
                   type="text"
                   value={manualForm.publisher}
                   onChange={(e) => setManualForm({ ...manualForm, publisher: e.target.value })}
                   placeholder="ex.: Microsoft Corporation"
-                  className="w-full text-xs border border-[#DDDDDD] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#00549F] bg-white"
+                  className="w-full text-xs border border-[#D0D0D0] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#366BB2] bg-white"
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#595959" }}>Quantidade</label>
+                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#6E7070" }}>Quantidade</label>
                 <input
                   type="number"
                   min={1}
                   value={manualForm.quantity}
                   onChange={(e) => setManualForm({ ...manualForm, quantity: Math.max(1, Number(e.target.value)) })}
-                  className="w-full text-xs border border-[#DDDDDD] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#00549F] bg-white"
+                  className="w-full text-xs border border-[#D0D0D0] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#366BB2] bg-white"
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#595959" }}>Custo Unitário</label>
+                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#6E7070" }}>Custo Unitário</label>
                 <input
                   type="number"
                   min={0}
                   step={0.01}
                   value={manualForm.unitCost}
                   onChange={(e) => setManualForm({ ...manualForm, unitCost: Number(e.target.value) })}
-                  className="w-full text-xs border border-[#DDDDDD] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#00549F] bg-white"
+                  className="w-full text-xs border border-[#D0D0D0] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#366BB2] bg-white"
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#595959" }}>Moeda</label>
+                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#6E7070" }}>Moeda</label>
                 <select
                   value={manualForm.currency}
                   onChange={(e) => setManualForm({ ...manualForm, currency: e.target.value })}
-                  className="w-full text-xs border border-[#DDDDDD] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#00549F] bg-white cursor-pointer"
+                  className="w-full text-xs border border-[#D0D0D0] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#366BB2] bg-white cursor-pointer"
                 >
                   {["USD", "EUR", "GBP", "BRL", "CAD", "AUD", "JPY"].map((c) => (
                     <option key={c} value={c}>{c}</option>
@@ -310,11 +310,11 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
                 </select>
               </div>
               <div>
-                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#595959" }}>Tipo de Métrica</label>
+                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#6E7070" }}>Tipo de Métrica</label>
                 <select
                   value={manualForm.metricType}
                   onChange={(e) => setManualForm({ ...manualForm, metricType: e.target.value as MetricType })}
-                  className="w-full text-xs border border-[#DDDDDD] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#00549F] bg-white cursor-pointer"
+                  className="w-full text-xs border border-[#D0D0D0] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#366BB2] bg-white cursor-pointer"
                 >
                   {Object.values(MetricType).map((mt) => (
                     <option key={mt} value={mt}>{mt}</option>
@@ -322,42 +322,42 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
                 </select>
               </div>
               <div>
-                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#595959" }}>SKU / Nº de Peça</label>
+                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#6E7070" }}>SKU / Nº de Peça</label>
                 <input
                   type="text"
                   value={manualForm.sku}
                   onChange={(e) => setManualForm({ ...manualForm, sku: e.target.value })}
                   placeholder="Opcional"
-                  className="w-full text-xs border border-[#DDDDDD] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#00549F] bg-white"
+                  className="w-full text-xs border border-[#D0D0D0] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#366BB2] bg-white"
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#595959" }}>Nº da Fatura</label>
+                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#6E7070" }}>Nº da Fatura</label>
                 <input
                   type="text"
                   value={manualForm.invoiceNumber}
                   onChange={(e) => setManualForm({ ...manualForm, invoiceNumber: e.target.value })}
                   placeholder="Opcional"
-                  className="w-full text-xs border border-[#DDDDDD] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#00549F] bg-white"
+                  className="w-full text-xs border border-[#D0D0D0] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#366BB2] bg-white"
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#595959" }}>Data de Compra</label>
+                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#6E7070" }}>Data de Compra</label>
                 <input
                   type="date"
                   value={manualForm.purchaseDate}
                   onChange={(e) => setManualForm({ ...manualForm, purchaseDate: e.target.value })}
-                  className="w-full text-xs border border-[#DDDDDD] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#00549F] bg-white"
+                  className="w-full text-xs border border-[#D0D0D0] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#366BB2] bg-white"
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#595959" }}>Fornecedor</label>
+                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#6E7070" }}>Fornecedor</label>
                 <input
                   type="text"
                   value={manualForm.vendor}
                   onChange={(e) => setManualForm({ ...manualForm, vendor: e.target.value })}
                   placeholder="Opcional"
-                  className="w-full text-xs border border-[#DDDDDD] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#00549F] bg-white"
+                  className="w-full text-xs border border-[#D0D0D0] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#366BB2] bg-white"
                 />
               </div>
             </div>
@@ -365,7 +365,7 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
             <button
               onClick={handleSaveManual}
               disabled={isProcessing || !manualForm.softwareName || !manualForm.publisher}
-              className="w-full py-2.5 bg-[#00549F] text-white text-xs font-semibold rounded-lg flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm disabled:opacity-50"
+              className="w-full py-2.5 bg-[#366BB2] text-white text-xs font-semibold rounded-lg flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm disabled:opacity-50"
             >
               <Save className="w-4 h-4" />
               {isProcessing ? "Salvando..." : "Salvar Contrato no Inventário de Licenças"}
@@ -374,7 +374,7 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
         </div>
 
         {/* Right Side: Extraction Output Preview */}
-        <div className="bg-white border border-[#DDDDDD] rounded-xl p-5 shadow-sm flex flex-col justify-between">
+        <div className="bg-white border border-[#D0D0D0] rounded-xl p-5 shadow-sm flex flex-col justify-between">
           <div className="space-y-6">
             <h3 className="font-semibold text-slate-800 text-xs uppercase tracking-wider border-b border-slate-100 pb-3">
               Pré-visualização de Extração Estruturada por IA
@@ -392,7 +392,7 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
 
             {isProcessing && (
               <div className="p-12 text-center text-slate-400 space-y-3">
-                <RefreshCw className="w-8 h-8 animate-spin text-[#00549F] mx-auto" />
+                <RefreshCw className="w-8 h-8 animate-spin text-[#366BB2] mx-auto" />
                 <p className="text-xs font-semibold text-slate-700">Escaneando OCR e estruturas do documento...</p>
                 <p className="text-[10px]">Conciliando SKUs de produtos, matrizes de licenciamento e entidades de fornecedores.</p>
               </div>
@@ -481,7 +481,7 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
                   </p>
                   <button
                     onClick={handleRegisterExtracted}
-                    className="w-full py-2.5 bg-[#00549F] text-white text-xs font-semibold rounded-lg flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm"
+                    className="w-full py-2.5 bg-[#366BB2] text-white text-xs font-semibold rounded-lg flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm"
                   >
                     <Layers className="w-4 h-4" />
                     Registrar Direito no Catálogo de Ativos

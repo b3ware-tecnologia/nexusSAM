@@ -118,7 +118,7 @@ export function CloudView() {
 
       {/* Overview Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
-        <div className="bg-white p-5 rounded-xl border border-[#DDDDDD] shadow-xs flex flex-col justify-between" id="card-cloud-spend">
+        <div className="bg-white p-5 rounded-xl border border-[#D0D0D0] shadow-xs flex flex-col justify-between" id="card-cloud-spend">
           <div className="flex items-center justify-between mb-3">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Gasto Total com VM/DB na Nuvem</span>
             <Cloud className="w-4 h-4 text-slate-400" />
@@ -129,7 +129,7 @@ export function CloudView() {
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-xl border border-[#DDDDDD] shadow-xs flex flex-col justify-between" id="card-cloud-payg">
+        <div className="bg-white p-5 rounded-xl border border-[#D0D0D0] shadow-xs flex flex-col justify-between" id="card-cloud-payg">
           <div className="flex items-center justify-between mb-3">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Custo de Licenciamento PAYG</span>
             <TrendingDown className="w-4 h-4 text-orange-500" />
@@ -142,7 +142,7 @@ export function CloudView() {
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-xl border border-[#DDDDDD] shadow-xs flex flex-col justify-between" id="card-cloud-byol">
+        <div className="bg-white p-5 rounded-xl border border-[#D0D0D0] shadow-xs flex flex-col justify-between" id="card-cloud-byol">
           <div className="flex items-center justify-between mb-3">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Coberturas BYOL Ativas</span>
             <CheckCircle className="w-4 h-4 text-emerald-500" />
@@ -175,7 +175,7 @@ export function CloudView() {
       {/* Connectors & Operations Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left column: Connectors list */}
-        <div className="bg-white p-6 rounded-xl border border-[#DDDDDD] shadow-xs lg:col-span-1">
+        <div className="bg-white p-6 rounded-xl border border-[#D0D0D0] shadow-xs lg:col-span-1">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900">Gateways de API de Nuvem</h3>
             <button
@@ -189,7 +189,7 @@ export function CloudView() {
           </div>
 
           {showAddForm && (
-            <form onSubmit={handleAddConnector} className="bg-slate-50 p-4 rounded-lg border border-[#DDDDDD] mb-4 space-y-3">
+            <form onSubmit={handleAddConnector} className="bg-slate-50 p-4 rounded-lg border border-[#D0D0D0] mb-4 space-y-3">
               <div>
                 <label className="block text-[10px] font-bold text-slate-500 mb-1">Nome do Conector</label>
                 <input
@@ -197,7 +197,7 @@ export function CloudView() {
                   value={newConnName}
                   onChange={e => setNewConnName(e.target.value)}
                   placeholder="Subconta de Produção AWS"
-                  className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800"
+                  className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#D0D0D0] rounded-lg focus:outline-indigo-500 text-slate-800"
                   required
                 />
               </div>
@@ -206,7 +206,7 @@ export function CloudView() {
                 <select
                   value={newConnProvider}
                   onChange={e => setNewConnProvider(e.target.value as any)}
-                  className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800"
+                  className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#D0D0D0] rounded-lg focus:outline-indigo-500 text-slate-800"
                 >
                   <option value="AWS">Amazon Web Services (AWS)</option>
                   <option value="Azure">Microsoft Azure</option>
@@ -217,13 +217,13 @@ export function CloudView() {
                 <button
                   type="button"
                   onClick={() => setShowAddForm(false)}
-                  className="px-2 py-1 text-[10px] bg-white border border-[#DDDDDD] rounded text-slate-600"
+                  className="px-2 py-1 text-[10px] bg-white border border-[#D0D0D0] rounded text-slate-600"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="px-2 py-1 text-[10px] bg-[#00549F] text-white font-bold rounded cursor-pointer"
+                  className="px-2 py-1 text-[10px] bg-[#366BB2] text-white font-bold rounded cursor-pointer"
                 >
                   Salvar Gateway
                 </button>
@@ -238,7 +238,7 @@ export function CloudView() {
               connectors.map(conn => (
                 <div key={conn.id} className="p-3 bg-slate-50 border border-slate-100 rounded-lg flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded bg-white border border-[#DDDDDD] flex items-center justify-center font-bold text-xs">
+                    <div className="w-8 h-8 rounded bg-white border border-[#D0D0D0] flex items-center justify-center font-bold text-xs">
                       {conn.provider === "AWS" && <span className="text-orange-500 font-mono">aws</span>}
                       {conn.provider === "Azure" && <span className="text-sky-500 font-mono">azr</span>}
                       {conn.provider === "GCP" && <span className="text-red-500 font-mono">gcp</span>}
@@ -275,7 +275,7 @@ export function CloudView() {
         </div>
 
         {/* Right column: Discovered Cloud Assets & Double-Pay Analysis */}
-        <div className="bg-white p-6 rounded-xl border border-[#DDDDDD] shadow-xs lg:col-span-2">
+        <div className="bg-white p-6 rounded-xl border border-[#D0D0D0] shadow-xs lg:col-span-2">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
             <div>
               <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900">Recursos de Nuvem Descobertos e Benefícios Híbridos</h3>
@@ -287,7 +287,7 @@ export function CloudView() {
               <select
                 value={providerFilter}
                 onChange={e => setProviderFilter(e.target.value)}
-                className="text-[10px] bg-slate-50 border border-[#DDDDDD] rounded-lg px-2.5 py-1 text-slate-700"
+                className="text-[10px] bg-slate-50 border border-[#D0D0D0] rounded-lg px-2.5 py-1 text-slate-700"
               >
                 <option value="All">Todos os Provedores</option>
                 <option value="AWS">Apenas AWS</option>
@@ -298,7 +298,7 @@ export function CloudView() {
               <select
                 value={modelFilter}
                 onChange={e => setModelFilter(e.target.value)}
-                className="text-[10px] bg-slate-50 border border-[#DDDDDD] rounded-lg px-2.5 py-1 text-slate-700"
+                className="text-[10px] bg-slate-50 border border-[#D0D0D0] rounded-lg px-2.5 py-1 text-slate-700"
               >
                 <option value="All">Todas as Licenças</option>
                 <option value="PAYG">PAYG</option>
@@ -310,7 +310,7 @@ export function CloudView() {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs text-slate-600">
               <thead>
-                <tr className="border-b border-[#DDDDDD] text-[10px] font-bold text-slate-400 uppercase bg-[#F8F8F8]/50">
+                <tr className="border-b border-[#D0D0D0] text-[10px] font-bold text-slate-400 uppercase bg-[#F2F2F2]/50">
                   <th className="py-2.5 px-3">Nome do Recurso</th>
                   <th className="py-2.5 px-3">Provedor / Tipo</th>
                   <th className="py-2.5 px-3">Software Instalado</th>

@@ -189,7 +189,7 @@ export function ReportsView() {
       {/* Reports Header Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Left Side: Report Catalog */}
-        <div className="bg-white p-6 rounded-xl border border-[#DDDDDD] shadow-xs space-y-4">
+        <div className="bg-white p-6 rounded-xl border border-[#D0D0D0] shadow-xs space-y-4">
           <div className="flex items-center justify-between">
             <div>
               <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900">Relatórios de Posição Efetiva de Licenças</h3>
@@ -197,7 +197,7 @@ export function ReportsView() {
             </div>
             <button
               onClick={() => setShowBuilder(!showBuilder)}
-              className="px-3 py-1.5 bg-[#00549F] text-white text-[10px] font-bold rounded-lg flex items-center gap-1.5 cursor-pointer"
+              className="px-3 py-1.5 bg-[#366BB2] text-white text-[10px] font-bold rounded-lg flex items-center gap-1.5 cursor-pointer"
               id="btn-custom-report-builder"
             >
               <Plus className="w-3.5 h-3.5" />
@@ -207,8 +207,8 @@ export function ReportsView() {
 
           {/* Builder Form */}
           {showBuilder && (
-            <form onSubmit={handleSaveReport} className="bg-slate-50 p-5 rounded-lg border border-[#DDDDDD] space-y-4">
-              <h4 className="text-[11px] font-bold uppercase tracking-wider text-slate-700 border-b border-[#DDDDDD] pb-2">Configuração de Relatório Personalizado</h4>
+            <form onSubmit={handleSaveReport} className="bg-slate-50 p-5 rounded-lg border border-[#D0D0D0] space-y-4">
+              <h4 className="text-[11px] font-bold uppercase tracking-wider text-slate-700 border-b border-[#D0D0D0] pb-2">Configuração de Relatório Personalizado</h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-[10px] font-bold text-slate-500 mb-1">Nome do Relatório</label>
@@ -217,7 +217,7 @@ export function ReportsView() {
                     value={reportName}
                     onChange={e => setReportName(e.target.value)}
                     placeholder="Ex.: Status de Implantação do Oracle Database"
-                    className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800"
+                    className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#D0D0D0] rounded-lg focus:outline-indigo-500 text-slate-800"
                     required
                   />
                 </div>
@@ -226,7 +226,7 @@ export function ReportsView() {
                   <select
                     value={reportTarget}
                     onChange={e => setReportTarget(e.target.value as any)}
-                    className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800"
+                    className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#D0D0D0] rounded-lg focus:outline-indigo-500 text-slate-800"
                   >
                     <option value="Licenses">Licenças (SAM Core)</option>
                     <option value="Computers">Computadores (HAM / Hardware)</option>
@@ -245,14 +245,14 @@ export function ReportsView() {
                   value={reportDesc}
                   onChange={e => setReportDesc(e.target.value)}
                   placeholder="Ex.: Inventário completo de componentes Oracle ativos comparados com direitos de downgrade"
-                  className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800"
+                  className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#D0D0D0] rounded-lg focus:outline-indigo-500 text-slate-800"
                 />
               </div>
 
               {/* Column Selector */}
               <div>
                 <label className="block text-[10px] font-bold text-slate-500 mb-1">Colunas Disponíveis (Marcar/Desmarcar)</label>
-                <div className="flex flex-wrap gap-2 p-2.5 bg-white border border-[#DDDDDD] rounded-lg max-h-32 overflow-y-auto">
+                <div className="flex flex-wrap gap-2 p-2.5 bg-white border border-[#D0D0D0] rounded-lg max-h-32 overflow-y-auto">
                   {getAvailableColumns(reportTarget).map(col => {
                     const checked = selectedColumns.includes(col);
                     return (
@@ -286,7 +286,7 @@ export function ReportsView() {
                     value={filterPublisher}
                     onChange={e => setFilterPublisher(e.target.value)}
                     placeholder="Ex.: Microsoft"
-                    className="w-full text-xs px-2.5 py-1.5 bg-slate-50 border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800 mt-1"
+                    className="w-full text-xs px-2.5 py-1.5 bg-slate-50 border border-[#D0D0D0] rounded-lg focus:outline-indigo-500 text-slate-800 mt-1"
                   />
                 </div>
                 <div>
@@ -296,22 +296,22 @@ export function ReportsView() {
                     value={filterRiskMin}
                     onChange={e => setFilterRiskMin(e.target.value)}
                     placeholder="Ex.: 70"
-                    className="w-full text-xs px-2.5 py-1.5 bg-slate-50 border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800 mt-1"
+                    className="w-full text-xs px-2.5 py-1.5 bg-slate-50 border border-[#D0D0D0] rounded-lg focus:outline-indigo-500 text-slate-800 mt-1"
                   />
                 </div>
               </div>
 
-              <div className="flex justify-end gap-2 pt-2 border-t border-[#DDDDDD]">
+              <div className="flex justify-end gap-2 pt-2 border-t border-[#D0D0D0]">
                 <button
                   type="button"
                   onClick={() => setShowBuilder(false)}
-                  className="px-3 py-1.5 text-xs bg-white border border-[#DDDDDD] rounded-lg text-slate-600"
+                  className="px-3 py-1.5 text-xs bg-white border border-[#D0D0D0] rounded-lg text-slate-600"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="px-3 py-1.5 text-xs bg-[#00549F] text-white font-bold rounded-lg cursor-pointer"
+                  className="px-3 py-1.5 text-xs bg-[#366BB2] text-white font-bold rounded-lg cursor-pointer"
                 >
                   Salvar Template de Relatório
                 </button>
@@ -322,7 +322,7 @@ export function ReportsView() {
           {/* List of Report Templates */}
           <div className="space-y-4">
             {reports.map(rep => (
-              <div key={rep.id} className="p-4 bg-slate-50 border border-[#DDDDDD] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div key={rep.id} className="p-4 bg-slate-50 border border-[#D0D0D0] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
                     <span className="px-1.5 py-0.5 rounded text-[8px] bg-indigo-100 text-indigo-800 font-bold uppercase">{rep.targetType}</span>
@@ -341,28 +341,28 @@ export function ReportsView() {
                   <span className="text-[10px] text-slate-400 font-semibold mr-1">Exportar:</span>
                   <button
                     onClick={() => handleExport(rep.id, "CSV")}
-                    className="p-1.5 hover:bg-white border border-[#DDDDDD] rounded bg-slate-100 text-slate-700 text-[10px] font-bold flex items-center gap-0.5"
+                    className="p-1.5 hover:bg-white border border-[#D0D0D0] rounded bg-slate-100 text-slate-700 text-[10px] font-bold flex items-center gap-0.5"
                     title="Exportar CSV"
                   >
                     CSV
                   </button>
                   <button
                     onClick={() => handleExport(rep.id, "XLSX")}
-                    className="p-1.5 hover:bg-white border border-[#DDDDDD] rounded bg-slate-100 text-emerald-700 text-[10px] font-bold flex items-center gap-0.5"
+                    className="p-1.5 hover:bg-white border border-[#D0D0D0] rounded bg-slate-100 text-emerald-700 text-[10px] font-bold flex items-center gap-0.5"
                     title="Exportar XLSX"
                   >
                     XLSX
                   </button>
                   <button
                     onClick={() => handleExport(rep.id, "PDF")}
-                    className="p-1.5 hover:bg-white border border-[#DDDDDD] rounded bg-slate-100 text-red-700 text-[10px] font-bold flex items-center gap-0.5"
+                    className="p-1.5 hover:bg-white border border-[#D0D0D0] rounded bg-slate-100 text-red-700 text-[10px] font-bold flex items-center gap-0.5"
                     title="Layout de Impressão PDF"
                   >
                     PDF
                   </button>
                   <button
                     onClick={() => handleExport(rep.id, "XML")}
-                    className="p-1.5 hover:bg-white border border-[#DDDDDD] rounded bg-slate-100 text-orange-700 text-[10px] font-bold flex items-center gap-0.5"
+                    className="p-1.5 hover:bg-white border border-[#D0D0D0] rounded bg-slate-100 text-orange-700 text-[10px] font-bold flex items-center gap-0.5"
                     title="Payload de API XML"
                   >
                     XML
@@ -374,7 +374,7 @@ export function ReportsView() {
         </div>
 
         {/* Right Side: Report Schedulers */}
-        <div className="bg-white p-6 rounded-xl border border-[#DDDDDD] shadow-xs space-y-4">
+        <div className="bg-white p-6 rounded-xl border border-[#D0D0D0] shadow-xs space-y-4">
           <div className="flex items-center justify-between">
             <div>
               <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900">Agendamentos de Email e SharePoint</h3>
@@ -392,13 +392,13 @@ export function ReportsView() {
 
           {/* Scheduler Form */}
           {showScheduler && (
-            <form onSubmit={handleSaveSchedule} className="bg-slate-50 p-4 rounded-lg border border-[#DDDDDD] space-y-3">
+            <form onSubmit={handleSaveSchedule} className="bg-slate-50 p-4 rounded-lg border border-[#D0D0D0] space-y-3">
               <div>
                 <label className="block text-[10px] font-bold text-slate-500 mb-1">Selecionar Relatório Salvo</label>
                 <select
                   value={schedReportId}
                   onChange={e => setSchedReportId(e.target.value)}
-                  className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800"
+                  className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#D0D0D0] rounded-lg focus:outline-indigo-500 text-slate-800"
                   required
                 >
                   <option value="">-- Escolher template --</option>
@@ -414,7 +414,7 @@ export function ReportsView() {
                   <select
                     value={schedFreq}
                     onChange={e => setSchedFreq(e.target.value as any)}
-                    className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800"
+                    className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#D0D0D0] rounded-lg focus:outline-indigo-500 text-slate-800"
                   >
                     <option value="Daily">Auditoria Diária</option>
                     <option value="Weekly">Resumo Semanal</option>
@@ -426,7 +426,7 @@ export function ReportsView() {
                   <select
                     value={schedType}
                     onChange={e => setSchedType(e.target.value as any)}
-                    className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800"
+                    className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#D0D0D0] rounded-lg focus:outline-indigo-500 text-slate-800"
                   >
                     <option value="Email">Email SMTP Seguro</option>
                     <option value="SharePoint">Link SharePoint Enterprise</option>
@@ -443,7 +443,7 @@ export function ReportsView() {
                   value={schedRecipients}
                   onChange={e => setSchedRecipients(e.target.value)}
                   placeholder="conformidade@empresa.com.br, auditoria@empresa.com.br"
-                  className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#DDDDDD] rounded-lg focus:outline-indigo-500 text-slate-800"
+                  className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#D0D0D0] rounded-lg focus:outline-indigo-500 text-slate-800"
                   required
                 />
               </div>
@@ -452,13 +452,13 @@ export function ReportsView() {
                 <button
                   type="button"
                   onClick={() => setShowScheduler(false)}
-                  className="px-2 py-1 text-[10px] bg-white border border-[#DDDDDD] rounded text-slate-600"
+                  className="px-2 py-1 text-[10px] bg-white border border-[#D0D0D0] rounded text-slate-600"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="px-2 py-1 text-[10px] bg-[#00549F] text-white font-bold rounded cursor-pointer"
+                  className="px-2 py-1 text-[10px] bg-[#366BB2] text-white font-bold rounded cursor-pointer"
                 >
                   Salvar Agendamento
                 </button>
@@ -510,7 +510,7 @@ export function ReportsView() {
       {/* Export Preview Area */}
       {exportedFile && (
         <div className="bg-white p-6 rounded-xl border-2 border-indigo-200 shadow-md space-y-4" id="report-export-inspector">
-          <div className="flex items-center justify-between border-b border-[#DDDDDD] pb-3">
+          <div className="flex items-center justify-between border-b border-[#D0D0D0] pb-3">
             <div className="flex items-center gap-2">
               <span className="p-1 bg-indigo-100 text-indigo-700 rounded font-bold text-xs">{exportedFile.format}</span>
               <div>
@@ -521,7 +521,7 @@ export function ReportsView() {
             <div className="flex gap-2">
               <button
                 onClick={handleTriggerMockDownload}
-                className="px-3 py-1.5 bg-[#00549F] text-white rounded-lg text-[10px] font-bold flex items-center gap-1 cursor-pointer"
+                className="px-3 py-1.5 bg-[#366BB2] text-white rounded-lg text-[10px] font-bold flex items-center gap-1 cursor-pointer"
               >
                 <Download className="w-3.5 h-3.5" />
                 Baixar Arquivo
@@ -535,7 +535,7 @@ export function ReportsView() {
             </div>
           </div>
 
-          <div className="bg-slate-50 p-4 rounded-xl border border-[#DDDDDD] max-h-96 overflow-y-auto font-mono text-[10px] text-slate-800 leading-relaxed whitespace-pre">
+          <div className="bg-slate-50 p-4 rounded-xl border border-[#D0D0D0] max-h-96 overflow-y-auto font-mono text-[10px] text-slate-800 leading-relaxed whitespace-pre">
             {exportedFile.content}
           </div>
         </div>

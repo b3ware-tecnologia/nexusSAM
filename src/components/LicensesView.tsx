@@ -322,10 +322,10 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold tracking-tight" style={{ color: "#001833" }}>Inventário de Licenças</h1>
+            <h1 className="text-2xl font-bold tracking-tight" style={{ color: "#212424" }}>Inventário de Licenças</h1>
             <HintTooltip text="Gerencie todos os direitos de licença de software: crie novas licenças, acompanhe alocações, gerencie pools e audite a conformidade em toda a sua empresa." side="right" size="md" />
           </div>
-          <p className="text-sm" style={{ color: "#595959" }}>
+          <p className="text-sm" style={{ color: "#6E7070" }}>
             Crie, audite, arquive e gerencie alocações de ativos de licença corporativos.
           </p>
         </div>
@@ -354,7 +354,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
 
           <button
             onClick={() => setShowCreateModal(true)}
-            className="flex items-center justify-center gap-1.5 px-4 py-2 text-white rounded-lg text-xs font-semibold shadow-sm transition-all cursor-pointer" style={{background: "#00549F"}}
+            className="flex items-center justify-center gap-1.5 px-4 py-2 text-white rounded-lg text-xs font-semibold shadow-sm transition-all cursor-pointer" style={{background: "#366BB2"}}
           >
             <Plus className="w-4 h-4" />
             Criar Licença
@@ -374,7 +374,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
               onClick={() => { setActiveTab("ACTIVE"); setSelectedLicense(null); }}
               className={`pb-3 text-xs font-semibold tracking-wide uppercase border-b-2 transition-all cursor-pointer ${
                 activeTab === "ACTIVE" 
-                  ? "border-[#00549F] text-[#00549F]" 
+                  ? "border-[#366BB2] text-[#366BB2]" 
                   : "border-transparent text-slate-500 hover:text-slate-800"
               }`}
             >
@@ -427,7 +427,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                     onClick={() => { setSelectedLicense(lic); setIsEditing(false); }}
                     className={`p-4 border rounded-xl shadow-sm transition-all cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white ${
                       isSelected 
-                        ? "border-[#00549F]" 
+                        ? "border-[#366BB2]" 
                         : "border-slate-200 hover:border-slate-300"
                     }`}
                   >
@@ -469,7 +469,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                       </div>
                       <div className="text-right">
                         <span className="block text-[10px] uppercase font-medium text-slate-400 tracking-wider">Não Atribuídos</span>
-                        <span className="text-sm font-bold" style={{color: "#00549F"}}>
+                        <span className="text-sm font-bold" style={{color: "#366BB2"}}>
                           {Math.max(0, lic.totalQuantity - (lic.allocatedQuantity || 0))}
                         </span>
                       </div>
@@ -522,7 +522,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
               {isEditing ? (
                 /* EDITING PROPERTIES STATE */
                 <form onSubmit={handleUpdateLicense} className="space-y-4">
-                  <h4 className="text-xs font-bold uppercase tracking-wider" style={{color: "#00549F"}}>Editar Propriedades</h4>
+                  <h4 className="text-xs font-bold uppercase tracking-wider" style={{color: "#366BB2"}}>Editar Propriedades</h4>
                   
                   <div>
                     <label className="block text-[10px] font-semibold text-slate-500 uppercase">Título do Produto</label>
@@ -631,7 +631,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                   <div className="flex items-center gap-2 pt-2">
                     <button
                       type="submit"
-                      className="px-3 py-1.5 text-white rounded text-xs font-semibold cursor-pointer" style={{background: "#00549F"}}
+                      className="px-3 py-1.5 text-white rounded text-xs font-semibold cursor-pointer" style={{background: "#366BB2"}}
                     >
                       Salvar Alterações
                     </button>
@@ -702,7 +702,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                     </div>
                     <div>
                       <span className="block text-[10px] font-semibold text-slate-400 uppercase">Contrato</span>
-                      <span className="font-semibold hover:underline cursor-pointer" style={{color: "#00549F"}}>
+                      <span className="font-semibold hover:underline cursor-pointer" style={{color: "#366BB2"}}>
                         {agreements.find(a => a.id === selectedLicense.agreementId)?.name || "Contrato Desvinculado"}
                       </span>
                     </div>
@@ -775,7 +775,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                           <button
                             type="submit"
                             disabled={isAllocating}
-                            className="px-2 py-1 text-white font-semibold rounded text-[10px] disabled:opacity-50 cursor-pointer" style={{background: "#00549F"}}
+                            className="px-2 py-1 text-white font-semibold rounded text-[10px] disabled:opacity-50 cursor-pointer" style={{background: "#366BB2"}}
                           >
                             Atribuir
                           </button>
@@ -841,7 +841,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
             >
               <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
                 <h3 className="font-bold text-slate-900 text-sm flex items-center gap-1.5">
-                  <FileText className="w-4 h-4" style={{color: "#00549F"}} /> Criar Ativo de Licença Corporativa
+                  <FileText className="w-4 h-4" style={{color: "#366BB2"}} /> Criar Ativo de Licença Corporativa
                 </h3>
                 <button
                   onClick={() => setShowCreateModal(false)}
@@ -955,7 +955,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                 {/* Initial Purchase Information (Creates purchase entitlement) */}
                 <div className="p-4 bg-slate-50 border border-slate-200 rounded-lg space-y-3">
                   <h4 className="text-[10px] font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1">
-                    <Calendar className="w-3.5 h-3.5" style={{color: "#00549F"}} /> Direito de Compra Inicial (PO / Linha de Nota Fiscal)
+                    <Calendar className="w-3.5 h-3.5" style={{color: "#366BB2"}} /> Direito de Compra Inicial (PO / Linha de Nota Fiscal)
                   </h4>
                   
                   <div className="grid grid-cols-3 gap-3">
@@ -1041,7 +1041,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-2 text-white rounded-lg text-xs font-semibold cursor-pointer" style={{background: "#00549F"}}
+                    className="px-4 py-2 text-white rounded-lg text-xs font-semibold cursor-pointer" style={{background: "#366BB2"}}
                   >
                     Salvar e Reconciliar
                   </button>

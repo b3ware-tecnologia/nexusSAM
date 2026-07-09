@@ -461,7 +461,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
             </button>
             <button
               onClick={handleConsolidate}
-              className="px-4 py-2.5 text-white rounded-lg text-xs font-bold flex items-center gap-2 shadow-sm transition-all cursor-pointer" style={{background: "#00549F"}}
+              className="px-4 py-2.5 text-white rounded-lg text-xs font-bold flex items-center gap-2 shadow-sm transition-all cursor-pointer" style={{background: "#366BB2"}}
               id="saas-consolidate-btn"
             >
               <Sparkles className="w-3.5 h-3.5" />
@@ -543,7 +543,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
               }}
               className={`pb-4 px-4 text-xs font-bold transition-all relative cursor-pointer ${
                 activeTab === tab
-                  ? "text-[#00549F] border-b-2 border-[#00549F]"
+                  ? "text-[#366BB2] border-b-2 border-[#366BB2]"
                   : "text-slate-400 hover:text-slate-600"
               }`}
               id={`saas-tab-${tab.toLowerCase()}`}
@@ -587,7 +587,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                   <TrendingDown className="w-4 h-4 text-indigo-500" />
                   <h3 className="font-bold text-slate-800 text-sm">Insights Críticos de Recuperação de Custos</h3>
                 </div>
-                <span className="text-[10px] px-2 py-0.5 rounded font-bold font-mono" style={{background: "#D1E7F3", color: "#1468B3"}}>
+                <span className="text-[10px] px-2 py-0.5 rounded font-bold font-mono" style={{background: "#D1E7F3", color: "#4079C4"}}>
                   Acionável em Tempo Real
                 </span>
               </div>
@@ -607,7 +607,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                           setActiveTab("USERS");
                           setSearchQuery("David");
                         }} 
-                        className="font-bold hover:underline flex items-center gap-1 mt-1 cursor-pointer" style={{color: "#00549F"}}
+                        className="font-bold hover:underline flex items-center gap-1 mt-1 cursor-pointer" style={{color: "#366BB2"}}
                       >
                         Realocar/Cancelar assento da assinatura <ArrowRight className="w-3 h-3" />
                       </button>
@@ -709,7 +709,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                         <td className="py-3">
                           <div className="flex items-center gap-2">
                             <div className={`w-8 h-8 rounded flex items-center justify-center font-bold text-xs uppercase ${
-                              app.isApproved ? "bg-[#D1E7F3] text-[#00549F]" : "bg-rose-50 text-rose-700"
+                              app.isApproved ? "bg-[#D1E7F3] text-[#366BB2]" : "bg-rose-50 text-rose-700"
                             }`}>
                               {app.name.substring(0, 2)}
                             </div>
@@ -788,7 +788,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                 <div className="p-3 bg-slate-50 rounded-lg border border-slate-200/60">
                   <div className="flex items-center justify-between mb-2">
                     <span className="font-bold text-slate-800 text-xs">Microsoft 365 Family</span>
-                    <span className="text-[9px] px-1.5 py-0.5 rounded font-mono font-bold" style={{background: "#D1E7F3", color: "#1468B3"}}>
+                    <span className="text-[9px] px-1.5 py-0.5 rounded font-mono font-bold" style={{background: "#D1E7F3", color: "#4079C4"}}>
                       {metrics.families.m365.length} Subs
                     </span>
                   </div>
@@ -799,7 +799,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                     </div>
                     <div className="bg-white py-1 rounded border border-slate-100">
                       <p className="text-[8px] text-slate-400 font-sans uppercase">Assigned</p>
-                      <p style={{color: "#00549F"}} className="font-bold">{metrics.families.m365.reduce((acc, s) => acc + s.seatsAssigned, 0)}</p>
+                      <p style={{color: "#366BB2"}} className="font-bold">{metrics.families.m365.reduce((acc, s) => acc + s.seatsAssigned, 0)}</p>
                     </div>
                     <div className="bg-white py-1 rounded border border-slate-100">
                       <p className="text-[8px] text-slate-400 font-sans uppercase">Unassigned</p>
@@ -814,7 +814,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                 <div className="p-3 bg-slate-50 rounded-lg border border-slate-200/60">
                   <div className="flex items-center justify-between mb-2">
                     <span className="font-bold text-slate-800 text-xs">Adobe CC Suite</span>
-                    <span className="text-[9px] px-1.5 py-0.5 rounded font-mono font-bold" style={{background: "#D1E7F3", color: "#1468B3"}}>
+                    <span className="text-[9px] px-1.5 py-0.5 rounded font-mono font-bold" style={{background: "#D1E7F3", color: "#4079C4"}}>
                       {metrics.families.adobe.length} Subs
                     </span>
                   </div>
@@ -825,7 +825,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                     </div>
                     <div className="bg-white py-1 rounded border border-slate-100">
                       <p className="text-[8px] text-slate-400 font-sans uppercase">Assigned</p>
-                      <p style={{color: "#00549F"}} className="font-bold">{metrics.families.adobe.reduce((acc, s) => acc + s.seatsAssigned, 0)}</p>
+                      <p style={{color: "#366BB2"}} className="font-bold">{metrics.families.adobe.reduce((acc, s) => acc + s.seatsAssigned, 0)}</p>
                     </div>
                     <div className="bg-white py-1 rounded border border-slate-100">
                       <p className="text-[8px] text-slate-400 font-sans uppercase">Unassigned</p>
@@ -840,7 +840,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                 <div className="p-3 bg-slate-50 rounded-lg border border-slate-200/60">
                   <div className="flex items-center justify-between mb-2">
                     <span className="font-bold text-slate-800 text-xs">Salesforce Cloud CRM</span>
-                    <span className="text-[9px] px-1.5 py-0.5 rounded font-mono font-bold" style={{background: "#D1E7F3", color: "#1468B3"}}>
+                    <span className="text-[9px] px-1.5 py-0.5 rounded font-mono font-bold" style={{background: "#D1E7F3", color: "#4079C4"}}>
                       {metrics.families.salesforce.length} Subs
                     </span>
                   </div>
@@ -851,7 +851,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                     </div>
                     <div className="bg-white py-1 rounded border border-slate-100">
                       <p className="text-[8px] text-slate-400 font-sans uppercase">Assigned</p>
-                      <p style={{color: "#00549F"}} className="font-bold">{metrics.families.salesforce.reduce((acc, s) => acc + s.seatsAssigned, 0)}</p>
+                      <p style={{color: "#366BB2"}} className="font-bold">{metrics.families.salesforce.reduce((acc, s) => acc + s.seatsAssigned, 0)}</p>
                     </div>
                     <div className="bg-white py-1 rounded border border-slate-100">
                       <p className="text-[8px] text-slate-400 font-sans uppercase">Unassigned</p>
@@ -973,7 +973,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                   }`}>
                     <div className="flex items-center gap-1.5 mb-1">
                       {extensionResult.success ? (
-                        <CheckCircle className="w-3.5 h-3.5 shrink-0" style={{color: "#00549F"}} />
+                        <CheckCircle className="w-3.5 h-3.5 shrink-0" style={{color: "#366BB2"}} />
                       ) : (
                         <AlertCircle className="w-3.5 h-3.5 text-rose-600 shrink-0" />
                       )}
@@ -994,7 +994,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                 <button
                   onClick={handleSimulateExtensionVisit}
                   disabled={isSimulatingExtension}
-                  className="w-full py-2 disabled:bg-slate-300 text-white rounded text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-sm" style={{background: "#00549F"}}
+                  className="w-full py-2 disabled:bg-slate-300 text-white rounded text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-sm" style={{background: "#366BB2"}}
                   id="saas-simulate-extension-btn"
                 >
                   {isSimulatingExtension ? (
@@ -1026,7 +1026,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                   setEditingSub(null);
                   setIsSubModalOpen(true);
                 }}
-                className="px-4 py-2 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer shadow-sm" style={{background: "#00549F"}}
+                className="px-4 py-2 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer shadow-sm" style={{background: "#366BB2"}}
                 id="saas-add-sub-btn"
               >
                 <PlusCircle className="w-4 h-4" />
@@ -1096,7 +1096,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                         <td className="py-3.5 font-semibold text-slate-800 font-mono">
                           ${sub.costPerSeat} <span className="text-[10px] text-slate-400 font-sans font-normal">{sub.currency}</span>
                         </td>
-                        <td className="py-3.5 font-bold font-mono text-sm" style={{color: "#00549F"}}>
+                        <td className="py-3.5 font-bold font-mono text-sm" style={{color: "#366BB2"}}>
                           ${monthlyTotal.toLocaleString()} <span className="text-[10px] text-slate-400 font-sans font-normal">/mo</span>
                         </td>
                         <td className="py-3.5 text-slate-500 font-medium font-mono text-[11px]">
@@ -1148,7 +1148,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
               </div>
               <button
                 onClick={handleConsolidate}
-                className="px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1 cursor-pointer transition-all" style={{background: "#D1E7F3", color: "#1468B3"}}
+                className="px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1 cursor-pointer transition-all" style={{background: "#D1E7F3", color: "#4079C4"}}
               >
                 <Sparkles className="w-3.5 h-3.5" />
                 Deduplicar Usuários
@@ -1254,7 +1254,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                 <div key={conn.id} className="bg-white rounded-xl border border-slate-200 p-5 flex flex-col justify-between space-y-4 hover:shadow-md transition-all">
                   <div className="space-y-2">
                     <div className="flex items-start justify-between">
-                      <div className="p-2 rounded-lg" style={{background: "#D1E7F3", color: "#1468B3"}}>
+                      <div className="p-2 rounded-lg" style={{background: "#D1E7F3", color: "#4079C4"}}>
                         <Cloud className="w-5 h-5" />
                       </div>
                       <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
@@ -1463,7 +1463,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                       type="checkbox"
                       checked={subForm.isFree}
                       onChange={(e) => setSubForm(p => ({ ...p, isFree: e.target.checked }))}
-                      className="rounded border-slate-300" style={{color: "#00549F", accentColor: "#00549F"}}
+                      className="rounded border-slate-300" style={{color: "#366BB2", accentColor: "#366BB2"}}
                     />
                     Marcar como Plano Gratuito / Trial
                   </label>
@@ -1473,7 +1473,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                       type="checkbox"
                       checked={subForm.isExcluded}
                       onChange={(e) => setSubForm(p => ({ ...p, isExcluded: e.target.checked }))}
-                      className="rounded border-slate-300" style={{color: "#00549F", accentColor: "#00549F"}}
+                      className="rounded border-slate-300" style={{color: "#366BB2", accentColor: "#366BB2"}}
                     />
                     Excluir dos cálculos de Custo de Compliance
                   </label>
