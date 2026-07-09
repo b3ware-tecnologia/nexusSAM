@@ -120,7 +120,7 @@ export function DashboardView({ onNavigateToLicenses, snapshots, isLoading, onRe
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-xl font-bold tracking-tight" style={{ color: "#212424" }}>
+            <h1 className="tracking-tight" style={{ color: "#212424", fontSize: "20px", fontWeight: 400 }}>
               Posição Efetiva de Licenciamento (ELP)
             </h1>
             <HintTooltip text="O ELP reconcilia continuamente seus direitos de licença adquiridos com o consumo real de software em todo o parque, sinalizando lacunas de conformidade e gastos excessivos." side="right" size="md" />
