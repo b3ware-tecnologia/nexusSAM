@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Upload, FileText, Sparkles, Check, AlertCircle, RefreshCw, Layers, Save } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import { Upload, FileText, Sparkles, Check, AlertCircle, RefreshCw, Layers, Save, Pencil } from "lucide-react";
 import { MetricType } from "../types.js";
 import { motion } from "motion/react";
 import { HintTooltip } from "./HintTooltip.js";
@@ -29,8 +29,9 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [imageMime, setImageMime] = useState<string | null>(null);
   const [isSaved, setIsSaved] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const [manualForm, setManualForm] = useState({
+  const [form, setForm] = useState({
     softwareName: "",
     publisher: "",
     quantity: 1,
@@ -43,6 +44,12 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
     metricType: MetricType.INSTALLATIONS,
   });
 
+  useEffect(() => {
+    if (uploadedImage) {
+      handleIngest();
+    }
+  }, [uploadedImage]);
+
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -52,39 +59,36 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
       return;
     }
 
+    setError(null);
+    setIsSaved(false);
+    setExtractedData(null);
+
     const reader = new FileReader();
     reader.onload = () => {
       const base64 = reader.result as string;
       const cleanBase64 = base64.split(",")[1];
       setUploadedImage(cleanBase64);
       setImageMime(file.type);
-      setCustomText(""); // Clear text when file uploaded
-      setExtractedData(null);
-      setIsSaved(false);
-      setError(null);
+      setCustomText("");
     };
     reader.readAsDataURL(file);
   };
 
   const handleIngest = async () => {
-    if (!customText && !uploadedImage) {
-      setError("Faça upload de um arquivo de fatura ou selecione uma descrição de amostra primeiro.");
-      return;
-    }
+    if (!uploadedImage) return;
 
     setIsProcessing(true);
     setError(null);
     setExtractedData(null);
-    setIsSaved(false);
 
     try {
       const res = await fetch("/api/ingest-invoice", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          fileData: uploadedImage || undefined,
-          mimeType: imageMime || undefined,
-          description: customText || undefined
+          fileData: uploadedImage,
+          mimeType: imageMime,
+          description: customText || undefined,
         })
       });
 
@@ -93,8 +97,20 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
         throw new Error(errJson.error || "Falha ao extrair direito do documento.");
       }
 
-      const extracted = await res.json();
+      const extracted: ExtractedEntitlement = await res.json();
       setExtractedData(extracted);
+      setForm({
+        softwareName: extracted.softwareName || "",
+        publisher: extracted.publisher || "",
+        quantity: extracted.quantity || 1,
+        unitCost: extracted.unitCost || 0,
+        currency: extracted.currency || "USD",
+        sku: extracted.sku || "",
+        invoiceNumber: extracted.invoiceNumber || "",
+        purchaseDate: extracted.purchaseDate || new Date().toISOString().split("T")[0],
+        vendor: extracted.vendor || "",
+        metricType: MetricType.INSTALLATIONS,
+      });
     } catch (e: any) {
       console.error(e);
       setError(e.message || "Ocorreu um erro inesperado durante o parsing de fatura por IA.");
@@ -141,105 +157,107 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
     }
   };
 
-  const handleSaveManual = async () => {
-    if (!manualForm.softwareName || !manualForm.publisher) {
+  const handleSave = async () => {
+    if (!form.softwareName || !form.publisher) {
       setError("Nome do Software e Editora são obrigatórios.");
       return;
     }
     setError(null);
     setIsProcessing(true);
     try {
-      await registerLicense(manualForm);
+      let metric = form.metricType;
+      const lowerName = form.softwareName.toLowerCase();
+      const lowerSku = form.sku.toLowerCase();
+      if (lowerName.includes("cloud") || lowerName.includes("sub") || lowerName.includes("365")) metric = MetricType.USERS;
+      else if (lowerName.includes("pvu") || lowerSku.includes("pvu")) metric = MetricType.PVU;
+      else if (lowerName.includes("core") || lowerSku.includes("core") || lowerName.includes("server")) metric = MetricType.PROCESSOR_CORE;
+
+      await registerLicense({ ...form, metricType: metric });
       setIsSaved(true);
       onRefresh();
-      setManualForm({
-        softwareName: "", publisher: "", quantity: 1, unitCost: 0,
-        currency: "USD", sku: "", invoiceNumber: "",
-        purchaseDate: new Date().toISOString().split("T")[0],
-        vendor: "", metricType: MetricType.INSTALLATIONS,
-      });
     } catch (e: any) {
-      setError(e.message);
+      setError(e.message || "Falha ao salvar.");
     } finally {
       setIsProcessing(false);
     }
   };
 
-  const handleRegisterExtracted = async () => {
-    if (!extractedData) return;
-    try {
-      let metric = MetricType.INSTALLATIONS;
-      const lowerName = extractedData.softwareName.toLowerCase();
-      const lowerSku = (extractedData.sku || "").toLowerCase();
-      if (lowerName.includes("cloud") || lowerName.includes("sub") || lowerName.includes("365")) metric = MetricType.USERS;
-      else if (lowerName.includes("pvu") || lowerSku.includes("pvu")) metric = MetricType.PVU;
-      else if (lowerName.includes("core") || lowerSku.includes("core") || lowerName.includes("server")) metric = MetricType.PROCESSOR_CORE;
-
-      await registerLicense({
-        softwareName: extractedData.softwareName,
-        publisher: extractedData.publisher,
-        metricType: metric,
-        sku: extractedData.sku || "",
-        quantity: extractedData.quantity,
-        unitCost: extractedData.unitCost,
-        invoiceNumber: extractedData.invoiceNumber || "",
-        purchaseDate: extractedData.purchaseDate || "",
-        currency: extractedData.currency || "USD",
-        vendor: extractedData.vendor || "",
-      });
-      setIsSaved(true);
-      onRefresh();
-    } catch (e: any) {
-      setError(e.message || "Falha ao registrar licença extraída por IA.");
-    }
+  const resetUpload = () => {
+    setUploadedImage(null);
+    setImageMime(null);
+    setExtractedData(null);
+    setForm({
+      softwareName: "", publisher: "", quantity: 1, unitCost: 0,
+      currency: "USD", sku: "", invoiceNumber: "",
+      purchaseDate: new Date().toISOString().split("T")[0],
+      vendor: "", metricType: MetricType.INSTALLATIONS,
+    });
+    setIsSaved(false);
+    setError(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
   };
+
+  const hasExtractedOrEditing = extractedData || form.softwareName || form.publisher;
+
+  const inputClass = "w-full text-xs border border-[#D0D0D0] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#366BB2] bg-white transition-all";
 
   return (
     <div className="space-y-6">
       {/* Title */}
       <div>
         <div className="flex items-center gap-2">
-          <h1 className="text-2xl font-bold tracking-tight text-[#212424]">
-            <Sparkles className="w-6 h-6 text-[#366BB2]" />
+          <h1 className="tracking-tight" style={{ color: "#212424", fontSize: "20px", fontWeight: 400 }}>
+            <Sparkles className="w-6 h-6 text-[#366BB2] inline mr-2" />
             Ingestão de Direitos Baseada em IA
           </h1>
           <HintTooltip text="Faça upload e processe arquivos de fatura para preencher automaticamente registros de compra de licenças. Suporta formatos CSV, PDF e EDI com extração de itens de linha." side="right" size="md" />
         </div>
-        <p className="text-[#6E7070] text-sm">
-          Faça upload de imagens de recibos ou insira descrições de compra. Nosso modelo de parsing Gemini extrai quantidades de licenciamento, valores, moedas e SKUs.
+        <p className="text-xs mt-0.5" style={{ color: "#6E7070" }}>
+          Faça upload de imagens de recibos — o Gemini extrai automaticamente os metadados e preenche o formulário editável abaixo.
         </p>
       </div>
 
-      {/* Main panel layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        
-        {/* Left Side: Upload & Input Area */}
-        <div className="space-y-6">
-          
-          {/* File Upload card */}
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+        {/* ─── LEFT: Upload (2 cols) ─── */}
+        <div className="lg:col-span-2 space-y-6">
+
+          {/* Upload card */}
           <div className="bg-white border border-[#D0D0D0] rounded-xl p-5 shadow-sm space-y-4">
-            <h3 className="font-semibold text-[#212424] text-xs uppercase tracking-wider">Opção A: Upload de Fatura / Recibo de PO</h3>
-            
+            <h3 className="font-semibold text-[#212424] text-xs uppercase tracking-wider">
+              Upload de Fatura / Recibo
+            </h3>
+
             <div className="border-2 border-dashed border-[#D0D0D0] hover:border-[#366BB2] rounded-xl p-8 text-center transition-all cursor-pointer relative">
               <input
+                ref={fileInputRef}
                 type="file"
                 accept="image/*,application/pdf"
                 onChange={handleFileUpload}
                 className="absolute inset-0 opacity-0 cursor-pointer"
+                disabled={isProcessing}
               />
-              <Upload className="w-10 h-10 text-[#A6A7A7] mx-auto mb-3" />
-              <p className="text-xs font-semibold text-[#6E7070]">Arraste e solte ou clique para fazer upload</p>
-              <p className="text-[10px] text-[#A6A7A7] mt-1">Suporta PNG, JPG, JPEG e documentos PDF</p>
+              {isProcessing ? (
+                <>
+                  <RefreshCw className="w-10 h-10 text-[#366BB2] mx-auto mb-3 animate-spin" />
+                  <p className="text-xs font-semibold text-[#6E7070]">Extraindo dados com Gemini...</p>
+                </>
+              ) : (
+                <>
+                  <Upload className="w-10 h-10 text-[#A6A7A7] mx-auto mb-3" />
+                  <p className="text-xs font-semibold text-[#6E7070]">Arraste e solte ou clique para fazer upload</p>
+                  <p className="text-[10px] text-[#A6A7A7] mt-1">Suporta PNG, JPG, JPEG e PDF</p>
+                </>
+              )}
             </div>
 
-            {uploadedImage && (
+            {uploadedImage && !isProcessing && (
               <div className="bg-[#F2F2F2] p-2.5 rounded-lg border border-[#D0D0D0] flex items-center justify-between text-xs">
                 <div className="flex items-center gap-2">
                   <FileText className="w-4 h-4 text-[#366BB2]" />
-                  <span className="font-semibold text-[#6E7070]">Imagem de Fatura Anexada</span>
+                  <span className="font-semibold text-[#6E7070]">Arivo anexado</span>
                 </div>
                 <button
-                  onClick={() => { setUploadedImage(null); setImageMime(null); }}
+                  onClick={resetUpload}
                   className="text-[10px] font-bold text-rose-600 hover:underline cursor-pointer"
                 >
                   Remover
@@ -248,246 +266,192 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
             )}
           </div>
 
-          {/* Option B: Manual Entry Form */}
-          <div className="bg-white border border-[#D0D0D0] rounded-xl p-5 shadow-sm space-y-4">
-            <div className="flex items-center gap-2">
-              <h3 className="font-semibold text-[#212424] text-xs uppercase tracking-wider">Opção B: Inserção Manual de Contrato</h3>
-              <span className="text-[10px] bg-sky-50 text-sky-700 px-2 py-0.5 rounded-full font-bold">Salvamento Direto</span>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#6E7070" }}>Nome do Software *</label>
-                <input
-                  type="text"
-                  value={manualForm.softwareName}
-                  onChange={(e) => setManualForm({ ...manualForm, softwareName: e.target.value })}
-                  placeholder="ex.: Microsoft SQL Server"
-                  className="w-full text-xs border border-[#D0D0D0] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#366BB2] bg-white"
-                />
-              </div>
-              <div>
-                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#6E7070" }}>Editora *</label>
-                <input
-                  type="text"
-                  value={manualForm.publisher}
-                  onChange={(e) => setManualForm({ ...manualForm, publisher: e.target.value })}
-                  placeholder="ex.: Microsoft Corporation"
-                  className="w-full text-xs border border-[#D0D0D0] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#366BB2] bg-white"
-                />
-              </div>
-              <div>
-                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#6E7070" }}>Quantidade</label>
-                <input
-                  type="number"
-                  min={1}
-                  value={manualForm.quantity}
-                  onChange={(e) => setManualForm({ ...manualForm, quantity: Math.max(1, Number(e.target.value)) })}
-                  className="w-full text-xs border border-[#D0D0D0] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#366BB2] bg-white"
-                />
-              </div>
-              <div>
-                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#6E7070" }}>Custo Unitário</label>
-                <input
-                  type="number"
-                  min={0}
-                  step={0.01}
-                  value={manualForm.unitCost}
-                  onChange={(e) => setManualForm({ ...manualForm, unitCost: Number(e.target.value) })}
-                  className="w-full text-xs border border-[#D0D0D0] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#366BB2] bg-white"
-                />
-              </div>
-              <div>
-                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#6E7070" }}>Moeda</label>
-                <select
-                  value={manualForm.currency}
-                  onChange={(e) => setManualForm({ ...manualForm, currency: e.target.value })}
-                  className="w-full text-xs border border-[#D0D0D0] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#366BB2] bg-white cursor-pointer"
-                >
-                  {["USD", "EUR", "GBP", "BRL", "CAD", "AUD", "JPY"].map((c) => (
-                    <option key={c} value={c}>{c}</option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#6E7070" }}>Tipo de Métrica</label>
-                <select
-                  value={manualForm.metricType}
-                  onChange={(e) => setManualForm({ ...manualForm, metricType: e.target.value as MetricType })}
-                  className="w-full text-xs border border-[#D0D0D0] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#366BB2] bg-white cursor-pointer"
-                >
-                  {Object.values(MetricType).map((mt) => (
-                    <option key={mt} value={mt}>{mt}</option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#6E7070" }}>SKU / Nº de Peça</label>
-                <input
-                  type="text"
-                  value={manualForm.sku}
-                  onChange={(e) => setManualForm({ ...manualForm, sku: e.target.value })}
-                  placeholder="Opcional"
-                  className="w-full text-xs border border-[#D0D0D0] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#366BB2] bg-white"
-                />
-              </div>
-              <div>
-                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#6E7070" }}>Nº da Fatura</label>
-                <input
-                  type="text"
-                  value={manualForm.invoiceNumber}
-                  onChange={(e) => setManualForm({ ...manualForm, invoiceNumber: e.target.value })}
-                  placeholder="Opcional"
-                  className="w-full text-xs border border-[#D0D0D0] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#366BB2] bg-white"
-                />
-              </div>
-              <div>
-                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#6E7070" }}>Data de Compra</label>
-                <input
-                  type="date"
-                  value={manualForm.purchaseDate}
-                  onChange={(e) => setManualForm({ ...manualForm, purchaseDate: e.target.value })}
-                  className="w-full text-xs border border-[#D0D0D0] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#366BB2] bg-white"
-                />
-              </div>
-              <div>
-                <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#6E7070" }}>Fornecedor</label>
-                <input
-                  type="text"
-                  value={manualForm.vendor}
-                  onChange={(e) => setManualForm({ ...manualForm, vendor: e.target.value })}
-                  placeholder="Opcional"
-                  className="w-full text-xs border border-[#D0D0D0] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#366BB2] bg-white"
-                />
-              </div>
-            </div>
-
+          {/* Text description quick entry */}
+          <div className="bg-white border border-[#D0D0D0] rounded-xl p-5 shadow-sm space-y-3">
+            <h3 className="font-semibold text-[#212424] text-xs uppercase tracking-wider">
+              Ou descreva o contrato
+            </h3>
+            <textarea
+              value={customText}
+              onChange={(e) => setCustomText(e.target.value)}
+              placeholder='Ex.: "Compra de 50 licenças do Microsoft 365 Business Premium por US$ 22,00 cada, fatura INV-2024-789 da Microsoft Corporation"'
+              className="w-full text-xs border border-[#D0D0D0] rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#366BB2] bg-white resize-none"
+              rows={3}
+            />
             <button
-              onClick={handleSaveManual}
-              disabled={isProcessing || !manualForm.softwareName || !manualForm.publisher}
-              className="w-full py-2.5 bg-[#366BB2] text-white text-xs font-semibold rounded-lg flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm disabled:opacity-50"
+              onClick={async () => {
+                if (!customText.trim()) return;
+                setIsProcessing(true);
+                setError(null);
+                setExtractedData(null);
+                try {
+                  const res = await fetch("/api/ingest-invoice", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ description: customText }),
+                  });
+                  if (!res.ok) throw new Error((await res.json()).error);
+                  const extracted: ExtractedEntitlement = await res.json();
+                  setExtractedData(extracted);
+                  setForm({
+                    softwareName: extracted.softwareName || "",
+                    publisher: extracted.publisher || "",
+                    quantity: extracted.quantity || 1,
+                    unitCost: extracted.unitCost || 0,
+                    currency: extracted.currency || "USD",
+                    sku: extracted.sku || "",
+                    invoiceNumber: extracted.invoiceNumber || "",
+                    purchaseDate: extracted.purchaseDate || new Date().toISOString().split("T")[0],
+                    vendor: extracted.vendor || "",
+                    metricType: MetricType.INSTALLATIONS,
+                  });
+                } catch (e: any) {
+                  setError(e.message);
+                } finally {
+                  setIsProcessing(false);
+                }
+              }}
+              disabled={isProcessing || !customText.trim()}
+              className="w-full py-2 bg-[#F2F2F2] hover:bg-[#E8E8E8] text-[#6E7070] text-xs font-semibold rounded-lg transition-all cursor-pointer disabled:opacity-50"
             >
-              <Save className="w-4 h-4" />
-              {isProcessing ? "Salvando..." : "Salvar Contrato no Inventário de Licenças"}
+              Extrair da Descrição
             </button>
           </div>
         </div>
 
-        {/* Right Side: Extraction Output Preview */}
-        <div className="bg-white border border-[#D0D0D0] rounded-xl p-5 shadow-sm flex flex-col justify-between">
-          <div className="space-y-6">
-            <h3 className="font-semibold text-[#212424] text-xs uppercase tracking-wider border-b border-[#D0D0D0] pb-3">
-              Pré-visualização de Extração Estruturada por IA
-            </h3>
+        {/* ─── RIGHT: Editable extracted data (3 cols) ─── */}
+        <div className="lg:col-span-3 bg-white border border-[#D0D0D0] rounded-xl p-5 shadow-sm">
+          <h3 className="font-semibold text-[#212424] text-xs uppercase tracking-wider border-b border-[#D0D0D0] pb-3 flex items-center gap-2">
+            {hasExtractedOrEditing ? <Pencil className="w-3.5 h-3.5 text-[#366BB2]" /> : <Sparkles className="w-3.5 h-3.5 text-[#366BB2]" />}
+            {hasExtractedOrEditing ? "Dados Extraídos — Edite antes de salvar" : "Pré-visualização da Extração"}
+          </h3>
 
-            {error && (
-              <div className="p-4 bg-rose-50 border border-rose-200 rounded-lg flex gap-2 text-xs text-rose-700">
-                <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+          {error && (
+            <div className="mt-4 p-4 bg-rose-50 border border-rose-200 rounded-lg flex gap-2 text-xs text-rose-700">
+              <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+              <div>
+                <p className="font-semibold">Falha na Extração</p>
+                <p className="text-[10px] mt-0.5 leading-relaxed">{error}</p>
+              </div>
+            </div>
+          )}
+
+          {isSaved && (
+            <div className="mt-4 flex flex-col gap-2 items-center text-center py-6">
+              <div className="bg-emerald-500 text-white rounded-full p-2">
+                <Check className="w-5 h-5" />
+              </div>
+              <p className="text-xs font-bold text-[#212424]">Licença Salva com Sucesso!</p>
+              <p className="text-[10px] text-[#A6A7A7]">O direito foi registrado e os snapshots de conformidade foram recalculados.</p>
+              <div className="flex gap-2 mt-2">
+                <button
+                  onClick={resetUpload}
+                  className="px-4 py-2 bg-[#F2F2F2] hover:bg-[#D0D0D0] text-[#6E7070] text-xs font-semibold rounded-lg transition-all cursor-pointer"
+                >
+                  Nova Ingestão
+                </button>
+                <button
+                  onClick={onNavigateToLicenses}
+                  className="px-4 py-2 bg-[#366BB2] hover:bg-[#4079C4] text-white text-xs font-semibold rounded-lg transition-all cursor-pointer"
+                >
+                  Ir para Licenças
+                </button>
+              </div>
+            </div>
+          )}
+
+          {!hasExtractedOrEditing && !error && !isSaved && (
+            <div className="py-12 text-center text-[#A6A7A7]">
+              <Sparkles className="w-10 h-10 text-[#D0D0D0] mx-auto mb-3" />
+              <p className="text-xs font-semibold text-[#6E7070]">Aguardando arquivo</p>
+              <p className="text-[10px] mt-0.5">Faça upload de uma fatura para extração automática.</p>
+            </div>
+          )}
+
+          {hasExtractedOrEditing && !isSaved && (
+            <div className="mt-4 space-y-4">
+              <div className="grid grid-cols-2 gap-x-4 gap-y-3">
+                <div className="col-span-2 sm:col-span-1">
+                  <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#6E7070" }}>Nome do Software *</label>
+                  <input type="text" value={form.softwareName} onChange={(e) => setForm({ ...form, softwareName: e.target.value })}
+                    placeholder="ex.: Microsoft SQL Server" className={inputClass} />
+                </div>
+                <div className="col-span-2 sm:col-span-1">
+                  <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#6E7070" }}>Editora *</label>
+                  <input type="text" value={form.publisher} onChange={(e) => setForm({ ...form, publisher: e.target.value })}
+                    placeholder="ex.: Microsoft Corporation" className={inputClass} />
+                </div>
                 <div>
-                  <p className="font-semibold">Falha na Extração</p>
-                  <p className="text-[10px] mt-0.5 leading-relaxed">{error}</p>
+                  <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#6E7070" }}>Quantidade</label>
+                  <input type="number" min={1} value={form.quantity}
+                    onChange={(e) => setForm({ ...form, quantity: Math.max(1, Number(e.target.value)) })} className={inputClass} />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#6E7070" }}>Custo Unitário</label>
+                  <input type="number" min={0} step={0.01} value={form.unitCost}
+                    onChange={(e) => setForm({ ...form, unitCost: Number(e.target.value) })} className={inputClass} />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#6E7070" }}>Moeda</label>
+                  <select value={form.currency} onChange={(e) => setForm({ ...form, currency: e.target.value })}
+                    className={`${inputClass} cursor-pointer`}>
+                    {["USD", "EUR", "GBP", "BRL", "CAD", "AUD", "JPY"].map((c) => (
+                      <option key={c} value={c}>{c}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#6E7070" }}>Tipo de Métrica</label>
+                  <select value={form.metricType} onChange={(e) => setForm({ ...form, metricType: e.target.value as MetricType })}
+                    className={`${inputClass} cursor-pointer`}>
+                    {Object.values(MetricType).map((mt) => (
+                      <option key={mt} value={mt}>{mt}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#6E7070" }}>SKU / Nº de Peça</label>
+                  <input type="text" value={form.sku} onChange={(e) => setForm({ ...form, sku: e.target.value })}
+                    placeholder="Opcional" className={inputClass} />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#6E7070" }}>Nº da Fatura</label>
+                  <input type="text" value={form.invoiceNumber} onChange={(e) => setForm({ ...form, invoiceNumber: e.target.value })}
+                    placeholder="Opcional" className={inputClass} />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#6E7070" }}>Data de Compra</label>
+                  <input type="date" value={form.purchaseDate}
+                    onChange={(e) => setForm({ ...form, purchaseDate: e.target.value })} className={inputClass} />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-bold uppercase mb-1" style={{ color: "#6E7070" }}>Fornecedor</label>
+                  <input type="text" value={form.vendor} onChange={(e) => setForm({ ...form, vendor: e.target.value })}
+                    placeholder="Opcional" className={inputClass} />
                 </div>
               </div>
-            )}
 
-            {isProcessing && (
-              <div className="p-12 text-center text-[#A6A7A7] space-y-3">
-                <RefreshCw className="w-8 h-8 animate-spin text-[#366BB2] mx-auto" />
-                <p className="text-xs font-semibold text-[#6E7070]">Escaneando OCR e estruturas do documento...</p>
-                <p className="text-[10px]">Conciliando SKUs de produtos, matrizes de licenciamento e entidades de fornecedores.</p>
-              </div>
-            )}
-
-            {!extractedData && !isProcessing && !error && (
-              <div className="p-12 text-center text-[#A6A7A7]">
-                <Sparkles className="w-10 h-10 text-[#D0D0D0] mx-auto mb-3" />
-                <p className="text-xs font-semibold text-[#6E7070]">Aguardando Gatilho de Ingestão por IA</p>
-                <p className="text-[10px] mt-0.5">Faça upload de um recibo ou selecione um template interativo acima para ver o OCR Gemini e o mapeamento de metadados.</p>
-              </div>
-            )}
-
-            {extractedData && !isProcessing && (
-              <div className="space-y-4">
-                <div className="p-3.5 bg-emerald-50 rounded-lg border border-emerald-200 flex gap-2 text-emerald-800 text-[11px]">
-                  <Check className="w-4 h-4 shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-semibold">Ingestão Gemini Bem-sucedida!</p>
-                    <p className="text-[10px] mt-0.5">Metadados estruturados e validados contra heurísticas do Catálogo de Dados Snow Atlas.</p>
-                  </div>
-                </div>
-
-                {/* Structured details display */}
-                <div className="grid grid-cols-2 gap-4 text-xs border border-[#D0D0D0] p-4 rounded-xl bg-[#F2F2F2]/50">
-                  <div>
-                    <span className="block text-[10px] font-bold text-[#A6A7A7] uppercase">Nome do Produto</span>
-                    <span className="font-semibold text-[#212424]">{extractedData.softwareName}</span>
-                  </div>
-                  <div>
-                    <span className="block text-[10px] font-bold text-[#A6A7A7] uppercase">Editora</span>
-                    <span className="font-semibold text-[#212424]">{extractedData.publisher}</span>
-                  </div>
-                  <div>
-                    <span className="block text-[10px] font-bold text-[#A6A7A7] uppercase">Quantidade Adquirida</span>
-                    <span className="font-bold text-[#212424]">{extractedData.quantity} Licenças</span>
-                  </div>
-                  <div>
-                    <span className="block text-[10px] font-bold text-[#A6A7A7] uppercase">Custo Unitário</span>
-                    <span className="font-semibold text-[#212424]">
-                      {new Intl.NumberFormat("pt-BR", { style: "currency", currency: extractedData.currency || "USD" }).format(extractedData.unitCost)}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="block text-[10px] font-bold text-[#A6A7A7] uppercase">SKU / Nº de Peça</span>
-                    <span className="font-mono text-[#212424]">{extractedData.sku || "N/D"}</span>
-                  </div>
-                  <div>
-                    <span className="block text-[10px] font-bold text-[#A6A7A7] uppercase">Nº da Fatura</span>
-                    <span className="font-mono text-[#212424]">{extractedData.invoiceNumber || "N/D"}</span>
-                  </div>
-                  <div>
-                    <span className="block text-[10px] font-bold text-[#A6A7A7] uppercase">Data de Compra</span>
-                    <span className="font-medium text-[#212424]">{extractedData.purchaseDate || "N/D"}</span>
-                  </div>
-                  <div>
-                    <span className="block text-[10px] font-bold text-[#A6A7A7] uppercase">Loja do Fornecedor</span>
-                    <span className="font-medium text-[#212424]">{extractedData.vendor || "N/D"}</span>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Action to Save extracted item */}
-          {extractedData && !isProcessing && (
-            <div className="mt-6 border-t border-[#D0D0D0] pt-4">
-              {isSaved ? (
-                <div className="flex flex-col gap-2 items-center text-center">
-                  <div className="bg-emerald-500 text-white rounded-full p-2">
-                    <Check className="w-5 h-5" />
-                  </div>
-                  <p className="text-xs font-bold text-[#212424]">Ativo Salvo e Ativo!</p>
-                  <p className="text-[10px] text-[#A6A7A7]">O direito foi registrado e os snapshots de conformidade foram recalculados.</p>
+              <div className="flex items-center gap-3 pt-2 border-t border-[#D0D0D0]">
+                <button
+                  onClick={handleSave}
+                  disabled={isProcessing || !form.softwareName || !form.publisher}
+                  className="flex-1 py-2.5 bg-[#366BB2] hover:bg-[#4079C4] text-white text-xs font-semibold rounded-lg flex items-center justify-center gap-1.5 transition-all cursor-pointer disabled:opacity-50"
+                >
+                  {isProcessing ? (
+                    <><RefreshCw className="w-4 h-4 animate-spin" /> Salvando...</>
+                  ) : (
+                    <><Save className="w-4 h-4" /> Salvar no Inventário de Licenças</>
+                  )}
+                </button>
+                {extractedData && (
                   <button
-                    onClick={onNavigateToLicenses}
-                    className="mt-2 px-4 py-2 bg-[#F2F2F2] hover:bg-[#D0D0D0] text-[#6E7070] text-xs font-semibold rounded-lg transition-all cursor-pointer"
+                    onClick={resetUpload}
+                    className="px-4 py-2.5 bg-[#F2F2F2] hover:bg-[#E8E8E8] text-[#6E7070] text-xs font-semibold rounded-lg transition-all cursor-pointer"
                   >
-                    Ir para Inventário de Licenças
+                    Nova Extração
                   </button>
-                </div>
-              ) : (
-                <div className="space-y-3">
-                  <p className="text-[10px] text-[#A6A7A7]">
-                    O registro destes dados extraídos cria um novo registro oficial de licença de software e gera uma linha de compra de direito dinamicamente vinculada a snapshots de conformidade.
-                  </p>
-                  <button
-                    onClick={handleRegisterExtracted}
-                    className="w-full py-2.5 bg-[#366BB2] text-white text-xs font-semibold rounded-lg flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm"
-                  >
-                    <Layers className="w-4 h-4" />
-                    Registrar Direito no Catálogo de Ativos
-                  </button>
-                </div>
-              )}
+                )}
+              </div>
             </div>
           )}
         </div>
