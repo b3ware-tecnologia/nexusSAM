@@ -472,6 +472,24 @@ const DEFAULT_COMPUTERS: Computer[] = [
     warrantyExpirationDate: "",
     lifecycleStatus: "Inactive",
     lastActiveDate: "2026-04-12T14:22:00Z"
+  },
+  {
+    id: "cmp-pc-b3-01",
+    name: "PC-B3-01",
+    cores: 8,
+    pvuPerCore: 70,
+    isVirtual: false,
+    os: "Windows",
+    ramGB: 32,
+    cpuModel: "Intel Core i7-13700",
+    serialNumber: "SN-B3-001",
+    brand: "Dell",
+    model: "OptiPlex 7010",
+    storageGB: 512,
+    warrantyStatus: "Under Warranty",
+    warrantyExpirationDate: "2027-06-30",
+    lifecycleStatus: "Active",
+    lastActiveDate: "2026-07-10T10:00:00Z"
   }
 ];
 
@@ -574,6 +592,15 @@ const DEFAULT_INSTALLATIONS: Installation[] = [
     computerId: "cmp-vm-2",
     userName: "charlie.brown@company.com",
     detectedAt: "2026-03-01T10:00:00Z"
+  },
+  {
+    id: "inst-12",
+    softwareName: "ESET Complete",
+    publisher: "ESET",
+    version: "v16",
+    computerId: "cmp-pc-b3-01",
+    userName: "erico.b3ware@gmail.com",
+    detectedAt: "2026-07-01T09:00:00Z"
   }
 ];
 
