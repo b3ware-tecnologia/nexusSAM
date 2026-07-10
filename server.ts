@@ -872,6 +872,83 @@ app.post("/api/saas/discover-url", (req, res) => {
   }
 });
 
+// Local invoice parser fallback (when Gemini AI is unavailable)
+function localParseInvoice(body: any) {
+  const { fileData, mimeType, description } = body;
+  const text = description || "";
+  const lower = text.toLowerCase();
+
+  const knownSoftware: Record<string, { publisher: string }> = {
+    "windows server": { publisher: "Microsoft" },
+    "sql server": { publisher: "Microsoft" },
+    "office": { publisher: "Microsoft" },
+    "visual studio": { publisher: "Microsoft" },
+    "microsoft 365": { publisher: "Microsoft" },
+    "exchange": { publisher: "Microsoft" },
+    "photoshop": { publisher: "Adobe" },
+    "acrobat": { publisher: "Adobe" },
+    "illustrator": { publisher: "Adobe" },
+    "oracle database": { publisher: "Oracle" },
+    "weblogic": { publisher: "Oracle" },
+    "java": { publisher: "Oracle" },
+    "mysql": { publisher: "Oracle" },
+    "vmware": { publisher: "Broadcom" },
+    "vsphere": { publisher: "Broadcom" },
+    "sap": { publisher: "SAP" },
+    "autocad": { publisher: "Autodesk" },
+    "solidworks": { publisher: "Dassault" },
+    "matlab": { publisher: "MathWorks" },
+    "slack": { publisher: "Salesforce" },
+    "jira": { publisher: "Atlassian" },
+    "confluence": { publisher: "Atlassian" },
+    "snow": { publisher: "Snow Software" },
+    "flexera": { publisher: "Flexera" },
+    "ibm": { publisher: "IBM" },
+  };
+
+  let softwareName = "Software Title";
+  let publisher = "Vendor";
+  let quantity = 1;
+  let unitCost = 0;
+
+  for (const [name, meta] of Object.entries(knownSoftware)) {
+    if (lower.includes(name)) {
+      softwareName = name.split(" ").map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+      publisher = meta.publisher;
+      break;
+    }
+  }
+
+  const qtyMatch = text.match(/(\d+)\s*(licen[cç]as?|seats?|usu[aá]rios?|users?|unidades?|c[aá]pias?|copies?|units?)/i);
+  if (qtyMatch) quantity = parseInt(qtyMatch[1]);
+
+  const costMatch = text.match(/(?:USD|EUR|BRL|\$)?\s*(\d+[.,]\d{0,2})\s*(?:USD|EUR|BRL|\$)?\s*(?:per|por|cada|each|\/)?\s*(?:license|seat|user|unit)?/i);
+  if (costMatch) unitCost = parseFloat(costMatch[1].replace(",", "."));
+
+  const invoiceMatch = text.match(/(?:invoice|fatura|nota|po|order)\s*(?:#|n[º°]|number)?\s*:?\s*([\w-]+)/i);
+  const invoiceNumber = invoiceMatch?.[1] || `LOCAL-${Date.now()}`;
+
+  const dateMatch = text.match(/(\d{4}[-/]\d{2}[-/]\d{2})/);
+  const purchaseDate = dateMatch?.[1] || new Date().toISOString().split("T")[0];
+
+  if (fileData && !description) {
+    softwareName = "Documento ANEXADO — use descrição textual para extração precisa";
+    publisher = "Verificar manualmente";
+  }
+
+  return {
+    softwareName,
+    publisher,
+    quantity,
+    unitCost,
+    currency: costMatch && text.toUpperCase().includes("EUR") ? "EUR" : text.toUpperCase().includes("BRL") ? "BRL" : "USD",
+    sku: "",
+    invoiceNumber,
+    purchaseDate,
+    vendor: publisher,
+  };
+}
+
 // AI Invoice Ingest End-Point
 app.post("/api/ingest-invoice", async (req, res) => {
   try {
@@ -910,7 +987,7 @@ app.post("/api/ingest-invoice", async (req, res) => {
     // Call Gemini models using lazy-loaded SDK client
     const ai = getGeminiClient();
     const response = await ai.models.generateContent({
-      model: "gemini-3.5-flash",
+      model: "gemini-2.5-flash",
       contents: promptContent,
       config: {
         responseMimeType: "application/json",
@@ -937,7 +1014,13 @@ app.post("/api/ingest-invoice", async (req, res) => {
 
   } catch (error: any) {
     console.error("AI Ingestion error:", error);
-    res.status(500).json({ error: error.message });
+    // If AI is unavailable (no key, model not found, etc), fall back to local parser
+    try {
+      const localResult = localParseInvoice(req.body);
+      return res.json(localResult);
+    } catch (fallbackErr: any) {
+      return res.status(500).json({ error: `AI indisponível: ${error.message}. Fallback também falhou: ${fallbackErr.message}` });
+    }
   }
 });
 
@@ -3284,7 +3367,7 @@ Your tone is highly professional, helpful, objective, and expert. You have detai
 Always answer in the user's language (e.g. if they query in Portuguese, reply in Portuguese; if in English, reply in English). Use formatting, markdown tables, and code snippets when appropriate. Avoid marketing hype, and do not reference directories like "/src/components" or database mock files. Focus on functional and professional ITAM guidance.`;
 
     const response = await ai.models.generateContent({
-      model: "gemini-3.5-flash",
+      model: "gemini-2.5-flash",
       contents: message,
       config: {
         systemInstruction: SYSTEM_INSTRUCTION,
