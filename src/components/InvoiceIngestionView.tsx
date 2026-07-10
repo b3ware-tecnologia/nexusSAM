@@ -99,18 +99,18 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
 
       const extracted: ExtractedEntitlement = await res.json();
       setExtractedData(extracted);
-      setForm({
-        softwareName: extracted.softwareName || "",
-        publisher: extracted.publisher || "",
-        quantity: extracted.quantity || 1,
-        unitCost: extracted.unitCost || 0,
-        currency: extracted.currency || "USD",
-        sku: extracted.sku || "",
-        invoiceNumber: extracted.invoiceNumber || "",
-        purchaseDate: extracted.purchaseDate || new Date().toISOString().split("T")[0],
-        vendor: extracted.vendor || "",
-        metricType: MetricType.INSTALLATIONS,
-      });
+      setForm((prev) => ({
+        ...prev,
+        ...(extracted.softwareName ? { softwareName: extracted.softwareName } : {}),
+        ...(extracted.publisher ? { publisher: extracted.publisher } : {}),
+        ...(extracted.quantity > 0 ? { quantity: extracted.quantity } : {}),
+        ...(extracted.unitCost > 0 ? { unitCost: extracted.unitCost } : {}),
+        ...(extracted.currency ? { currency: extracted.currency } : {}),
+        ...(extracted.sku ? { sku: extracted.sku } : {}),
+        ...(extracted.invoiceNumber ? { invoiceNumber: extracted.invoiceNumber } : {}),
+        ...(extracted.purchaseDate ? { purchaseDate: extracted.purchaseDate } : {}),
+        ...(extracted.vendor ? { vendor: extracted.vendor } : {}),
+      }));
     } catch (e: any) {
       console.error(e);
       setError(e.message || "Ocorreu um erro inesperado durante o parsing de fatura por IA.");
@@ -293,18 +293,18 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
                   if (!res.ok) throw new Error((await res.json()).error);
                   const extracted: ExtractedEntitlement = await res.json();
                   setExtractedData(extracted);
-                  setForm({
-                    softwareName: extracted.softwareName || "",
-                    publisher: extracted.publisher || "",
-                    quantity: extracted.quantity || 1,
-                    unitCost: extracted.unitCost || 0,
-                    currency: extracted.currency || "USD",
-                    sku: extracted.sku || "",
-                    invoiceNumber: extracted.invoiceNumber || "",
-                    purchaseDate: extracted.purchaseDate || new Date().toISOString().split("T")[0],
-                    vendor: extracted.vendor || "",
-                    metricType: MetricType.INSTALLATIONS,
-                  });
+                  setForm((prev) => ({
+                    ...prev,
+                    ...(extracted.softwareName ? { softwareName: extracted.softwareName } : {}),
+                    ...(extracted.publisher ? { publisher: extracted.publisher } : {}),
+                    ...(extracted.quantity > 0 ? { quantity: extracted.quantity } : {}),
+                    ...(extracted.unitCost > 0 ? { unitCost: extracted.unitCost } : {}),
+                    ...(extracted.currency ? { currency: extracted.currency } : {}),
+                    ...(extracted.sku ? { sku: extracted.sku } : {}),
+                    ...(extracted.invoiceNumber ? { invoiceNumber: extracted.invoiceNumber } : {}),
+                    ...(extracted.purchaseDate ? { purchaseDate: extracted.purchaseDate } : {}),
+                    ...(extracted.vendor ? { vendor: extracted.vendor } : {}),
+                  }));
                 } catch (e: any) {
                   setError(e.message);
                 } finally {
