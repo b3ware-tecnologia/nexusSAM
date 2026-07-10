@@ -992,8 +992,8 @@ IMPORTANT: Only populate fields with data you actually see in the document. Do N
           const { PDFParse } = require("pdf-parse");
           const pdf = new PDFParse(uint8);
           await pdf.load();
-          const pages = await pdf.getText();
-          extractedText = (Array.isArray(pages) ? pages.map((p: any) => p.text || p.content || "").join("\n") : String(pages)).trim();
+          const result = await pdf.getText();
+          extractedText = result.text?.trim() || "";
         } catch (pdfErr: any) {
           console.error("PDF parse error:", pdfErr.message);
         }
