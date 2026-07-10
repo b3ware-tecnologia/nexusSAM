@@ -235,13 +235,8 @@ export function calculateELP(
       }
     }
 
-    // --- Assigned ---
+    // --- Assigned (manual device assignments count as consumption) ---
     let assigned = 0;
-    matchingLicenses.forEach((l) => {
-      assigned += l.allocatedQuantity || 0;
-    });
-
-    // Also compute from raw assignments
     matchingLicenses.forEach((l) => {
       const directAssignments = assignments.filter((a) => a.licenseId === l.id);
       directAssignments.forEach((a) => {
@@ -250,7 +245,7 @@ export function calculateELP(
     });
 
     // --- Balance & Status ---
-    const balance = entitlements - consumption;
+    const balance = entitlements - consumption - assigned;
     let complianceStatus: "Compliant" | "UnderLicensed" | "OverLicensed" = "Compliant";
     if (balance < 0) complianceStatus = "UnderLicensed";
     else if (balance > 0) complianceStatus = "OverLicensed";
