@@ -1704,7 +1704,7 @@ export async function initDatabase(): Promise<DatabaseState | null> {
       if (!pg.adminNotifications) { (pg as any).adminNotifications = DEFAULT_ADMIN_NOTIFICATIONS; }
       if (!pg.uploadedFiles) { (pg as any).uploadedFiles = DEFAULT_UPLOADED_FILES; }
       if (!pg.licensePools) { (pg as any).licensePools = DEFAULT_LICENSE_POOLS; }
-      // Migration: add PC-B3-01 and ESET Complete installation if missing
+      // Migration: add PC-B3-01 and ESET Complete if missing
       if (!pg.computers.find((c: any) => c.name === "PC-B3-01")) {
         pg.computers.push({
           id: "cmp-pc-b3-01",
@@ -1724,15 +1724,9 @@ export async function initDatabase(): Promise<DatabaseState | null> {
           lifecycleStatus: "Active",
           lastActiveDate: "2026-07-10T10:00:00Z"
         });
-        pg.installations.push({
-          id: "inst-12",
-          softwareName: "ESET Complete",
-          publisher: "ESET",
-          version: "v16",
-          computerId: "cmp-pc-b3-01",
-          userName: "erico.b3ware@gmail.com",
-          detectedAt: "2026-07-01T09:00:00Z"
-        });
+      }
+      // Migration: ensure ESET Complete discovered app exists on PC-B3-01
+      if (!pg.discoveredApplications.find((d: any) => d.id === "disc-7")) {
         pg.discoveredApplications.push({
           id: "disc-7",
           computerId: "cmp-pc-b3-01",
@@ -1742,6 +1736,15 @@ export async function initDatabase(): Promise<DatabaseState | null> {
           version: "v16",
           lastUsed: "2026-07-10T10:00:00Z",
           usageDurationMinutes: 240
+        });
+        pg.installations.push({
+          id: "inst-12",
+          softwareName: "ESET Complete",
+          publisher: "ESET",
+          version: "v16",
+          computerId: "cmp-pc-b3-01",
+          userName: "erico.b3ware@gmail.com",
+          detectedAt: "2026-07-01T09:00:00Z"
         });
       }
       return pg;
