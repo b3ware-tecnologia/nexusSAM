@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { License, Agreement, MetricType, LicenseAssignment, LicensePool } from "../types.js";
+import React, { useState, useEffect, useCallback } from "react";
+import { License, Agreement, MetricType, LicenseAssignment, LicensePool, Computer } from "../types.js";
 import { 
   Folder, Plus, Archive, ShieldAlert, CheckCircle, AlertCircle, Edit, Trash2, 
-  UserPlus, X, HelpCircle, FileText, Settings, ExternalLink, Calendar
+  UserPlus, X, HelpCircle, FileText, Settings, ExternalLink, Calendar, Monitor, HardDrive
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { HintTooltip } from "./HintTooltip.js";
@@ -12,9 +12,10 @@ interface LicensesViewProps {
   agreements: Agreement[];
   licensePools: LicensePool[];
   onRefresh: () => void;
+  onNavigateToComputer?: (computerId: string) => void;
 }
 
-export function LicensesView({ licenses, agreements, licensePools, onRefresh }: LicensesViewProps) {
+export function LicensesView({ licenses, agreements, licensePools, onRefresh, onNavigateToComputer }: LicensesViewProps) {
   const [activeTab, setActiveTab] = useState<"ACTIVE" | "INCOMPLETE" | "ARCHIVED">("ACTIVE");
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [selectedLicense, setSelectedLicense] = useState<License | null>(null);
@@ -48,6 +49,8 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
   const [allocTargetId, setAllocTargetId] = useState("");
   const [allocQuantity, setAllocQuantity] = useState("1");
   const [isAllocating, setIsAllocating] = useState(false);
+  const [linkedComputers, setLinkedComputers] = useState<Computer[]>([]);
+  const [isLoadingComputers, setIsLoadingComputers] = useState(false);
 
   // Edit states
   const [isEditing, setIsEditing] = useState(false);
@@ -79,8 +82,51 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
   useEffect(() => {
     if (selectedLicense) {
       loadAssignments(selectedLicense.id);
+      loadLinkedComputers(selectedLicense);
     }
   }, [selectedLicense]);
+
+  const loadLinkedComputers = async (lic: License) => {
+    setIsLoadingComputers(true);
+    try {
+      const [compRes, asgRes] = await Promise.all([
+        fetch("/api/computers"),
+        fetch(`/api/licenses/${lic.id}/assignments`)
+      ]);
+      const [allComputers, allAssignments]: [Computer[], LicenseAssignment[]] = await Promise.all([
+        compRes.ok ? compRes.json() : [],
+        asgRes.ok ? asgRes.json() : []
+      ]);
+      // Match by assignment targetId === computer.name
+      const deviceTargets = new Set(
+        allAssignments
+          .filter(a => a.targetType === "Device")
+          .map(a => a.targetId.toUpperCase())
+      );
+      const matched = allComputers.filter(c => deviceTargets.has(c.name.toUpperCase()));
+      // Also match by installations (software name match)
+      const lowerName = lic.softwareName.toLowerCase();
+      const lowerPub = lic.publisher.toLowerCase();
+      const instRes = await fetch("/api/installations");
+      if (instRes.ok) {
+        const installations: any[] = await instRes.json();
+        const installComputerIds = new Set(
+          installations
+            .filter(i => i.softwareName?.toLowerCase().includes(lowerName) && i.publisher?.toLowerCase().includes(lowerPub))
+            .map(i => i.computerId)
+        );
+        const fromInstall = allComputers.filter(c => installComputerIds.has(c.id) && !matched.some(m => m.id === c.id));
+        setLinkedComputers([...matched, ...fromInstall]);
+      } else {
+        setLinkedComputers(matched);
+      }
+    } catch (e) {
+      console.error("Error loading linked computers:", e);
+      setLinkedComputers([]);
+    } finally {
+      setIsLoadingComputers(false);
+    }
+  };
 
   const loadAssignments = async (licId: string) => {
     setIsAssignmentsLoading(true);
@@ -724,6 +770,40 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                       <p className="text-[11px] text-[#6E7070] mt-1 italic">{selectedLicense.notes}</p>
                     </div>
                   )}
+
+                  {/* Linked Devices */}
+                  <div className="border-t border-[#D0D0D0] pt-4 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <h4 className="text-xs font-bold text-[#212424] uppercase tracking-wider flex items-center gap-1">
+                        <Monitor className="w-3.5 h-3.5" /> Dispositivos Vinculados
+                      </h4>
+                      <span className="text-[10px] text-[#6E7070]">{linkedComputers.length} dispositivos</span>
+                    </div>
+                    {isLoadingComputers ? (
+                      <p className="text-[10px] text-[#A6A7A7] text-center py-2">Carregando dispositivos...</p>
+                    ) : linkedComputers.length === 0 ? (
+                      <p className="text-[10px] text-[#A6A7A7] text-center py-2 bg-[#F2F2F2] rounded italic border border-dashed border-[#D0D0D0]">
+                        Nenhum dispositivo vinculado a esta licença.
+                      </p>
+                    ) : (
+                      <div className="max-h-[200px] overflow-y-auto space-y-1 pr-1">
+                        {linkedComputers.map((comp) => (
+                          <div
+                            key={comp.id}
+                            onClick={() => onNavigateToComputer?.(comp.id)}
+                            className="bg-white border border-slate-150 p-2 rounded-lg flex items-center gap-2 shadow-sm text-[10px] cursor-pointer hover:border-[#366BB2] hover:shadow-md transition-all"
+                          >
+                            <HardDrive className="w-4 h-4 shrink-0" style={{ color: "#366BB2" }} />
+                            <div className="flex-1 min-w-0">
+                              <span className="font-semibold text-[#212424] block truncate">{comp.name}</span>
+                              <span className="text-[#6E7070]">{comp.os} · {comp.cores} núcleos · {comp.ramGB}GB RAM</span>
+                            </div>
+                            <ExternalLink className="w-3 h-3 shrink-0" style={{ color: "#A6A7A7" }} />
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
 
                   {/* Manual Assignment allocations segment */}
                   <div className="border-t border-[#D0D0D0] pt-4 space-y-3">

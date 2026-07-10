@@ -1285,6 +1285,16 @@ app.get("/api/applications", (req, res) => {
   }
 });
 
+// GET all installations
+app.get("/api/installations", (req, res) => {
+  try {
+    const db = getDatabase();
+    res.json(db.installations);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // CRUD discovered applications
 app.delete("/api/applications/:id", (req, res) => {
   try {

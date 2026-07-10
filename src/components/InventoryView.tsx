@@ -35,9 +35,11 @@ import { HintTooltip } from "./HintTooltip.js";
 
 interface InventoryViewProps {
   onRefreshAll: () => void;
+  navigateToComputerId?: string | null;
+  onNavigated?: () => void;
 }
 
-export function InventoryView({ onRefreshAll }: InventoryViewProps) {
+export function InventoryView({ onRefreshAll, navigateToComputerId, onNavigated }: InventoryViewProps) {
   const [activeTab, setActiveTab] = useState<"COMPUTERS" | "MOBILES" | "DISCOVERED_APPS" | "DIS_CATALOG" | "PRIVATE_CATALOG">("COMPUTERS");
   
   // States
@@ -95,6 +97,19 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
   useEffect(() => {
     loadInventoryData();
   }, [activeTab]);
+
+  // Auto-navigate to a specific computer when requested
+  useEffect(() => {
+    if (navigateToComputerId && computers.length > 0) {
+      setActiveTab("COMPUTERS");
+      const comp = computers.find(c => c.id === navigateToComputerId);
+      if (comp) {
+        setSelectedComputer(comp);
+        fetch(`/api/computers/${comp.id}`).then(r => r.ok && r.json()).then(data => data && setComputerDetails(data));
+      }
+      onNavigated?.();
+    }
+  }, [navigateToComputerId, computers]);
 
   const showNotification = (type: "success" | "error" | "info", msg: string) => {
     setNotif({ type, msg });

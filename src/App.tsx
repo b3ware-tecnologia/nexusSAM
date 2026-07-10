@@ -47,6 +47,7 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [sidebarHover, setSidebarHover] = useState(false);
+  const [navigateToComputerId, setNavigateToComputerId] = useState<string | null>(null);
 
   useEffect(() => {
     if (getStoredToken()) patchGlobalFetch();
@@ -228,13 +229,13 @@ export default function App() {
                 case "RECONCILIATION":
                   return <DashboardView snapshots={snapshots} isLoading={isLoading} onRefresh={loadData} onNavigateToLicenses={() => setCurrentView("LICENSES")} forecasts={forecasts} ahbSavings={ahbSavings} />;
                 case "LICENSES":
-                  return <LicensesView licenses={licenses} agreements={agreements} licensePools={licensePools} onRefresh={loadData} />;
+                  return <LicensesView licenses={licenses} agreements={agreements} licensePools={licensePools} onRefresh={loadData} onNavigateToComputer={(id) => { setNavigateToComputerId(id); setCurrentView("INVENTORY"); }} />;
                 case "INGEST":
                   return <InvoiceIngestionView onRefresh={loadData} onNavigateToLicenses={() => setCurrentView("LICENSES")} />;
                 case "DIAGNOSTICS":
                   return <DiagnosticsView />;
                 case "INVENTORY":
-                  return <InventoryView onRefreshAll={loadData} />;
+                  return <InventoryView onRefreshAll={loadData} navigateToComputerId={navigateToComputerId} onNavigated={() => setNavigateToComputerId(null)} />;
                 case "SAAS":
                   return <SaaSView onRefreshAll={loadData} />;
                 case "CLOUD":
