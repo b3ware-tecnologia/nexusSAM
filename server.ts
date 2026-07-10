@@ -974,9 +974,8 @@ IMPORTANT: Only populate fields with data you actually see in the document. Do N
     const messages: any[] = [{ role: "system", content: systemMsg }];
 
     if (fileData && mimeType) {
-      const isImage = mimeType.startsWith("image/");
-      if (isImage) {
-        const base64Data = fileData.includes("base64,") ? fileData : `data:${mimeType};base64,${fileData}`;
+      if (mimeType.startsWith("image/")) {
+        const base64Data = `data:${mimeType};base64,${fileData}`;
         messages.push({
           role: "user",
           content: [
@@ -992,7 +991,7 @@ IMPORTANT: Only populate fields with data you actually see in the document. Do N
     }
 
     const response = await ai.chat.completions.create({
-      model: fileData && mimeType?.startsWith("image/") ? "meta-llama/llama-4-scout-17b-16e-instruct" : "llama-3.3-70b-versatile",
+      model: fileData && mimeType?.startsWith("image/") ? "qwen/qwen3.6-27b" : "llama-3.3-70b-versatile",
       messages,
       response_format: { type: "json_object" },
       temperature: 0.01,
