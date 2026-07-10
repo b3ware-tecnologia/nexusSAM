@@ -120,22 +120,22 @@ export function CloudView() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
         <div className="bg-white p-5 rounded-xl border border-[#D0D0D0] shadow-xs flex flex-col justify-between" id="card-cloud-spend">
           <div className="flex items-center justify-between mb-3">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Gasto Total com VM/DB na Nuvem</span>
-            <Cloud className="w-4 h-4 text-slate-400" />
+            <span className="text-[10px] font-bold text-[#A6A7A7] uppercase tracking-wider">Gasto Total com VM/DB na Nuvem</span>
+            <Cloud className="w-4 h-4 text-[#A6A7A7]" />
           </div>
           <div>
-            <h3 className="text-xl font-bold text-slate-900">${totalMonthlySpend.toLocaleString()}/mo</h3>
-            <p className="text-[10px] text-slate-500 mt-1">Em contas de nuvem descobertas</p>
+            <h3 className="text-xl font-bold text-[#212424]">${totalMonthlySpend.toLocaleString()}/mo</h3>
+            <p className="text-[10px] text-[#6E7070] mt-1">Em contas de nuvem descobertas</p>
           </div>
         </div>
 
         <div className="bg-white p-5 rounded-xl border border-[#D0D0D0] shadow-xs flex flex-col justify-between" id="card-cloud-payg">
           <div className="flex items-center justify-between mb-3">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Custo de Licenciamento PAYG</span>
+            <span className="text-[10px] font-bold text-[#A6A7A7] uppercase tracking-wider">Custo de Licenciamento PAYG</span>
             <TrendingDown className="w-4 h-4 text-orange-500" />
           </div>
           <div>
-            <h3 className="text-xl font-bold text-slate-900">${paygSpend.toLocaleString()}/mo</h3>
+            <h3 className="text-xl font-bold text-[#212424]">${paygSpend.toLocaleString()}/mo</h3>
             <p className="text-[10px] text-orange-600 font-semibold mt-1">
               {((paygSpend / (totalMonthlySpend || 1)) * 100).toFixed(0)}% do custo total é PAYG
             </p>
@@ -144,11 +144,11 @@ export function CloudView() {
 
         <div className="bg-white p-5 rounded-xl border border-[#D0D0D0] shadow-xs flex flex-col justify-between" id="card-cloud-byol">
           <div className="flex items-center justify-between mb-3">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Coberturas BYOL Ativas</span>
+            <span className="text-[10px] font-bold text-[#A6A7A7] uppercase tracking-wider">Coberturas BYOL Ativas</span>
             <CheckCircle className="w-4 h-4 text-emerald-500" />
           </div>
           <div>
-            <h3 className="text-xl font-bold text-slate-900">${byolSpend.toLocaleString()}/mo</h3>
+            <h3 className="text-xl font-bold text-[#212424]">${byolSpend.toLocaleString()}/mo</h3>
             <p className="text-[10px] text-emerald-600 font-semibold mt-1">
               {resources.filter(r => r.pricingModel === "BYOL").length} recursos BYOL ativos
             </p>
@@ -177,10 +177,10 @@ export function CloudView() {
         {/* Left column: Connectors list */}
         <div className="bg-white p-6 rounded-xl border border-[#D0D0D0] shadow-xs lg:col-span-1">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900">Gateways de API de Nuvem</h3>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-[#212424]">Gateways de API de Nuvem</h3>
             <button
               onClick={() => setShowAddForm(!showAddForm)}
-              className="px-2 py-1 bg-slate-900 text-white text-[10px] font-bold rounded-lg flex items-center gap-1 hover:bg-slate-800 transition cursor-pointer"
+              className="px-2 py-1 bg-[#366BB2] text-white text-[10px] font-bold rounded-lg flex items-center gap-1 hover:bg-[#4079C4] transition cursor-pointer"
               id="btn-add-cloud-connector"
             >
               <Plus className="w-3 h-3" />
@@ -189,24 +189,24 @@ export function CloudView() {
           </div>
 
           {showAddForm && (
-            <form onSubmit={handleAddConnector} className="bg-slate-50 p-4 rounded-lg border border-[#D0D0D0] mb-4 space-y-3">
+            <form onSubmit={handleAddConnector} className="bg-[#F2F2F2] p-4 rounded-lg border border-[#D0D0D0] mb-4 space-y-3">
               <div>
-                <label className="block text-[10px] font-bold text-slate-500 mb-1">Nome do Conector</label>
+                <label className="block text-[10px] font-bold text-[#6E7070] mb-1">Nome do Conector</label>
                 <input
                   type="text"
                   value={newConnName}
                   onChange={e => setNewConnName(e.target.value)}
                   placeholder="Subconta de Produção AWS"
-                  className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#D0D0D0] rounded-lg focus:outline-indigo-500 text-slate-800"
+                  className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#D0D0D0] rounded-lg focus:outline-indigo-500 text-[#212424]"
                   required
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-bold text-slate-500 mb-1">Provedor</label>
+                <label className="block text-[10px] font-bold text-[#6E7070] mb-1">Provedor</label>
                 <select
                   value={newConnProvider}
                   onChange={e => setNewConnProvider(e.target.value as any)}
-                  className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#D0D0D0] rounded-lg focus:outline-indigo-500 text-slate-800"
+                  className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#D0D0D0] rounded-lg focus:outline-indigo-500 text-[#212424]"
                 >
                   <option value="AWS">Amazon Web Services (AWS)</option>
                   <option value="Azure">Microsoft Azure</option>
@@ -217,7 +217,7 @@ export function CloudView() {
                 <button
                   type="button"
                   onClick={() => setShowAddForm(false)}
-                  className="px-2 py-1 text-[10px] bg-white border border-[#D0D0D0] rounded text-slate-600"
+                  className="px-2 py-1 text-[10px] bg-white border border-[#D0D0D0] rounded text-[#6E7070]"
                 >
                   Cancelar
                 </button>
@@ -233,10 +233,10 @@ export function CloudView() {
 
           <div className="space-y-3">
             {connectors.length === 0 ? (
-              <div className="text-center py-6 text-xs text-slate-400">Nenhum conector de nuvem configurado.</div>
+              <div className="text-center py-6 text-xs text-[#A6A7A7]">Nenhum conector de nuvem configurado.</div>
             ) : (
               connectors.map(conn => (
-                <div key={conn.id} className="p-3 bg-slate-50 border border-slate-100 rounded-lg flex items-center justify-between">
+                <div key={conn.id} className="p-3 bg-[#F2F2F2] border border-[#D0D0D0] rounded-lg flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded bg-white border border-[#D0D0D0] flex items-center justify-center font-bold text-xs">
                       {conn.provider === "AWS" && <span className="text-orange-500 font-mono">aws</span>}
@@ -244,8 +244,8 @@ export function CloudView() {
                       {conn.provider === "GCP" && <span className="text-red-500 font-mono">gcp</span>}
                     </div>
                     <div>
-                      <h4 className="text-xs font-semibold text-slate-800">{conn.name}</h4>
-                      <p className="text-[9px] text-slate-400">
+                      <h4 className="text-xs font-semibold text-[#212424]">{conn.name}</h4>
+                      <p className="text-[9px] text-[#A6A7A7]">
                         {conn.resourceCount} resource VM/DB • Synced: {conn.lastSyncedAt ? new Date(conn.lastSyncedAt).toLocaleDateString() : "Never"}
                       </p>
                     </div>
@@ -262,11 +262,11 @@ export function CloudView() {
             )}
           </div>
 
-          <div className="mt-5 border-t border-slate-100 pt-4">
+          <div className="mt-5 border-t border-[#D0D0D0] pt-4">
             <button
               onClick={handleSync}
               disabled={syncing}
-              className="w-full py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-lg font-bold text-xs flex items-center justify-center gap-2 transition cursor-pointer"
+              className="w-full py-2 bg-[#F2F2F2] text-[#6E7070] hover:bg-[#E8E8E8] rounded-lg font-bold text-xs flex items-center justify-center gap-2 transition cursor-pointer"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${syncing ? "animate-spin" : ""}`} />
               {syncing ? "Escaneando Nuvens..." : "Acionar Varredura BYOL na Nuvem"}
@@ -278,8 +278,8 @@ export function CloudView() {
         <div className="bg-white p-6 rounded-xl border border-[#D0D0D0] shadow-xs lg:col-span-2">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
             <div>
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900">Recursos de Nuvem Descobertos e Benefícios Híbridos</h3>
-              <p className="text-[10px] text-slate-400 mt-0.5">A verificação de Duplo Pagamento confirma se você paga ao provedor por licenças que já possui</p>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-[#212424]">Recursos de Nuvem Descobertos e Benefícios Híbridos</h3>
+              <p className="text-[10px] text-[#A6A7A7] mt-0.5">A verificação de Duplo Pagamento confirma se você paga ao provedor por licenças que já possui</p>
             </div>
             
             {/* Filters */}
@@ -287,7 +287,7 @@ export function CloudView() {
               <select
                 value={providerFilter}
                 onChange={e => setProviderFilter(e.target.value)}
-                className="text-[10px] bg-slate-50 border border-[#D0D0D0] rounded-lg px-2.5 py-1 text-slate-700"
+                className="text-[10px] bg-[#F2F2F2] border border-[#D0D0D0] rounded-lg px-2.5 py-1 text-[#6E7070]"
               >
                 <option value="All">Todos os Provedores</option>
                 <option value="AWS">Apenas AWS</option>
@@ -298,7 +298,7 @@ export function CloudView() {
               <select
                 value={modelFilter}
                 onChange={e => setModelFilter(e.target.value)}
-                className="text-[10px] bg-slate-50 border border-[#D0D0D0] rounded-lg px-2.5 py-1 text-slate-700"
+                className="text-[10px] bg-[#F2F2F2] border border-[#D0D0D0] rounded-lg px-2.5 py-1 text-[#6E7070]"
               >
                 <option value="All">Todas as Licenças</option>
                 <option value="PAYG">PAYG</option>
@@ -308,9 +308,9 @@ export function CloudView() {
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs text-slate-600">
+            <table className="w-full text-left text-xs text-[#6E7070]">
               <thead>
-                <tr className="border-b border-[#D0D0D0] text-[10px] font-bold text-slate-400 uppercase bg-[#F2F2F2]/50">
+                <tr className="border-b border-[#D0D0D0] text-[10px] font-bold text-[#A6A7A7] uppercase bg-[#F2F2F2]/50">
                   <th className="py-2.5 px-3">Nome do Recurso</th>
                   <th className="py-2.5 px-3">Provedor / Tipo</th>
                   <th className="py-2.5 px-3">Software Instalado</th>
@@ -318,17 +318,17 @@ export function CloudView() {
                   <th className="py-2.5 px-3">Benefício Híbrido</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-[#D0D0D0]">
                 {filteredResources.length === 0 ? (
                   <tr>
-                    <td colSpan={5} className="py-8 text-center text-xs text-slate-400">Nenhum ativo de nuvem descoberto correspondente encontrado.</td>
+                    <td colSpan={5} className="py-8 text-center text-xs text-[#A6A7A7]">Nenhum ativo de nuvem descoberto correspondente encontrado.</td>
                   </tr>
                 ) : (
                   filteredResources.map(res => {
                     const isDoublePay = res.recommendation.toLowerCase().includes("double-pay") || res.recommendation.toLowerCase().includes("double pay");
                     return (
-                      <tr key={res.id} className="hover:bg-slate-50/50 transition">
-                        <td className="py-3 px-3 font-medium text-slate-900">
+                      <tr key={res.id} className="hover:bg-[#F2F2F2]/50 transition">
+                        <td className="py-3 px-3 font-medium text-[#212424]">
                           <div className="flex flex-col">
                             <span>{res.name}</span>
                             {isDoublePay && (
@@ -341,16 +341,16 @@ export function CloudView() {
                         </td>
                         <td className="py-3 px-3">
                           <div className="flex flex-col">
-                            <span className="text-[11px] font-bold text-slate-700">{res.provider}</span>
-                            <span className="text-[9px] text-slate-400">{res.type}</span>
+                            <span className="text-[11px] font-bold text-[#6E7070]">{res.provider}</span>
+                            <span className="text-[9px] text-[#A6A7A7]">{res.type}</span>
                           </div>
                         </td>
-                        <td className="py-3 px-3 font-mono text-[10px] text-slate-800">
+                        <td className="py-3 px-3 font-mono text-[10px] text-[#212424]">
                           {res.softwareInstalled.join(", ")}
                         </td>
                         <td className="py-3 px-3">
                           <div className="flex flex-col">
-                            <span className="font-semibold text-slate-900">${res.cost}/mo</span>
+                            <span className="font-semibold text-[#212424]">${res.cost}/mo</span>
                             <span className={`text-[8px] font-bold px-1.5 py-0.2 rounded-full w-max mt-0.5 ${
                               res.pricingModel === "BYOL" 
                                 ? "bg-indigo-100 text-indigo-800" 
@@ -361,7 +361,7 @@ export function CloudView() {
                           </div>
                         </td>
                         <td className="py-3 px-3 max-w-xs text-[10px]">
-                          <div className={`p-2 rounded-lg text-slate-700 ${
+                          <div className={`p-2 rounded-lg text-[#6E7070] ${
                             res.hasLicenseCoverage ? "bg-emerald-50 text-emerald-800" : "bg-amber-50 text-amber-800"
                           }`}>
                             <p className="font-medium leading-normal">{res.recommendation}</p>

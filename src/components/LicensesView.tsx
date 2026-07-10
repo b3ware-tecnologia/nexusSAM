@@ -335,7 +335,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
             <select
               value={selectedPoolFilter}
               onChange={(e) => setSelectedPoolFilter(e.target.value)}
-              className="text-xs border border-slate-200 rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-1 focus:ring-indigo-500 font-medium"
+              className="text-xs border border-[#D0D0D0] rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-1 focus:ring-indigo-500 font-medium"
             >
               <option value="">Todos os Pools de Licenças</option>
               {licensePools.map((pool) => (
@@ -346,7 +346,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
 
           <button
             onClick={() => setShowPoolManager(true)}
-            className="flex items-center justify-center gap-1.5 px-3 py-2 border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-lg text-xs font-semibold shadow-xs transition-all cursor-pointer bg-white"
+            className="flex items-center justify-center gap-1.5 px-3 py-2 border border-[#D0D0D0] hover:bg-[#F2F2F2] text-[#6E7070] rounded-lg text-xs font-semibold shadow-xs transition-all cursor-pointer bg-white"
           >
             <Folder className="w-4 h-4 text-purple-600" />
             Gerenciar Pools
@@ -369,13 +369,13 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
         <div className="lg:col-span-2 space-y-4">
           
           {/* Tabs Filter */}
-          <div className="flex border-b border-slate-200 gap-6">
+          <div className="flex border-b border-[#D0D0D0] gap-6">
             <button
               onClick={() => { setActiveTab("ACTIVE"); setSelectedLicense(null); }}
               className={`pb-3 text-xs font-semibold tracking-wide uppercase border-b-2 transition-all cursor-pointer ${
                 activeTab === "ACTIVE" 
                   ? "border-[#366BB2] text-[#366BB2]" 
-                  : "border-transparent text-slate-500 hover:text-slate-800"
+                  : "border-transparent text-[#6E7070] hover:text-[#212424]"
               }`}
             >
               Títulos Ativos
@@ -385,7 +385,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
               className={`pb-3 text-xs font-semibold tracking-wide uppercase border-b-2 transition-all cursor-pointer flex items-center gap-1.5 ${
                 activeTab === "INCOMPLETE" 
                   ? "border-amber-600 text-amber-600" 
-                  : "border-transparent text-slate-500 hover:text-slate-800"
+                  : "border-transparent text-[#6E7070] hover:text-[#212424]"
               }`}
             >
               Verificações de Política Incompletas
@@ -399,8 +399,8 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
               onClick={() => { setActiveTab("ARCHIVED"); setSelectedLicense(null); }}
               className={`pb-3 text-xs font-semibold tracking-wide uppercase border-b-2 transition-all cursor-pointer ${
                 activeTab === "ARCHIVED" 
-                  ? "border-slate-500 text-slate-600" 
-                  : "border-transparent text-slate-500 hover:text-slate-800"
+                  ? "border-slate-500 text-[#6E7070]" 
+                  : "border-transparent text-[#6E7070] hover:text-[#212424]"
               }`}
             >
               Arquivados
@@ -410,10 +410,10 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
           {/* Licenses items */}
           <div className="space-y-2 max-h-[600px] overflow-y-auto pr-2">
             {filteredLicenses.length === 0 ? (
-              <div className="bg-slate-50 rounded-xl p-12 text-center border border-slate-100">
-                <Folder className="w-8 h-8 text-slate-300 mx-auto mb-2" />
-                <p className="text-xs font-medium text-slate-700">Nenhum ativo de software encontrado neste estado.</p>
-                <p className="text-[10px] text-slate-400 mt-0.5">Use a opção "Criar Licença" ou "Importar Nota Fiscal" para preencher o inventário.</p>
+              <div className="bg-[#F2F2F2] rounded-xl p-12 text-center border border-[#D0D0D0]">
+                <Folder className="w-8 h-8 text-[#A6A7A7] mx-auto mb-2" />
+                <p className="text-xs font-medium text-[#6E7070]">Nenhum ativo de software encontrado neste estado.</p>
+                <p className="text-[10px] text-[#A6A7A7] mt-0.5">Use a opção "Criar Licença" ou "Importar Nota Fiscal" para preencher o inventário.</p>
               </div>
             ) : (
               filteredLicenses.map((lic) => {
@@ -428,12 +428,12 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                     className={`p-4 border rounded-xl shadow-sm transition-all cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white ${
                       isSelected 
                         ? "border-[#366BB2]" 
-                        : "border-slate-200 hover:border-slate-300"
+                        : "border-[#D0D0D0] hover:border-slate-300"
                     }`}
                   >
                     <div>
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-semibold text-xs text-slate-900">{lic.softwareName}</span>
+                        <span className="font-semibold text-xs text-[#212424]">{lic.softwareName}</span>
                         {lic.isSubscription && (
                           <span className="bg-sky-50 text-sky-700 text-[9px] font-bold px-1.5 py-0.5 rounded border border-sky-200">
                             Assinatura
@@ -450,25 +450,25 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                           </span>
                         )}
                       </div>
-                      <p className="text-slate-500 text-[11px] mt-1">
-                        Editora: <strong className="text-slate-700">{lic.publisher}</strong> | Métrica: <strong className="text-slate-700">{lic.metricType}</strong>
+                      <p className="text-[#6E7070] text-[11px] mt-1">
+                        Editora: <strong className="text-[#6E7070]">{lic.publisher}</strong> | Métrica: <strong className="text-[#6E7070]">{lic.metricType}</strong>
                       </p>
                       {lic.sku && (
-                        <p className="text-[10px] text-slate-400 font-mono mt-0.5">SKU: {lic.sku}</p>
+                        <p className="text-[10px] text-[#A6A7A7] font-mono mt-0.5">SKU: {lic.sku}</p>
                       )}
                     </div>
 
                     <div className="flex items-center gap-6 self-start sm:self-center">
                       <div className="text-right">
-                        <span className="block text-[10px] uppercase font-medium text-slate-400 tracking-wider">Direitos</span>
-                        <span className="text-sm font-bold text-slate-800">{lic.totalQuantity}</span>
+                        <span className="block text-[10px] uppercase font-medium text-[#A6A7A7] tracking-wider">Direitos</span>
+                        <span className="text-sm font-bold text-[#212424]">{lic.totalQuantity}</span>
                       </div>
                       <div className="text-right">
-                        <span className="block text-[10px] uppercase font-medium text-slate-400 tracking-wider">Alocados</span>
-                        <span className="text-sm font-bold text-slate-800">{lic.allocatedQuantity || 0}</span>
+                        <span className="block text-[10px] uppercase font-medium text-[#A6A7A7] tracking-wider">Alocados</span>
+                        <span className="text-sm font-bold text-[#212424]">{lic.allocatedQuantity || 0}</span>
                       </div>
                       <div className="text-right">
-                        <span className="block text-[10px] uppercase font-medium text-slate-400 tracking-wider">Não Atribuídos</span>
+                        <span className="block text-[10px] uppercase font-medium text-[#A6A7A7] tracking-wider">Não Atribuídos</span>
                         <span className="text-sm font-bold" style={{color: "#366BB2"}}>
                           {Math.max(0, lic.totalQuantity - (lic.allocatedQuantity || 0))}
                         </span>
@@ -482,18 +482,18 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
         </div>
 
         {/* Detailed Side Panel */}
-        <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm min-h-[400px]">
+        <div className="bg-white border border-[#D0D0D0] rounded-xl p-5 shadow-sm min-h-[400px]">
           {selectedLicense ? (
             <div className="space-y-6">
               
               {/* Header and Core details */}
-              <div className="border-b border-slate-100 pb-4">
+              <div className="border-b border-[#D0D0D0] pb-4">
                 <div className="flex justify-between items-start gap-2">
-                  <h3 className="font-bold text-sm text-slate-900">{selectedLicense.softwareName}</h3>
+                  <h3 className="font-bold text-sm text-[#212424]">{selectedLicense.softwareName}</h3>
                   <div className="flex items-center gap-1.5">
                     <button
                       onClick={startEdit}
-                      className="p-1 hover:bg-slate-100 rounded text-slate-500 hover:text-slate-800 cursor-pointer"
+                      className="p-1 hover:bg-[#F2F2F2] rounded text-[#6E7070] hover:text-[#212424] cursor-pointer"
                       title="Editar propriedades da licença"
                     >
                       <Edit className="w-4 h-4" />
@@ -501,7 +501,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                     {selectedLicense.status !== "Archived" && (
                       <button
                         onClick={() => handleArchiveLicense(selectedLicense.id)}
-                        className="p-1 hover:bg-slate-100 rounded text-slate-500 hover:text-amber-700 cursor-pointer"
+                        className="p-1 hover:bg-[#F2F2F2] rounded text-[#6E7070] hover:text-amber-700 cursor-pointer"
                         title="Arquivar licença"
                       >
                         <Archive className="w-4 h-4" />
@@ -509,14 +509,14 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                     )}
                     <button
                       onClick={() => handleDeleteLicense(selectedLicense.id)}
-                      className="p-1 hover:bg-slate-100 rounded text-slate-500 hover:text-rose-700 cursor-pointer"
+                      className="p-1 hover:bg-[#F2F2F2] rounded text-[#6E7070] hover:text-rose-700 cursor-pointer"
                       title="Excluir contrato de licença"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
-                <p className="text-[11px] text-slate-400 mt-0.5">ID do Ativo: {selectedLicense.id}</p>
+                <p className="text-[11px] text-[#A6A7A7] mt-0.5">ID do Ativo: {selectedLicense.id}</p>
               </div>
 
               {isEditing ? (
@@ -525,33 +525,33 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                   <h4 className="text-xs font-bold uppercase tracking-wider" style={{color: "#366BB2"}}>Editar Propriedades</h4>
                   
                   <div>
-                    <label className="block text-[10px] font-semibold text-slate-500 uppercase">Título do Produto</label>
+                    <label className="block text-[10px] font-semibold text-[#6E7070] uppercase">Título do Produto</label>
                     <input
                       type="text"
                       required
                       value={editSoftwareName}
                       onChange={(e) => setEditSoftwareName(e.target.value)}
-                      className="w-full text-xs border border-slate-200 rounded p-1.5 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded p-1.5 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-semibold text-slate-500 uppercase">Editora</label>
+                    <label className="block text-[10px] font-semibold text-[#6E7070] uppercase">Editora</label>
                     <input
                       type="text"
                       required
                       value={editPublisher}
                       onChange={(e) => setEditPublisher(e.target.value)}
-                      className="w-full text-xs border border-slate-200 rounded p-1.5 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded p-1.5 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-semibold text-slate-500 uppercase">Modelo de Métrica</label>
+                    <label className="block text-[10px] font-semibold text-[#6E7070] uppercase">Modelo de Métrica</label>
                     <select
                       value={editMetricType}
                       onChange={(e) => setEditMetricType(e.target.value as MetricType)}
-                      className="w-full text-xs border border-slate-200 rounded p-1.5 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded p-1.5 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     >
                       {Object.values(MetricType).map((mt) => (
                         <option key={mt} value={mt}>{mt}</option>
@@ -560,11 +560,11 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-semibold text-slate-500 uppercase">Contrato (Acordo)</label>
+                    <label className="block text-[10px] font-semibold text-[#6E7070] uppercase">Contrato (Acordo)</label>
                     <select
                       value={editAgreementId}
                       onChange={(e) => setEditAgreementId(e.target.value)}
-                      className="w-full text-xs border border-slate-200 rounded p-1.5 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded p-1.5 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     >
                       <option value="">-- Sem Contrato Vinculado --</option>
                       {agreements.map((a) => (
@@ -574,11 +574,11 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-semibold text-slate-500 uppercase">Pool de Licenças</label>
+                    <label className="block text-[10px] font-semibold text-[#6E7070] uppercase">Pool de Licenças</label>
                     <select
                       value={editLicensePoolId}
                       onChange={(e) => setEditLicensePoolId(e.target.value)}
-                      className="w-full text-xs border border-slate-200 rounded p-1.5 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded p-1.5 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     >
                       <option value="">-- Nenhum Pool de Licenças --</option>
                       {licensePools.map((p) => (
@@ -588,29 +588,29 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-semibold text-slate-500 uppercase">SKU (Nº de Peça)</label>
+                    <label className="block text-[10px] font-semibold text-[#6E7070] uppercase">SKU (Nº de Peça)</label>
                     <input
                       type="text"
                       value={editSku}
                       onChange={(e) => setEditSku(e.target.value)}
                       placeholder="ex.: SKU-123-X"
-                      className="w-full text-xs border border-slate-200 rounded p-1.5 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded p-1.5 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-semibold text-slate-500 uppercase">Versão</label>
+                    <label className="block text-[10px] font-semibold text-[#6E7070] uppercase">Versão</label>
                     <input
                       type="text"
                       value={editVersion}
                       onChange={(e) => setEditVersion(e.target.value)}
                       placeholder="ex.: 2025 Enterprise"
-                      className="w-full text-xs border border-slate-200 rounded p-1.5 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded p-1.5 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     />
                   </div>
 
                   <div className="flex gap-4">
-                    <label className="flex items-center gap-1 text-xs text-slate-700 font-medium">
+                    <label className="flex items-center gap-1 text-xs text-[#6E7070] font-medium">
                       <input
                         type="checkbox"
                         checked={editDowngrade}
@@ -618,7 +618,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                       />
                       Direitos de Downgrade
                     </label>
-                    <label className="flex items-center gap-1 text-xs text-slate-700 font-medium">
+                    <label className="flex items-center gap-1 text-xs text-[#6E7070] font-medium">
                       <input
                         type="checkbox"
                         checked={editIsSub}
@@ -638,7 +638,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                     <button
                       type="button"
                       onClick={() => setIsEditing(false)}
-                      className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded text-xs font-semibold cursor-pointer"
+                      className="px-3 py-1.5 bg-[#F2F2F2] hover:bg-slate-200 text-[#6E7070] rounded text-xs font-semibold cursor-pointer"
                     >
                       Cancelar
                     </button>
@@ -648,9 +648,9 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                 /* VIEW PROPERTIES STATE */
                 <div className="space-y-4">
                   {/* Local Org Policy Validation Widget */}
-                  <div className="p-3 bg-slate-50 rounded-lg border border-slate-150">
+                  <div className="p-3 bg-[#F2F2F2] rounded-lg border border-slate-150">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-bold text-slate-700 uppercase tracking-wider">Verificação de Política de Licença</span>
+                      <span className="text-[10px] font-bold text-[#6E7070] uppercase tracking-wider">Verificação de Política de Licença</span>
                       {selectedLicense.status === "Incomplete" ? (
                         <span className="text-[10px] text-amber-700 font-bold bg-amber-100 px-1.5 py-0.5 rounded flex items-center gap-0.5">
                           <AlertCircle className="w-3 h-3" /> Ação Incompleta Necessária
@@ -664,7 +664,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                     
                     <div className="mt-2 space-y-1 text-[10px]">
                       <div className="flex items-center justify-between">
-                        <span className="text-slate-500">Vinculado a Contrato</span>
+                        <span className="text-[#6E7070]">Vinculado a Contrato</span>
                         {selectedLicense.agreementId ? (
                           <span className="text-emerald-600 font-semibold">Verificado</span>
                         ) : (
@@ -672,7 +672,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                         )}
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-slate-500">SKUs Válidos e ID de Peça do Fabricante</span>
+                        <span className="text-[#6E7070]">SKUs Válidos e ID de Peça do Fabricante</span>
                         {selectedLicense.sku ? (
                           <span className="text-emerald-600 font-semibold">Verificado</span>
                         ) : (
@@ -685,33 +685,33 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                   {/* General Specifications info */}
                   <div className="grid grid-cols-2 gap-3 text-xs">
                     <div>
-                      <span className="block text-[10px] font-semibold text-slate-400 uppercase">Editora</span>
-                      <span className="font-semibold text-slate-800">{selectedLicense.publisher}</span>
+                      <span className="block text-[10px] font-semibold text-[#A6A7A7] uppercase">Editora</span>
+                      <span className="font-semibold text-[#212424]">{selectedLicense.publisher}</span>
                     </div>
                     <div>
-                      <span className="block text-[10px] font-semibold text-slate-400 uppercase">Modelo de Métrica</span>
-                      <span className="font-semibold text-slate-800">{selectedLicense.metricType}</span>
+                      <span className="block text-[10px] font-semibold text-[#A6A7A7] uppercase">Modelo de Métrica</span>
+                      <span className="font-semibold text-[#212424]">{selectedLicense.metricType}</span>
                     </div>
                     <div>
-                      <span className="block text-[10px] font-semibold text-slate-400 uppercase">Versão</span>
-                      <span className="font-medium text-slate-800">{selectedLicense.version || "N/A"}</span>
+                      <span className="block text-[10px] font-semibold text-[#A6A7A7] uppercase">Versão</span>
+                      <span className="font-medium text-[#212424]">{selectedLicense.version || "N/A"}</span>
                     </div>
                     <div>
-                      <span className="block text-[10px] font-semibold text-slate-400 uppercase">SKU</span>
-                      <span className="font-mono text-slate-800">{selectedLicense.sku || "N/A"}</span>
+                      <span className="block text-[10px] font-semibold text-[#A6A7A7] uppercase">SKU</span>
+                      <span className="font-mono text-[#212424]">{selectedLicense.sku || "N/A"}</span>
                     </div>
                     <div>
-                      <span className="block text-[10px] font-semibold text-slate-400 uppercase">Contrato</span>
+                      <span className="block text-[10px] font-semibold text-[#A6A7A7] uppercase">Contrato</span>
                       <span className="font-semibold hover:underline cursor-pointer" style={{color: "#366BB2"}}>
                         {agreements.find(a => a.id === selectedLicense.agreementId)?.name || "Contrato Desvinculado"}
                       </span>
                     </div>
                     <div>
-                      <span className="block text-[10px] font-semibold text-slate-400 uppercase">Direitos de Downgrade</span>
-                      <span className="font-medium text-slate-800">{selectedLicense.downgradeRights ? "Sim" : "Não"}</span>
+                      <span className="block text-[10px] font-semibold text-[#A6A7A7] uppercase">Direitos de Downgrade</span>
+                      <span className="font-medium text-[#212424]">{selectedLicense.downgradeRights ? "Sim" : "Não"}</span>
                     </div>
                     <div>
-                      <span className="block text-[10px] font-semibold text-slate-400 uppercase">Pool de Licenças</span>
+                      <span className="block text-[10px] font-semibold text-[#A6A7A7] uppercase">Pool de Licenças</span>
                       <span className="font-semibold text-purple-700">
                         {licensePools.find(p => p.id === selectedLicense.licensePoolId)?.name || "Não Associado"}
                       </span>
@@ -720,31 +720,31 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
 
                   {selectedLicense.notes && (
                     <div>
-                      <span className="block text-[10px] font-semibold text-slate-400 uppercase">Observações</span>
-                      <p className="text-[11px] text-slate-500 mt-1 italic">{selectedLicense.notes}</p>
+                      <span className="block text-[10px] font-semibold text-[#A6A7A7] uppercase">Observações</span>
+                      <p className="text-[11px] text-[#6E7070] mt-1 italic">{selectedLicense.notes}</p>
                     </div>
                   )}
 
                   {/* Manual Assignment allocations segment */}
-                  <div className="border-t border-slate-100 pt-4 space-y-3">
+                  <div className="border-t border-[#D0D0D0] pt-4 space-y-3">
                     <div className="flex items-center justify-between">
-                      <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1">
+                      <h4 className="text-xs font-bold text-[#212424] uppercase tracking-wider flex items-center gap-1">
                         <UserPlus className="w-3.5 h-3.5" /> Alocações Manuais
                       </h4>
-                      <span className="text-[10px] text-slate-500">
+                      <span className="text-[10px] text-[#6E7070]">
                         {assignments.reduce((sum, a) => sum + a.quantity, 0)} alocados
                       </span>
                     </div>
 
                     {/* Form to add new assignment */}
                     {selectedLicense.status !== "Archived" && (
-                      <form onSubmit={handleAllocate} className="bg-slate-50 p-2.5 rounded-lg border border-slate-150 flex flex-col gap-2">
-                        <span className="block text-[10px] font-semibold text-slate-600">Alocar Direito:</span>
+                      <form onSubmit={handleAllocate} className="bg-[#F2F2F2] p-2.5 rounded-lg border border-slate-150 flex flex-col gap-2">
+                        <span className="block text-[10px] font-semibold text-[#6E7070]">Alocar Direito:</span>
                         <div className="flex gap-2">
                           <select
                             value={allocTargetType}
                             onChange={(e) => setAllocTargetType(e.target.value as any)}
-                            className="text-[10px] border border-slate-200 rounded px-1.5 py-1 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white"
+                            className="text-[10px] border border-[#D0D0D0] rounded px-1.5 py-1 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white"
                           >
                             <option value="User">Usuário</option>
                             <option value="Device">Dispositivo</option>
@@ -762,7 +762,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                             }
                             value={allocTargetId}
                             onChange={(e) => setAllocTargetId(e.target.value)}
-                            className="flex-1 text-[10px] border border-slate-200 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white"
+                            className="flex-1 text-[10px] border border-[#D0D0D0] rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white"
                           />
                           <input
                             type="number"
@@ -770,7 +770,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                             min="1"
                             value={allocQuantity}
                             onChange={(e) => setAllocQuantity(e.target.value)}
-                            className="w-12 text-[10px] border border-slate-200 rounded px-1.5 py-1 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white text-center"
+                            className="w-12 text-[10px] border border-[#D0D0D0] rounded px-1.5 py-1 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white text-center"
                           />
                           <button
                             type="submit"
@@ -786,9 +786,9 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                     {/* Assignments List */}
                     <div className="max-h-[160px] overflow-y-auto space-y-1.5 pr-1">
                       {isAssignmentsLoading ? (
-                        <p className="text-[10px] text-slate-400 text-center py-2">Carregando alocações...</p>
+                        <p className="text-[10px] text-[#A6A7A7] text-center py-2">Carregando alocações...</p>
                       ) : assignments.length === 0 ? (
-                        <p className="text-[10px] text-slate-400 text-center py-2 bg-slate-50 rounded italic border border-dashed border-slate-200">
+                        <p className="text-[10px] text-[#A6A7A7] text-center py-2 bg-[#F2F2F2] rounded italic border border-dashed border-[#D0D0D0]">
                           Nenhuma alocação manual mapeada. Todos os direitos são autoalocados dinamicamente pelos cálculos de Compliance.
                         </p>
                       ) : (
@@ -796,16 +796,16 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                           <div key={asg.id} className="bg-white border border-slate-150 p-2 rounded-lg flex items-center justify-between gap-2 shadow-sm text-[10px]">
                             <div>
                               <div className="flex items-center gap-1">
-                                <span className="font-semibold text-slate-700">Tipo: {asg.targetType}</span>
-                                <span className="text-[9px] text-slate-400">({new Date(asg.allocatedAt).toLocaleDateString()})</span>
+                                <span className="font-semibold text-[#6E7070]">Tipo: {asg.targetType}</span>
+                                <span className="text-[9px] text-[#A6A7A7]">({new Date(asg.allocatedAt).toLocaleDateString()})</span>
                               </div>
-                              <span className="block text-slate-500 font-mono text-[9px] truncate max-w-[140px]">{asg.targetId}</span>
+                              <span className="block text-[#6E7070] font-mono text-[9px] truncate max-w-[140px]">{asg.targetId}</span>
                             </div>
                             <div className="flex items-center gap-2">
-                              <span className="font-bold text-slate-800">×{asg.quantity}</span>
+                              <span className="font-bold text-[#212424]">×{asg.quantity}</span>
                               <button
                                 onClick={() => handleDeallocate(asg.id)}
-                                className="p-0.5 hover:bg-rose-50 text-slate-400 hover:text-rose-600 rounded cursor-pointer"
+                                className="p-0.5 hover:bg-rose-50 text-[#A6A7A7] hover:text-rose-600 rounded cursor-pointer"
                                 title="Desalocar alocação"
                               >
                                 <X className="w-3.5 h-3.5" />
@@ -820,9 +820,9 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
               )}
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center text-center h-full text-slate-400 py-12">
+            <div className="flex flex-col items-center justify-center text-center h-full text-[#A6A7A7] py-12">
               <Settings className="w-10 h-10 text-slate-200 mb-2 animate-pulse" />
-              <p className="text-xs font-semibold text-slate-600">Nenhuma Licença Selecionada</p>
+              <p className="text-xs font-semibold text-[#6E7070]">Nenhuma Licença Selecionada</p>
               <p className="text-[10px] mt-0.5">Clique em qualquer cartão de título de software para visualizar políticas de auditoria, logs de alocações, alinhamentos de especificações de contrato e painel de configurações.</p>
             </div>
           )}
@@ -837,15 +837,15 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="bg-white rounded-xl shadow-lg border border-slate-200 max-w-lg w-full overflow-hidden"
+              className="bg-white rounded-xl shadow-lg border border-[#D0D0D0] max-w-lg w-full overflow-hidden"
             >
-              <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
-                <h3 className="font-bold text-slate-900 text-sm flex items-center gap-1.5">
+              <div className="px-6 py-4 border-b border-[#D0D0D0] flex items-center justify-between">
+                <h3 className="font-bold text-[#212424] text-sm flex items-center gap-1.5">
                   <FileText className="w-4 h-4" style={{color: "#366BB2"}} /> Criar Ativo de Licença Corporativa
                 </h3>
                 <button
                   onClick={() => setShowCreateModal(false)}
-                  className="p-1 hover:bg-slate-100 rounded text-slate-400 hover:text-slate-600 cursor-pointer"
+                  className="p-1 hover:bg-[#F2F2F2] rounded text-[#A6A7A7] hover:text-[#6E7070] cursor-pointer"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -855,37 +855,37 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Título do Produto *</label>
+                    <label className="block text-[10px] font-bold text-[#6E7070] uppercase">Título do Produto *</label>
                     <input
                       type="text"
                       required
                       placeholder="ex.: Office 365 Enterprise"
                       value={softwareName}
                       onChange={(e) => setSoftwareName(e.target.value)}
-                      className="w-full text-xs border border-slate-200 rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Editora / Fabricante *</label>
+                    <label className="block text-[10px] font-bold text-[#6E7070] uppercase">Editora / Fabricante *</label>
                     <input
                       type="text"
                       required
                       placeholder="ex.: Microsoft"
                       value={publisher}
                       onChange={(e) => setPublisher(e.target.value)}
-                      className="w-full text-xs border border-slate-200 rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Modelo de Reconciliação de Métrica *</label>
+                    <label className="block text-[10px] font-bold text-[#6E7070] uppercase">Modelo de Reconciliação de Métrica *</label>
                     <select
                       value={metricType}
                       onChange={(e) => setMetricType(e.target.value as MetricType)}
-                      className="w-full text-xs border border-slate-200 rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     >
                       {Object.values(MetricType).map((mt) => (
                         <option key={mt} value={mt}>{mt}</option>
@@ -894,14 +894,14 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase flex items-center justify-between">
+                    <label className="block text-[10px] font-bold text-[#6E7070] uppercase flex items-center justify-between">
                       <span>Contrato (Acordo)</span>
                       <span className="text-[8px] text-amber-600 font-bold">Obrigatório por Política</span>
                     </label>
                     <select
                       value={agreementId}
                       onChange={(e) => setAgreementId(e.target.value)}
-                      className="w-full text-xs border border-slate-200 rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     >
                       <option value="">-- Deixar Desvinculado (Força Incompleto) --</option>
                       {agreements.map((a) => (
@@ -912,11 +912,11 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-bold text-slate-500 uppercase">Pool de Licenças</label>
+                  <label className="block text-[10px] font-bold text-[#6E7070] uppercase">Pool de Licenças</label>
                   <select
                     value={licensePoolId}
                     onChange={(e) => setLicensePoolId(e.target.value)}
-                    className="w-full text-xs border border-slate-200 rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                    className="w-full text-xs border border-[#D0D0D0] rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                   >
                     <option value="">-- Nenhum Pool de Licenças --</option>
                     {licensePools.map((pool) => (
@@ -927,7 +927,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase flex items-center justify-between">
+                    <label className="block text-[10px] font-bold text-[#6E7070] uppercase flex items-center justify-between">
                       <span>Código SKU (Nº de Peça)</span>
                       <span className="text-[8px] text-amber-600 font-bold">Obrigatório por Política</span>
                     </label>
@@ -936,66 +936,66 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                       placeholder="ex.: MS-WS22-CORE"
                       value={sku}
                       onChange={(e) => setSku(e.target.value)}
-                      className="w-full text-xs border border-slate-200 rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Tag de Versão</label>
+                    <label className="block text-[10px] font-bold text-[#6E7070] uppercase">Tag de Versão</label>
                     <input
                       type="text"
                       placeholder="ex.: 2022 R2"
                       value={version}
                       onChange={(e) => setVersion(e.target.value)}
-                      className="w-full text-xs border border-slate-200 rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     />
                   </div>
                 </div>
 
                 {/* Initial Purchase Information (Creates purchase entitlement) */}
-                <div className="p-4 bg-slate-50 border border-slate-200 rounded-lg space-y-3">
-                  <h4 className="text-[10px] font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1">
+                <div className="p-4 bg-[#F2F2F2] border border-[#D0D0D0] rounded-lg space-y-3">
+                  <h4 className="text-[10px] font-bold text-[#6E7070] uppercase tracking-wider flex items-center gap-1">
                     <Calendar className="w-3.5 h-3.5" style={{color: "#366BB2"}} /> Direito de Compra Inicial (PO / Linha de Nota Fiscal)
                   </h4>
                   
                   <div className="grid grid-cols-3 gap-3">
                     <div>
-                      <label className="block text-[9px] font-semibold text-slate-500 uppercase">Quantidade</label>
+                      <label className="block text-[9px] font-semibold text-[#6E7070] uppercase">Quantidade</label>
                       <input
                         type="number"
                         required
                         min="1"
                         value={initialQuantity}
                         onChange={(e) => setInitialQuantity(e.target.value)}
-                        className="w-full text-xs border border-slate-200 rounded p-1.5 focus:outline-none bg-white mt-0.5 text-center"
+                        className="w-full text-xs border border-[#D0D0D0] rounded p-1.5 focus:outline-none bg-white mt-0.5 text-center"
                       />
                     </div>
                     <div>
-                      <label className="block text-[9px] font-semibold text-slate-500 uppercase">Custo Unitário ($)</label>
+                      <label className="block text-[9px] font-semibold text-[#6E7070] uppercase">Custo Unitário ($)</label>
                       <input
                         type="number"
                         required
                         min="0"
                         value={initialUnitCost}
                         onChange={(e) => setInitialUnitCost(e.target.value)}
-                        className="w-full text-xs border border-slate-200 rounded p-1.5 focus:outline-none bg-white mt-0.5 text-center"
+                        className="w-full text-xs border border-[#D0D0D0] rounded p-1.5 focus:outline-none bg-white mt-0.5 text-center"
                       />
                     </div>
                     <div>
-                      <label className="block text-[9px] font-semibold text-slate-500 uppercase">Nº da Nota Fiscal</label>
+                      <label className="block text-[9px] font-semibold text-[#6E7070] uppercase">Nº da Nota Fiscal</label>
                       <input
                         type="text"
                         required
                         value={invoiceNumber}
                         onChange={(e) => setInvoiceNumber(e.target.value)}
-                        className="w-full text-xs border border-slate-200 rounded p-1.5 focus:outline-none bg-white mt-0.5 text-center"
+                        className="w-full text-xs border border-[#D0D0D0] rounded p-1.5 focus:outline-none bg-white mt-0.5 text-center"
                       />
                     </div>
                   </div>
                 </div>
 
                 <div className="flex gap-4">
-                  <label className="flex items-center gap-1.5 text-xs text-slate-700 font-medium">
+                  <label className="flex items-center gap-1.5 text-xs text-[#6E7070] font-medium">
                     <input
                       type="checkbox"
                       checked={downgradeRights}
@@ -1003,7 +1003,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                     />
                     Conceder Direitos de Downgrade
                   </label>
-                  <label className="flex items-center gap-1.5 text-xs text-slate-700 font-medium">
+                  <label className="flex items-center gap-1.5 text-xs text-[#6E7070] font-medium">
                     <input
                       type="checkbox"
                       checked={isSubscription}
@@ -1014,13 +1014,13 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-bold text-slate-500 uppercase">Observações e Instruções de Auditoria</label>
+                  <label className="block text-[10px] font-bold text-[#6E7070] uppercase">Observações e Instruções de Auditoria</label>
                   <textarea
                     rows={2}
                     placeholder="Insira observações especiais do contrato ou caminhos de downgrade."
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
-                    className="w-full text-xs border border-slate-200 rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                    className="w-full text-xs border border-[#D0D0D0] rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                   />
                 </div>
 
@@ -1031,11 +1031,11 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                   </div>
                 )}
 
-                <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+                <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#D0D0D0]">
                   <button
                     type="button"
                     onClick={() => setShowCreateModal(false)}
-                    className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold cursor-pointer"
+                    className="px-4 py-2 bg-[#F2F2F2] hover:bg-slate-200 text-[#6E7070] rounded-lg text-xs font-semibold cursor-pointer"
                   >
                     Cancelar
                   </button>
@@ -1060,15 +1060,15 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="bg-white rounded-xl shadow-lg border border-slate-200 max-w-2xl w-full overflow-hidden"
+              className="bg-white rounded-xl shadow-lg border border-[#D0D0D0] max-w-2xl w-full overflow-hidden"
             >
-              <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
-                <h3 className="font-bold text-slate-900 text-sm flex items-center gap-1.5">
+              <div className="px-6 py-4 border-b border-[#D0D0D0] flex items-center justify-between">
+                <h3 className="font-bold text-[#212424] text-sm flex items-center gap-1.5">
                   <Folder className="w-4 h-4 text-purple-600" /> Gerenciar Pools de Licenças Corporativas
                 </h3>
                 <button
                   onClick={() => setShowPoolManager(false)}
-                  className="p-1 hover:bg-slate-100 rounded text-slate-400 hover:text-slate-600 cursor-pointer"
+                  className="p-1 hover:bg-[#F2F2F2] rounded text-[#A6A7A7] hover:text-[#6E7070] cursor-pointer"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -1077,40 +1077,40 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
                 
                 {/* Left Side: Create New Pool Form */}
-                <div className="space-y-4 border-r border-slate-100 pr-0 md:pr-6">
-                  <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider">Criar Novo Pool</h4>
+                <div className="space-y-4 border-r border-[#D0D0D0] pr-0 md:pr-6">
+                  <h4 className="text-xs font-bold text-[#212424] uppercase tracking-wider">Criar Novo Pool</h4>
                   <form onSubmit={handleCreatePool} className="space-y-3">
                     <div>
-                      <label className="block text-[10px] font-bold text-slate-500 uppercase">Nome do Pool *</label>
+                      <label className="block text-[10px] font-bold text-[#6E7070] uppercase">Nome do Pool *</label>
                       <input
                         type="text"
                         required
                         placeholder="ex.: Pool de Operações Europeias"
                         value={newPoolName}
                         onChange={(e) => setNewPoolName(e.target.value)}
-                        className="w-full text-xs border border-slate-200 rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                        className="w-full text-xs border border-[#D0D0D0] rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-[10px] font-bold text-slate-500 uppercase">Descrição</label>
+                      <label className="block text-[10px] font-bold text-[#6E7070] uppercase">Descrição</label>
                       <textarea
                         rows={3}
                         placeholder="Propósito ou alinhamento de região..."
                         value={newPoolDesc}
                         onChange={(e) => setNewPoolDesc(e.target.value)}
-                        className="w-full text-xs border border-slate-200 rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                        className="w-full text-xs border border-[#D0D0D0] rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-[10px] font-bold text-slate-500 uppercase">Nó Organizacional / Departamento Responsável</label>
+                      <label className="block text-[10px] font-bold text-[#6E7070] uppercase">Nó Organizacional / Departamento Responsável</label>
                       <input
                         type="text"
                         placeholder="ex.: Divisão EMEA"
                         value={newPoolOwner}
                         onChange={(e) => setNewPoolOwner(e.target.value)}
-                        className="w-full text-xs border border-slate-200 rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                        className="w-full text-xs border border-[#D0D0D0] rounded p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                       />
                     </div>
 
@@ -1125,7 +1125,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
 
                 {/* Right Side: Pools List */}
                 <div className="space-y-4">
-                  <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center justify-between">
+                  <h4 className="text-xs font-bold text-[#212424] uppercase tracking-wider flex items-center justify-between">
                     <span>Pools de Licenças Ativos</span>
                     <span className="bg-purple-100 text-purple-800 rounded-full px-2 py-0.5 text-[9px] font-bold">
                       {licensePools.length} pools
@@ -1134,7 +1134,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
 
                   <div className="space-y-2.5 max-h-[300px] overflow-y-auto pr-1">
                     {licensePools.length === 0 ? (
-                      <div className="text-center py-8 text-slate-400 text-xs italic">
+                      <div className="text-center py-8 text-[#A6A7A7] text-xs italic">
                         Nenhum pool personalizado definido. Use o formulário para estabelecer seu primeiro limite de contenção de licenças.
                       </div>
                     ) : (
@@ -1145,22 +1145,22 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                           .reduce((sum, l) => sum + l.totalQuantity, 0);
 
                         return (
-                          <div key={pool.id} className="bg-slate-50 p-3 rounded-lg border border-slate-150 relative group">
+                          <div key={pool.id} className="bg-[#F2F2F2] p-3 rounded-lg border border-slate-150 relative group">
                             <button
                               onClick={() => handleDeletePool(pool.id)}
-                              className="absolute top-2 right-2 p-1 text-slate-400 hover:text-rose-600 rounded opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                              className="absolute top-2 right-2 p-1 text-[#A6A7A7] hover:text-rose-600 rounded opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
                               title="Excluir Pool de Licenças"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
                             </button>
-                            <h5 className="font-bold text-slate-800 text-xs pr-6">{pool.name}</h5>
+                            <h5 className="font-bold text-[#212424] text-xs pr-6">{pool.name}</h5>
                             {pool.description && (
-                              <p className="text-slate-500 text-[10px] mt-0.5 leading-snug">{pool.description}</p>
+                              <p className="text-[#6E7070] text-[10px] mt-0.5 leading-snug">{pool.description}</p>
                             )}
                             {pool.ownerOrgNodeId && (
                               <p className="text-[9px] text-purple-600 font-semibold mt-1">Responsável: {pool.ownerOrgNodeId}</p>
                             )}
-                            <div className="mt-2 pt-2 border-t border-slate-200/60 flex items-center justify-between text-[9px] text-slate-500">
+                            <div className="mt-2 pt-2 border-t border-[#D0D0D0]/60 flex items-center justify-between text-[9px] text-[#6E7070]">
                               <span>Licenças associadas: <strong>{associatedCount}</strong></span>
                               <span>Quantidade Total: <strong className="text-purple-700">{totalEntitlements}</strong></span>
                             </div>
@@ -1173,11 +1173,11 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
 
               </div>
 
-              <div className="bg-slate-50 px-6 py-4 border-t border-slate-100 flex justify-end">
+              <div className="bg-[#F2F2F2] px-6 py-4 border-t border-[#D0D0D0] flex justify-end">
                 <button
                   type="button"
                   onClick={() => setShowPoolManager(false)}
-                  className="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-lg text-xs font-semibold cursor-pointer"
+                  className="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-[#6E7070] rounded-lg text-xs font-semibold cursor-pointer"
                 >
                   Fechar Gerenciador
                 </button>

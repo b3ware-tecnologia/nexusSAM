@@ -381,69 +381,69 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
       {/* Hero Header */}
       <div>
         <div className="flex items-center gap-2">
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+          <h1 className="text-2xl font-bold tracking-tight text-[#212424]">
             <HardDrive className="w-6 h-6" style={{color: "#366BB2"}} />
             DIS Asset Intelligence & Núcleo HAM
           </h1>
           <HintTooltip text="Gerencie computadores descobertos, dispositivos móveis e inventário de software em toda a sua empresa. Monitore especificações de hardware, status de garantia e estados do ciclo de vida." side="right" size="md" />
         </div>
-        <p className="text-slate-500 text-sm">
+        <p className="text-[#6E7070] text-sm">
           Catálogo do Data Intelligence Service — equivalente ao Snow Atlas — para reconhecimento de software combinado com governança do ciclo de vida de ativos de hardware.
         </p>
       </div>
 
       {/* Global Inventory Health KPIs */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white border border-slate-200 p-4 rounded-xl shadow-xs flex items-center gap-3">
+        <div className="bg-white border border-[#D0D0D0] p-4 rounded-xl shadow-xs flex items-center gap-3">
           <div className="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
             <CheckCircle className="w-5 h-5" />
           </div>
           <div>
-            <span className="block text-[10px] uppercase font-bold text-slate-400">Endpoints Ativos</span>
-            <span className="text-lg font-bold text-slate-800">{activeCompCount} <span className="text-xs text-slate-400">dispositivos</span></span>
+            <span className="block text-[10px] uppercase font-bold text-[#A6A7A7]">Endpoints Ativos</span>
+            <span className="text-lg font-bold text-[#212424]">{activeCompCount} <span className="text-xs text-[#A6A7A7]">dispositivos</span></span>
           </div>
         </div>
 
-        <div className="bg-white border border-slate-200 p-4 rounded-xl shadow-xs flex items-center gap-3">
+        <div className="bg-white border border-[#D0D0D0] p-4 rounded-xl shadow-xs flex items-center gap-3">
           <div className="w-10 h-10 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
             <AlertTriangle className="w-5 h-5" />
           </div>
           <div>
-            <span className="block text-[10px] uppercase font-bold text-slate-400">Em Quarentena</span>
-            <span className="text-lg font-bold text-slate-800">{quarantinedCompCount} <span className="text-xs text-slate-400">ativos</span></span>
+            <span className="block text-[10px] uppercase font-bold text-[#A6A7A7]">Em Quarentena</span>
+            <span className="text-lg font-bold text-[#212424]">{quarantinedCompCount} <span className="text-xs text-[#A6A7A7]">ativos</span></span>
           </div>
         </div>
 
-        <div className="bg-white border border-slate-200 p-4 rounded-xl shadow-xs flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center">
+        <div className="bg-white border border-[#D0D0D0] p-4 rounded-xl shadow-xs flex items-center gap-3">
+          <div className="w-10 h-10 rounded-lg bg-[#F2F2F2] text-[#6E7070] flex items-center justify-center">
             <Clock className="w-5 h-5" />
           </div>
           <div>
-            <span className="block text-[10px] uppercase font-bold text-slate-400">Inativo / Ocioso</span>
-            <span className="text-lg font-bold text-slate-800">{inactiveCompCount} <span className="text-xs text-slate-400">sinalizados</span></span>
+            <span className="block text-[10px] uppercase font-bold text-[#A6A7A7]">Inativo / Ocioso</span>
+            <span className="text-lg font-bold text-[#212424]">{inactiveCompCount} <span className="text-xs text-[#A6A7A7]">sinalizados</span></span>
           </div>
         </div>
 
-        <div className="bg-white border border-slate-200 p-4 rounded-xl shadow-xs flex items-center gap-3">
+        <div className="bg-white border border-[#D0D0D0] p-4 rounded-xl shadow-xs flex items-center gap-3">
           <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{background: "#D1E7F3", color: "#366BB2"}}>
             <ShieldCheck className="w-5 h-5" />
           </div>
           <div>
-            <span className="block text-[10px] uppercase font-bold text-slate-400">Sob Garantia</span>
-            <span className="text-lg font-bold text-slate-800">{underWarrantyCount} <span className="text-xs text-slate-400">cobertos</span></span>
+            <span className="block text-[10px] uppercase font-bold text-[#A6A7A7]">Sob Garantia</span>
+            <span className="text-lg font-bold text-[#212424]">{underWarrantyCount} <span className="text-xs text-[#A6A7A7]">cobertos</span></span>
           </div>
         </div>
       </div>
 
       {/* Tab Navigation */}
-      <div className="border-b border-slate-200 flex flex-wrap items-center justify-between gap-4">
+      <div className="border-b border-[#D0D0D0] flex flex-wrap items-center justify-between gap-4">
         <div className="flex gap-4">
           <button
             onClick={() => { setActiveTab("COMPUTERS"); setSelectedComputer(null); setComputerDetails(null); }}
             className={`pb-3 text-xs font-semibold uppercase border-b-2 transition-all cursor-pointer ${
               activeTab === "COMPUTERS" 
           ? "border-[#366BB2] text-[#366BB2]" 
-          : "border-transparent text-slate-500 hover:text-slate-800"
+          : "border-transparent text-[#6E7070] hover:text-[#212424]"
             }`}
           >
             <span className="flex items-center gap-1.5"><HardDrive className="w-3.5 h-3.5" /> Computadores & Nós Servidores</span>
@@ -454,7 +454,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
             className={`pb-3 text-xs font-semibold uppercase border-b-2 transition-all cursor-pointer ${
               activeTab === "MOBILES" 
                 ? "border-[#366BB2] text-[#366BB2]" 
-                : "border-transparent text-slate-500 hover:text-slate-800"
+                : "border-transparent text-[#6E7070] hover:text-[#212424]"
             }`}
           >
             <span className="flex items-center gap-1.5"><Smartphone className="w-3.5 h-3.5" /> Registro Móvel (HAM)</span>
@@ -465,7 +465,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
             className={`pb-3 text-xs font-semibold uppercase border-b-2 transition-all cursor-pointer ${
               activeTab === "DISCOVERED_APPS" 
                 ? "border-[#366BB2] text-[#366BB2]" 
-                : "border-transparent text-slate-500 hover:text-slate-800"
+                : "border-transparent text-[#6E7070] hover:text-[#212424]"
             }`}
           >
             <span className="flex items-center gap-1.5"><Layers className="w-3.5 h-3.5" /> Apps Descobertas & Medição</span>
@@ -476,7 +476,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
             className={`pb-3 text-xs font-semibold uppercase border-b-2 transition-all cursor-pointer ${
               activeTab === "DIS_CATALOG" 
                 ? "border-[#366BB2] text-[#366BB2]" 
-                : "border-transparent text-slate-500 hover:text-slate-800"
+                : "border-transparent text-[#6E7070] hover:text-[#212424]"
             }`}
           >
             <span className="flex items-center gap-1.5"><Building className="w-3.5 h-3.5" /> Pesquisa no Catálogo DIS 800K+</span>
@@ -487,7 +487,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
             className={`pb-3 text-xs font-semibold uppercase border-b-2 transition-all cursor-pointer ${
               activeTab === "PRIVATE_CATALOG" 
                 ? "border-[#366BB2] text-[#366BB2]"
-                : "border-transparent text-slate-500 hover:text-slate-800"
+                : "border-transparent text-[#6E7070] hover:text-[#212424]"
             }`}
           >
             <span className="flex items-center gap-1.5"><Settings className="w-3.5 h-3.5" /> Regras do Catálogo Privado</span>
@@ -532,22 +532,22 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
             
             {/* Left side list */}
             <div className="lg:col-span-2 space-y-4">
-              <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm space-y-3">
+              <div className="bg-white border border-[#D0D0D0] rounded-xl p-4 shadow-sm space-y-3">
                 <div className="relative">
-                  <Search className="w-4 h-4 absolute left-3 top-2.5 text-slate-400" />
+                  <Search className="w-4 h-4 absolute left-3 top-2.5 text-[#A6A7A7]" />
                   <input
                     type="text"
                     placeholder="Pesquisar por nome do computador, número de série, SO ou fabricante..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full text-xs pl-9 pr-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-slate-50"
+                    className="w-full text-xs pl-9 pr-4 py-2 border border-[#D0D0D0] rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-[#F2F2F2]"
                   />
                 </div>
 
                 <div className="overflow-x-auto">
                   <table className="w-full text-left border-collapse">
                     <thead>
-                      <tr className="border-b border-slate-100 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                      <tr className="border-b border-[#D0D0D0] text-[10px] font-bold text-[#A6A7A7] uppercase tracking-wider">
                         <th className="py-2.5">Nome do Endpoint</th>
                         <th className="py-2.5">Hardware / Especificações</th>
                         <th className="py-2.5">Status da Garantia</th>
@@ -555,10 +555,10 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                         <th className="py-2.5 text-right">Ações</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-100 text-xs text-slate-700">
+                    <tbody className="divide-y divide-slate-100 text-xs text-[#6E7070]">
                       {filteredComputers.length === 0 ? (
                         <tr>
-                          <td colSpan={5} className="py-8 text-center text-slate-400">
+                          <td colSpan={5} className="py-8 text-center text-[#A6A7A7]">
                             Nenhum endpoint de computador correspondente encontrado no registro HAM.
                           </td>
                         </tr>
@@ -569,9 +569,9 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                             <tr 
                               key={comp.id}
                               onClick={() => handleSelectComputer(comp)}
-                              className={`hover:bg-slate-50/80 transition-all cursor-pointer ${isSelected ? "bg-indigo-50/40" : ""}`}
+                              className={`hover:bg-[#F2F2F2]/80 transition-all cursor-pointer ${isSelected ? "bg-indigo-50/40" : ""}`}
                             >
-                              <td className="py-3 font-semibold text-slate-800">
+                              <td className="py-3 font-semibold text-[#212424]">
                                 <div className="flex items-center gap-2">
                                   <span className={`w-2 h-2 rounded-full ${
                                     comp.lifecycleStatus === "Active" 
@@ -583,15 +583,15 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                                       : "bg-slate-300"
                                   }`} />
                                   <div>
-                                    <span className="block font-bold text-slate-800">{comp.name}</span>
-                                    <span className="text-[10px] text-slate-400 font-mono">{comp.serialNumber || "Sem Nº de Série"}</span>
+                                    <span className="block font-bold text-[#212424]">{comp.name}</span>
+                                    <span className="text-[10px] text-[#A6A7A7] font-mono">{comp.serialNumber || "Sem Nº de Série"}</span>
                                   </div>
                                 </div>
                               </td>
                               <td className="py-3">
                                 <div className="text-[11px]">
                                   <span className="font-semibold">{comp.brand} {comp.model}</span>
-                                  <span className="block text-[10px] text-slate-400 font-mono">{comp.cores} Núcleos • {comp.ramGB}GB RAM • {comp.os}</span>
+                                  <span className="block text-[10px] text-[#A6A7A7] font-mono">{comp.cores} Núcleos • {comp.ramGB}GB RAM • {comp.os}</span>
                                 </div>
                               </td>
                               <td className="py-3">
@@ -600,12 +600,12 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                                     ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
                                     : comp.warrantyStatus === "Expired"
                                     ? "bg-rose-50 text-rose-700 border border-rose-100"
-                                    : "bg-slate-100 text-slate-600"
+                                    : "bg-[#F2F2F2] text-[#6E7070]"
                                 }`}>
                                   {comp.warrantyStatus}
                                 </span>
                                 {comp.warrantyExpirationDate && (
-                                  <span className="block text-[9px] text-slate-400 font-mono mt-0.5">Expira em: {comp.warrantyExpirationDate}</span>
+                                  <span className="block text-[9px] text-[#A6A7A7] font-mono mt-0.5">Expira em: {comp.warrantyExpirationDate}</span>
                                 )}
                               </td>
                               <td className="py-3 text-center">
@@ -615,8 +615,8 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                                     : comp.lifecycleStatus === "Quarantined"
                                     ? "bg-amber-100 text-amber-800"
                                     : comp.lifecycleStatus === "Inactive"
-                                    ? "bg-slate-100 text-slate-600"
-                                    : "bg-slate-200 text-slate-800"
+                                    ? "bg-[#F2F2F2] text-[#6E7070]"
+                                    : "bg-slate-200 text-[#212424]"
                                 }`}>
                                   {comp.lifecycleStatus}
                                 </span>
@@ -633,7 +633,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                                   </button>
                                   <button
                                     onClick={() => handleDeleteComputer(comp.id)}
-                                    className="p-1 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded transition-all cursor-pointer"
+                                    className="p-1 text-[#A6A7A7] hover:text-rose-600 hover:bg-rose-50 rounded transition-all cursor-pointer"
                                     title="Descomissionar Ativo de Hardware"
                                   >
                                     <Trash2 className="w-3.5 h-3.5" />
@@ -651,13 +651,13 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
             </div>
 
             {/* Right side Detail Panel */}
-            <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-4 min-h-[400px]">
+            <div className="bg-white border border-[#D0D0D0] rounded-xl p-5 shadow-sm space-y-4 min-h-[400px]">
               {selectedComputer && computerDetails ? (
                 <div className="space-y-4">
-                  <div className="border-b border-slate-100 pb-3 flex items-center justify-between">
+                  <div className="border-b border-[#D0D0D0] pb-3 flex items-center justify-between">
                     <div>
-                      <h3 className="font-bold text-slate-900 text-sm">{computerDetails.computer.name}</h3>
-                      <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest block">Diagnósticos Avançados do Endpoint</span>
+                      <h3 className="font-bold text-[#212424] text-sm">{computerDetails.computer.name}</h3>
+                      <span className="text-[10px] font-semibold text-[#A6A7A7] uppercase tracking-widest block">Diagnósticos Avançados do Endpoint</span>
                     </div>
                     <button
                       onClick={() => handleTriggerAgentScan(computerDetails.computer.id)}
@@ -670,39 +670,39 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                   </div>
 
                   {/* Device properties */}
-                  <div className="grid grid-cols-2 gap-3 text-[11px] bg-slate-50 p-3 rounded-lg border border-slate-100">
+                  <div className="grid grid-cols-2 gap-3 text-[11px] bg-[#F2F2F2] p-3 rounded-lg border border-[#D0D0D0]">
                     <div>
-                      <span className="block text-[9px] uppercase font-bold text-slate-400">Marca do Hardware</span>
-                      <span className="font-semibold text-slate-800">{computerDetails.computer.brand || "Genérico"}</span>
+                      <span className="block text-[9px] uppercase font-bold text-[#A6A7A7]">Marca do Hardware</span>
+                      <span className="font-semibold text-[#212424]">{computerDetails.computer.brand || "Genérico"}</span>
                     </div>
                     <div>
-                      <span className="block text-[9px] uppercase font-bold text-slate-400">Estrutura do Modelo</span>
-                      <span className="font-semibold text-slate-800">{computerDetails.computer.model || "Unidade Desconhecida"}</span>
+                      <span className="block text-[9px] uppercase font-bold text-[#A6A7A7]">Estrutura do Modelo</span>
+                      <span className="font-semibold text-[#212424]">{computerDetails.computer.model || "Unidade Desconhecida"}</span>
                     </div>
                     <div>
-                      <span className="block text-[9px] uppercase font-bold text-slate-400">Alocação de RAM</span>
-                      <span className="font-semibold text-slate-800 font-mono">{computerDetails.computer.ramGB} GB RAM</span>
+                      <span className="block text-[9px] uppercase font-bold text-[#A6A7A7]">Alocação de RAM</span>
+                      <span className="font-semibold text-[#212424] font-mono">{computerDetails.computer.ramGB} GB RAM</span>
                     </div>
                     <div>
-                      <span className="block text-[9px] uppercase font-bold text-slate-400">Tamanho do Armazenamento</span>
-                      <span className="font-semibold text-slate-800 font-mono">{computerDetails.computer.storageGB || 256} GB SSD</span>
+                      <span className="block text-[9px] uppercase font-bold text-[#A6A7A7]">Tamanho do Armazenamento</span>
+                      <span className="font-semibold text-[#212424] font-mono">{computerDetails.computer.storageGB || 256} GB SSD</span>
                     </div>
                     <div>
-                      <span className="block text-[9px] uppercase font-bold text-slate-400">Matriz do Processador</span>
-                      <span className="font-semibold text-slate-800 font-mono">{computerDetails.computer.cores} Núcleos • {computerDetails.computer.cpuModel}</span>
+                      <span className="block text-[9px] uppercase font-bold text-[#A6A7A7]">Matriz do Processador</span>
+                      <span className="font-semibold text-[#212424] font-mono">{computerDetails.computer.cores} Núcleos • {computerDetails.computer.cpuModel}</span>
                     </div>
                     <div>
-                      <span className="block text-[9px] uppercase font-bold text-slate-400">Data do Último Scan</span>
-                      <span className="font-semibold text-slate-800 font-mono text-[10px]">
+                      <span className="block text-[9px] uppercase font-bold text-[#A6A7A7]">Data do Último Scan</span>
+                      <span className="font-semibold text-[#212424] font-mono text-[10px]">
                         {computerDetails.computer.lastActiveDate ? new Date(computerDetails.computer.lastActiveDate).toLocaleString() : "Nunca Escaneado"}
                       </span>
                     </div>
                   </div>
 
                   {/* HAM Quarantine & Lifecycle Management Actions */}
-                  <div className="border border-slate-200 rounded-lg p-3 space-y-2">
-                    <span className="block text-[10px] font-bold text-slate-500 uppercase tracking-wide">Ações de Governança ITAM & Quarentena</span>
-                    <p className="text-[10px] text-slate-400 leading-normal">
+                  <div className="border border-[#D0D0D0] rounded-lg p-3 space-y-2">
+                    <span className="block text-[10px] font-bold text-[#6E7070] uppercase tracking-wide">Ações de Governança ITAM & Quarentena</span>
+                    <p className="text-[10px] text-[#A6A7A7] leading-normal">
                       Coloque em quarentena um ativo inativo para isolar licenças, arquive hardware descomissionado ou sinalize como ocioso.
                     </p>
                     <div className="grid grid-cols-2 gap-2 pt-1.5">
@@ -725,7 +725,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                       {computerDetails.computer.lifecycleStatus !== "Inactive" && (
                         <button
                           onClick={() => handleUpdateLifecycle(computerDetails.computer.id, "Inactive")}
-                          className="px-2 py-1 bg-slate-50 hover:bg-slate-100 text-slate-700 text-[10px] font-bold rounded text-center cursor-pointer transition-all border border-slate-200"
+                          className="px-2 py-1 bg-[#F2F2F2] hover:bg-[#F2F2F2] text-[#6E7070] text-[10px] font-bold rounded text-center cursor-pointer transition-all border border-[#D0D0D0]"
                         >
                           Sinalizar Inativo
                         </button>
@@ -743,15 +743,15 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
 
                   {/* Discovered Apps on this endpoint */}
                   <div className="space-y-2">
-                    <span className="block text-[10px] font-bold text-slate-500 uppercase tracking-wide flex items-center justify-between">
+                    <span className="block text-[10px] font-bold text-[#6E7070] uppercase tracking-wide flex items-center justify-between">
                       <span>Apps Detectadas no Endpoint ({computerDetails.applications.length})</span>
                       <span className="text-[9px] px-1.5 py-0.5 rounded font-mono uppercase tracking-widest font-bold" style={{color: "#366BB2", background: "#D1E7F3"}}>Verificado pelo DIS</span>
                     </span>
 
                     {computerDetails.applications.length === 0 ? (
-                      <div className="p-6 bg-slate-50 text-center rounded-lg border border-dashed border-slate-200">
-                        <AlertTriangle className="w-5 h-5 text-slate-400 mx-auto mb-1" />
-                        <p className="text-[10px] text-slate-500">Nenhum aplicativo correspondente às assinaturas do catálogo.</p>
+                      <div className="p-6 bg-[#F2F2F2] text-center rounded-lg border border-dashed border-[#D0D0D0]">
+                        <AlertTriangle className="w-5 h-5 text-[#A6A7A7] mx-auto mb-1" />
+                        <p className="text-[10px] text-[#6E7070]">Nenhum aplicativo correspondente às assinaturas do catálogo.</p>
                         <button
                           onClick={() => handleTriggerAgentScan(computerDetails.computer.id)}
                           className="mt-2 text-[10px] font-bold hover:underline cursor-pointer" style={{color: "#366BB2"}}
@@ -760,27 +760,27 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                         </button>
                       </div>
                     ) : (
-                      <div className="max-h-[220px] overflow-y-auto divide-y divide-slate-100 border border-slate-100 rounded-lg">
+                      <div className="max-h-[220px] overflow-y-auto divide-y divide-slate-100 border border-[#D0D0D0] rounded-lg">
                         {computerDetails.applications.map((app) => (
-                          <div key={app.id} className="p-2.5 hover:bg-slate-50 transition-all flex items-start justify-between gap-2">
+                          <div key={app.id} className="p-2.5 hover:bg-[#F2F2F2] transition-all flex items-start justify-between gap-2">
                             <div>
                               <div className="flex items-center gap-1.5">
-                                <span className={`font-bold text-[11px] ${app.catalogItemId ? "text-slate-800" : "text-slate-500"}`}>
+                                <span className={`font-bold text-[11px] ${app.catalogItemId ? "text-[#212424]" : "text-[#6E7070]"}`}>
                                   {app.softwareName}
                                 </span>
                                   {app.isPrivateCatalogMatch && (
                                   <span className="bg-purple-100 text-purple-800 px-1 py-0.2 rounded text-[8px] font-extrabold uppercase">Privado</span>
                                 )}
                               </div>
-                              <span className="block text-[9px] text-slate-400">Fabricante: {app.publisher} • v{app.version}</span>
-                              <span className="block text-[8px] font-mono text-slate-400 uppercase mt-0.5">Assinatura bruta: "{app.rawSoftwareName}"</span>
+                              <span className="block text-[9px] text-[#A6A7A7]">Fabricante: {app.publisher} • v{app.version}</span>
+                              <span className="block text-[8px] font-mono text-[#A6A7A7] uppercase mt-0.5">Assinatura bruta: "{app.rawSoftwareName}"</span>
                             </div>
                             <div className="text-right shrink-0">
                               <span className="block text-[9px] font-bold font-mono flex items-center justify-end gap-0.5" style={{color: "#366BB2"}}>
                                 <Clock className="w-2.5 h-2.5" />
                                 {app.usageDurationMinutes} min
                               </span>
-                              <span className="block text-[8px] text-slate-400">Medição de Uso</span>
+                              <span className="block text-[8px] text-[#A6A7A7]">Medição de Uso</span>
                             </div>
                           </div>
                         ))}
@@ -790,10 +790,10 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
 
                 </div>
               ) : (
-                <div className="p-12 text-center text-slate-400 flex flex-col items-center justify-center h-full space-y-2">
-                  <Info className="w-8 h-8 text-slate-300" />
+                <div className="p-12 text-center text-[#A6A7A7] flex flex-col items-center justify-center h-full space-y-2">
+                  <Info className="w-8 h-8 text-[#A6A7A7]" />
                   <p className="text-xs font-semibold">Nenhum Endpoint Selecionado</p>
-                  <p className="text-[10px] leading-normal max-w-xs text-slate-400">
+                  <p className="text-[10px] leading-normal max-w-xs text-[#A6A7A7]">
                     Selecione um nó de computador gerenciado na lista à esquerda para diagnosticar especificações, monitorar cronogramas de garantia, executar scans Extender sob demanda ou colocar licenças em quarentena.
                   </p>
                 </div>
@@ -805,11 +805,11 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
 
         {/* TAB 2: MOBILE REGISTRY */}
         {activeTab === "MOBILES" && (
-          <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+          <div className="bg-white border border-[#D0D0D0] rounded-xl p-5 shadow-sm space-y-4">
+            <div className="flex items-center justify-between border-b border-[#D0D0D0] pb-3">
               <div>
-                <h3 className="font-bold text-slate-800 text-xs uppercase tracking-wider">Ativos Móveis Corporativos Gerenciados</h3>
-                <p className="text-[10px] text-slate-400">
+                <h3 className="font-bold text-[#212424] text-xs uppercase tracking-wider">Ativos Móveis Corporativos Gerenciados</h3>
+                <p className="text-[10px] text-[#A6A7A7]">
                   Monitore smartphones, tablets, endpoints de scanners portáteis e cronogramas de garantia vinculados a usuários do Active Directory.
                 </p>
               </div>
@@ -817,15 +817,15 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {filteredMobiles.length === 0 ? (
-                <div className="col-span-full py-12 text-center text-slate-400 text-xs">
+                <div className="col-span-full py-12 text-center text-[#A6A7A7] text-xs">
                   Nenhum dispositivo móvel cadastrado nos bancos de rastreamento.
                 </div>
               ) : (
                 filteredMobiles.map((mob) => (
-                  <div key={mob.id} className="border border-slate-200 rounded-xl p-4 space-y-3 shadow-xs relative hover:border-slate-300 transition-all bg-slate-50/40">
+                  <div key={mob.id} className="border border-[#D0D0D0] rounded-xl p-4 space-y-3 shadow-xs relative hover:border-slate-300 transition-all bg-[#F2F2F2]/40">
                     <button
                       onClick={() => handleDeleteMobile(mob.id)}
-                      className="absolute top-4 right-4 text-slate-400 hover:text-rose-600 transition-all cursor-pointer"
+                      className="absolute top-4 right-4 text-[#A6A7A7] hover:text-rose-600 transition-all cursor-pointer"
                       title="Desvincular ativo"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -836,22 +836,22 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                         <Smartphone className="w-5 h-5" />
                       </div>
                       <div>
-                        <h4 className="font-bold text-slate-800 text-xs">{mob.name}</h4>
-                        <span className="text-[9px] text-slate-400 font-mono block">Nº de Série: {mob.serialNumber}</span>
+                        <h4 className="font-bold text-[#212424] text-xs">{mob.name}</h4>
+                        <span className="text-[9px] text-[#A6A7A7] font-mono block">Nº de Série: {mob.serialNumber}</span>
                       </div>
                     </div>
 
                     <div className="grid grid-cols-2 gap-2 text-[10px] pt-1">
                       <div>
-                        <span className="block text-slate-400 font-bold uppercase text-[8px]">Especificações</span>
-                        <span className="font-semibold text-slate-700">{mob.brand} {mob.model} ({mob.os})</span>
+                        <span className="block text-[#A6A7A7] font-bold uppercase text-[8px]">Especificações</span>
+                        <span className="font-semibold text-[#6E7070]">{mob.brand} {mob.model} ({mob.os})</span>
                       </div>
                       <div>
-                        <span className="block text-slate-400 font-bold uppercase text-[8px]">Usuário Principal</span>
-                        <span className="font-semibold text-slate-700">{mob.userName}</span>
+                        <span className="block text-[#A6A7A7] font-bold uppercase text-[8px]">Usuário Principal</span>
+                        <span className="font-semibold text-[#6E7070]">{mob.userName}</span>
                       </div>
                       <div>
-                        <span className="block text-slate-400 font-bold uppercase text-[8px]">Cronograma de Garantia</span>
+                        <span className="block text-[#A6A7A7] font-bold uppercase text-[8px]">Cronograma de Garantia</span>
                         <span className={`inline-block px-1.5 py-0.2 rounded font-semibold text-[8px] ${
                           mob.warrantyStatus === "Under Warranty" ? "bg-emerald-100 text-emerald-800" : "bg-rose-100 text-rose-800"
                         }`}>
@@ -859,8 +859,8 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                         </span>
                       </div>
                       <div>
-                        <span className="block text-slate-400 font-bold uppercase text-[8px]">Expiração</span>
-                        <span className="font-semibold text-slate-700 font-mono text-[9px]">{mob.warrantyExpirationDate || "N/D"}</span>
+                        <span className="block text-[#A6A7A7] font-bold uppercase text-[8px]">Expiração</span>
+                        <span className="font-semibold text-[#6E7070] font-mono text-[9px]">{mob.warrantyExpirationDate || "N/D"}</span>
                       </div>
                     </div>
                   </div>
@@ -872,23 +872,23 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
 
         {/* TAB 3: DISCOVERED APPLICATIONS & USAGE METERING */}
         {activeTab === "DISCOVERED_APPS" && (
-          <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-3">
+          <div className="bg-white border border-[#D0D0D0] rounded-xl p-5 shadow-sm space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#D0D0D0] pb-3">
               <div>
-                <h3 className="font-bold text-slate-800 text-xs uppercase tracking-wider">Software Descoberto em Endpoints & Medição do Núcleo</h3>
-                <p className="text-[10px] text-slate-400">
+                <h3 className="font-bold text-[#212424] text-xs uppercase tracking-wider">Software Descoberto em Endpoints & Medição do Núcleo</h3>
+                <p className="text-[10px] text-[#A6A7A7]">
                   Registro global de software detectado em endpoints. Inclui sinalização de malware, mapeamento de catálogo de aplicativos privados e medição passiva de duração de uso.
                 </p>
               </div>
 
               <div className="relative w-full sm:w-64">
-                <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-400" />
+                <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-[#A6A7A7]" />
                 <input
                   type="text"
                   placeholder="Filtrar software, fabricantes ou assinaturas brutas..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full text-xs pl-8 pr-3 py-1.5 border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-slate-50"
+                  className="w-full text-xs pl-8 pr-3 py-1.5 border border-[#D0D0D0] rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-[#F2F2F2]"
                 />
               </div>
             </div>
@@ -896,7 +896,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="border-b border-slate-100 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                  <tr className="border-b border-[#D0D0D0] text-[10px] font-bold text-[#A6A7A7] uppercase tracking-wider">
                     <th className="py-2.5">Software Descoberto</th>
                     <th className="py-2.5">Fabricante</th>
                     <th className="py-2.5">Host do Endpoint</th>
@@ -904,10 +904,10 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                     <th className="py-2.5 text-right">Medição de Uso</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100 text-xs text-slate-700">
+                <tbody className="divide-y divide-slate-100 text-xs text-[#6E7070]">
                   {filteredDisApps.length === 0 ? (
                     <tr>
-                      <td colSpan={5} className="py-12 text-center text-slate-400">
+                      <td colSpan={5} className="py-12 text-center text-[#A6A7A7]">
                         Nenhum aplicativo descoberto relatado nesta categoria.
                       </td>
                     </tr>
@@ -920,8 +920,8 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                       const isDanger = catMatch?.isMalware || da.softwareName.toLowerCase().includes("miner") || da.softwareName.toLowerCase().includes("flash");
 
                       return (
-                        <tr key={da.id} className="hover:bg-slate-50/50 transition-all">
-                          <td className="py-3 font-semibold text-slate-800">
+                        <tr key={da.id} className="hover:bg-[#F2F2F2]/50 transition-all">
+                          <td className="py-3 font-semibold text-[#212424]">
                             <div className="flex items-center gap-2">
                               {isDanger ? (
                                 <ShieldAlert className="w-4 h-4 text-rose-500 shrink-0" />
@@ -929,18 +929,18 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                                 <CheckCircle className="w-4 h-4 text-emerald-500 shrink-0" />
                               )}
                               <div>
-                                <span className={`font-bold ${isDanger ? "text-rose-600 font-extrabold" : "text-slate-800"}`}>
+                                <span className={`font-bold ${isDanger ? "text-rose-600 font-extrabold" : "text-[#212424]"}`}>
                                   {da.softwareName}
                                 </span>
-                                <span className="block text-[8px] font-mono text-slate-400">Assinatura: "{da.rawSoftwareName}"</span>
+                                <span className="block text-[8px] font-mono text-[#A6A7A7]">Assinatura: "{da.rawSoftwareName}"</span>
                               </div>
                             </div>
                           </td>
-                          <td className="py-3 text-slate-600 font-semibold">{da.publisher}</td>
-                          <td className="py-3 font-medium text-slate-600">
+                          <td className="py-3 text-[#6E7070] font-semibold">{da.publisher}</td>
+                          <td className="py-3 font-medium text-[#6E7070]">
                             {hostComp ? (
-                              <span className="flex items-center gap-1 font-mono text-[11px] text-slate-700">
-                                <HardDrive className="w-3.5 h-3.5 text-slate-400" />
+                              <span className="flex items-center gap-1 font-mono text-[11px] text-[#6E7070]">
+                                <HardDrive className="w-3.5 h-3.5 text-[#A6A7A7]" />
                                 {hostComp.name} ({hostComp.os})
                               </span>
                             ) : (
@@ -957,14 +957,14 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                                 Normalizado pelo DIS
                               </span>
                             ) : (
-                              <span className="bg-slate-100 text-slate-600 px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider">
+                              <span className="bg-[#F2F2F2] text-[#6E7070] px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider">
                                 Bruto Não Reconhecido
                               </span>
                             )}
                           </td>
                           <td className="py-3 text-right">
-                            <span className="font-bold text-slate-800 font-mono">{da.usageDurationMinutes || 0} min</span>
-                            <span className="block text-[9px] text-slate-400">Último uso: {da.lastUsed ? new Date(da.lastUsed).toLocaleDateString() : "N/D"}</span>
+                            <span className="font-bold text-[#212424] font-mono">{da.usageDurationMinutes || 0} min</span>
+                            <span className="block text-[9px] text-[#A6A7A7]">Último uso: {da.lastUsed ? new Date(da.lastUsed).toLocaleDateString() : "N/D"}</span>
                           </td>
                         </tr>
                       );
@@ -978,23 +978,23 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
 
         {/* TAB 4: DIS 800K+ CATALOG SEARCH */}
         {activeTab === "DIS_CATALOG" && (
-          <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-3">
+          <div className="bg-white border border-[#D0D0D0] rounded-xl p-5 shadow-sm space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#D0D0D0] pb-3">
               <div>
-                <h3 className="font-bold text-slate-800 text-xs uppercase tracking-wider">Catálogo do Data Intelligence Service (mais de 800 mil títulos reconhecidos)</h3>
-                <p className="text-[10px] text-slate-400">
+                <h3 className="font-bold text-[#212424] text-xs uppercase tracking-wider">Catálogo do Data Intelligence Service (mais de 800 mil títulos reconhecidos)</h3>
+                <p className="text-[10px] text-[#A6A7A7]">
                   Repositório global de assinaturas oficiais de produtos de fornecedores, SKUs padrão, políticas de ciclo de vida (EOL/EOS), assinaturas de malware e especificações de suporte a SO.
                 </p>
               </div>
 
               <div className="relative w-full sm:w-64">
-                <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-400" />
+                <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-[#A6A7A7]" />
                 <input
                   type="text"
                   placeholder="Pesquisar no catálogo por software, fabricante, SKU..."
                   value={catalogSearch}
                   onChange={(e) => setCatalogSearch(e.target.value)}
-                  className="w-full text-xs pl-8 pr-3 py-1.5 border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-slate-50"
+                  className="w-full text-xs pl-8 pr-3 py-1.5 border border-[#D0D0D0] rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-[#F2F2F2]"
                 />
               </div>
             </div>
@@ -1010,7 +1010,7 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                     className={`border rounded-xl p-4 shadow-xs relative transition-all ${
                       isThreat 
                         ? "bg-rose-50/20 border-rose-200 hover:border-rose-300" 
-                        : "bg-slate-50/30 border-slate-200 hover:border-slate-300"
+                        : "bg-[#F2F2F2]/30 border-[#D0D0D0] hover:border-slate-300"
                     }`}
                   >
                     {isThreat && (
@@ -1026,27 +1026,27 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                         <Building className="w-4 h-4" />
                       </div>
                       <div className="space-y-1.5 flex-1 min-w-0">
-                        <h4 className={`font-bold text-xs truncate ${isThreat ? "text-rose-800" : "text-slate-800"}`}>
+                        <h4 className={`font-bold text-xs truncate ${isThreat ? "text-rose-800" : "text-[#212424]"}`}>
                           {item.softwareName}
                         </h4>
-                        <p className="text-[10px] text-slate-500 font-semibold">{item.publisher}</p>
+                        <p className="text-[10px] text-[#6E7070] font-semibold">{item.publisher}</p>
                         
-                        <div className="grid grid-cols-2 gap-2 text-[10px] pt-1 border-t border-slate-100 mt-2">
+                        <div className="grid grid-cols-2 gap-2 text-[10px] pt-1 border-t border-[#D0D0D0] mt-2">
                           <div>
-                            <span className="text-slate-400 block font-bold text-[8px] uppercase">SKU Padrão</span>
-                            <span className="font-mono text-slate-700">{item.defaultSku || "N/D"}</span>
+                            <span className="text-[#A6A7A7] block font-bold text-[8px] uppercase">SKU Padrão</span>
+                            <span className="font-mono text-[#6E7070]">{item.defaultSku || "N/D"}</span>
                           </div>
                           <div>
-                            <span className="text-slate-400 block font-bold text-[8px] uppercase">Categoria</span>
-                            <span className="font-semibold text-slate-700">{category}</span>
+                            <span className="text-[#A6A7A7] block font-bold text-[8px] uppercase">Categoria</span>
+                            <span className="font-semibold text-[#6E7070]">{category}</span>
                           </div>
                           <div>
-                            <span className="text-slate-400 block font-bold text-[8px] uppercase">Data de EOL</span>
+                            <span className="text-[#A6A7A7] block font-bold text-[8px] uppercase">Data de EOL</span>
                             <span className="font-semibold text-rose-600 font-mono">{item.eolDate || "Nenhum EOL agendado"}</span>
                           </div>
                           <div>
-                            <span className="text-slate-400 block font-bold text-[8px] uppercase">Compatibilidade</span>
-                            <span className="font-semibold text-slate-600">{item.compatibleOS.join(", ")}</span>
+                            <span className="text-[#A6A7A7] block font-bold text-[8px] uppercase">Compatibilidade</span>
+                            <span className="font-semibold text-[#6E7070]">{item.compatibleOS.join(", ")}</span>
                           </div>
                         </div>
                       </div>
@@ -1060,11 +1060,11 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
 
         {/* TAB 5: PRIVATE CATALOGUE */}
         {activeTab === "PRIVATE_CATALOG" && (
-          <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+          <div className="bg-white border border-[#D0D0D0] rounded-xl p-5 shadow-sm space-y-4">
+            <div className="flex items-center justify-between border-b border-[#D0D0D0] pb-3">
               <div>
-                <h3 className="font-bold text-slate-800 text-xs uppercase tracking-wider">Assinaturas de Aplicativos Personalizados Privados</h3>
-                <p className="text-[10px] text-slate-400">
+                <h3 className="font-bold text-[#212424] text-xs uppercase tracking-wider">Assinaturas de Aplicativos Personalizados Privados</h3>
+                <p className="text-[10px] text-[#A6A7A7]">
                   Registre ferramentas proprietárias internas ou URLs personalizadas. Os mecanismos de scan mapeiam instantaneamente ocorrências de strings brutas em endpoints para estas definições.
                 </p>
               </div>
@@ -1072,27 +1072,27 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
 
             <div className="space-y-3">
               {privateCatalog.length === 0 ? (
-                <div className="p-8 text-center text-slate-400 text-xs">
+                <div className="p-8 text-center text-[#A6A7A7] text-xs">
                   Nenhuma regra de reconhecimento personalizada registrada ainda. Clique em "Adicionar Reconhecimento de Padrão" acima.
                 </div>
               ) : (
                 privateCatalog.map((p) => {
                   const catName = categories.find(cat => cat.id === p.categoryId)?.name || "Personalizado Corporativo";
                   return (
-                    <div key={p.id} className="border border-slate-200 hover:border-slate-300 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-50/40">
+                    <div key={p.id} className="border border-[#D0D0D0] hover:border-slate-300 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#F2F2F2]/40">
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
-                          <h4 className="font-bold text-slate-800 text-xs">{p.softwareName}</h4>
+                          <h4 className="font-bold text-[#212424] text-xs">{p.softwareName}</h4>
                           <span className="bg-purple-100 text-purple-800 px-1.5 py-0.2 rounded text-[8px] font-bold uppercase">Padrão Privado</span>
                         </div>
-                        <span className="block text-[10px] text-slate-500 font-semibold">Fornecedor Registrado: {p.publisher} • Categoria: {catName}</span>
+                        <span className="block text-[10px] text-[#6E7070] font-semibold">Fornecedor Registrado: {p.publisher} • Categoria: {catName}</span>
                         <div className="pt-1 flex items-center gap-1">
-                          <span className="text-[9px] text-slate-400 uppercase font-bold">Correspondência Regex / Substring:</span>
-                          <span className="bg-slate-100 px-2 py-0.5 rounded font-mono text-[10px] font-bold border border-slate-200" style={{color: "#4079C4"}}>
+                          <span className="text-[9px] text-[#A6A7A7] uppercase font-bold">Correspondência Regex / Substring:</span>
+                          <span className="bg-[#F2F2F2] px-2 py-0.5 rounded font-mono text-[10px] font-bold border border-[#D0D0D0]" style={{color: "#4079C4"}}>
                             {p.matchPattern}
                           </span>
                         </div>
-                        {p.notes && <p className="text-[10px] text-slate-400 mt-1 italic">"{p.notes}"</p>}
+                        {p.notes && <p className="text-[10px] text-[#A6A7A7] mt-1 italic">"{p.notes}"</p>}
                       </div>
 
                       <button
@@ -1121,17 +1121,17 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
           <motion.div 
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="bg-white border border-slate-200 rounded-xl shadow-xl w-full max-w-lg overflow-hidden"
+            className="bg-white border border-[#D0D0D0] rounded-xl shadow-xl w-full max-w-lg overflow-hidden"
           >
             <form onSubmit={handleAddComputer}>
-              <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
-                <h3 className="font-bold text-slate-900 text-sm flex items-center gap-1.5">
+              <div className="px-6 py-4 border-b border-[#D0D0D0] flex items-center justify-between">
+                <h3 className="font-bold text-[#212424] text-sm flex items-center gap-1.5">
                   <HardDrive className="w-4 h-4" style={{color: "#366BB2"}} /> Cadastrar Nó Gerenciado (Computador/Servidor)
                 </h3>
                 <button
                   type="button"
                   onClick={() => setShowAddComputerModal(false)}
-                  className="text-slate-400 hover:text-slate-600 font-bold text-lg"
+                  className="text-[#A6A7A7] hover:text-[#6E7070] font-bold text-lg"
                 >
                   &times;
                 </button>
@@ -1140,23 +1140,23 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
               <div className="p-6 space-y-4 max-h-[450px] overflow-y-auto">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Hostname do Computador</label>
+                    <label className="block text-[10px] font-bold text-[#6E7070] uppercase">Hostname do Computador</label>
                     <input
                       type="text"
                       required
                       placeholder="ex.: SRV-ACTIVE-01"
                       value={newCompName}
                       onChange={(e) => setNewCompName(e.target.value)}
-                      className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Sistema Operacional</label>
+                    <label className="block text-[10px] font-bold text-[#6E7070] uppercase">Sistema Operacional</label>
                     <select
                       value={newCompOS}
                       onChange={(e) => setNewCompOS(e.target.value as any)}
-                      className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     >
                       <option value="Windows">Windows</option>
                       <option value="Linux">Linux</option>
@@ -1167,78 +1167,78 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Marca / Fabricante</label>
+                    <label className="block text-[10px] font-bold text-[#6E7070] uppercase">Marca / Fabricante</label>
                     <input
                       type="text"
                       placeholder="ex.: Dell"
                       value={newCompBrand}
                       onChange={(e) => setNewCompBrand(e.target.value)}
-                      className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Especificação do Modelo</label>
+                    <label className="block text-[10px] font-bold text-[#6E7070] uppercase">Especificação do Modelo</label>
                     <input
                       type="text"
                       placeholder="ex.: PowerEdge R750"
                       value={newCompModel}
                       onChange={(e) => setNewCompModel(e.target.value)}
-                      className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-3 gap-3">
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Núcleos</label>
+                    <label className="block text-[10px] font-bold text-[#6E7070] uppercase">Núcleos</label>
                     <input
                       type="number"
                       min="1"
                       value={newCompCores}
                       onChange={(e) => setNewCompCores(Number(e.target.value))}
-                      className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1 text-center"
+                      className="w-full text-xs border border-[#D0D0D0] rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1 text-center"
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">RAM (GB)</label>
+                    <label className="block text-[10px] font-bold text-[#6E7070] uppercase">RAM (GB)</label>
                     <input
                       type="number"
                       min="1"
                       value={newCompRam}
                       onChange={(e) => setNewCompRam(Number(e.target.value))}
-                      className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1 text-center"
+                      className="w-full text-xs border border-[#D0D0D0] rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1 text-center"
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Armazenamento (GB)</label>
+                    <label className="block text-[10px] font-bold text-[#6E7070] uppercase">Armazenamento (GB)</label>
                     <input
                       type="number"
                       min="1"
                       value={newCompStorage}
                       onChange={(e) => setNewCompStorage(Number(e.target.value))}
-                      className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1 text-center"
+                      className="w-full text-xs border border-[#D0D0D0] rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1 text-center"
                     />
                   </div>
                 </div>
 
                 <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Modelo da CPU</label>
+                    <label className="block text-[10px] font-bold text-[#6E7070] uppercase">Modelo da CPU</label>
                   <input
                     type="text"
                     placeholder="ex.: Intel Xeon Platinum 8380"
                     value={newCompCpu}
                     onChange={(e) => setNewCompCpu(e.target.value)}
-                    className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                    className="w-full text-xs border border-[#D0D0D0] rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                   />
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 border-t border-slate-100 pt-3">
+                <div className="grid grid-cols-2 gap-4 border-t border-[#D0D0D0] pt-3">
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Esquema de Garantia</label>
+                    <label className="block text-[10px] font-bold text-[#6E7070] uppercase">Esquema de Garantia</label>
                     <select
                       value={newCompWarranty}
                       onChange={(e) => setNewCompWarranty(e.target.value as any)}
-                      className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     >
                       <option value="Under Warranty">Sob Garantia</option>
                       <option value="Expired">Expirada</option>
@@ -1246,22 +1246,22 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Data de Expiração</label>
+                    <label className="block text-[10px] font-bold text-[#6E7070] uppercase">Data de Expiração</label>
                     <input
                       type="date"
                       value={newCompWarrantyDate}
                       onChange={(e) => setNewCompWarrantyDate(e.target.value)}
-                      className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     />
                   </div>
                 </div>
               </div>
 
-              <div className="bg-slate-50 px-6 py-4 border-t border-slate-100 flex justify-end gap-2 shrink-0">
+              <div className="bg-[#F2F2F2] px-6 py-4 border-t border-[#D0D0D0] flex justify-end gap-2 shrink-0">
                 <button
                   type="button"
                   onClick={() => setShowAddComputerModal(false)}
-                  className="px-3.5 py-2 text-xs font-semibold text-slate-600 hover:text-slate-800 bg-white border border-slate-200 rounded-lg cursor-pointer"
+                  className="px-3.5 py-2 text-xs font-semibold text-[#6E7070] hover:text-[#212424] bg-white border border-[#D0D0D0] rounded-lg cursor-pointer"
                 >
                   Cancelar
                 </button>
@@ -1283,17 +1283,17 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
           <motion.div 
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="bg-white border border-slate-200 rounded-xl shadow-xl w-full max-w-lg overflow-hidden"
+            className="bg-white border border-[#D0D0D0] rounded-xl shadow-xl w-full max-w-lg overflow-hidden"
           >
             <form onSubmit={handleAddMobile}>
-              <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
-                <h3 className="font-bold text-slate-900 text-sm flex items-center gap-1.5">
+              <div className="px-6 py-4 border-b border-[#D0D0D0] flex items-center justify-between">
+                <h3 className="font-bold text-[#212424] text-sm flex items-center gap-1.5">
                   <Smartphone className="w-4 h-4" style={{color: "#366BB2"}} /> Cadastrar Ativo Móvel Corporativo
                 </h3>
                 <button
                   type="button"
                   onClick={() => setShowAddMobileModal(false)}
-                  className="text-slate-400 hover:text-slate-600 font-bold text-lg"
+                  className="text-[#A6A7A7] hover:text-[#6E7070] font-bold text-lg"
                 >
                   &times;
                 </button>
@@ -1302,82 +1302,82 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
               <div className="p-6 space-y-4 max-h-[450px] overflow-y-auto">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Nome do Dispositivo Host</label>
+                    <label className="block text-[10px] font-bold text-[#6E7070] uppercase">Nome do Dispositivo Host</label>
                     <input
                       type="text"
                       required
                       placeholder="ex.: IPHONE-EB-02"
                       value={newMobName}
                       onChange={(e) => setNewMobName(e.target.value)}
-                      className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">SO (Firmware)</label>
+                    <label className="block text-[10px] font-bold text-[#6E7070] uppercase">SO (Firmware)</label>
                     <input
                       type="text"
                       placeholder="ex.: iOS 17.5"
                       value={newMobOS}
                       onChange={(e) => setNewMobOS(e.target.value)}
-                      className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Marca / Fabricante</label>
+                    <label className="block text-[10px] font-bold text-[#6E7070] uppercase">Marca / Fabricante</label>
                     <input
                       type="text"
                       placeholder="ex.: Apple"
                       value={newMobBrand}
                       onChange={(e) => setNewMobBrand(e.target.value)}
-                      className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Modelo</label>
+                    <label className="block text-[10px] font-bold text-[#6E7070] uppercase">Modelo</label>
                     <input
                       type="text"
                       placeholder="ex.: iPhone 15 Pro"
                       value={newMobModel}
                       onChange={(e) => setNewMobModel(e.target.value)}
-                      className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Número de Série</label>
+                    <label className="block text-[10px] font-bold text-[#6E7070] uppercase">Número de Série</label>
                     <input
                       type="text"
                       placeholder="ex.: SN-MOB-99212"
                       value={newMobSerial}
                       onChange={(e) => setNewMobSerial(e.target.value)}
-                      className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">E-mail do Usuário Vinculado</label>
+                    <label className="block text-[10px] font-bold text-[#6E7070] uppercase">E-mail do Usuário Vinculado</label>
                     <input
                       type="email"
                       placeholder="ex.: ericob3ware@gmail.com"
                       value={newMobUser}
                       onChange={(e) => setNewMobUser(e.target.value)}
-                      className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 border-t border-slate-100 pt-3">
+                <div className="grid grid-cols-2 gap-4 border-t border-[#D0D0D0] pt-3">
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Esquema de Garantia</label>
+                    <label className="block text-[10px] font-bold text-[#6E7070] uppercase">Esquema de Garantia</label>
                     <select
                       value={newMobWarranty}
                       onChange={(e) => setNewMobWarranty(e.target.value as any)}
-                      className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     >
                       <option value="Under Warranty">Sob Garantia</option>
                       <option value="Expired">Expirada</option>
@@ -1385,22 +1385,22 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Data de Expiração</label>
+                    <label className="block text-[10px] font-bold text-[#6E7070] uppercase">Data de Expiração</label>
                     <input
                       type="date"
                       value={newMobWarrantyDate}
                       onChange={(e) => setNewMobWarrantyDate(e.target.value)}
-                      className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     />
                   </div>
                 </div>
               </div>
 
-              <div className="bg-slate-50 px-6 py-4 border-t border-slate-100 flex justify-end gap-2 shrink-0">
+              <div className="bg-[#F2F2F2] px-6 py-4 border-t border-[#D0D0D0] flex justify-end gap-2 shrink-0">
                 <button
                   type="button"
                   onClick={() => setShowAddMobileModal(false)}
-                  className="px-3.5 py-2 text-xs font-semibold text-slate-600 hover:text-slate-800 bg-white border border-slate-200 rounded-lg cursor-pointer"
+                  className="px-3.5 py-2 text-xs font-semibold text-[#6E7070] hover:text-[#212424] bg-white border border-[#D0D0D0] rounded-lg cursor-pointer"
                 >
                   Cancelar
                 </button>
@@ -1422,17 +1422,17 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
           <motion.div 
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="bg-white border border-slate-200 rounded-xl shadow-xl w-full max-w-lg overflow-hidden"
+            className="bg-white border border-[#D0D0D0] rounded-xl shadow-xl w-full max-w-lg overflow-hidden"
           >
             <form onSubmit={handleAddPrivatePattern}>
-              <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
-                <h3 className="font-bold text-slate-900 text-sm flex items-center gap-1.5">
+              <div className="px-6 py-4 border-b border-[#D0D0D0] flex items-center justify-between">
+                <h3 className="font-bold text-[#212424] text-sm flex items-center gap-1.5">
                   <PlusCircle className="w-4 h-4" style={{color: "#366BB2"}} /> Criar Regra de Correspondência de Reconhecimento
                 </h3>
                 <button
                   type="button"
                   onClick={() => setShowAddPrivateModal(false)}
-                  className="text-slate-400 hover:text-slate-600 font-bold text-lg"
+                  className="text-[#A6A7A7] hover:text-[#6E7070] font-bold text-lg"
                 >
                   &times;
                 </button>
@@ -1441,35 +1441,35 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
               <div className="p-6 space-y-4 max-h-[450px] overflow-y-auto">
                 <div className="space-y-3">
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Nome do Aplicativo Personalizado</label>
+                    <label className="block text-[10px] font-bold text-[#6E7070] uppercase">Nome do Aplicativo Personalizado</label>
                     <input
                       type="text"
                       required
                       placeholder="ex.: Corporate TimeTracker"
                       value={privAppName}
                       onChange={(e) => setPrivAppName(e.target.value)}
-                      className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Fabricante / Fornecedor</label>
+                    <label className="block text-[10px] font-bold text-[#6E7070] uppercase">Fabricante / Fornecedor</label>
                     <input
                       type="text"
                       required
                       placeholder="ex.: Internal IT Systems"
                       value={privPublisher}
                       onChange={(e) => setPrivPublisher(e.target.value)}
-                      className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Categoria</label>
+                    <label className="block text-[10px] font-bold text-[#6E7070] uppercase">Categoria</label>
                     <select
                       value={privCategory}
                       onChange={(e) => setPrivCategory(e.target.value)}
-                      className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     >
                       {categories.map((c) => (
                         <option key={c.id} value={c.id}>{c.name}</option>
@@ -1478,38 +1478,38 @@ export function InventoryView({ onRefreshAll }: InventoryViewProps) {
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Padrão de Correspondência (Substring)</label>
+                    <label className="block text-[10px] font-bold text-[#6E7070] uppercase">Padrão de Correspondência (Substring)</label>
                     <input
                       type="text"
                       required
                       placeholder="ex.: timetracker.internal (mapeia qualquer string bruta que contenha este padrão)"
                       value={privPattern}
                       onChange={(e) => setPrivPattern(e.target.value)}
-                      className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-slate-50 font-mono text-indigo-700 font-bold mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-[#F2F2F2] font-mono text-indigo-700 font-bold mt-1"
                     />
-                    <p className="text-[9px] text-slate-400 mt-1">
+                    <p className="text-[9px] text-[#A6A7A7] mt-1">
                       Se um agente on-premises detectar um valor de registro, caminho de arquivo ou processo de navegador contendo este padrão exato, o DIS o normaliza automaticamente para este modelo de aplicativo privado.
                     </p>
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase">Observações Especiais de Ingestão</label>
+                    <label className="block text-[10px] font-bold text-[#6E7070] uppercase">Observações Especiais de Ingestão</label>
                     <textarea
                       placeholder="Insira observações especiais de inventário interno, caminhos de downgrade ou contatos de suporte."
                       value={privNotes}
                       onChange={(e) => setPrivNotes(e.target.value)}
                       rows={2}
-                      className="w-full text-xs border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
+                      className="w-full text-xs border border-[#D0D0D0] rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white mt-1"
                     />
                   </div>
                 </div>
               </div>
 
-              <div className="bg-slate-50 px-6 py-4 border-t border-slate-100 flex justify-end gap-2 shrink-0">
+              <div className="bg-[#F2F2F2] px-6 py-4 border-t border-[#D0D0D0] flex justify-end gap-2 shrink-0">
                 <button
                   type="button"
                   onClick={() => setShowAddPrivateModal(false)}
-                  className="px-3.5 py-2 text-xs font-semibold text-slate-600 hover:text-slate-800 bg-white border border-slate-200 rounded-lg cursor-pointer"
+                  className="px-3.5 py-2 text-xs font-semibold text-[#6E7070] hover:text-[#212424] bg-white border border-[#D0D0D0] rounded-lg cursor-pointer"
                 >
                   Cancelar
                 </button>

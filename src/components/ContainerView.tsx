@@ -93,34 +93,34 @@ export function ContainerView() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
         <div className="bg-white p-5 rounded-xl border border-[#D0D0D0] shadow-xs flex flex-col justify-between" id="card-k8s-clusters">
           <div className="flex items-center justify-between mb-3">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Clusters Monitorados</span>
+            <span className="text-[10px] font-bold text-[#A6A7A7] uppercase tracking-wider">Clusters Monitorados</span>
             <Layers className="w-4 h-4 text-indigo-500" />
           </div>
           <div>
-            <h3 className="text-xl font-bold text-slate-900">{clusters.length} Clusters K8s</h3>
-            <p className="text-[10px] text-slate-500 mt-1">AWS EKS e OpenShift On-Premises</p>
+            <h3 className="text-xl font-bold text-[#212424]">{clusters.length} Clusters K8s</h3>
+            <p className="text-[10px] text-[#6E7070] mt-1">AWS EKS e OpenShift On-Premises</p>
           </div>
         </div>
 
         <div className="bg-white p-5 rounded-xl border border-[#D0D0D0] shadow-xs flex flex-col justify-between" id="card-k8s-namespaces">
           <div className="flex items-center justify-between mb-3">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total de Namespaces</span>
+            <span className="text-[10px] font-bold text-[#A6A7A7] uppercase tracking-wider">Total de Namespaces</span>
             <Box className="w-4 h-4 text-[#366BB2]/60" />
           </div>
           <div>
-            <h3 className="text-xl font-bold text-slate-900">{clusters.reduce((acc, curr) => acc + curr.namespaceCount, 0)} Namespaces</h3>
-            <p className="text-[10px] text-slate-500 mt-1">Escopo para varredura do catálogo de licenças</p>
+            <h3 className="text-xl font-bold text-[#212424]">{clusters.reduce((acc, curr) => acc + curr.namespaceCount, 0)} Namespaces</h3>
+            <p className="text-[10px] text-[#6E7070] mt-1">Escopo para varredura do catálogo de licenças</p>
           </div>
         </div>
 
         <div className="bg-white p-5 rounded-xl border border-[#D0D0D0] shadow-xs flex flex-col justify-between" id="card-k8s-pods">
           <div className="flex items-center justify-between mb-3">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Pods de Contêiner Inspecionados</span>
+            <span className="text-[10px] font-bold text-[#A6A7A7] uppercase tracking-wider">Pods de Contêiner Inspecionados</span>
             <Box className="w-4 h-4 text-emerald-500" />
           </div>
           <div>
-            <h3 className="text-xl font-bold text-slate-900">{pods.length} Pods Ativos</h3>
-            <p className="text-[10px] text-slate-500 mt-1">Contêineres correspondentes a padrões de software</p>
+            <h3 className="text-xl font-bold text-[#212424]">{pods.length} Pods Ativos</h3>
+            <p className="text-[10px] text-[#6E7070] mt-1">Contêineres correspondentes a padrões de software</p>
           </div>
         </div>
 
@@ -141,10 +141,10 @@ export function ContainerView() {
         {/* Left column: K8s cluster gateways */}
         <div className="bg-white p-6 rounded-xl border border-[#D0D0D0] shadow-xs lg:col-span-1">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900">Gateways de Cluster K8s</h3>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-[#212424]">Gateways de Cluster K8s</h3>
             <button
               onClick={() => setShowAddForm(!showAddForm)}
-              className="px-2 py-1 bg-slate-900 text-white text-[10px] font-bold rounded-lg flex items-center gap-1 hover:bg-slate-800 transition cursor-pointer"
+              className="px-2 py-1 bg-[#366BB2] text-white text-[10px] font-bold rounded-lg flex items-center gap-1 hover:bg-[#4079C4] transition cursor-pointer"
               id="btn-add-k8s-connector"
             >
               <Plus className="w-3 h-3" />
@@ -153,15 +153,15 @@ export function ContainerView() {
           </div>
 
           {showAddForm && (
-            <form onSubmit={handleAddConnector} className="bg-slate-50 p-4 rounded-lg border border-[#D0D0D0] mb-4 space-y-3">
+            <form onSubmit={handleAddConnector} className="bg-[#F2F2F2] p-4 rounded-lg border border-[#D0D0D0] mb-4 space-y-3">
               <div>
-                <label className="block text-[10px] font-bold text-slate-500 mb-1">Nome do Gateway</label>
+                <label className="block text-[10px] font-bold text-[#6E7070] mb-1">Nome do Gateway</label>
                 <input
                   type="text"
                   value={newConnName}
                   onChange={e => setNewConnName(e.target.value)}
                   placeholder="Scanner do Cluster de Desenvolvimento EKS"
-                  className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#D0D0D0] rounded-lg focus:outline-indigo-500 text-slate-800"
+                  className="w-full text-xs px-2.5 py-1.5 bg-white border border-[#D0D0D0] rounded-lg focus:outline-indigo-500 text-[#212424]"
                   required
                 />
               </div>
@@ -169,7 +169,7 @@ export function ContainerView() {
                 <button
                   type="button"
                   onClick={() => setShowAddForm(false)}
-                  className="px-2 py-1 text-[10px] bg-white border border-[#D0D0D0] rounded text-slate-600"
+                  className="px-2 py-1 text-[10px] bg-white border border-[#D0D0D0] rounded text-[#6E7070]"
                 >
                   Cancelar
                 </button>
@@ -185,13 +185,13 @@ export function ContainerView() {
 
           <div className="space-y-3">
             {connectors.length === 0 ? (
-              <div className="text-center py-6 text-xs text-slate-400">Nenhum conector Kubernetes configurado.</div>
+              <div className="text-center py-6 text-xs text-[#A6A7A7]">Nenhum conector Kubernetes configurado.</div>
             ) : (
               connectors.map(conn => (
-                <div key={conn.id} className="p-3 bg-slate-50 border border-slate-100 rounded-lg flex items-center justify-between">
+                <div key={conn.id} className="p-3 bg-[#F2F2F2] border border-[#D0D0D0] rounded-lg flex items-center justify-between">
                   <div>
-                    <h4 className="text-xs font-semibold text-slate-800">{conn.name}</h4>
-                    <p className="text-[9px] text-slate-400">
+                    <h4 className="text-xs font-semibold text-[#212424]">{conn.name}</h4>
+                    <p className="text-[9px] text-[#A6A7A7]">
                       Last scan: {conn.lastSyncedAt ? new Date(conn.lastSyncedAt).toLocaleString() : "Never"}
                     </p>
                   </div>
@@ -205,11 +205,11 @@ export function ContainerView() {
             )}
           </div>
 
-          <div className="mt-5 border-t border-slate-100 pt-4">
+          <div className="mt-5 border-t border-[#D0D0D0] pt-4">
             <button
               onClick={handleSync}
               disabled={syncing}
-              className="w-full py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-lg font-bold text-xs flex items-center justify-center gap-2 transition cursor-pointer"
+              className="w-full py-2 bg-[#F2F2F2] text-[#6E7070] hover:bg-[#E8E8E8] rounded-lg font-bold text-xs flex items-center justify-center gap-2 transition cursor-pointer"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${syncing ? "animate-spin" : ""}`} />
               {syncing ? "Escaneando Contêineres..." : "Escaneear Licenças de Contêiner K8s"}
@@ -220,14 +220,14 @@ export function ContainerView() {
         {/* Right column: Pods licensing inventory */}
         <div className="bg-white p-6 rounded-xl border border-[#D0D0D0] shadow-xs lg:col-span-2">
           <div className="mb-4">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900">Lista de Descoberta de Aplicativos em Contêineres</h3>
-            <p className="text-[10px] text-slate-400 mt-0.5">Escaneia imagens de contêiner em execução, combinando com o catálogo de reconhecimento do Snow Software</p>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-[#212424]">Lista de Descoberta de Aplicativos em Contêineres</h3>
+            <p className="text-[10px] text-[#A6A7A7] mt-0.5">Escaneia imagens de contêiner em execução, combinando com o catálogo de reconhecimento do Snow Software</p>
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs text-slate-600">
+            <table className="w-full text-left text-xs text-[#6E7070]">
               <thead>
-                <tr className="border-b border-[#D0D0D0] text-[10px] font-bold text-slate-400 uppercase bg-[#F2F2F2]/50">
+                <tr className="border-b border-[#D0D0D0] text-[10px] font-bold text-[#A6A7A7] uppercase bg-[#F2F2F2]/50">
                   <th className="py-2.5 px-3">Nome do Pod / Namespace</th>
                   <th className="py-2.5 px-3">Nome da Imagem do Contêiner</th>
                   <th className="py-2.5 px-3">Software de Licença Detectado</th>
@@ -237,26 +237,26 @@ export function ContainerView() {
               <tbody className="divide-y divide-slate-100">
                 {pods.length === 0 ? (
                   <tr>
-                    <td colSpan={4} className="py-8 text-center text-xs text-slate-400">Nenhum software de contêiner descoberto encontrado.</td>
+                    <td colSpan={4} className="py-8 text-center text-xs text-[#A6A7A7]">Nenhum software de contêiner descoberto encontrado.</td>
                   </tr>
                 ) : (
                   pods.map(pod => {
                     const isAnomalous = pod.licenseStatus === "Non-Compliant" || pod.licenseStatus === "Unlicensed";
                     return (
-                      <tr key={pod.id} className="hover:bg-slate-50/50 transition">
+                      <tr key={pod.id} className="hover:bg-[#F2F2F2]/50 transition">
                         <td className="py-3 px-3">
                           <div className="flex flex-col">
-                            <span className="font-semibold text-slate-900">{pod.podName}</span>
-                            <span className="text-[9px] text-slate-400">Namespace: {pod.namespace}</span>
+                            <span className="font-semibold text-[#212424]">{pod.podName}</span>
+                            <span className="text-[9px] text-[#A6A7A7]">Namespace: {pod.namespace}</span>
                           </div>
                         </td>
-                        <td className="py-3 px-3 font-mono text-[10px] text-slate-600">
+                        <td className="py-3 px-3 font-mono text-[10px] text-[#6E7070]">
                           {pod.imageName}
                         </td>
                         <td className="py-3 px-3">
                           <div className="flex flex-wrap gap-1">
                             {pod.softwareRunning.map((s, i) => (
-                              <span key={i} className="px-1.5 py-0.5 bg-slate-100 text-slate-700 text-[9px] font-medium rounded">
+                              <span key={i} className="px-1.5 py-0.5 bg-[#F2F2F2] text-[#6E7070] text-[9px] font-medium rounded">
                                 {s}
                               </span>
                             ))}

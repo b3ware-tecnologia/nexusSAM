@@ -532,7 +532,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
       </div>
 
       {/* View Selector Tabs */}
-      <div className="border-b border-slate-200 flex flex-wrap items-center justify-between gap-4">
+      <div className="border-b border-[#D0D0D0] flex flex-wrap items-center justify-between gap-4">
         <div className="flex gap-2">
           {(["OVERVIEW", "SUBSCRIPTIONS", "USERS", "CONNECTORS"] as const).map((tab) => (
             <button
@@ -544,7 +544,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
               className={`pb-4 px-4 text-xs font-bold transition-all relative cursor-pointer ${
                 activeTab === tab
                   ? "text-[#366BB2] border-b-2 border-[#366BB2]"
-                  : "text-slate-400 hover:text-slate-600"
+                  : "text-[#A6A7A7] hover:text-[#6E7070]"
               }`}
               id={`saas-tab-${tab.toLowerCase()}`}
             >
@@ -558,13 +558,13 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
 
         {activeTab !== "CONNECTORS" && (
           <div className="relative pb-3 w-72">
-            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
+            <Search className="w-3.5 h-3.5 text-[#A6A7A7] absolute left-3 top-2.5" />
             <input
               type="text"
               placeholder={`Pesquisar ${activeTab.toLowerCase()}...`}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-1.5 bg-white border border-slate-200 rounded-lg text-xs focus:outline-hidden focus:ring-1 focus:ring-indigo-500"
+              className="w-full pl-9 pr-4 py-1.5 bg-white border border-[#D0D0D0] rounded-lg text-xs focus:outline-hidden focus:ring-1 focus:ring-indigo-500"
               id="saas-search-input"
             />
           </div>
@@ -581,11 +581,11 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
           <div className="lg:col-span-2 space-y-8">
             
             {/* Optimization Insights Bento Block */}
-            <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4">
+            <div className="bg-white rounded-xl border border-[#D0D0D0] p-6 space-y-4">
               <div className="flex items-center justify-between border-b border-slate-100 pb-4">
                 <div className="flex items-center gap-2">
                   <TrendingDown className="w-4 h-4 text-indigo-500" />
-                  <h3 className="font-bold text-slate-800 text-sm">Insights Críticos de Recuperação de Custos</h3>
+                  <h3 className="font-bold text-[#212424] text-sm">Insights Críticos de Recuperação de Custos</h3>
                 </div>
                 <span className="text-[10px] px-2 py-0.5 rounded font-bold font-mono" style={{background: "#D1E7F3", color: "#4079C4"}}>
                   Acionável em Tempo Real
@@ -598,9 +598,9 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                   <div className="flex items-start gap-3 p-4 bg-amber-50/70 rounded-lg border border-amber-100 text-xs">
                     <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
                     <div className="flex-1 space-y-1">
-                      <p className="font-bold text-slate-900">Inatividade do Usuário do Adobe Creative Cloud detectada</p>
-                      <p className="text-slate-600">
-                        <span className="font-bold text-slate-800">David Miller</span> has an active All Apps license ($80/mo) but has no login activity recorded for <span className="font-bold text-slate-800 font-mono">117 days</span>.
+                      <p className="font-bold text-[#212424]">Inatividade do Usuário do Adobe Creative Cloud detectada</p>
+                      <p className="text-[#6E7070]">
+                        <span className="font-bold text-[#212424]">David Miller</span> has an active All Apps license ($80/mo) but has no login activity recorded for <span className="font-bold text-[#212424] font-mono">117 days</span>.
                       </p>
                       <button 
                         onClick={() => {
@@ -621,15 +621,15 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                   <div className="flex items-start gap-3 p-4 bg-orange-50/70 rounded-lg border border-orange-100 text-xs">
                     <Info className="w-4 h-4 text-orange-600 shrink-0 mt-0.5" />
                     <div className="flex-1 space-y-1">
-                      <p className="font-bold text-slate-900">Assentos SaaS Adquiridos Não Atribuídos Detectados</p>
-                      <div className="text-slate-600 space-y-1">
+                      <p className="font-bold text-[#212424]">Assentos SaaS Adquiridos Não Atribuídos Detectados</p>
+                      <div className="text-[#6E7070] space-y-1">
                         {subscriptions.map(s => {
                           const diff = s.seatsTotal - s.seatsAssigned;
                           if (diff > 0) {
                             const app = apps.find(a => a.id === s.saasApplicationId);
                             return (
                               <p key={s.id}>
-                                • <span className="font-semibold text-slate-800">{app?.name} ({s.planName})</span> has <span className="font-bold font-mono text-slate-800">{diff}</span> unassigned seats. Waste: <span className="font-bold font-mono">${(diff * s.costPerSeat).toFixed(0)}/mo</span>.
+                                • <span className="font-semibold text-[#212424]">{app?.name} ({s.planName})</span> has <span className="font-bold font-mono text-[#212424]">{diff}</span> unassigned seats. Waste: <span className="font-bold font-mono">${(diff * s.costPerSeat).toFixed(0)}/mo</span>.
                               </p>
                             );
                           }
@@ -653,8 +653,8 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                         {metrics.shadowApps.map(app => (
                           <div key={app.id} className="bg-white/80 p-2.5 rounded border border-rose-100 flex items-center justify-between">
                             <div>
-                              <p className="font-bold text-slate-900 text-xs">{app.name}</p>
-                              <p className="text-[10px] text-slate-500">Publisher: {app.publisher}</p>
+                              <p className="font-bold text-[#212424] text-xs">{app.name}</p>
+                              <p className="text-[10px] text-[#6E7070]">Publisher: {app.publisher}</p>
                             </div>
                             <div className="text-right">
                               <span className="text-[10px] font-bold bg-rose-100 text-rose-700 px-1.5 py-0.5 rounded">
@@ -664,7 +664,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                           </div>
                         ))}
                       </div>
-                      <p className="text-[10px] text-slate-500 pt-1">
+                      <p className="text-[10px] text-[#6E7070] pt-1">
                         *Marque estes aplicativos como aprovados ou bloqueie o acesso diretamente por meio de suas regras CASB integradas.
                       </p>
                     </div>
@@ -674,18 +674,18 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
             </div>
 
             {/* SaaS Catalog Listing & Approval Control */}
-            <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4">
+            <div className="bg-white rounded-xl border border-[#D0D0D0] p-6 space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="font-bold text-slate-800 text-sm">Catálogo SaaS Descoberto ({filteredApps.length})</h3>
-                  <p className="text-[10px] text-slate-400">Detecção contínua em segundo plano via extensões de navegador, CASB e integrações Okta SSO</p>
+                  <h3 className="font-bold text-[#212424] text-sm">Catálogo SaaS Descoberto ({filteredApps.length})</h3>
+                  <p className="text-[10px] text-[#A6A7A7]">Detecção contínua em segundo plano via extensões de navegador, CASB e integrações Okta SSO</p>
                 </div>
                 <button
                   onClick={() => {
                     setActiveTab("SUBSCRIPTIONS");
                     setIsSubModalOpen(true);
                   }}
-                  className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
+                  className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-[#212424] rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
                 >
                   <PlusCircle className="w-3.5 h-3.5" />
                   Adicionar Fornecedor Personalizado
@@ -695,7 +695,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
                   <thead>
-                    <tr className="border-b border-slate-100 text-slate-400 font-bold">
+                    <tr className="border-b border-slate-100 text-[#A6A7A7] font-bold">
                       <th className="pb-3 font-semibold">Aplicativo</th>
                       <th className="pb-3 font-semibold">Editora & Categoria</th>
                       <th className="pb-3 font-semibold">Risco de Segurança</th>
@@ -714,18 +714,18 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                               {app.name.substring(0, 2)}
                             </div>
                             <div>
-                              <p className="font-bold text-slate-900">{app.name}</p>
+                              <p className="font-bold text-[#212424]">{app.name}</p>
                               {app.familyName && (
-                                <span className="text-[9px] bg-slate-100 text-slate-500 font-medium px-1 py-0.5 rounded block w-fit mt-0.5">
+                                <span className="text-[9px] bg-slate-100 text-[#6E7070] font-medium px-1 py-0.5 rounded block w-fit mt-0.5">
                                   {app.familyName} Suite
                                 </span>
                               )}
                             </div>
                           </div>
                         </td>
-                        <td className="py-3 text-slate-600">
+                        <td className="py-3 text-[#6E7070]">
                           <p className="font-medium">{app.publisher}</p>
-                          <p className="text-[10px] text-slate-400">{app.category}</p>
+                          <p className="text-[10px] text-[#A6A7A7]">{app.category}</p>
                         </td>
                         <td className="py-3">
                           <div className="flex items-center gap-2">
@@ -737,7 +737,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                                 style={{ width: `${app.riskScore}%` }}
                               ></div>
                             </div>
-                            <span className="font-mono font-semibold text-[11px] text-slate-600">
+                            <span className="font-mono font-semibold text-[11px] text-[#6E7070]">
                               {app.riskScore}/100
                             </span>
                           </div>
@@ -745,7 +745,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                         <td className="py-3">
                           <div className="flex flex-wrap gap-1 max-w-[180px]">
                             {app.discoveredSources?.map((src, i) => (
-                              <span key={i} className="text-[9px] bg-slate-50 text-slate-500 border border-slate-200/50 px-1 py-0.2 rounded font-medium">
+                              <span key={i} className="text-[9px] bg-slate-50 text-[#6E7070] border border-[#D0D0D0]/50 px-1 py-0.2 rounded font-medium">
                                 {src}
                               </span>
                             ))}
@@ -776,33 +776,33 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
           <div className="space-y-8">
             
             {/* Vendor SaaS Families Bento Block */}
-            <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4">
+            <div className="bg-white rounded-xl border border-[#D0D0D0] p-6 space-y-4">
               <div className="border-b border-slate-100 pb-3">
-                <h3 className="font-bold text-slate-800 text-sm">Famílias de Licenças por Fornecedor</h3>
-                <p className="text-[10px] text-slate-400">Agrupando licenças por editoras de software e linhas de produtos</p>
+                <h3 className="font-bold text-[#212424] text-sm">Famílias de Licenças por Fornecedor</h3>
+                <p className="text-[10px] text-[#A6A7A7]">Agrupando licenças por editoras de software e linhas de produtos</p>
               </div>
 
               <div className="space-y-3">
                 
                 {/* M365 */}
-                <div className="p-3 bg-slate-50 rounded-lg border border-slate-200/60">
+                <div className="p-3 bg-slate-50 rounded-lg border border-[#D0D0D0]/60">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-bold text-slate-800 text-xs">Microsoft 365 Family</span>
+                    <span className="font-bold text-[#212424] text-xs">Microsoft 365 Family</span>
                     <span className="text-[9px] px-1.5 py-0.5 rounded font-mono font-bold" style={{background: "#D1E7F3", color: "#4079C4"}}>
                       {metrics.families.m365.length} Subs
                     </span>
                   </div>
-                  <div className="grid grid-cols-3 gap-2 text-center text-[10px] text-slate-600 font-semibold font-mono">
+                  <div className="grid grid-cols-3 gap-2 text-center text-[10px] text-[#6E7070] font-semibold font-mono">
                     <div className="bg-white py-1 rounded border border-slate-100">
-                      <p className="text-[8px] text-slate-400 font-sans uppercase">Total</p>
-                      <p className="text-slate-800 font-bold">{metrics.families.m365.reduce((acc, s) => acc + s.seatsTotal, 0)}</p>
+                      <p className="text-[8px] text-[#A6A7A7] font-sans uppercase">Total</p>
+                      <p className="text-[#212424] font-bold">{metrics.families.m365.reduce((acc, s) => acc + s.seatsTotal, 0)}</p>
                     </div>
                     <div className="bg-white py-1 rounded border border-slate-100">
-                      <p className="text-[8px] text-slate-400 font-sans uppercase">Assigned</p>
+                      <p className="text-[8px] text-[#A6A7A7] font-sans uppercase">Assigned</p>
                       <p style={{color: "#366BB2"}} className="font-bold">{metrics.families.m365.reduce((acc, s) => acc + s.seatsAssigned, 0)}</p>
                     </div>
                     <div className="bg-white py-1 rounded border border-slate-100">
-                      <p className="text-[8px] text-slate-400 font-sans uppercase">Unassigned</p>
+                      <p className="text-[8px] text-[#A6A7A7] font-sans uppercase">Unassigned</p>
                       <p className="text-amber-600 font-bold">
                         {Math.max(0, metrics.families.m365.reduce((acc, s) => acc + (s.seatsTotal - s.seatsAssigned), 0))}
                       </p>
@@ -811,24 +811,24 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                 </div>
 
                 {/* Adobe */}
-                <div className="p-3 bg-slate-50 rounded-lg border border-slate-200/60">
+                <div className="p-3 bg-slate-50 rounded-lg border border-[#D0D0D0]/60">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-bold text-slate-800 text-xs">Adobe CC Suite</span>
+                    <span className="font-bold text-[#212424] text-xs">Adobe CC Suite</span>
                     <span className="text-[9px] px-1.5 py-0.5 rounded font-mono font-bold" style={{background: "#D1E7F3", color: "#4079C4"}}>
                       {metrics.families.adobe.length} Subs
                     </span>
                   </div>
-                  <div className="grid grid-cols-3 gap-2 text-center text-[10px] text-slate-600 font-semibold font-mono">
+                  <div className="grid grid-cols-3 gap-2 text-center text-[10px] text-[#6E7070] font-semibold font-mono">
                     <div className="bg-white py-1 rounded border border-slate-100">
-                      <p className="text-[8px] text-slate-400 font-sans uppercase">Total</p>
-                      <p className="text-slate-800 font-bold">{metrics.families.adobe.reduce((acc, s) => acc + s.seatsTotal, 0)}</p>
+                      <p className="text-[8px] text-[#A6A7A7] font-sans uppercase">Total</p>
+                      <p className="text-[#212424] font-bold">{metrics.families.adobe.reduce((acc, s) => acc + s.seatsTotal, 0)}</p>
                     </div>
                     <div className="bg-white py-1 rounded border border-slate-100">
-                      <p className="text-[8px] text-slate-400 font-sans uppercase">Assigned</p>
+                      <p className="text-[8px] text-[#A6A7A7] font-sans uppercase">Assigned</p>
                       <p style={{color: "#366BB2"}} className="font-bold">{metrics.families.adobe.reduce((acc, s) => acc + s.seatsAssigned, 0)}</p>
                     </div>
                     <div className="bg-white py-1 rounded border border-slate-100">
-                      <p className="text-[8px] text-slate-400 font-sans uppercase">Unassigned</p>
+                      <p className="text-[8px] text-[#A6A7A7] font-sans uppercase">Unassigned</p>
                       <p className="text-amber-600 font-bold">
                         {Math.max(0, metrics.families.adobe.reduce((acc, s) => acc + (s.seatsTotal - s.seatsAssigned), 0))}
                       </p>
@@ -837,24 +837,24 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                 </div>
 
                 {/* Salesforce */}
-                <div className="p-3 bg-slate-50 rounded-lg border border-slate-200/60">
+                <div className="p-3 bg-slate-50 rounded-lg border border-[#D0D0D0]/60">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-bold text-slate-800 text-xs">Salesforce Cloud CRM</span>
+                    <span className="font-bold text-[#212424] text-xs">Salesforce Cloud CRM</span>
                     <span className="text-[9px] px-1.5 py-0.5 rounded font-mono font-bold" style={{background: "#D1E7F3", color: "#4079C4"}}>
                       {metrics.families.salesforce.length} Subs
                     </span>
                   </div>
-                  <div className="grid grid-cols-3 gap-2 text-center text-[10px] text-slate-600 font-semibold font-mono">
+                  <div className="grid grid-cols-3 gap-2 text-center text-[10px] text-[#6E7070] font-semibold font-mono">
                     <div className="bg-white py-1 rounded border border-slate-100">
-                      <p className="text-[8px] text-slate-400 font-sans uppercase">Total</p>
-                      <p className="text-slate-800 font-bold">{metrics.families.salesforce.reduce((acc, s) => acc + s.seatsTotal, 0)}</p>
+                      <p className="text-[8px] text-[#A6A7A7] font-sans uppercase">Total</p>
+                      <p className="text-[#212424] font-bold">{metrics.families.salesforce.reduce((acc, s) => acc + s.seatsTotal, 0)}</p>
                     </div>
                     <div className="bg-white py-1 rounded border border-slate-100">
-                      <p className="text-[8px] text-slate-400 font-sans uppercase">Assigned</p>
+                      <p className="text-[8px] text-[#A6A7A7] font-sans uppercase">Assigned</p>
                       <p style={{color: "#366BB2"}} className="font-bold">{metrics.families.salesforce.reduce((acc, s) => acc + s.seatsAssigned, 0)}</p>
                     </div>
                     <div className="bg-white py-1 rounded border border-slate-100">
-                      <p className="text-[8px] text-slate-400 font-sans uppercase">Unassigned</p>
+                      <p className="text-[8px] text-[#A6A7A7] font-sans uppercase">Unassigned</p>
                       <p className="text-amber-600 font-bold">
                         {Math.max(0, metrics.families.salesforce.reduce((acc, s) => acc + (s.seatsTotal - s.seatsAssigned), 0))}
                       </p>
@@ -866,13 +866,13 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
             </div>
 
             {/* Simulated CSV/API Bulk Import Portal */}
-            <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4">
+            <div className="bg-white rounded-xl border border-[#D0D0D0] p-6 space-y-4">
               <div>
-                  <h3 className="font-bold text-slate-800 text-sm flex items-center gap-1.5">
-                    <Upload className="w-4 h-4 text-slate-500" />
+                  <h3 className="font-bold text-[#212424] text-sm flex items-center gap-1.5">
+                    <Upload className="w-4 h-4 text-[#6E7070]" />
                     Importação Personalizada CSV / JSON
                   </h3>
-                  <p className="text-[10px] text-slate-400">Cole conjuntos de dados de uso em nuvem em massa para acionar a descoberta automatizada</p>
+                  <p className="text-[10px] text-[#A6A7A7]">Cole conjuntos de dados de uso em nuvem em massa para acionar a descoberta automatizada</p>
               </div>
 
               <div className="space-y-3">
@@ -884,7 +884,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                 />
                 
                 {csvStatusMsg && (
-                  <p className="text-[10px] bg-slate-50 text-slate-600 p-2 rounded border border-slate-100 font-medium leading-normal">
+                  <p className="text-[10px] bg-slate-50 text-[#6E7070] p-2 rounded border border-slate-100 font-medium leading-normal">
                     {csvStatusMsg}
                   </p>
                 )}
@@ -900,22 +900,22 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
             </div>
 
             {/* SaaS Browser Extension Discovery Simulator */}
-            <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4">
+            <div className="bg-white rounded-xl border border-[#D0D0D0] p-6 space-y-4">
               <div>
-                <h3 className="font-bold text-slate-800 text-sm flex items-center gap-1.5">
+                <h3 className="font-bold text-[#212424] text-sm flex items-center gap-1.5">
                   <Layers className="w-4 h-4 text-indigo-500" />
                   Simulador de Extensão de Navegador
                 </h3>
-                <p className="text-[10px] text-slate-400">Simule atividades de endpoint de usuário em segundo plano via telemetria de extensão Chrome/Edge.</p>
+                <p className="text-[10px] text-[#A6A7A7]">Simule atividades de endpoint de usuário em segundo plano via telemetria de extensão Chrome/Edge.</p>
               </div>
 
               <div className="space-y-3">
                 <div>
-                    <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">URL Simulada Visitada</label>
+                    <label className="block text-[10px] font-bold text-[#A6A7A7] uppercase tracking-wider mb-1">URL Simulada Visitada</label>
                   <select
                     value={extensionUrl}
                     onChange={(e) => setExtensionUrl(e.target.value)}
-                    className="w-full bg-white border border-slate-200 rounded p-1.5 text-xs focus:outline-hidden focus:ring-1 focus:ring-indigo-500"
+                    className="w-full bg-white border border-[#D0D0D0] rounded p-1.5 text-xs focus:outline-hidden focus:ring-1 focus:ring-indigo-500"
                     id="saas-extension-url-select"
                   >
                     <option value="https://figma.com/file/marketing-campaign">https://figma.com/file/marketing-campaign (Figma Pro)</option>
@@ -931,33 +931,33 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
 
                 <div className="grid grid-cols-2 gap-2">
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">E-mail do Usuário</label>
+                    <label className="block text-[10px] font-bold text-[#A6A7A7] uppercase tracking-wider mb-1">E-mail do Usuário</label>
                     <input
                       type="email"
                       value={extensionEmail}
                       onChange={(e) => setExtensionEmail(e.target.value)}
                       placeholder="user@company.com"
-                      className="w-full bg-white border border-slate-200 rounded p-1.5 text-xs focus:outline-hidden focus:ring-1 focus:ring-indigo-500 font-mono"
+                      className="w-full bg-white border border-[#D0D0D0] rounded p-1.5 text-xs focus:outline-hidden focus:ring-1 focus:ring-indigo-500 font-mono"
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Nome do Usuário</label>
+                    <label className="block text-[10px] font-bold text-[#A6A7A7] uppercase tracking-wider mb-1">Nome do Usuário</label>
                     <input
                       type="text"
                       value={extensionName}
                       onChange={(e) => setExtensionName(e.target.value)}
                       placeholder="John Doe"
-                      className="w-full bg-white border border-slate-200 rounded p-1.5 text-xs focus:outline-hidden focus:ring-1 focus:ring-indigo-500"
+                      className="w-full bg-white border border-[#D0D0D0] rounded p-1.5 text-xs focus:outline-hidden focus:ring-1 focus:ring-indigo-500"
                     />
                   </div>
                 </div>
 
                 <div>
-                    <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Departamento</label>
+                    <label className="block text-[10px] font-bold text-[#A6A7A7] uppercase tracking-wider mb-1">Departamento</label>
                   <select
                     value={extensionDept}
                     onChange={(e) => setExtensionDept(e.target.value)}
-                    className="w-full bg-white border border-slate-200 rounded p-1.5 text-xs focus:outline-hidden focus:ring-1 focus:ring-indigo-500"
+                    className="w-full bg-white border border-[#D0D0D0] rounded p-1.5 text-xs focus:outline-hidden focus:ring-1 focus:ring-indigo-500"
                   >
                     <option value="Engineering">Engineering</option>
                     <option value="Marketing">Marketing</option>
@@ -969,7 +969,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
 
                 {extensionResult && (
                   <div className={`p-3 rounded border text-[11px] font-sans ${
-                    extensionResult.success ? "bg-indigo-50/80 border-indigo-100 text-slate-700" : "bg-rose-50/80 border-rose-100 text-rose-700"
+                    extensionResult.success ? "bg-indigo-50/80 border-indigo-100 text-[#6E7070]" : "bg-rose-50/80 border-rose-100 text-rose-700"
                   }`}>
                     <div className="flex items-center gap-1.5 mb-1">
                       {extensionResult.success ? (
@@ -977,7 +977,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                       ) : (
                         <AlertCircle className="w-3.5 h-3.5 text-rose-600 shrink-0" />
                       )}
-                      <p className="font-bold text-slate-800">{extensionResult.success ? "Telemetry Logged" : "Error Occurred"}</p>
+                      <p className="font-bold text-[#212424]">{extensionResult.success ? "Telemetry Logged" : "Error Occurred"}</p>
                     </div>
                     <p className="text-[10px] leading-relaxed mb-1">{extensionResult.message}</p>
                     {extensionResult.application && (
@@ -1015,11 +1015,11 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
       {/* 2. SUBSCRIPTIONS MANAGEMENT & FINANCIAL COSTS */}
       {activeTab === "SUBSCRIPTIONS" && (
         <div className="space-y-6">
-          <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-6">
+          <div className="bg-white rounded-xl border border-[#D0D0D0] p-6 space-y-6">
             <div className="flex items-center justify-between border-b border-slate-100 pb-4">
               <div>
-                <h3 className="font-bold text-slate-800 text-sm">Assinaturas de Licença Ativas e Custos de SKU do Contrato</h3>
-                <p className="text-[10px] text-slate-400">Configure assentos, custos unitários, filtros de exclusão e marcos de renovação</p>
+                <h3 className="font-bold text-[#212424] text-sm">Assinaturas de Licença Ativas e Custos de SKU do Contrato</h3>
+                <p className="text-[10px] text-[#A6A7A7]">Configure assentos, custos unitários, filtros de exclusão e marcos de renovação</p>
               </div>
               <button
                 onClick={() => {
@@ -1037,7 +1037,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-slate-100 text-slate-400 font-bold">
+                  <tr className="border-b border-slate-100 text-[#A6A7A7] font-bold">
                     <th className="pb-3 font-semibold">Produto SaaS</th>
                     <th className="pb-3 font-semibold">SKU / Nome do Plano</th>
                     <th className="pb-3 font-semibold">Frequência de Cobrança</th>
@@ -1058,34 +1058,34 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                       <tr key={sub.id} className="hover:bg-slate-50/50 transition-colors">
                         <td className="py-3.5">
                           <div className="flex items-center gap-2">
-                            <div className="w-7 h-7 bg-slate-100 rounded flex items-center justify-center font-bold text-xs text-slate-700">
+                            <div className="w-7 h-7 bg-slate-100 rounded flex items-center justify-center font-bold text-xs text-[#6E7070]">
                               {app?.name.substring(0, 2) || "SA"}
                             </div>
                             <div>
-                              <p className="font-bold text-slate-900">{app?.name || "Aplicativo desconhecido"}</p>
+                              <p className="font-bold text-[#212424]">{app?.name || "Aplicativo desconhecido"}</p>
                               <div className="flex gap-1.5 mt-0.5">
                                 {sub.isFree && (
                                   <span className="text-[9px] bg-emerald-50 text-emerald-700 font-bold px-1.5 py-0.2 rounded">Plano Gratuito</span>
                                 )}
                                 {sub.isExcluded && (
-                                  <span className="text-[9px] bg-slate-100 text-slate-500 font-bold px-1.5 py-0.2 rounded">Excluído</span>
+                                  <span className="text-[9px] bg-slate-100 text-[#6E7070] font-bold px-1.5 py-0.2 rounded">Excluído</span>
                                 )}
                               </div>
                             </div>
                           </div>
                         </td>
-                        <td className="py-3.5 text-slate-600">
-                          <p className="font-semibold font-mono text-[11px] text-slate-800">{sub.sku}</p>
-                          <p className="text-[10px] text-slate-400">{sub.planName}</p>
+                        <td className="py-3.5 text-[#6E7070]">
+                          <p className="font-semibold font-mono text-[11px] text-[#212424]">{sub.sku}</p>
+                          <p className="text-[10px] text-[#A6A7A7]">{sub.planName}</p>
                         </td>
                         <td className="py-3.5">
-                          <span className="bg-slate-100 text-slate-600 font-semibold text-[10px] px-2 py-0.5 rounded">
+                          <span className="bg-slate-100 text-[#6E7070] font-semibold text-[10px] px-2 py-0.5 rounded">
                             {sub.billingFrequency}
                           </span>
                         </td>
                         <td className="py-3.5">
-                          <p className="font-bold text-slate-800 font-mono">
-                            {sub.seatsAssigned} / {sub.seatsTotal} <span className="text-[10px] text-slate-400 font-normal font-sans">atribuídos</span>
+                          <p className="font-bold text-[#212424] font-mono">
+                            {sub.seatsAssigned} / {sub.seatsTotal} <span className="text-[10px] text-[#A6A7A7] font-normal font-sans">atribuídos</span>
                           </p>
                           {unassigned > 0 && (
                             <span className="text-[10px] text-amber-600 font-medium">
@@ -1093,16 +1093,16 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                             </span>
                           )}
                         </td>
-                        <td className="py-3.5 font-semibold text-slate-800 font-mono">
-                          ${sub.costPerSeat} <span className="text-[10px] text-slate-400 font-sans font-normal">{sub.currency}</span>
+                        <td className="py-3.5 font-semibold text-[#212424] font-mono">
+                          ${sub.costPerSeat} <span className="text-[10px] text-[#A6A7A7] font-sans font-normal">{sub.currency}</span>
                         </td>
                         <td className="py-3.5 font-bold font-mono text-sm" style={{color: "#366BB2"}}>
-                          ${monthlyTotal.toLocaleString()} <span className="text-[10px] text-slate-400 font-sans font-normal">/mo</span>
+                          ${monthlyTotal.toLocaleString()} <span className="text-[10px] text-[#A6A7A7] font-sans font-normal">/mo</span>
                         </td>
-                        <td className="py-3.5 text-slate-500 font-medium font-mono text-[11px]">
+                        <td className="py-3.5 text-[#6E7070] font-medium font-mono text-[11px]">
                           {sub.expirationDate ? (
                             <span className="flex items-center gap-1">
-                              <Calendar className="w-3 h-3 text-slate-400" />
+                              <Calendar className="w-3 h-3 text-[#A6A7A7]" />
                               {sub.expirationDate}
                             </span>
                           ) : (
@@ -1113,13 +1113,13 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                           <div className="flex items-center justify-end gap-1">
                             <button
                               onClick={() => handleEditSubscriptionClick(sub)}
-                              className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-slate-100 rounded transition-all cursor-pointer"
+                              className="p-1.5 text-[#6E7070] hover:text-indigo-600 hover:bg-slate-100 rounded transition-all cursor-pointer"
                             >
                               <Edit className="w-3.5 h-3.5" />
                             </button>
                             <button
                               onClick={() => handleDeleteSubscription(sub.id)}
-                              className="p-1.5 text-slate-500 hover:text-rose-600 hover:bg-slate-100 rounded transition-all cursor-pointer"
+                              className="p-1.5 text-[#6E7070] hover:text-rose-600 hover:bg-slate-100 rounded transition-all cursor-pointer"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
                             </button>
@@ -1140,11 +1140,11 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
           {/* User identities table */}
-          <div className="lg:col-span-2 bg-white rounded-xl border border-slate-200 p-6 space-y-4">
+          <div className="lg:col-span-2 bg-white rounded-xl border border-[#D0D0D0] p-6 space-y-4">
             <div className="flex items-center justify-between border-b border-slate-100 pb-4">
               <div>
-                <h3 className="font-bold text-slate-800 text-sm">Identidades Corporativas Multifonte Unificadas ({filteredUsers.length})</h3>
-                <p className="text-[10px] text-slate-400">Identidades correspondidas entre bancos de dados M365, Google e Okta usando o Mecanismo de Consolidação SaaS</p>
+                <h3 className="font-bold text-[#212424] text-sm">Identidades Corporativas Multifonte Unificadas ({filteredUsers.length})</h3>
+                <p className="text-[10px] text-[#A6A7A7]">Identidades correspondidas entre bancos de dados M365, Google e Okta usando o Mecanismo de Consolidação SaaS</p>
               </div>
               <button
                 onClick={handleConsolidate}
@@ -1158,7 +1158,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-slate-100 text-slate-400 font-bold">
+                  <tr className="border-b border-slate-100 text-[#A6A7A7] font-bold">
                     <th className="pb-3 font-semibold">Detalhes do Usuário</th>
                     <th className="pb-3 font-semibold">Departamento</th>
                     <th className="pb-3 font-semibold">Status da Conta</th>
@@ -1170,14 +1170,14 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                     <tr key={user.id} className="hover:bg-slate-50/50 transition-colors">
                       <td className="py-3">
                         <div>
-                          <p className="font-bold text-slate-900">{user.name}</p>
-                          <p className="text-[10px] text-slate-400 font-mono">{user.email}</p>
+                          <p className="font-bold text-[#212424]">{user.name}</p>
+                          <p className="text-[10px] text-[#A6A7A7] font-mono">{user.email}</p>
                         </div>
                       </td>
-                      <td className="py-3 text-slate-600 font-medium">{user.department}</td>
+                      <td className="py-3 text-[#6E7070] font-medium">{user.department}</td>
                       <td className="py-3">
                         <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                          user.status === "Active" ? "bg-emerald-50 text-emerald-700" : "bg-slate-100 text-slate-500"
+                          user.status === "Active" ? "bg-emerald-50 text-emerald-700" : "bg-slate-100 text-[#6E7070]"
                         }`}>
                           {user.status}
                         </span>
@@ -1185,7 +1185,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                       <td className="py-3">
                         <div className="flex flex-wrap gap-1">
                           {user.identitySources?.map((src, i) => (
-                            <span key={i} className="text-[9px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono font-medium">
+                            <span key={i} className="text-[9px] bg-slate-100 text-[#6E7070] px-1.5 py-0.5 rounded font-mono font-medium">
                               {src}
                             </span>
                           ))}
@@ -1199,10 +1199,10 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
           </div>
 
           {/* Right Column: User activity audit streams */}
-          <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4">
+          <div className="bg-white rounded-xl border border-[#D0D0D0] p-6 space-y-4">
             <div className="border-b border-slate-100 pb-3">
-              <h3 className="font-bold text-slate-800 text-sm">Logs de Usuário Ativos e Medição de Uso</h3>
-              <p className="text-[10px] text-slate-400">Medição de uso de página da web e extensão em segundo plano</p>
+              <h3 className="font-bold text-[#212424] text-sm">Logs de Usuário Ativos e Medição de Uso</h3>
+              <p className="text-[10px] text-[#A6A7A7]">Medição de uso de página da web e extensão em segundo plano</p>
             </div>
 
             <div className="space-y-3 max-h-[480px] overflow-y-auto pr-2">
@@ -1211,9 +1211,9 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                 const user = users.find(u => u.id === act.saasUserId);
 
                 return (
-                  <div key={act.id} className="p-3 bg-slate-50 rounded-lg border border-slate-200/50 text-[11px] space-y-1.5">
+                  <div key={act.id} className="p-3 bg-slate-50 rounded-lg border border-[#D0D0D0]/50 text-[11px] space-y-1.5">
                     <div className="flex items-center justify-between">
-                      <span className="font-bold text-slate-900">{user?.name || "Identidade desconhecida"}</span>
+                      <span className="font-bold text-[#212424]">{user?.name || "Identidade desconhecida"}</span>
                       <span className={`text-[9px] font-bold px-1.5 py-0.2 rounded ${
                         act.activityLevel === "Active" 
                           ? "bg-emerald-50 text-emerald-700" 
@@ -1225,12 +1225,12 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                       </span>
                     </div>
 
-                    <div className="flex justify-between text-slate-500">
-                      <span>Product: <span className="font-semibold text-slate-700">{app?.name || "Generic cloud app"}</span></span>
+                    <div className="flex justify-between text-[#6E7070]">
+                      <span>Product: <span className="font-semibold text-[#6E7070]">{app?.name || "Generic cloud app"}</span></span>
                       <span className="font-mono">{act.usageDurationMinutes}m tracked</span>
                     </div>
 
-                    <div className="flex items-center justify-between text-[10px] text-slate-400 border-t border-slate-200/40 pt-1.5">
+                    <div className="flex items-center justify-between text-[10px] text-[#A6A7A7] border-t border-[#D0D0D0]/40 pt-1.5">
                       <span>Source: {act.sourceConnector}</span>
                       <span className="font-mono">{new Date(act.lastActiveDate).toLocaleDateString()}</span>
                     </div>
@@ -1251,7 +1251,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
           <div className="lg:col-span-2 space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {connectors.map(conn => (
-                <div key={conn.id} className="bg-white rounded-xl border border-slate-200 p-5 flex flex-col justify-between space-y-4 hover:shadow-md transition-all">
+                <div key={conn.id} className="bg-white rounded-xl border border-[#D0D0D0] p-5 flex flex-col justify-between space-y-4 hover:shadow-md transition-all">
                   <div className="space-y-2">
                     <div className="flex items-start justify-between">
                       <div className="p-2 rounded-lg" style={{background: "#D1E7F3", color: "#4079C4"}}>
@@ -1264,15 +1264,15 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                       </span>
                     </div>
                     <div>
-                      <h4 className="font-bold text-slate-900 text-sm">{conn.name}</h4>
-                      <p className="text-[10px] text-slate-400 font-semibold font-mono uppercase">{conn.type}</p>
+                      <h4 className="font-bold text-[#212424] text-sm">{conn.name}</h4>
+                      <p className="text-[10px] text-[#A6A7A7] font-semibold font-mono uppercase">{conn.type}</p>
                     </div>
                   </div>
 
                   <div className="border-t border-slate-100 pt-4 flex items-center justify-between text-[11px]">
-                    <div className="text-slate-500">
-                      <p>Synced: <span className="font-semibold font-mono text-slate-800">{conn.recordCount} records</span></p>
-                      <p className="text-[9px] text-slate-400">
+                    <div className="text-[#6E7070]">
+                      <p>Synced: <span className="font-semibold font-mono text-[#212424]">{conn.recordCount} records</span></p>
+                      <p className="text-[9px] text-[#A6A7A7]">
                         {conn.lastSyncedAt ? new Date(conn.lastSyncedAt).toLocaleString() : "Never Synced"}
                       </p>
                     </div>
@@ -1337,7 +1337,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
       {/* SUBSCRIPTION CREATION/EDIT MODAL */}
       {isSubModalOpen && (
         <div className="fixed inset-0 bg-slate-950/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-fade-in">
-          <div className="bg-white rounded-xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-200">
+          <div className="bg-white rounded-xl shadow-2xl max-w-lg w-full overflow-hidden border border-[#D0D0D0]">
             <div className="bg-slate-900 text-white p-6">
               <h3 className="font-bold text-base">
                 {editingSub ? "Editar Assinatura SaaS" : "Registrar Nova Assinatura SaaS"}
@@ -1349,11 +1349,11 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
               <div className="grid grid-cols-2 gap-4">
                 
                 <div className="col-span-2">
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Aplicativo Alvo</label>
+                  <label className="block text-[11px] font-bold text-[#6E7070] uppercase tracking-wider mb-1">Aplicativo Alvo</label>
                   <select
                     value={subForm.saasApplicationId}
                     onChange={(e) => setSubForm(p => ({ ...p, saasApplicationId: e.target.value }))}
-                    className="w-full bg-white border border-slate-200 rounded-lg p-2 text-xs focus:ring-1 focus:ring-indigo-500 focus:outline-hidden"
+                    className="w-full bg-white border border-[#D0D0D0] rounded-lg p-2 text-xs focus:ring-1 focus:ring-indigo-500 focus:outline-hidden"
                   >
                     <option value="">-- Selecione o Aplicativo Descoberto --</option>
                     {apps.map(app => (
@@ -1363,35 +1363,35 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Código SKU do Produto</label>
+                  <label className="block text-[11px] font-bold text-[#6E7070] uppercase tracking-wider mb-1">Código SKU do Produto</label>
                   <input
                     type="text"
                     required
                     placeholder="e.g. M365-E5"
                     value={subForm.sku}
                     onChange={(e) => setSubForm(p => ({ ...p, sku: e.target.value }))}
-                    className="w-full bg-white border border-slate-200 rounded-lg p-2 text-xs focus:ring-1 focus:ring-indigo-500 focus:outline-hidden"
+                    className="w-full bg-white border border-[#D0D0D0] rounded-lg p-2 text-xs focus:ring-1 focus:ring-indigo-500 focus:outline-hidden"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Nome Amigável do Plano</label>
+                  <label className="block text-[11px] font-bold text-[#6E7070] uppercase tracking-wider mb-1">Nome Amigável do Plano</label>
                   <input
                     type="text"
                     required
                     placeholder="e.g. Enterprise Business E5"
                     value={subForm.planName}
                     onChange={(e) => setSubForm(p => ({ ...p, planName: e.target.value }))}
-                    className="w-full bg-white border border-slate-200 rounded-lg p-2 text-xs focus:ring-1 focus:ring-indigo-500 focus:outline-hidden"
+                    className="w-full bg-white border border-[#D0D0D0] rounded-lg p-2 text-xs focus:ring-1 focus:ring-indigo-500 focus:outline-hidden"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Frequência de Cobrança</label>
+                  <label className="block text-[11px] font-bold text-[#6E7070] uppercase tracking-wider mb-1">Frequência de Cobrança</label>
                   <select
                     value={subForm.billingFrequency}
                     onChange={(e) => setSubForm(p => ({ ...p, billingFrequency: e.target.value as "Monthly" | "Annually" }))}
-                    className="w-full bg-white border border-slate-200 rounded-lg p-2 text-xs focus:ring-1 focus:ring-indigo-500 focus:outline-hidden"
+                    className="w-full bg-white border border-[#D0D0D0] rounded-lg p-2 text-xs focus:ring-1 focus:ring-indigo-500 focus:outline-hidden"
                   >
                     <option value="Monthly">Monthly</option>
                     <option value="Annually">Annually</option>
@@ -1399,57 +1399,57 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Custo por Assento ($)</label>
+                  <label className="block text-[11px] font-bold text-[#6E7070] uppercase tracking-wider mb-1">Custo por Assento ($)</label>
                   <input
                     type="number"
                     min="0"
                     required
                     value={subForm.costPerSeat}
                     onChange={(e) => setSubForm(p => ({ ...p, costPerSeat: Number(e.target.value) }))}
-                    className="w-full bg-white border border-slate-200 rounded-lg p-2 text-xs focus:ring-1 focus:ring-indigo-500 focus:outline-hidden"
+                    className="w-full bg-white border border-[#D0D0D0] rounded-lg p-2 text-xs focus:ring-1 focus:ring-indigo-500 focus:outline-hidden"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Total de Assentos Adquiridos</label>
+                  <label className="block text-[11px] font-bold text-[#6E7070] uppercase tracking-wider mb-1">Total de Assentos Adquiridos</label>
                   <input
                     type="number"
                     min="1"
                     required
                     value={subForm.seatsTotal}
                     onChange={(e) => setSubForm(p => ({ ...p, seatsTotal: Number(e.target.value) }))}
-                    className="w-full bg-white border border-slate-200 rounded-lg p-2 text-xs focus:ring-1 focus:ring-indigo-500 focus:outline-hidden"
+                    className="w-full bg-white border border-[#D0D0D0] rounded-lg p-2 text-xs focus:ring-1 focus:ring-indigo-500 focus:outline-hidden"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Assentos Atualmente Atribuídos</label>
+                  <label className="block text-[11px] font-bold text-[#6E7070] uppercase tracking-wider mb-1">Assentos Atualmente Atribuídos</label>
                   <input
                     type="number"
                     min="0"
                     required
                     value={subForm.seatsAssigned}
                     onChange={(e) => setSubForm(p => ({ ...p, seatsAssigned: Number(e.target.value) }))}
-                    className="w-full bg-white border border-slate-200 rounded-lg p-2 text-xs focus:ring-1 focus:ring-indigo-500 focus:outline-hidden"
+                    className="w-full bg-white border border-[#D0D0D0] rounded-lg p-2 text-xs focus:ring-1 focus:ring-indigo-500 focus:outline-hidden"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Data de Expiração/Renovação</label>
+                  <label className="block text-[11px] font-bold text-[#6E7070] uppercase tracking-wider mb-1">Data de Expiração/Renovação</label>
                   <input
                     type="date"
                     value={subForm.expirationDate}
                     onChange={(e) => setSubForm(p => ({ ...p, expirationDate: e.target.value }))}
-                    className="w-full bg-white border border-slate-200 rounded-lg p-2 text-xs focus:ring-1 focus:ring-indigo-500 focus:outline-hidden"
+                    className="w-full bg-white border border-[#D0D0D0] rounded-lg p-2 text-xs focus:ring-1 focus:ring-indigo-500 focus:outline-hidden"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Status da Assinatura</label>
+                  <label className="block text-[11px] font-bold text-[#6E7070] uppercase tracking-wider mb-1">Status da Assinatura</label>
                   <select
                     value={subForm.status}
                     onChange={(e) => setSubForm(p => ({ ...p, status: e.target.value as "Active" | "Expired" | "Suspended" }))}
-                    className="w-full bg-white border border-slate-200 rounded-lg p-2 text-xs focus:ring-1 focus:ring-indigo-500 focus:outline-hidden"
+                    className="w-full bg-white border border-[#D0D0D0] rounded-lg p-2 text-xs focus:ring-1 focus:ring-indigo-500 focus:outline-hidden"
                   >
                     <option value="Active">Active</option>
                     <option value="Expired">Expired</option>
@@ -1458,7 +1458,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                 </div>
 
                 <div className="col-span-2 flex items-center gap-6 py-2">
-                  <label className="flex items-center gap-2 text-xs font-semibold text-slate-700 cursor-pointer">
+                  <label className="flex items-center gap-2 text-xs font-semibold text-[#6E7070] cursor-pointer">
                     <input
                       type="checkbox"
                       checked={subForm.isFree}
@@ -1468,7 +1468,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                     Marcar como Plano Gratuito / Trial
                   </label>
 
-                  <label className="flex items-center gap-2 text-xs font-semibold text-slate-700 cursor-pointer">
+                  <label className="flex items-center gap-2 text-xs font-semibold text-[#6E7070] cursor-pointer">
                     <input
                       type="checkbox"
                       checked={subForm.isExcluded}
@@ -1485,7 +1485,7 @@ export function SaaSView({ onRefreshAll }: SaaSViewProps) {
                 <button
                   type="button"
                   onClick={() => setIsSubModalOpen(false)}
-                  className="px-4 py-2 text-slate-500 hover:bg-slate-100 rounded-lg text-xs font-bold transition-all cursor-pointer"
+                  className="px-4 py-2 text-[#6E7070] hover:bg-slate-100 rounded-lg text-xs font-bold transition-all cursor-pointer"
                 >
                   Cancelar
                 </button>
