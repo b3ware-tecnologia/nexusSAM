@@ -973,6 +973,8 @@ IMPORTANT: Only populate fields with data you actually see in the document. Do N
 
     const messages: any[] = [{ role: "system", content: systemMsg }];
 
+    let extractedText = "";
+
     if (fileData && mimeType) {
       if (mimeType.startsWith("image/")) {
         const base64Data = `data:${mimeType};base64,${fileData}`;
@@ -983,6 +985,23 @@ IMPORTANT: Only populate fields with data you actually see in the document. Do N
             { type: "image_url", image_url: { url: base64Data } }
           ]
         });
+      } else if (mimeType === "application/pdf") {
+        try {
+          const buf = Buffer.from(fileData, "base64");
+          const pdfParse = require("pdf-parse");
+          const pdfData = await pdfParse(buf);
+          extractedText = pdfData.text?.trim() || "";
+        } catch (pdfErr: any) {
+          console.error("PDF parse error:", pdfErr.message);
+        }
+        if (extractedText) {
+          messages.push({
+            role: "user",
+            content: `Extract the license purchase details from this PDF content:\n\n"""\n${extractedText.slice(0, 8000)}\n"""`
+          });
+        } else {
+          messages.push({ role: "user", content: userMsg + " (PDF — unable to extract text)" });
+        }
       } else {
         messages.push({ role: "user", content: userMsg });
       }
