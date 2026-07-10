@@ -1694,6 +1694,36 @@ export async function initDatabase(): Promise<DatabaseState | null> {
       if (!pg.adminNotifications) { (pg as any).adminNotifications = DEFAULT_ADMIN_NOTIFICATIONS; }
       if (!pg.uploadedFiles) { (pg as any).uploadedFiles = DEFAULT_UPLOADED_FILES; }
       if (!pg.licensePools) { (pg as any).licensePools = DEFAULT_LICENSE_POOLS; }
+      // Migration: add PC-B3-01 and ESET Complete installation if missing
+      if (!pg.computers.find((c: any) => c.name === "PC-B3-01")) {
+        pg.computers.push({
+          id: "cmp-pc-b3-01",
+          name: "PC-B3-01",
+          cores: 8,
+          pvuPerCore: 70,
+          isVirtual: false,
+          os: "Windows",
+          ramGB: 32,
+          cpuModel: "Intel Core i7-13700",
+          serialNumber: "SN-B3-001",
+          brand: "Dell",
+          model: "OptiPlex 7010",
+          storageGB: 512,
+          warrantyStatus: "Under Warranty",
+          warrantyExpirationDate: "2027-06-30",
+          lifecycleStatus: "Active",
+          lastActiveDate: "2026-07-10T10:00:00Z"
+        });
+        pg.installations.push({
+          id: "inst-12",
+          softwareName: "ESET Complete",
+          publisher: "ESET",
+          version: "v16",
+          computerId: "cmp-pc-b3-01",
+          userName: "erico.b3ware@gmail.com",
+          detectedAt: "2026-07-01T09:00:00Z"
+        });
+      }
       return pg;
     }
   } catch {}
