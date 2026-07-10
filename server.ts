@@ -5,7 +5,7 @@ import { getDatabase, saveDatabase, initDatabase, setPgCache } from "./src/dbMoc
 import { calculateELP } from "./src/complianceEngine.js";
 import { runComplianceTests } from "./src/compliance.test.js";
 import { DiscoveredApplication } from "./src/types.js";
-import { GoogleGenAI, Type } from "@google/genai";
+import Groq from "groq-sdk";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -193,24 +193,17 @@ app.post("/api/auth/register", (req, res) => {
   }
 });
 
-// Lazy initializer for Gemini SDK as per guidelines to avoid startup crash
-let aiClient: GoogleGenAI | null = null;
-function getGeminiClient(): GoogleGenAI {
-  if (!aiClient) {
-    const key = process.env.GEMINI_API_KEY;
+// Lazy initializer for Groq SDK
+let groqClient: Groq | null = null;
+function getGroqClient(): Groq {
+  if (!groqClient) {
+    const key = process.env.GROQ_API_KEY;
     if (!key) {
-      throw new Error("GEMINI_API_KEY environment variable is required. Please add it via Settings > Secrets.");
+      throw new Error("GROQ_API_KEY environment variable is required. Please add it via Settings > Secrets.");
     }
-    aiClient = new GoogleGenAI({
-      apiKey: key,
-      httpOptions: {
-        headers: {
-          "User-Agent": "aistudio-build",
-        },
-      },
-    });
+    groqClient = new Groq({ apiKey: key });
   }
-  return aiClient;
+  return groqClient;
 }
 
 // ---------------------------------------------------------
@@ -872,7 +865,7 @@ app.post("/api/saas/discover-url", (req, res) => {
   }
 });
 
-// Local invoice parser fallback (when Gemini AI is unavailable)
+// Local invoice parser fallback (when Groq AI is unavailable)
 function localParseInvoice(body: any) {
   const { fileData, mimeType, description } = body;
   const text = description || "";
@@ -984,32 +977,53 @@ app.post("/api/ingest-invoice", async (req, res) => {
                       "Map the details to the response schema correctly.";
     }
 
-    // Call Gemini models using lazy-loaded SDK client
-    const ai = getGeminiClient();
-    const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
-      contents: promptContent,
-      config: {
-        responseMimeType: "application/json",
-        responseSchema: {
-          type: Type.OBJECT,
-          properties: {
-            softwareName: { type: Type.STRING, description: "The product or software title bought (e.g. Photoshop, Windows Server)" },
-            publisher: { type: Type.STRING, description: "The creator/publisher (e.g. Adobe, Microsoft, Oracle)" },
-            quantity: { type: Type.INTEGER, description: "Total licenses purchased" },
-            unitCost: { type: Type.NUMBER, description: "Cost per single seat/license unit" },
-            currency: { type: Type.STRING, description: "ISO currency string e.g. USD, EUR, BRL" },
-            sku: { type: Type.STRING, description: "The manufacturer's SKU code or part number if available" },
-            invoiceNumber: { type: Type.STRING, description: "Official Invoice/PO ID" },
-            purchaseDate: { type: Type.STRING, description: "Purchase date in format YYYY-MM-DD" },
-            vendor: { type: Type.STRING, description: "The store/vendor name" }
-          },
-          required: ["softwareName", "publisher", "quantity", "unitCost", "currency"]
-        }
+    // Call Groq with Llama vision model
+    const ai = getGroqClient();
+    const systemMsg = `You are an ITAM invoice parser. Extract software license purchase info from the document.
+Return ONLY valid JSON with these fields:
+- "softwareName": product or software title (e.g. "Microsoft SQL Server")
+- "publisher": creator/publisher (e.g. "Microsoft")
+- "quantity": number of licenses purchased (integer)
+- "unitCost": cost per unit (number)
+- "currency": ISO currency (e.g. USD, EUR, BRL)
+- "sku": manufacturer SKU if available (string, or "")
+- "invoiceNumber": invoice/PO ID (string, or "")
+- "purchaseDate": date in YYYY-MM-DD if visible (string, or "")
+- "vendor": store/vendor name (string, or "")
+Return ONLY the JSON object, no other text.`;
+
+    const userMsg = fileData && mimeType
+      ? "Extract the license purchase details from this invoice image."
+      : `Extract the license purchase details from this description: "${description}"`;
+
+    const messages: any[] = [{ role: "system", content: systemMsg }];
+
+    if (fileData && mimeType) {
+      const isImage = mimeType.startsWith("image/");
+      if (isImage) {
+        const base64Data = fileData.includes("base64,") ? fileData : `data:${mimeType};base64,${fileData}`;
+        messages.push({
+          role: "user",
+          content: [
+            { type: "text", text: userMsg },
+            { type: "image_url", image_url: { url: base64Data } }
+          ]
+        });
+      } else {
+        messages.push({ role: "user", content: userMsg });
       }
+    } else {
+      messages.push({ role: "user", content: userMsg });
+    }
+
+    const response = await ai.chat.completions.create({
+      model: fileData && mimeType?.startsWith("image/") ? "llama-3.2-90b-vision-preview" : "llama-3.1-70b-versatile",
+      messages,
+      response_format: { type: "json_object" },
+      temperature: 0.1,
     });
 
-    const parsedJson = JSON.parse(response.text.trim());
+    const parsedJson = JSON.parse(response.choices[0]?.message?.content || "{}");
     res.json(parsedJson);
 
   } catch (error: any) {
@@ -1020,7 +1034,7 @@ app.post("/api/ingest-invoice", async (req, res) => {
       const isCreditIssue = msg.includes("429") || msg.includes("credits") || msg.includes("RESOURCE_EXHAUSTED") || msg.includes("API_KEY");
       return res.status(402).json({
         error: isCreditIssue
-          ? "Créditos da API Gemini esgotados. Use a descrição textual abaixo ou preencha manualmente."
+          ? "IA temporariamente indisponível (créditos/limite). Use a descrição textual abaixo ou preencha manualmente."
           : `IA temporariamente indisponível: ${msg}. Preencha os dados manualmente.`,
         aiFailed: true
       });
@@ -3358,13 +3372,13 @@ app.post("/api/chat-assistant", async (req, res) => {
       return res.status(400).json({ error: "message parameter is required" });
     }
 
-    const key = process.env.GEMINI_API_KEY;
+    const key = process.env.GROQ_API_KEY;
     if (!key) {
       const offlineReply = getOfflineHelpResponse(message);
       return res.json({ reply: offlineReply, isOffline: true });
     }
 
-    const ai = getGeminiClient();
+    const ai = getGroqClient();
     const SYSTEM_INSTRUCTION = `You are Flexera Assist, the advanced, expert AI Assistant for Snow Atlas — the world's leading cloud-native IT Asset Management (ITAM), Software Asset Management (SAM), SaaS Management, Cloud License Management (BYOL), and Hardware Asset Management (HAM) platform.
 
 Your tone is highly professional, helpful, objective, and expert. You have detailed knowledge of:
@@ -3377,16 +3391,16 @@ Your tone is highly professional, helpful, objective, and expert. You have detai
 
 Always answer in the user's language (e.g. if they query in Portuguese, reply in Portuguese; if in English, reply in English). Use formatting, markdown tables, and code snippets when appropriate. Avoid marketing hype, and do not reference directories like "/src/components" or database mock files. Focus on functional and professional ITAM guidance.`;
 
-    const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
-      contents: message,
-      config: {
-        systemInstruction: SYSTEM_INSTRUCTION,
-        temperature: 0.7,
-      }
+    const response = await ai.chat.completions.create({
+      model: "llama-3.1-70b-versatile",
+      messages: [
+        { role: "system", content: SYSTEM_INSTRUCTION },
+        { role: "user", content: message }
+      ],
+      temperature: 0.7,
     });
 
-    res.json({ reply: response.text, isOffline: false });
+    res.json({ reply: response.choices[0]?.message?.content || "No response.", isOffline: false });
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }
@@ -3410,7 +3424,7 @@ Ocorre quando você inicia uma máquina virtual na nuvem sob o modelo PAYG (Pay-
 3. **Análise de Compliance**: O Compliance Engine compara o consumo com suas licenças sob contrato (ex: Microsoft EA-98741).
 4. **Recomendação de Economia**: Se um recurso PAYG for elegível para BYOL, o sistema emite um alerta crítico mostrando a economia mensal exata ao habilitar o benefício híbrido (ex: Azure Hybrid Benefit).
 
-*Dica: Adicione a chave **GEMINI_API_KEY** em Settings > Secrets para respostas totalmente dinâmicas via AI.*`;
+*Dica: Adicione a chave **GROQ_API_KEY** em Settings > Secrets para respostas totalmente dinâmicas via AI.*`;
   }
   
   if (query.includes("servicenow") || query.includes("jira") || query.includes("itsm") || query.includes("cmdb") || query.includes("integracao") || query.includes("integração")) {
@@ -3424,7 +3438,7 @@ Essa funcionalidade faz uma varredura nas aplicações descobertas no seu parque
 - **Mapeamento Granular**: Envia dados enriquecidos para o ServiceNow, preenchendo as tabelas de CIs de hardware com fabricante, modelo, CPU, RAM, número de série e status de garantia, e as tabelas de software com datas críticas de Fim de Vida (EOL) e Fim de Suporte (EOS).
 - **Auditoria Rápida**: Reduz o tempo de defesa contra auditorias de semanas para apenas algumas horas, fornecendo relatórios robustos de compliance integrados ao seu fluxo de ITSM.
 
-*Dica: Adicione a chave **GEMINI_API_KEY** em Settings > Secrets para respostas totalmente dinâmicas via AI.*`;
+*Dica: Adicione a chave **GROQ_API_KEY** em Settings > Secrets para respostas totalmente dinâmicas via AI.*`;
   }
 
   if (query.includes("extender") || query.includes("agent") || query.includes("on-premise") || query.includes("on-premises") || query.includes("gateway") || query.includes("elevator")) {
@@ -3439,7 +3453,7 @@ Os **Snow Extenders** atuam como gateways de coleta locais altamente seguros que
 4. **Data Forwarder**: Repassa logs agregados e relatórios de status de conexão para servidores secundários ou gateways de monitoramento como Splunk ou AWS S3.
 5. **Inventory API**: Permite conexões REST programáticas de agentes de terceiro para inclusão direta no banco de dados centralizado.
 
-*Dica: Adicione a chave **GEMINI_API_KEY** em Settings > Secrets para respostas totalmente dinâmicas via AI.*`;
+*Dica: Adicione a chave **GROQ_API_KEY** em Settings > Secrets para respostas totalmente dinâmicas via AI.*`;
   }
 
   if (query.includes("compliance") || query.includes("elp") || query.includes("licença") || query.includes("licenca") || query.includes("auditoria")) {
@@ -3455,7 +3469,7 @@ O **Compliance Calculation Engine** do Snow Atlas roda de forma automatizada par
   - **Under-licensing (Sub-licenciamento)**: Você está rodando softwares sem cobertura (risco financeiro de multa em auditorias).
   - **Over-licensing (Super-licenciamento)**: Você comprou mais licenças do que o necessário (desperdício de orçamento, oportunidade de redução de custos).
 
-*Dica: Adicione a chave **GEMINI_API_KEY** em Settings > Secrets para respostas totalmente dinâmicas via AI.*`;
+*Dica: Adicione a chave **GROQ_API_KEY** em Settings > Secrets para respostas totalmente dinâmicas via AI.*`;
   }
 
   return `### Bem-vindo ao Flexera Assist! (Offline Help Mode)
@@ -3470,7 +3484,7 @@ Olá! Eu sou o assistente virtual inteligente do Snow Atlas. Eu posso te ajudar 
 - **Snow Extenders**: Configuração de Secure Gateways, File Elevator, Active Directory scans.
 - **ITSM Integrations**: ServiceNow Connector e enriquecimento de CMDB.
 
-*Dica: Adicione a chave **GEMINI_API_KEY** em Settings > Secrets na plataforma para liberar a Inteligência Artificial dinâmica via Gemini 3.5 Flash!*`;
+*Dica: Adicione a chave **GROQ_API_KEY** em Settings > Secrets na plataforma para liberar a Inteligência Artificial dinâmica via Groq Llama!*`;
 }
 
 
