@@ -1014,12 +1014,23 @@ app.post("/api/ingest-invoice", async (req, res) => {
 
   } catch (error: any) {
     console.error("AI Ingestion error:", error);
-    // If AI is unavailable (no key, model not found, etc), fall back to local parser
+    const msg = error.message || "";
+    // If credits depleted or auth error — don't fallback for images (can't read them locally)
+    if (req.body.fileData && !req.body.description) {
+      const isCreditIssue = msg.includes("429") || msg.includes("credits") || msg.includes("RESOURCE_EXHAUSTED") || msg.includes("API_KEY");
+      return res.status(402).json({
+        error: isCreditIssue
+          ? "Créditos da API Gemini esgotados. Use a descrição textual abaixo ou preencha manualmente."
+          : `IA temporariamente indisponível: ${msg}. Preencha os dados manualmente.`,
+        aiFailed: true
+      });
+    }
+    // For text descriptions, fall back to local parser
     try {
       const localResult = localParseInvoice(req.body);
       return res.json(localResult);
     } catch (fallbackErr: any) {
-      return res.status(500).json({ error: `AI indisponível: ${error.message}. Fallback também falhou: ${fallbackErr.message}` });
+      return res.status(500).json({ error: `Fallback também falhou: ${fallbackErr.message}` });
     }
   }
 });

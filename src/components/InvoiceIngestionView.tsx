@@ -94,6 +94,11 @@ export function InvoiceIngestionView({ onRefresh, onNavigateToLicenses }: Invoic
 
       if (!res.ok) {
         const errJson = await res.json();
+        if (errJson.aiFailed) {
+          setError(errJson.error);
+          setIsProcessing(false);
+          return;
+        }
         throw new Error(errJson.error || "Falha ao extrair direito do documento.");
       }
 
