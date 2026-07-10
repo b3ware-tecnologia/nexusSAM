@@ -1017,7 +1017,7 @@ Return ONLY the JSON object, no other text.`;
     }
 
     const response = await ai.chat.completions.create({
-      model: fileData && mimeType?.startsWith("image/") ? "llama-3.2-90b-vision-preview" : "llama-3.1-70b-versatile",
+      model: fileData && mimeType?.startsWith("image/") ? "meta-llama/llama-4-scout-17b-16e-instruct" : "llama-3.3-70b-versatile",
       messages,
       response_format: { type: "json_object" },
       temperature: 0.1,
@@ -3392,7 +3392,7 @@ Your tone is highly professional, helpful, objective, and expert. You have detai
 Always answer in the user's language (e.g. if they query in Portuguese, reply in Portuguese; if in English, reply in English). Use formatting, markdown tables, and code snippets when appropriate. Avoid marketing hype, and do not reference directories like "/src/components" or database mock files. Focus on functional and professional ITAM guidance.`;
 
     const response = await ai.chat.completions.create({
-      model: "llama-3.1-70b-versatile",
+      model: "llama-3.3-70b-versatile",
       messages: [
         { role: "system", content: SYSTEM_INSTRUCTION },
         { role: "user", content: message }
