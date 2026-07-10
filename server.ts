@@ -951,49 +951,24 @@ app.post("/api/ingest-invoice", async (req, res) => {
       return res.status(400).json({ error: "Either base64 fileData or a text description is required." });
     }
 
-    let promptContent: any;
-
-    if (fileData && mimeType) {
-      // Analyze base64 image part alongside text instructions
-      promptContent = {
-        parts: [
-          {
-            inlineData: {
-              data: fileData,
-              mimeType: mimeType
-            }
-          },
-          {
-            text: "Analyze this invoice document and extract details on the purchased software license entitlement. " +
-                  "Look for product name, software vendor/publisher, quantity of license lines, unit costs, invoice number, " +
-                  "purchase date, and vendor. Map these strictly into the output schema."
-          }
-        ]
-      };
-    } else {
-      // Analyze text description directly
-      promptContent = "You are an AI ITAM invoice parser. Extract the software licensing purchase info from the following description: \n" +
-                      `"${description}"\n\n` +
-                      "Map the details to the response schema correctly.";
-    }
-
     // Call Groq with Llama vision model
     const ai = getGroqClient();
     const systemMsg = `You are an ITAM invoice parser. Extract software license purchase info from the document.
-Return ONLY valid JSON with these fields:
-- "softwareName": product or software title (e.g. "Microsoft SQL Server")
-- "publisher": creator/publisher (e.g. "Microsoft")
-- "quantity": number of licenses purchased (integer)
-- "unitCost": cost per unit (number)
-- "currency": ISO currency (e.g. USD, EUR, BRL)
-- "sku": manufacturer SKU if available (string, or "")
-- "invoiceNumber": invoice/PO ID (string, or "")
-- "purchaseDate": date in YYYY-MM-DD if visible (string, or "")
-- "vendor": store/vendor name (string, or "")
-Return ONLY the JSON object, no other text.`;
+Look CAREFULLY at the document text. Identify the actual software product, publisher, and license details.
+Return ONLY valid JSON with these exact fields (use empty string "" for missing fields):
+- "softwareName": the actual product name found in the document (e.g. "ESET Protect", "Microsoft 365 Business", "Adobe Acrobat Pro")
+- "publisher": the software publisher/vendor found in the document (e.g. "ESET", "Microsoft", "Adobe", "Oracle")
+- "quantity": total number of licenses/seats purchased (integer, 0 if not found)
+- "unitCost": cost per license unit (number, 0 if not found)
+- "currency": ISO currency code found (e.g. USD, EUR, BRL, GBP) or "" if not found
+- "sku": manufacturer SKU / part number if visible, or ""
+- "invoiceNumber": invoice or PO number if visible, or ""
+- "purchaseDate": purchase date in YYYY-MM-DD if visible, or ""
+- "vendor": reseller or vendor name if visible, or ""
+IMPORTANT: Only populate fields with data you actually see in the document. Do NOT guess or invent values.`;
 
     const userMsg = fileData && mimeType
-      ? "Extract the license purchase details from this invoice image."
+      ? `Read this ${mimeType} invoice/contract document carefully. Extract all visible software license purchase information exactly as shown in the document.`
       : `Extract the license purchase details from this description: "${description}"`;
 
     const messages: any[] = [{ role: "system", content: systemMsg }];
@@ -1020,7 +995,7 @@ Return ONLY the JSON object, no other text.`;
       model: fileData && mimeType?.startsWith("image/") ? "meta-llama/llama-4-scout-17b-16e-instruct" : "llama-3.3-70b-versatile",
       messages,
       response_format: { type: "json_object" },
-      temperature: 0.1,
+      temperature: 0.01,
     });
 
     const parsedJson = JSON.parse(response.choices[0]?.message?.content || "{}");
