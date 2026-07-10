@@ -987,10 +987,13 @@ IMPORTANT: Only populate fields with data you actually see in the document. Do N
         });
       } else if (mimeType === "application/pdf") {
         try {
-          const buf = Buffer.from(fileData, "base64");
-          const pdfParse = require("pdf-parse");
-          const pdfData = await pdfParse(buf);
-          extractedText = pdfData.text?.trim() || "";
+          const raw = Buffer.from(fileData, "base64");
+          const uint8 = new Uint8Array(raw.buffer, raw.byteOffset, raw.byteLength);
+          const { PDFParse } = require("pdf-parse");
+          const pdf = new PDFParse(uint8);
+          await pdf.load();
+          const pages = await pdf.getText();
+          extractedText = (Array.isArray(pages) ? pages.map((p: any) => p.text || p.content || "").join("\n") : String(pages)).trim();
         } catch (pdfErr: any) {
           console.error("PDF parse error:", pdfErr.message);
         }
