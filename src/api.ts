@@ -79,7 +79,16 @@ export function apiFetch(input: RequestInfo | URL, init?: RequestInit): Promise<
   if (contentType && !headers["Content-Type"]) {
     headers["Content-Type"] = contentType;
   }
-  return (originalFetch || fetch)(input, { ...init, headers });
+  return (originalFetch || fetch)(input, { ...init, headers }).then((res) => {
+    if (res.status === 401 || res.status === 403) {
+      if (getStoredToken()) {
+        clearAuth();
+        unpatchGlobalFetch();
+        window.location.reload();
+      }
+    }
+    return res;
+  });
 }
 
 let originalFetch: typeof fetch | null = null;
