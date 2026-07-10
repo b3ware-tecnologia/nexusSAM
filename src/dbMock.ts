@@ -874,6 +874,16 @@ const DEFAULT_DISCOVERED_APPLICATIONS: DiscoveredApplication[] = [
     version: "2.1",
     lastUsed: "2026-07-06T23:55:00Z",
     usageDurationMinutes: 120
+  },
+  {
+    id: "disc-7",
+    computerId: "cmp-pc-b3-01",
+    softwareName: "ESET Complete",
+    rawSoftwareName: "ESET Endpoint Security Complete v16",
+    publisher: "ESET",
+    version: "v16",
+    lastUsed: "2026-07-10T10:00:00Z",
+    usageDurationMinutes: 240
   }
 ];
 
@@ -1722,6 +1732,16 @@ export async function initDatabase(): Promise<DatabaseState | null> {
           computerId: "cmp-pc-b3-01",
           userName: "erico.b3ware@gmail.com",
           detectedAt: "2026-07-01T09:00:00Z"
+        });
+        pg.discoveredApplications.push({
+          id: "disc-7",
+          computerId: "cmp-pc-b3-01",
+          softwareName: "ESET Complete",
+          rawSoftwareName: "ESET Endpoint Security Complete v16",
+          publisher: "ESET",
+          version: "v16",
+          lastUsed: "2026-07-10T10:00:00Z",
+          usageDurationMinutes: 240
         });
       }
       return pg;
