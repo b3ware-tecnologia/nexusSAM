@@ -346,12 +346,11 @@ app.post("/api/licenses", (req, res) => {
       return res.status(400).json({ error: "softwareName, publisher, and metricType are required." });
     }
 
-    // Default policy: requires agreementId and SKU to be present
-    const policyFields = ["agreementId", "sku"];
+    // Default policy: requires SKU
+    const policyFields = ["sku"];
     
     // Check if the mandatory fields are supplied
     let isComplete = true;
-    if (policyFields.includes("agreementId") && !agreementId) isComplete = false;
     if (policyFields.includes("sku") && !sku) isComplete = false;
 
     const newLicenseId = `lic-${Date.now()}`;
@@ -419,13 +418,12 @@ app.put("/api/licenses/:id", (req, res) => {
     const currentLicense = db.licenses[index];
     const { softwareName, publisher, metricType, agreementId, notes, version, sku, downgradeRights, isSubscription, status, licensePoolId } = req.body;
 
-    // Check mandatory policy fields
-    const policyFields = currentLicense.licensePolicy?.mandatoryFields || ["agreementId", "sku"];
+    // Check mandatory policy fields (agreementId is no longer mandatory)
+    const policyFields = (currentLicense.licensePolicy?.mandatoryFields || ["sku"]).filter((f: string) => f !== "agreementId");
     let isComplete = true;
     const finalAgreementId = agreementId !== undefined ? agreementId : currentLicense.agreementId;
     const finalSku = sku !== undefined ? sku : currentLicense.sku;
 
-    if (policyFields.includes("agreementId") && !finalAgreementId) isComplete = false;
     if (policyFields.includes("sku") && !finalSku) isComplete = false;
 
     // Update fields

@@ -668,7 +668,7 @@ export function LicensesView({ licenses, agreements, licensePools, onRefresh }: 
                         {selectedLicense.agreementId ? (
                           <span className="text-emerald-600 font-semibold">Verificado</span>
                         ) : (
-                          <span className="text-amber-600 font-bold">Campo Obrigatório Ausente</span>
+                          <span className="text-[#6E7070]">Não Vinculado</span>
                         )}
                       </div>
                       <div className="flex items-center justify-between">

@@ -160,7 +160,7 @@ const DEFAULT_LICENSES: License[] = [
     version: "O365 Cloud",
     downgradeRights: true,
     isSubscription: true,
-    licensePolicy: { mandatoryFields: ["agreementId", "sku"] }
+    licensePolicy: { mandatoryFields: ["sku"] }
   },
   {
     id: "lic-oracle-db",
@@ -176,7 +176,7 @@ const DEFAULT_LICENSES: License[] = [
     version: "19c",
     downgradeRights: true,
     isSubscription: false,
-    licensePolicy: { mandatoryFields: ["agreementId"] }
+    licensePolicy: { mandatoryFields: [] }
   },
   {
     id: "lic-win-srv",
@@ -207,7 +207,7 @@ const DEFAULT_LICENSES: License[] = [
     version: "2025",
     downgradeRights: false,
     isSubscription: true,
-    licensePolicy: { mandatoryFields: ["agreementId"] }
+    licensePolicy: { mandatoryFields: [] }
   },
   {
     id: "lic-win-vda",
@@ -233,7 +233,7 @@ const DEFAULT_LICENSES: License[] = [
     allocatedQuantity: 0,
     status: "Incomplete",
     downgradeRights: true,
-    licensePolicy: { mandatoryFields: ["agreementId", "sku"] }
+    licensePolicy: { mandatoryFields: ["sku"] }
   }
 ];
 
