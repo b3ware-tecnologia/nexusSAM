@@ -1,0 +1,6 @@
+{
+  "name": "NexusSAM",
+  "description": "Sistema de gestão inteligente de ativos (SAM & ITAM) e conformidade regulatória de licenças de software.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
